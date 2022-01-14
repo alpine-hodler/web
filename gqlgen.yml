@@ -156,7 +156,7 @@ models:
   OpenseaAssets:
     model: github.com/alpine-hodler/sdk/pkg/model.OpenseaAssets
 resolver:
-  dir: graph
+  dir: internal/graph
   layout: follow-schema
   package: graph
 schema:
