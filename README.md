@@ -1,6 +1,6 @@
 # sdk
 
-sdk is a monorepo that provides a graphql server and varios SDKs for connecting to and interacting with various APIs and websockets.
+sdk is a monorepo that provides a graphql server and various SDKs for connecting to and interacting with APIs and websockets.
 
 This repo is a work in progress
 
@@ -73,7 +73,7 @@ func CreateOrder() {
 		ProductId:   "BTC-USD",
 		StopPrice:   500.0,
 	}
-	coinbase.NewOrders(coinbase.DefaultConnector).Create(requestOptions)
+	coinbase.NewClient(coinbase.DefaultConnector).CreateOrder(requestOptions)
 }
 ```
 
@@ -81,7 +81,7 @@ A slightly more complex example, using websockets:
 
 ```go
 func Open() {
-	ws := coinbase.NewProductWebsocket(coinbase.DefaultWebsocketConnector)
+	ws := coinbase.NewWebsocket(coinbase.DefaultWebsocketConnector)
 	ticker := ws.Ticker("ETH-USD")
 	ticker.Open()
 	go func() {
