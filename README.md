@@ -73,7 +73,7 @@ func CreateOrder() {
 		ProductId:   "BTC-USD",
 		StopPrice:   500.0,
 	}
-	coinbase.NewOrders(coinbase.DefaultConnector).Create(requestOptions)
+	coinbase.NewClient(coinbase.DefaultConnector).CreateOrder(requestOptions)
 }
 ```
 
@@ -81,7 +81,7 @@ A slightly more complex example, using websockets:
 
 ```go
 func Open() {
-	ws := coinbase.NewProductWebsocket(coinbase.DefaultWebsocketConnector)
+	ws := coinbase.NewWebsocket(coinbase.DefaultWebsocketConnector)
 	ticker := ws.Ticker("ETH-USD")
 	ticker.Open()
 	go func() {
