@@ -9,7 +9,7 @@ This repo is a work in progress
     * [Install Bazel](https://github.com/alpine-hodler/sdk#install-bazel)
     * [Install docker](https://github.com/alpine-hodler/sdk#install-docker)
     * [Install go](https://go.dev/doc/install)
-  * [Build SDK](https://github.com/alpine-hodler/sdk#build-sdk)
+  * [Make SDK](https://github.com/alpine-hodler/sdk#make-sdk)
   * Servers (`cmd` package)
     * [Graph](https://github.com/alpine-hodler/sdk#graphql)
   * Software Development Kits
@@ -31,19 +31,19 @@ If you're on macOS, [you can install Bazel via Homebrew](https://docs.bazel.buil
 $ brew install bazel
 ```
 
-## Build SDK
+## Install Docker
+
+https://docs.docker.com/get-docker/
+
+We will primarily use docker for generating go and graphqls files from schema/model files.
+
+## Make SDK
 
 Given the installed dependencies above, just run
 
 ```
 $ ./Makefile
 ```
-
-## Install Docker
-
-https://docs.docker.com/get-docker/
-
-We will primarily use docker for generating go and graphqls files from schema/model files.
 
 ## Coinbase
 
