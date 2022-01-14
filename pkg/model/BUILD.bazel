@@ -39,6 +39,7 @@ go_library(
         "coinbase_withdrawal.go",
         "coinbase_withdrawal_fee_estimate.go",
         "error_message.go",
+        "graph_models_gen.go",
         "iex_rule.go",
         "iex_rules_schema.go",
         "iex_rules_scheme.go",
@@ -58,5 +59,8 @@ go_library(
     ],
     importpath = "github.com/alpine-hodler/sdk/pkg/model",
     visibility = ["//visibility:public"],
-    deps = ["//internal/protomodel"],
+    deps = [
+        "//internal/protomodel",
+        "//pkg/scalar",
+    ],
 )

@@ -160,4 +160,4 @@ resolver:
   layout: follow-schema
   package: graph
 schema:
-- graph/schema/*.graphqls
+- internal/graph/schema/*.graphqls

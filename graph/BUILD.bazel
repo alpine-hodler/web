@@ -2,7 +2,14 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "graph",
-    srcs = ["resolver.go"],
+    srcs = [
+        "resolver.go",
+        "schema.resolvers.go",
+    ],
     importpath = "github.com/alpine-hodler/sdk/graph",
     visibility = ["//visibility:public"],
+    deps = [
+        "//internal/graph/generated",
+        "//pkg/model",
+    ],
 )
