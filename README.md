@@ -117,7 +117,7 @@ if err != nil {
 	panic(err)
 }
 
-client := NewClient(conn)
+client := coinbase.NewClient(conn)
 
 // then use it for something
 accounts := client.Accounts()
