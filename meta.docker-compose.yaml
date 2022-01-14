@@ -2,11 +2,11 @@ version: '3'
 services:
   goimports:
     build:
-      context: ./meta
+      context: ./scripts/meta
       dockerfile: goimports.Dockerfile
   generate:
     build:
-      context: ./meta
+      context: ./scripts/meta
       dockerfile: generate.Dockerfile
     command: [ruby, /usr/src/meta/generate.rb]
     volumes:
@@ -18,24 +18,24 @@ services:
       - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
       - ./internal/protomodel:/usr/src/protomodel
-      - ./meta/comment.rb:/usr/src/meta/comment.rb
-      - ./meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
-      - ./meta/endpoint.rb:/usr/src/meta/endpoint.rb
-      - ./meta/field.rb:/usr/src/meta/field.rb
-      - ./meta/generate.rb:/usr/src/meta/generate.rb
-      - ./meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
-      - ./meta/schema:/usr/src/meta/schema
-      - ./meta/model.rb:/usr/src/meta/model.rb
-      - ./meta/path_part.rb:/usr/src/meta/path_part.rb
-      - ./meta/protomodel.rb:/usr/src/meta/protomodel.rb
-      - ./meta/query_param.rb:/usr/src/meta/query_param.rb
-      - ./meta/scheme.rb:/usr/src/meta/scheme.rb
-      - ./meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
+      - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
+      - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
+      - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
+      - ./scripts/meta/field.rb:/usr/src/meta/field.rb
+      - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
+      - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
+      - ./scripts/meta/schema:/usr/src/meta/schema
+      - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
+      - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
+      - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb
+      - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
+      - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
     depends_on:
       - goimports
   test_generate:
     build:
-      context: ./meta
+      context: ./scripts/meta
       dockerfile: generate.Dockerfile
     command: [ruby, /usr/src/meta/test/test.rb]
     volumes:
@@ -47,19 +47,19 @@ services:
       - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
       - ./internal/protomodel:/usr/src/protomodel
-      - ./meta/comment.rb:/usr/src/meta/comment.rb
-      - ./meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
-      - ./meta/endpoint.rb:/usr/src/meta/endpoint.rb
-      - ./meta/field.rb:/usr/src/meta/field.rb
-      - ./meta/generate.rb:/usr/src/meta/generate.rb
-      - ./meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
-      - ./meta/schema:/usr/src/meta/schema
-      - ./meta/model.rb:/usr/src/meta/model.rb
-      - ./meta/path_part.rb:/usr/src/meta/path_part.rb
-      - ./meta/protomodel.rb:/usr/src/meta/protomodel.rb
-      - ./meta/query_param.rb:/usr/src/meta/query_param.rb
-      - ./meta/scheme.rb:/usr/src/meta/scheme.rb
-      - ./meta/test:/usr/src/meta/test
-      - ./meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
+      - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
+      - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
+      - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
+      - ./scripts/meta/field.rb:/usr/src/meta/field.rb
+      - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
+      - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
+      - ./scripts/meta/schema:/usr/src/meta/schema
+      - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
+      - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
+      - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb
+      - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
+      - ./scripts/meta/test:/usr/src/meta/test
+      - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
     depends_on:
       - goimports
