@@ -45,16 +45,6 @@ https://docs.docker.com/get-docker/
 
 We will primarily use docker for generating go and graphqls files from schema/model files.
 
-## Running the GraphQL Server Locally
-
-change directories to the `cmd/graphql` directory and run the following:
-
-```
-go build; ./graphql start --port=8080
-```
-
-Then navigate to http://localhost:8080/ in the browser.
-
 ## Coinbase
 
 `coinbase` is a package meant to be used as an SDK for creating a third-party connection in your code base to read and write information to coinbase pro using auth credentials.  For example:
