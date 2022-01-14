@@ -1,0 +1,52 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_websocket_ticker",
+	"modelDescription": "CoinbaseWebsocketTicker is real-time price updates every time a match happens.  It batches updates in case of cascading matches, greatly reducing bandwidth requirements.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "type",
+			"goType": "string"
+		},
+		{
+			"identifier": "product_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "trade_id",
+			"goType": "int"
+		},
+		{
+			"identifier": "sequence",
+			"goType": "int"
+		},
+		{
+			"identifier": "time",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "side",
+			"goType": "string"
+		},
+		{
+			"identifier": "price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "last_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "best_bid",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "best_ask",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		}
+	]
+}

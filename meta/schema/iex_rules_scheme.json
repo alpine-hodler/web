@@ -1,0 +1,36 @@
+{
+	"api": "iex",
+	"model": "iex_rules_scheme",
+	"modelDescription": "IEXRulesScheme is one of the latest schemes for data points, notification types, and operators used to construct rules.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "label",
+			"goType": "string"
+		},
+		{
+			"identifier": "value",
+			"goType": "string"
+		},
+		{
+			"identifier": "type",
+			"goType": "string"
+		},
+		{
+			"identifier": "scope",
+			"goType": "string"
+		},
+		{
+			"identifier": "isLookup",
+			"goType": "bool"
+		},
+		{
+			"identifier": "weight",
+			"goType": "float64"
+		},
+		{
+			"identifier": "weightKey",
+			"goType": "string"
+		}
+	]
+}

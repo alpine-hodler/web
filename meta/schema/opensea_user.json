@@ -1,0 +1,12 @@
+{
+	"api": "opensea",
+	"model": "opensea_user",
+	"modelDescription": "The user of the an opensea asset owner",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "username",
+			"goType": "string"
+		}
+	]
+}

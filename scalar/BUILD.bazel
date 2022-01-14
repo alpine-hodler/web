@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "scalar",
+    srcs = [
+        "cancel_after.go",
+        "entry_type.go",
+        "order_cancel_time.go",
+        "order_side.go",
+        "order_stop.go",
+        "order_stp.go",
+        "order_type.go",
+        "payment_method.go",
+        "system_status.go",
+        "time_in_force.go",
+        "transfer_method.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/scalar",
+    visibility = ["//visibility:public"],
+)

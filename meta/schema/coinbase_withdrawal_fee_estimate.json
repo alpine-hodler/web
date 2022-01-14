@@ -1,0 +1,28 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_withdrawal_fee_estimate",
+	"modelDescription": "CoinbaseWithdrawalFeeEstimate is a fee estimate for the crypto withdrawal to crypto address",
+	"endpoints": [
+		{
+			"path": "/withdrawals/fee-estimate",
+			"enumRoot": "WithdrawalFeeEstimate",
+			"queryParams": [
+				{
+					"identifier": "currency",
+					"goType": "string"
+				},
+				{
+					"identifier": "crypto_address",
+					"goType": "string"
+				}
+			],
+			"description": "Gets the fee estimate for the crypto withdrawal to crypto address"
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "fee",
+			"goType": "float64"
+		}
+	]
+}

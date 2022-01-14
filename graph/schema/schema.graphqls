@@ -1,0 +1,62 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Query {
+  coinbaseAccount(accountId: String!): CoinbaseAccount
+  coinbaseAccounts: [CoinbaseAccount]
+  coinbaseAccountHolds(
+    accountId: String!
+    opts: CoinbaseAccountHoldsOptions
+  ): [CoinbaseAccountHold]
+  coinbaseAccountLedger(
+    accountId: String!
+    opts: CoinbaseAccountLedgerOptions
+  ): [CoinbaseAccountLedger]
+  coinbaseAccountTransfers(
+    accountId: String!
+    opts: CoinbaseAccountTransferOptions
+  ): [CoinbaseAccountTransfer]
+  coinbaseCurrencies: [CoinbaseCurrency]
+  coinbaseCurrencyConversion(
+    conversionId: String!
+    opts: CoinbaseConversionOptions
+  ): CoinbaseCurrencyConversion
+  coinbaseCurrency(currentId: String!): CoinbaseCurrency
+	coinbaseFees: CoinbaseFees
+	coinbaseFills(opts: CoinbaseFillsOptions): [CoinbaseFill]
+	coinbaseOrders(opts: CoinbaseOrdersOptions): [CoinbaseOrder]
+  coinbasePaymentMethods: [CoinbasePaymentMethod]
+  coinbaseTransfers: [CoinbaseAccountTransfer]
+  coinbaseTransfer(transferId: String!): CoinbaseAccountTransfer
+  coinbaseWallets: [CoinbaseWallet]
+  coinbaseWithdrawalFeeEstimate(
+    opts: CoinbaseWithdrawalFeeEstimateOptions
+  ): CoinbaseWithdrawalFeeEstimate
+  iexRules(value: String!): [IexRule]
+  iexRulesSchema: IexRulesSchema
+  krakenServerTime: KrakenServerTime
+  krakenSystemStatus: KrakenSystemStatus
+	OpenseaAssets(opts: OpenseaAssetsOptions): OpenseaAssets
+}
+type Mutation {
+  coinbaseAccountDeposit(opts: CoinbaseAccountDepositOptions): CoinbaseDeposit
+	coinbaseCancelAllOrders(opts: CoinbaseOrdersOptions): [String]
+	coinbaseCreateNewOrder(opts: CoinbaseNewOrderOptions): CoinbaseNewOrder
+  coinbaseConvertCurrency(
+    opts: CoinbaseConversionsOptions!
+  ): CoinbaseCurrencyConversion
+  coinbaseGenerateCryptoAddress(walletId: String!): CoinbaseCryptoAddress
+  coinbasePaymentMethodDeposit(
+    opts: CoinbasePaymentMethodDepositOptions
+  ): CoinbaseDeposit
+  coinbasePaymentMethodWithdrawal(
+    opts: CoinbasePaymentMethodWithdrawalOptions
+  ): CoinbaseWithdrawal
+  coinbaseAccountWithdrawal(
+    opts: CoinbaseAccountWithdrawalOptions
+  ): CoinbaseWithdrawal
+  coinbaseCryptoWithdrawal(
+    opts: CoinbaseCryptoWithdrawalOptions
+  ): CoinbaseWithdrawal
+}

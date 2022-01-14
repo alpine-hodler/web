@@ -1,0 +1,16 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseCurrency is a currency that coinbase knows about. Not al currencies may
+ be currently in use for trading.
+"""
+type CoinbaseCurrency {
+  id: String
+  name: String
+  minSize: Float
+  status: String
+  message: String
+  maxPrecision: Float
+  convertibleTo: [String]
+  details: CoinbaseCurrencyDetails
+}

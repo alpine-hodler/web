@@ -1,0 +1,53 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_currency",
+	"modelDescription": "CoinbaseCurrency is a currency that coinbase knows about.  Not al currencies may be currently in use for trading.",
+	"endpoints": [
+		{
+			"path": "/currencies",
+			"enumRoot": "Currencies",
+			"description": "Gets a list of all known currencies.  Note: Not all currencies may be currently in use for trading."
+		},
+		{
+			"path": "/currencies/{currency_id}",
+			"enumRoot": "Currency",
+			"description": "Gets a single currency by id."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "name",
+			"goType": "string"
+		},
+		{
+			"identifier": "min_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "status",
+			"goType": "string"
+		},
+		{
+			"identifier": "message",
+			"goType": "string"
+		},
+		{
+			"identifier": "max_precision",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "convertible_to",
+			"goType": "[]string"
+		},
+		{
+			"identifier": "details",
+			"goType": "CoinbaseCurrencyDetails"
+		}
+	]
+}

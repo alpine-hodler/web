@@ -1,0 +1,14 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseWithdrawal is data concerning withdrawing funds from the specified
+ profile_id to a www.coinbase.com wallet.
+"""
+type CoinbaseWithdrawal {
+  id: String
+  amount: Float
+  currency: String
+  payoutAt: String
+  fee: Float
+  subtotal: Float
+}

@@ -1,0 +1,75 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_currency_conversion",
+	"modelDescription": "CoinbaseCurrencyConversion is the response that converts funds from from currency to to currency. Funds are converted on the from account in the profile_id profile.",
+	"endpoints": [
+		{
+			"path": "/conversions",
+			"enumRoot": "Conversions",
+			"description": "Converts funds from from currency to to currency. Funds are converted on the from account in the profile_id profile.  This endpoint requires the \"trade\" permission.  A successful conversion will be assigned a conversion id. The corresponding ledger entries for a conversion will reference this conversion id",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "from",
+					"goType": "string",
+					"required": true
+				},
+				{
+					"identifier": "to",
+					"goType": "string",
+					"required": true
+				},
+				{
+					"identifier": "amount",
+					"goType": "float64",
+					"required": true
+				},
+				{
+					"identifier": "nonce",
+					"goType": "string"
+				}
+			]
+		},
+		{
+			"path": "/conversions/{conversion_id}",
+			"enumRoot": "Conversion",
+			"description": "Gets a currency conversion by id (i.e. USD -> USDC).",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				}
+			]
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "amount",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "from_account_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "to_account_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "from",
+			"goType": "string"
+		},
+		{
+			"identifier": "to",
+			"goType": "string"
+		}
+	]
+}

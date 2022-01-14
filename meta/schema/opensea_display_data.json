@@ -1,0 +1,12 @@
+{
+	"api": "opensea",
+	"model": "opensea_display_data",
+	"modelDescription": "The display type for a collection",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "card_display_style",
+			"goType": "string"
+		}
+	]
+}

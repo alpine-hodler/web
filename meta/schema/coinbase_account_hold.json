@@ -1,0 +1,48 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_account_hold",
+	"modelDescription": "CoinbaseHold represents the hold on an account that belong to the same profile as the API key. Holds are placed on an account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.",
+	"endpoints": [
+		{
+			"path": "/accounts/{account_id}/holds",
+			"enumRoot": "AccountHolds",
+			"queryParams": [
+				{
+					"identifier": "before",
+					"goType": "string"
+				},
+				{
+					"identifier": "after",
+					"goType": "string"
+				},
+				{
+					"identifier": "limit",
+					"goType": "int"
+				}
+			],
+			"description": "List the holds of an account that belong to the same profile as the API key. Holds are placed on an account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "updated_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "type",
+			"goType": "string"
+		},
+		{
+			"identifier": "ref",
+			"goType": "string"
+		}
+	]
+}

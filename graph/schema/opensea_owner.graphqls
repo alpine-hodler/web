@@ -1,0 +1,11 @@
+# * This is a generated file, do not edit
+
+"""
+ The owner of an opensea asset
+"""
+type OpenseaOwner {
+  user: OpenseaUser
+  profileImgUrl: String
+  address: String
+  config: String
+}

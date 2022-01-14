@@ -1,0 +1,24 @@
+{
+	"api": "opensea",
+	"model": "opensea_creator",
+	"modelDescription": "The creator of the an opensea asset",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "user",
+			"goType": "OpenseaUser"
+		},
+		{
+			"identifier": "profile_img_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "address",
+			"goType": "string"
+		},
+		{
+			"identifier": "config",
+			"goType": "string"
+		}
+	]
+}

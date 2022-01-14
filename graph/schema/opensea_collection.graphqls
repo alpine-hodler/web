@@ -1,0 +1,38 @@
+# * This is a generated file, do not edit
+
+"""
+ Asset contracts contain data about the contract itself, such as the
+ CryptoKitties contract or the CoolCats contract.
+"""
+type OpenseaCollection {
+  bannerImageUrl: String
+  chatUrl: String
+  createdAt: Time
+  defaultToFiat: Boolean
+  description: String
+  devBuyerFeeBasisPoints: String
+  devSellerFeeBasisPoints: String
+  discordUrl: String
+  displayData: OpenseaDisplayData
+  externalUrl: String
+  featured: Boolean
+  featuredImageUrl: String
+  hidden: Boolean
+  safelistRequestStatus: String
+  imageUrl: String
+  isSubjectToWhitelist: Boolean
+  largeImageUrl: String
+  mediumUsernam: String
+  name: String
+  onlyProxiedTransfers: Boolean
+  openseaBuyerFeeBasisPoints: String
+  openseaSellerFeeBasisPoints: String
+  payoutAddress: String
+  requireEmail: Boolean
+  shortDescription: String
+  slub: String
+  telegramUrl: String
+  twitterUsername: String
+  instagramUsername: String
+  wikiUrl: String
+}

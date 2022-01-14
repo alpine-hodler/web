@@ -1,0 +1,56 @@
+{
+	"api": "opensea",
+	"model": "opensea_assets",
+	"modelDescription": "OpenseaAssets are a set of assets from opensea NFTs",
+	"endpoints": [
+		{
+			"path": "/api/v1/assets",
+			"enumRoot": "Assets",
+			"description": "Get alll assets",
+			"queryParams": [
+				{
+					"identifier": "owner",
+					"goType": "string"
+				},
+				{
+					"identifier": "token_ids",
+					"goType": "string"
+				},
+				{
+					"identifier": "asset_contract_address",
+					"goType": "string"
+				},
+				{
+					"identifier": "asset_contract_addresses",
+					"goType": "[]string"
+				},
+				{
+					"identifier": "order_by",
+					"goType": "string"
+				},
+				{
+					"identifier": "order_direction",
+					"goType": "string"
+				},
+				{
+					"identifier": "offset",
+					"goType": "string"
+				},
+				{
+					"identifier": "limit",
+					"goType": "string"
+				},
+				{
+					"identifier": "collection",
+					"goType": "string"
+				}
+			]
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "assets",
+			"goType": "[]*OpenseaAsset"
+		}
+	]
+}

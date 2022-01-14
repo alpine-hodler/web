@@ -1,0 +1,14 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseUkDepositInformation information regarding a wallet's deposits.
+"""
+type CoinbaseUkDepositInformation {
+  accountNumber: String
+  bankName: String
+  bankAddress: String
+  bankCountry: CoinbaseBankCountry
+  accountName: String
+  accountAddress: String
+  reference: String
+}

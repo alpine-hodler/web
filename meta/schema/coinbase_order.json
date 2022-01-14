@@ -1,0 +1,159 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_order",
+	"modelDescription": "CoinbaseOrder is an open order.",
+	"endpoints": [
+		{
+			"path": "/orders",
+			"enumRoot": "Orders",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "product_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "sortedBy",
+					"goType": "string"
+				},
+				{
+					"identifier": "sorting",
+					"goType": "string"
+				},
+				{
+					"identifier": "start_date",
+					"goType": "time.Time"
+				},
+				{
+					"identifier": "end_date",
+					"goType": "time.Time"
+				},
+				{
+					"identifier": "before",
+					"goType": "string"
+				},
+				{
+					"identifier": "after",
+					"goType": "string"
+				},
+				{
+					"identifier": "limit",
+					"goType": "int",
+					"required": true
+				},
+				{
+					"identifier": "status",
+					"goType": "[]string",
+					"required": true
+				}
+			],
+			"description": "List your current open orders. Only open or un-settled orders are returned by default. As soon as an order is no longer open and settled, it will no longer appear in the default request. Open orders may change state between the request and the response depending on market conditions."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "product_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "side",
+			"goType": "scalar.OrderSide"
+		},
+		{
+			"identifier": "funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "specified_funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "type",
+			"goType": "scalar.OrderType"
+		},
+		{
+			"identifier": "time_in_force",
+			"goType": "scalar.TimeInForce"
+		},
+		{
+			"identifier": "expire_time",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "post_only",
+			"goType": "bool"
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "done_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "done_reason",
+			"goType": "string"
+		},
+		{
+			"identifier": "reject_reason",
+			"goType": "string"
+		},
+		{
+			"identifier": "fill_fees",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "filled_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "executed_value",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "status",
+			"goType": "string"
+		},
+		{
+			"identifier": "settled",
+			"goType": "bool"
+		},
+		{
+			"identifier": "stop",
+			"goType": "string"
+		},
+		{
+			"identifier": "stop_price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "funding_amount",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		}
+	]
+}

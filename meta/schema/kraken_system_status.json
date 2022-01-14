@@ -1,0 +1,21 @@
+{
+	"api": "kraken",
+	"model": "kraken_system_status",
+	"modelDescription": "KrakenSystemStatus holds data concerning the current system status or trading mode.",
+	"endpoints": [
+		{
+			"path": "/0/public/SystemStatus",
+			"enumRoot": "SystemStatus",
+			"description": "Get the current system status or trading mode."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "result",
+			"goType": "KrakenSystemStatusResult"
+		}, {
+			"identifier": "error",
+			"goType": "[]string"
+		}
+	]
+}

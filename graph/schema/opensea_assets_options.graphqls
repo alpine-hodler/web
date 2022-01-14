@@ -1,0 +1,11 @@
+# * This is a generated file, do not edit
+
+input OpenseaAssetsOptions {  owner: String
+  tokenIds: String
+  assetContractAddress: String
+  assetContractAddresses: [String]
+  orderBy: String
+  orderDirection: String
+  offset: String
+  limit: String
+  collection: String}

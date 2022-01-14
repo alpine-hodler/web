@@ -1,0 +1,10 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseAccountLedgerDetails are the details for account history.
+"""
+type CoinbaseAccountLedgerDetails {
+  orderId: String
+  tradeId: String
+  productId: String
+}

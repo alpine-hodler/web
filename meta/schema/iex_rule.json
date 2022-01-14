@@ -1,0 +1,36 @@
+{
+	"api": "iex",
+	"model": "iex_rule",
+	"modelDescription": "Rule to evaluate thousands of data points per second and build event-driven, automated alerts using Rules Engine. You can access Rules Engine through the IEX Console or through our API using the guidelines below.",
+	"endpoints": [
+		{
+			"path": "/stable/rules/lookup/{value}",
+			"enumRoot": "Rules",
+			"description": "Rules for automated alert"
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "value",
+			"goType": "string",
+			"description": "The actual lookup value that should be used in the right condition"
+		},
+		{
+			"identifier": "label",
+			"goType": "string",
+			"description": "Label of the lookup"
+		},
+		{
+			"identifier": "type",
+			"goType": "string"
+		},
+		{
+			"identifier": "formula",
+			"goType": "string"
+		},
+		{
+			"identifier": "scope",
+			"goType": "string"
+		}
+	]
+}

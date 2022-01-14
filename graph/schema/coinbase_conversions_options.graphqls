@@ -1,0 +1,7 @@
+# * This is a generated file, do not edit
+
+input CoinbaseConversionsOptions {  profileId: String
+  from: String!
+  to: String!
+  amount: Float!
+  nonce: String}

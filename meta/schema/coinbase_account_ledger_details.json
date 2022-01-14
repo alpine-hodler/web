@@ -1,0 +1,20 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_account_ledger_details",
+	"modelDescription": "CoinbaseAccountLedgerDetails are the details for account history.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "order_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "trade_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "product_id",
+			"goType": "string"
+		}
+	]
+}

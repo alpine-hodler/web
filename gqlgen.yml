@@ -1,0 +1,163 @@
+---
+exec:
+  filename: graph/generated/generated.go
+  package: generated
+model:
+  filename: model/graph_models_gen.go
+  package: model
+models:
+  CancelAfter:
+    model: github.com/alpine-hodler/sdk/scalar.CancelAfter
+  CoinbaseAccount:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccount
+  CoinbaseAccountHold:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccountHold
+  CoinbaseAccountLedger:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccountLedger
+  CoinbaseAccountLedgerDetails:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccountLedgerDetails
+  CoinbaseAccountTransfer:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccountTransfer
+  CoinbaseAccountTransferDetails:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAccountTransferDetails
+  CoinbaseAccountTransfers:
+    model: model.CoinbaseAccountTransfers
+  CoinbaseAccountWithdrawal:
+    model: model.CoinbaseAccountWithdrawal
+  CoinbaseAvailableBalance:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseAvailableBalance
+  CoinbaseBalance:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseBalance
+  CoinbaseBankCountry:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseBankCountry
+  CoinbaseCryptoAccount:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCryptoAccount
+  CoinbaseCryptoAddress:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCryptoAddress
+  CoinbaseCryptoAddressInfo:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCryptoAddressInfo
+  CoinbaseCryptoAddressWarning:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCryptoAddressWarning
+  CoinbaseCurrency:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCurrency
+  CoinbaseCurrencyConversion:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCurrencyConversion
+  CoinbaseCurrencyDetails:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseCurrencyDetails
+  CoinbaseDeposit:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseDeposit
+  CoinbaseFees:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseFees
+  CoinbaseFiatAccount:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseFiatAccount
+  CoinbaseFill:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseFill
+  CoinbaseHold:
+    model: model.CoinbaseHold
+  CoinbaseLimits:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseLimits
+  CoinbaseNewOrder:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseNewOrder
+  CoinbaseOrder:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseOrder
+  CoinbasePaymentMethod:
+    model: github.com/alpine-hodler/sdk/model.CoinbasePaymentMethod
+  CoinbasePickerData:
+    model: github.com/alpine-hodler/sdk/model.CoinbasePickerData
+  CoinbaseRecurringOptions:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseRecurringOptions
+  CoinbaseSEPADepositInformation:
+    model: model.CoinbaseSEPADepositInformation
+  CoinbaseSWIFTDepositInformation:
+    model: model.CoinbaseSWIFTDepositInformation
+  CoinbaseSepaDepositInformation:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseSepaDepositInformation
+  CoinbaseSepaaDepositInformation:
+    model: model.CoinbaseSepaaDepositInformation
+  CoinbaseSingleProduct:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseSingleProduct
+  CoinbaseSwiftDepositInformation:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseSwiftDepositInformation
+  CoinbaseUKDepositInformation:
+    model: model.CoinbaseUKDepositInformation
+  CoinbaseUkDepositInformation:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseUkDepositInformation
+  CoinbaseWallet:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseWallet
+  CoinbaseWebsocketTicker:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseWebsocketTicker
+  CoinbaseWireDepositInformation:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseWireDepositInformation
+  CoinbaseWithdrawal:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseWithdrawal
+  CoinbaseWithdrawalFeeEstimate:
+    model: github.com/alpine-hodler/sdk/model.CoinbaseWithdrawalFeeEstimate
+  EntryType:
+    model: github.com/alpine-hodler/sdk/scalar.EntryType
+  ID:
+    model:
+    - github.com/99designs/gqlgen/graphql.ID
+    - github.com/99designs/gqlgen/graphql.Int
+    - github.com/99designs/gqlgen/graphql.Int64
+    - github.com/99designs/gqlgen/graphql.Int32
+  IexRule:
+    model: github.com/alpine-hodler/sdk/model.IexRule
+  IexRulesSchema:
+    model: github.com/alpine-hodler/sdk/model.IexRulesSchema
+  IexRulesScheme:
+    model: github.com/alpine-hodler/sdk/model.IexRulesScheme
+  Int:
+    model:
+    - github.com/99designs/gqlgen/graphql.Int
+    - github.com/99designs/gqlgen/graphql.Int64
+    - github.com/99designs/gqlgen/graphql.Int32
+  KrakenServerTime:
+    model: github.com/alpine-hodler/sdk/model.KrakenServerTime
+  KrakenServerTimeResult:
+    model: github.com/alpine-hodler/sdk/model.KrakenServerTimeResult
+  KrakenSystemStatus:
+    model: github.com/alpine-hodler/sdk/model.KrakenSystemStatus
+  KrakenSystemStatusResult:
+    model: github.com/alpine-hodler/sdk/model.KrakenSystemStatusResult
+  OrderCancelTime:
+    model: github.com/alpine-hodler/sdk/scalar.OrderCancelTime
+  OrderSTP:
+    model: github.com/alpine-hodler/sdk/scalar.OrderSTP
+  OrderSide:
+    model: github.com/alpine-hodler/sdk/scalar.OrderSide
+  OrderStop:
+    model: github.com/alpine-hodler/sdk/scalar.OrderStop
+  OrderType:
+    model: github.com/alpine-hodler/sdk/scalar.OrderType
+  PaymentMethod:
+    model: github.com/alpine-hodler/sdk/scalar.PaymentMethod
+  SystemStatus:
+    model: github.com/alpine-hodler/sdk/scalar.SystemStatus
+  TimeInForce:
+    model: github.com/alpine-hodler/sdk/scalar.TimeInForce
+  TransferMethod:
+    model: github.com/alpine-hodler/sdk/scalar.TransferMethod
+  OpenseaAsset:
+    model: github.com/alpine-hodler/sdk/model.OpenseaAsset
+  OpenseaAssetContract:
+    model: github.com/alpine-hodler/sdk/model.OpenseaAssetContract
+  OpenseaCollection:
+    model: github.com/alpine-hodler/sdk/model.OpenseaCollection
+  OpenseaCreator:
+    model: github.com/alpine-hodler/sdk/model.OpenseaCreator
+  OpenseaDisplayType:
+    model: github.com/alpine-hodler/sdk/model.OpenseaDisplayType
+  OpenseaOwner:
+    model: github.com/alpine-hodler/sdk/model.OpenseaOwner
+  OpenseaUser:
+    model: github.com/alpine-hodler/sdk/model.OpenseaUser
+  OpenseaDisplayData:
+    model: github.com/alpine-hodler/sdk/model.OpenseaDisplayData
+  OpenseaAssets:
+    model: github.com/alpine-hodler/sdk/model.OpenseaAssets
+resolver:
+  dir: graph
+  layout: follow-schema
+  package: graph
+schema:
+- graph/schema/*.graphqls

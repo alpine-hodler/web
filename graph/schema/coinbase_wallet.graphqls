@@ -1,0 +1,25 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseWallet represents a user's available Coinbase wallet (These are the
+ wallets/accounts that are used for buying and selling on www.coinbase.com)
+"""
+type CoinbaseWallet {
+  id: String
+  name: String
+  balance: Float
+  currency: String
+  type: String
+  primary: Boolean
+  active: Boolean
+  availableOnConsumer: Boolean
+  ready: Boolean
+  wireDepositInformation: CoinbaseWireDepositInformation
+  swiftDepositInformation: CoinbaseSwiftDepositInformation
+  sepaDepositInformation: CoinbaseSepaDepositInformation
+  ukDepositInformation: CoinbaseUkDepositInformation
+  destinationTagName: String
+  destinationTagRegex: String
+  holdBalance: Float
+  holdCurrency: String
+}

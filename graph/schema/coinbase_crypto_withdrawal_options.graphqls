@@ -1,0 +1,11 @@
+# * This is a generated file, do not edit
+
+input CoinbaseCryptoWithdrawalOptions {  profileId: String
+  amount: Float!
+  cryptoAddress: String!
+  currency: String!
+  destinationTag: String
+  noDestinationTag: Boolean
+  twoFactorCode: String
+  nonce: Int
+  fee: Float}

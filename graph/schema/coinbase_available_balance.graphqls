@@ -1,0 +1,10 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseAvailableBalance is the available balance on the coinbase account
+"""
+type CoinbaseAvailableBalance {
+  amount: Float
+  currency: String
+  scale: String
+}

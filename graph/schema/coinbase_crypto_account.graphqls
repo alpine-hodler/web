@@ -1,0 +1,11 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseCryptoAccount references a crypto account that a CoinbasePaymentMethod
+ belongs to
+"""
+type CoinbaseCryptoAccount {
+  id: String
+  resource: String
+  resourcePath: String
+}

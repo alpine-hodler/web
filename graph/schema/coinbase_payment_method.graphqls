@@ -1,0 +1,34 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbasePaymentMethod is a payment method used on coinbase
+"""
+type CoinbasePaymentMethod {
+  id: String
+  type: String
+  name: String
+  currency: String
+  primaryBuy: Boolean
+  primarySell: Boolean
+  instantBuy: Boolean
+  instantSale: Boolean
+  createAt: Time
+  updatedAt: Time
+  resource: String
+  resourcePath: String
+  verified: Boolean
+  allowBuy: Boolean
+  allowSell: Boolean
+  allowDeposit: Boolean
+  allowWithdraw: Boolean
+  holdBusinessDays: Int
+  holdDays: Int
+  verificationMethod: String
+  cdvStatus: String
+  limits: CoinbaseLimits
+  fiatAccount: CoinbaseFiatAccount
+  cryptoAccount: CoinbaseCryptoAccount
+  recurringOptions: [CoinbaseRecurringOptions]
+  availableBalance: CoinbaseAvailableBalance
+  pickerData: CoinbasePickerData
+}

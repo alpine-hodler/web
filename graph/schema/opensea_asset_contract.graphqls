@@ -1,0 +1,30 @@
+# * This is a generated file, do not edit
+
+"""
+ Asset contracts contain data about the contract itself, such as the
+ CryptoKitties contract or the CoolCats contract.
+"""
+type OpenseaAssetContract {
+  address: String
+  assetContractType: String
+  createdDate: String
+  name: String
+  nftVersion: String
+  openseaVersion: String
+  owner: Int
+  schemaName: String
+  symbol: String
+  totalSupply: Float
+  description: String
+  externalLink: String
+  imageUrl: String
+  defaultToFiat: Boolean
+  devBuyFeeBasisPoints: Int
+  devSellerFeeBasisPoints: Int
+  onlyProxiedTransfers: Boolean
+  openseaBuyerFeeBasisPoints: Int
+  openseaSellerFeeBasisPoints: Int
+  buyerFeeBasisPoints: Int
+  sellerFeeBasisPoints: Int
+  payoutAddress: String
+}

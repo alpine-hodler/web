@@ -1,0 +1,8 @@
+# * This is a generated file, do not edit
+
+"""
+ OpenseaAssets are a set of assets from opensea NFTs
+"""
+type OpenseaAssets {
+  assets: [OpenseaAsset]
+}

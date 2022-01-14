@@ -1,0 +1,97 @@
+{
+	"api": "opensea",
+	"model": "opensea_asset_contract",
+	"modelDescription": "Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "address",
+			"goType": "string"
+		},
+		{
+			"identifier": "asset_contract_type",
+			"goType": "string"
+		},
+		{
+			"identifier": "created_date",
+			"goType": "string"
+		},
+		{
+			"identifier": "name",
+			"goType": "string"
+		},
+		{
+			"identifier": "nft_version",
+			"goType": "string"
+		},
+		{
+			"identifier": "opensea_version",
+			"goType": "string"
+		},
+		{
+			"identifier": "owner",
+			"goType": "int"
+		},
+		{
+			"identifier": "schema_name",
+			"goType": "string"
+		},
+		{
+			"identifier": "symbol",
+			"goType": "string"
+		},
+		{
+			"identifier": "total_supply",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "description",
+			"goType": "string"
+		},
+		{
+			"identifier": "external_link",
+			"goType": "string"
+		},
+		{
+			"identifier": "image_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "default_to_fiat",
+			"goType": "bool"
+		},
+		{
+			"identifier": "dev_buy_fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "dev_seller_fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "only_proxied_transfers",
+			"goType": "bool"
+		},
+		{
+			"identifier": "opensea_buyer_fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "opensea_seller_fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "buyer_fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "seller_Fee_basis_points",
+			"goType": "int"
+		},
+		{
+			"identifier": "payout_address",
+			"goType": "string"
+		}
+	]
+}

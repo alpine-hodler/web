@@ -1,0 +1,128 @@
+{
+	"api": "opensea",
+	"model": "opensea_collection",
+	"modelDescription": "Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "banner_image_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "chat_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "default_to_fiat",
+			"goType": "bool"
+		},
+		{
+			"identifier": "description",
+			"goType": "string"
+		},
+		{
+			"identifier": "dev_buyer_fee_basis_points",
+			"goType": "string"
+		},
+		{
+			"identifier": "dev_seller_fee_basis_points",
+			"goType": "string"
+		},
+		{
+			"identifier": "discord_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "display_data",
+			"goType": "OpenseaDisplayData"
+		},
+		{
+			"identifier": "external_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "featured",
+			"goType": "bool"
+		},
+		{
+			"identifier": "featured_image_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "hidden",
+			"goType": "bool"
+		},
+		{
+			"identifier": "safelist_request_status",
+			"goType": "string"
+		},
+		{
+			"identifier": "image_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "is_subject_to_whitelist",
+			"goType": "bool"
+		},
+		{
+			"identifier": "large_image_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "medium_usernam",
+			"goType": "string"
+		},
+		{
+			"identifier": "name",
+			"goType": "string"
+		},
+		{
+			"identifier": "only_proxied_transfers",
+			"goType": "bool"
+		},
+		{
+			"identifier": "opensea_buyer_fee_basis_points",
+			"goType": "string"
+		},
+		{
+			"identifier": "opensea_seller_fee_basis_points",
+			"goType": "string"
+		},
+		{
+			"identifier": "payout_address",
+			"goType": "string"
+		},
+		{
+			"identifier": "require_email",
+			"goType": "bool"
+		},
+		{
+			"identifier": "short_description",
+			"goType": "string"
+		},
+		{
+			"identifier": "slub",
+			"goType": "string"
+		},
+		{
+			"identifier": "telegram_url",
+			"goType": "string"
+		},
+		{
+			"identifier": "twitter_username",
+			"goType": "string"
+		},
+		{
+			"identifier": "instagram_username",
+			"goType": "string"
+		},
+		{
+			"identifier": "wiki_url",
+			"goType": "string"
+		}
+	]
+}

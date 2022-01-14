@@ -1,0 +1,30 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseNewOrder is the server's response for placing a new order.
+"""
+type CoinbaseNewOrder {
+  id: String
+  price: Float
+  size: Float
+  productId: String
+  profileId: String
+  side: OrderSide
+  funds: Float
+  specificFunds: Float
+  type: OrderType
+  timeInForce: TimeInForce
+  expireTime: Time
+  postOnly: Boolean
+  createdAt: Time
+  doneAt: Time
+  doneReason: String
+  rejectReason: String
+  fillFees: Float
+  filledSize: Float
+  status: String
+  settled: Boolean
+  stop: OrderStop
+  stopPrice: Float
+  fundingAmount: Float
+}

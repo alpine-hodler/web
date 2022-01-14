@@ -1,0 +1,19 @@
+{
+	"api": "kraken",
+	"model": "kraken_server_time_result",
+	"modelDescription": "KrakenServerTimeResult holds data concerning the server time",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "unixtime",
+			"goType": "int",
+			"description": "Unix timestamp"
+		},
+		{
+			"identifier": "rfc1123",
+			"goType": "time.Time",
+			"datetimeLayout": "KrakenRFC1123Layout",
+			"description": "RFC 1123 time format"
+		}
+	]
+}

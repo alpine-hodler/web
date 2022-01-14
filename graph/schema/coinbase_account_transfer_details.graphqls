@@ -1,0 +1,10 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseAccountTransferDetails are the details for an account transfer.
+"""
+type CoinbaseAccountTransferDetails {
+  coinbaseAccountId: String
+  coinbaseTransactionId: String
+  coinbasePaymentMethodId: String
+}

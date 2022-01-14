@@ -1,0 +1,66 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_account_ledger",
+	"modelDescription": "CoinbaseAccountLedger lists ledger activity for an account. This includes anything that would affect the accounts balance - transfers, trades, fees, etc.",
+	"endpoints": [
+		{
+			"path": "/accounts/{account_id}/ledger",
+			"enumRoot": "AccountLedger",
+			"queryParams": [
+				{
+					"identifier": "start_date",
+					"goType": "string"
+				},
+				{
+					"identifier": "end_date",
+					"goType": "string"
+				},
+				{
+					"identifier": "before",
+					"goType": "string"
+				},
+				{
+					"identifier": "after",
+					"goType": "string"
+				},
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "limit",
+					"goType": "int"
+				}
+			],
+			"description": "Lists ledger activity for an account. This includes anything that would affect the accounts balance - transfers, trades, fees, etc. This endpoint requires either the \"view\" or \"trade\" permission."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "amount",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "balance",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "type",
+			"goType": "scalar.EntryType"
+		},
+		{
+			"identifier": "details",
+			"goType": "CoinbaseAccountLedgerDetails"
+		}
+	]
+}

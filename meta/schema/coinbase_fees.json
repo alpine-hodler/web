@@ -1,0 +1,29 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_fees",
+	"modelDescription": "CoinbaseFees are fees rates and 30 days trailing volume.",
+	"endpoints": [
+		{
+			"path": "/fees",
+			"enumRoot": "Fees",
+			"description": "Get fees rates and 30 days trailing volume."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "taker_fee_rate",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "maker_fee_rate",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "usd_volume",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		}
+	]
+}

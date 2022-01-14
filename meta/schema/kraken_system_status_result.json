@@ -1,0 +1,19 @@
+{
+	"api": "kraken",
+	"model": "kraken_system_status_result",
+	"modelDescription": "KrakenSystemStatusResult holds data concerning the current system status or trading mode.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "status",
+			"goType": "scalar.SystemStatus",
+			"unmarshaller": "UnmarshalSystemStatus",
+			"description": "Enum: \"online\" \"maintenance\" \"cancel_only\" \"post_only\" Current system status"
+		},
+		{
+			"identifier": "timestamp",
+			"goType": "time.Time",
+			"description": "Current timestamp (RFC3339)"
+		}
+	]
+}

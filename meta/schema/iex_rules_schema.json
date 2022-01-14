@@ -1,0 +1,18 @@
+{
+	"api": "iex",
+	"model": "iex_rules_schema",
+	"modelDescription": "IexRulesSchema is the latest schema for data points, notification types, and operators used to construct rules.",
+	"endpoints": [
+		{
+			"path": "/stable/rules/schema",
+			"enumRoot": "RulesSchema",
+			"description": "Pull the latest schema for data points, notification types, and operators used to construct rules. If a schema object has \"isLookup\": true, pass the value key to /stable/rules/lookup/{value}. This returns all valid values for the rightValue of a condition."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "schema",
+			"goType": "[]*IexRulesScheme"
+		}
+	]
+}

@@ -1,0 +1,177 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_new_order",
+	"modelDescription": "CoinbaseNewOrder is the server's response for placing a new order.",
+	"endpoints": [
+		{
+			"path": "/orders",
+			"enumRoot": "NewOrder",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "type",
+					"goType": "scalar.OrderType"
+				},
+				{
+					"identifier": "side",
+					"goType": "scalar.OrderSide",
+					"required": true
+				},
+				{
+					"identifier": "stp",
+					"goType": "scalar.OrderSTP"
+				},
+				{
+					"identifier": "stop",
+					"goType": "scalar.OrderStop"
+				},
+				{
+					"identifier": "stop_price",
+					"goType": "float64",
+					"unmarshaller": "UnmarshalFloatFromString"
+				},
+				{
+					"identifier": "price",
+					"goType": "float64",
+					"unmarshaller": "UnmarshalFloatFromString"
+				},
+				{
+					"identifier": "size",
+					"goType": "float64",
+					"unmarshaller": "UnmarshalFloatFromString"
+				},
+				{"identifier": "funds",
+					"goType": "float64",
+					"unmarshaller": "UnmarshalFloatFromString"
+				},
+				{
+					"identifier": "product_id",
+					"goType": "string",
+					"required": true
+				},
+				{
+					"identifier": "time_in_force",
+					"goType": "scalar.TimeInForce"
+				},
+				{
+					"identifier": "cancel_after",
+					"goType": "scalar.CancelAfter"
+				},
+				{
+					"identifier": "post_only",
+					"goType": "bool"
+				},
+				{
+					"identifier": "client_oid",
+					"goType": "string"
+				}
+			],
+			"description": "Create an order. You can place two types of orders: limit and market. Orders can only be placed if your account has sufficient funds. Once an order is placed, your account funds will be put on hold for the duration of the order. How much and which funds are put on hold depends on the order type and parameters specified."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "product_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "profile_id",
+			"goType": "string"
+		},
+		{
+			"identifier": "side",
+			"goType": "scalar.OrderSide"
+		},
+		{
+			"identifier": "funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "specific_funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "type",
+			"goType": "scalar.OrderType"
+		},
+		{
+			"identifier": "time_in_force",
+			"goType": "scalar.TimeInForce"
+		},
+		{
+			"identifier": "expire_time",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "post_only",
+			"goType": "bool"
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "done_at",
+			"goType": "time.Time"
+		},
+		{
+			"identifier": "done_reason",
+			"goType": "string"
+		},
+		{
+			"identifier": "reject_reason",
+			"goType": "string"
+		},
+		{
+			"identifier": "fill_fees",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "filled_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "status",
+			"goType": "string"
+		},
+		{
+			"identifier": "settled",
+			"goType": "bool"
+		},
+		{
+			"identifier": "stop",
+			"goType": "scalar.OrderStop"
+		},
+		{
+			"identifier": "stop_price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "funding_amount",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		}
+	]
+}

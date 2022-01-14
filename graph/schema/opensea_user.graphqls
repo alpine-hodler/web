@@ -1,0 +1,8 @@
+# * This is a generated file, do not edit
+
+"""
+ The user of the an opensea asset owner
+"""
+type OpenseaUser {
+  username: String
+}

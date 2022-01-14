@@ -1,0 +1,101 @@
+{
+	"api": "coinbase",
+	"model": "coinbase_single_product",
+	"modelDescription": "CoinbaseSingleProduct is information on a single product",
+	"endpoints": [
+		{
+			"path": "/products/{product_id}",
+			"enumRoot": "Product",
+			"description": "Get information on a single product."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "id",
+			"goType": "string"
+		},
+		{
+			"identifier": "base_currency",
+			"goType": "string"
+		},
+		{
+			"identifier": "quote_currency",
+			"goType": "string"
+		},
+		{
+			"identifier": "base_min_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "base_max_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "quote_increment",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "base_increment",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "display_name",
+			"goType": "string"
+		},
+		{
+			"identifier": "min_market_funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "max_market_funds",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "margin_enabled",
+			"goType": "bool"
+		},
+		{
+			"identifier": "post_only",
+			"goType": "bool"
+		},
+		{
+			"identifier": "limit_only",
+			"goType": "bool"
+		},
+		{
+			"identifier": "cancel_only",
+			"goType": "bool"
+		},
+		{
+			"identifier": "status",
+			"goType": "string"
+		},
+		{
+			"identifier": "status_message",
+			"goType": "string"
+		},
+		{
+			"identifier": "trading_disabled",
+			"goType": "bool"
+		},
+		{
+			"identifier": "fx_stablecoin",
+			"goType": "bool"
+		},
+		{
+			"identifier": "max_slippage_percentage",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "auction_mode",
+			"goType": "bool"
+		}
+	]
+}

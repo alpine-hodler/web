@@ -1,0 +1,14 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseDeposit is the response for deposited funds from a www.coinbase.com
+ wallet to the specified profile_id.
+"""
+type CoinbaseDeposit {
+  id: String
+  amount: Float
+  currency: String
+  payoutAt: String
+  fee: Float
+  subtotal: Float
+}

@@ -1,0 +1,21 @@
+{
+	"api": "kraken",
+	"model": "kraken_server_time",
+	"modelDescription": "KrakenServerTime holds data concerning the server time",
+	"endpoints": [
+		{
+			"path": "/0/public/Time",
+			"enumRoot": "ServerTime",
+			"description": "Get the server's time."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "result",
+			"goType": "KrakenServerTimeResult"
+		}, {
+			"identifier": "error",
+			"goType": "[]string"
+		}
+	]
+}

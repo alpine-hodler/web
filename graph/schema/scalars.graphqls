@@ -1,0 +1,12 @@
+scalar CancelAfter
+scalar EntryType
+scalar OrderCancelTime
+scalar OrderSide
+scalar OrderStop
+scalar OrderSTP
+scalar OrderType
+scalar PaymentMethod
+scalar SystemStatus
+scalar TimeInForce
+scalar Time
+scalar TransferMethod

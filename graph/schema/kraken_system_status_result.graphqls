@@ -1,0 +1,10 @@
+# * This is a generated file, do not edit
+
+"""
+ KrakenSystemStatusResult holds data concerning the current system status or
+ trading mode.
+"""
+type KrakenSystemStatusResult {
+  status: SystemStatus
+  timestamp: Time
+}
