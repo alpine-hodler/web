@@ -75,7 +75,7 @@ func (kraken *C) Identifier() string {
 	return "Kraken"
 }
 
-func DefaultClient() (client.C, error) {
+func DefaultConnector() (client.C, error) {
 	return &C{}, nil
 }
 

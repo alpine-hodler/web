@@ -73,7 +73,7 @@ func CreateOrder() {
 		ProductId:   "BTC-USD",
 		StopPrice:   500.0,
 	}
-	coinbase.NewOrders(coinbase.DefaultClient).Create(requestOptions)
+	coinbase.NewOrders(coinbase.DefaultConnector).Create(requestOptions)
 }
 ```
 
@@ -112,28 +112,18 @@ CB_PRO_SECRET=
 
 ```go
 // initialize the connection
-conn, err := NewClientEnv("/path/to/.env")
+conn, err := coinbase.EnvConnector("/path/to/.env")
 if err != nil {
 	panic(err)
 }
+
+client := NewClient(conn)
 
 // then use it for something
-accounts := NewAccounts(conn)
-allAccounts, _ := accounts.All()
-fmt.Println(allAccounts)
+accounts := client.Accounts()
+fmt.Printf("%+v\n", accounts)
 ```
 
-#### Direct Input
-
-You can also pass the auth credentials directly
-
-```go
-// initialize the connection
-_conn_, err := NewClient("url", "key", "passphrase", "secret")
-if err != nil {
-	panic(err)
-}
-```
 ### WebSocket
 
 #### Async Ticker

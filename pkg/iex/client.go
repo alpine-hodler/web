@@ -63,7 +63,7 @@ func (iex *C) Identifier() string {
 	return "IEX"
 }
 
-func DefaultClient() (client.C, error) {
+func DefaultConnector() (client.C, error) {
 	return &C{}, nil
 }
 

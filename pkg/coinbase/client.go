@@ -134,11 +134,16 @@ func (coinbaseClient *C) Identifier() string {
 	return "Coinbase Pro"
 }
 
-// DefaultClient will pull the coinbase authentication data from the env
+// DefaultConnector will pull the coinbase authentication data from the env
 // variables.  See README for more information on how to set these up.
-func DefaultClient() (client.C, error) {
+func DefaultConnector() (client.C, error) {
 	c := newCoinbaseClientEnv("../../.auth.env")
 	return c, nil
+}
+
+// NewClient will populate the coinbase auth data from a .env file
+func EnvConnector(filepath string) (client.C, error) {
+	return newCoinbaseClientEnv(filepath), nil
 }
 
 // NewAccounts will return a new accounts structure to query on trading accounts

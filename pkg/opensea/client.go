@@ -47,7 +47,7 @@ func (opensea *C) Identifier() string {
 	return "Opensea"
 }
 
-func DefaultClient() (client.C, error) {
+func DefaultConnector() (client.C, error) {
 	return &C{}, nil
 }
 
