@@ -6,19 +6,17 @@ This repo is a work in progress
 
 ## Getting Started
   * Dependencies
-    * [Install Bazel](https://github.com/alpine-hodler/sdk#installing-bazel)
+    * [Install Bazel](https://github.com/alpine-hodler/sdk#install-bazel)
     * [Install docker](https://github.com/alpine-hodler/sdk#install-docker)
     * [Install go](https://go.dev/doc/install)
   * [Build Bazel](https://github.com/alpine-hodler/sdk#build-bazel)
   * Servers (`cmd` package)
-    * [Graph](https://github.com/alpine-hodler/sdk/blob/main/graph/README.md)
+    * [Graph](https://github.com/alpine-hodler/sdk#graphql)
   * Software Development Kits
-    * [Coinbase](https://github.com/alpine-hodler/sdk/blob/main/coinbase/README.md)
-    * [Iex](https://github.com/alpine-hodler/sdk/blob/main/iex/README.md)
-    * [Kraken](https://github.com/alpine-hodler/sdk/blob/main/kraken/README.md)
+    * [Coinbase](https://github.com/alpine-hodler/sdk#coinbase)
   * Auxiliary Packages
-    * [protomodel](https://github.com/alpine-hodler/sdk/tree/main/protomodel/README.md)
-    * [scalar](https://github.com/alpine-hodler/sdk/tree/main/scalar/README.md)
+    * [protomodel](https://github.com/alpine-hodler/sdk#protomodel)
+    * [scalar](https://github.com/alpine-hodler/sdk#scalar)
   * [Resources](https://github.com/alpine-hodler/sdk#resources)
 
 ## Install Bazel
