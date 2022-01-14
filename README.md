@@ -159,10 +159,10 @@ The async ticker runs the coinbase product websocket asyncronously, connecting o
 
 ## GraphQL
 
-To start the graphql server go to the `cmd/graphql` directory and generate the `graphql` binary with `go build`.  Then run
+To start the graphql server go to the `cmd/graphql` directory and generate the `graphql` binary with `go build`.  You'll also need to make sure the proper auth data is in some `/path/to/.env`, see coinbase section for example.  Then run
 
 ```
-./graphql start --port=8080
+./graphql start --port=8080 --env=/path/to/.env
 ```
 
 and visit http://localhost:8080/

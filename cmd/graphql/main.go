@@ -8,6 +8,7 @@ import (
 
 var (
 	// flags
+	ENV  string
 	PORT string
 
 	rootCmd = &cobra.Command{

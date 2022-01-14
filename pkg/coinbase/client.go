@@ -41,9 +41,8 @@ func newCoinbaseClient(key, passphrase, secret, url string) *C {
 
 // newCoinbaseClientEnv will populate the client auth credentials using a
 // .env file
-func newCoinbaseClientEnv(filepath string) *C {
+func newCoinbaseClientEnv() *C {
 	c := new(C)
-	env.Load(filepath)
 	c.key = env.CoinbaseProAccessKey.Get()
 	c.passphrase = env.CoinbaseProAccessPassphrase.Get()
 	c.secret = env.CoinbaseProSecret.Get()
@@ -94,10 +93,10 @@ func (coinbaseClient *C) setHeaders(hreq *http.Request, creq client.Request) (e 
 	sig, e = coinbaseClient.generateSig(coinbaseClient.secret, msg)
 	hreq.Header.Add("accept", "application/json")
 	hreq.Header.Add("content-type", "application/json")
-	hreq.Header.Add("coinbaseClient-access-key", coinbaseClient.key)
-	hreq.Header.Add("coinbaseClient-access-passphrase", coinbaseClient.passphrase)
-	hreq.Header.Add("coinbaseClient-access-sign", sig)
-	hreq.Header.Add("coinbaseClient-access-timestamp", timestamp)
+	hreq.Header.Add("cb-access-key", coinbaseClient.key)
+	hreq.Header.Add("cb-access-passphrase", coinbaseClient.passphrase)
+	hreq.Header.Add("cb-access-sign", sig)
+	hreq.Header.Add("cb-access-timestamp", timestamp)
 
 	logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
 	logrus.Debug(client.Logf(&creq, logMsg, coinbaseClient.key, coinbaseClient.passphrase, timestamp, sig))
@@ -137,13 +136,9 @@ func (coinbaseClient *C) Identifier() string {
 // DefaultConnector will pull the coinbase authentication data from the env
 // variables.  See README for more information on how to set these up.
 func DefaultConnector() (client.C, error) {
-	c := newCoinbaseClientEnv("../../.auth.env")
+	c := newCoinbaseClientEnv()
+	fmt.Printf("%+v\n", c)
 	return c, nil
-}
-
-// NewClient will populate the coinbase auth data from a .env file
-func EnvConnector(filepath string) (client.C, error) {
-	return newCoinbaseClientEnv(filepath), nil
 }
 
 // NewAccounts will return a new accounts structure to query on trading accounts
