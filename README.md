@@ -1,6 +1,6 @@
 # sdk
 
-sdk is a monorepo that provides a graphql server and varios SDKs for connecting to and interacting with various APIs and websockets.
+sdk is a monorepo that provides a graphql server and various SDKs for connecting to and interacting with APIs and websockets.
 
 This repo is a work in progress
 
