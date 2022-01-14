@@ -64,6 +64,7 @@ module SDKEndpoints
       Dir.chdir(PARENT_DIR + "/#{api}") do
         File.open('endpoint.go', 'w') do |f|
           f.write(SDKEndpoints.pkg_name(api))
+          f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
           f.write(MSG)
           f.write(ENDPOINT_TYPE)
           f.write(SDKEndpoints.endpoint_consts(endpoints))

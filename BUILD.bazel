@@ -1,4 +1,3 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix github.com/alpine-hodler/sdk
@@ -13,12 +12,4 @@ gazelle(
         "-prune",
     ],
     command = "update-repos",
-)
-
-go_library(
-    name = "sdk",
-    srcs = ["models_gen.go"],
-    importpath = "github.com/alpine-hodler/sdk",
-    visibility = ["//visibility:public"],
-    deps = ["//scalar"],
 )

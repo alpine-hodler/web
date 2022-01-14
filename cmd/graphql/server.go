@@ -6,8 +6,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/alpine-hodler/sdk/graph"
-	"github.com/alpine-hodler/sdk/graph/generated"
+	"github.com/alpine-hodler/sdk/internal/graph"
+	"github.com/alpine-hodler/sdk/internal/graph/generated"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

@@ -54,7 +54,7 @@ module GraphSchema
     models_key = 'models'
     configs[models_key] = {} if configs[models_key].nil?
     configs[models_key][go_model_name] = {
-      'model' => "github.com/alpine-hodler/sdk/#{Model::PKG}.#{go_model_name}"
+      'model' => "github.com/alpine-hodler/sdk/pkg/#{Model::PKG}.#{go_model_name}"
     }
     File.open(filename, 'w') { |f| f.write configs.to_yaml }
   end

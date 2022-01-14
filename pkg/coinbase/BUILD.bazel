@@ -1,0 +1,38 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "coinbase",
+    srcs = [
+        "api.go",
+        "async_ticker.go",
+        "client.go",
+        "const.go",
+        "endpoint.go",
+        "mock_c.go",
+        "websocket.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/coinbase",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//internal/env",
+        "//pkg/model",
+        "//pkg/websocket",
+        "//tools",
+        "@com_github_franela_goblin//:goblin",
+        "@com_github_golang_mock//gomock",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@org_golang_x_sync//errgroup",
+    ],
+)
+
+go_test(
+    name = "coinbase_test",
+    srcs = ["async_ticker_test.go"],
+    embed = [":coinbase"],
+    deps = [
+        "//pkg/model",
+        "//pkg/websocket",
+        "@com_github_franela_goblin//:goblin",
+    ],
+)

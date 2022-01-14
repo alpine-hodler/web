@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "opensea",
+    srcs = [
+        "api.go",
+        "client.go",
+        "endpoint.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/opensea",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//pkg/model",
+        "@com_github_sirupsen_logrus//:logrus",
+    ],
+)

@@ -10,14 +10,14 @@ services:
       dockerfile: generate.Dockerfile
     command: [ruby, /usr/src/meta/generate.rb]
     volumes:
-      - ./coinbase:/usr/src/coinbase
-      - ./kraken:/usr/src/kraken
-      - ./iex:/usr/src/iex
-      - ./opensea:/usr/src/opensea
-      - ./graph:/usr/src/graph
+      - ./pkg/coinbase:/usr/src/coinbase
+      - ./pkg/kraken:/usr/src/kraken
+      - ./pkg/iex:/usr/src/iex
+      - ./pkg/opensea:/usr/src/opensea
+      - ./internal/graph:/usr/src/graph
       - ./gqlgen.yml:/usr/src/gqlgen.yml
-      - ./model:/usr/src/model
-      - ./protomodel:/usr/src/protomodel
+      - ./pkg/model:/usr/src/model
+      - ./internal/protomodel:/usr/src/protomodel
       - ./meta/comment.rb:/usr/src/meta/comment.rb
       - ./meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
       - ./meta/endpoint.rb:/usr/src/meta/endpoint.rb
@@ -39,14 +39,14 @@ services:
       dockerfile: generate.Dockerfile
     command: [ruby, /usr/src/meta/test/test.rb]
     volumes:
-      - ./coinbase:/usr/src/coinbase
-      - ./kraken:/usr/src/kraken
-      - ./iex:/usr/src/iex
-      - ./opensea:/usr/src/opensea
-      - ./graph:/usr/src/graph
+      - ./pkg/coinbase:/usr/src/coinbase
+      - ./pkg/kraken:/usr/src/kraken
+      - ./pkg/iex:/usr/src/iex
+      - ./pkg/opensea:/usr/src/opensea
+      - ./internal/graph:/usr/src/graph
       - ./gqlgen.yml:/usr/src/gqlgen.yml
-      - ./model:/usr/src/model
-      - ./protomodel:/usr/src/protomodel
+      - ./pkg/model:/usr/src/model
+      - ./internal/protomodel:/usr/src/protomodel
       - ./meta/comment.rb:/usr/src/meta/comment.rb
       - ./meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
       - ./meta/endpoint.rb:/usr/src/meta/endpoint.rb

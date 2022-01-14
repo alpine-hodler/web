@@ -22,7 +22,7 @@ module Model
       File.open(go_model_filename, 'w') do |f|
         f.write(PKG_DEC)
         f.write(MSG)
-        f.write('import "github.com/alpine-hodler/sdk/protomodel"')
+        f.write('import "github.com/alpine-hodler/sdk/internal/protomodel"')
         f.write(model_comment)
         f.write(model_struct)
       end

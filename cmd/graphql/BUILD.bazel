@@ -9,8 +9,8 @@ go_library(
     importpath = "github.com/alpine-hodler/sdk/cmd/graphql",
     visibility = ["//visibility:public"],
     deps = [
-        "//graph",
-        "//graph/generated",
+        "//internal/graph",
+        "//internal/graph/generated",
         "@com_github_99designs_gqlgen//graphql/handler",
         "@com_github_99designs_gqlgen//graphql/playground",
         "@com_github_sirupsen_logrus//:logrus",

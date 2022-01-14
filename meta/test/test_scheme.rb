@@ -16,17 +16,6 @@ describe Scheme do
   describe 'when parsing json from the filename' do
     it 'must respond with a hash of data' do
       _(@scheme.api).must_equal('test_api')
-
-      _(@scheme.description).must_equal('Lorem ipsum dolor sit amet, ' \
-        'consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ' \
-        'Aenean massa. Cum sociis natoque penatibus et magnis dis parturient ' \
-        'montes, nascetur ridiculus mus')
-
-      _(@scheme.go_comment).must_equal('// Lorem ipsum dolor sit amet, ' \
-        'consectetuer adipiscing elit. Aenean commodo// ligula eget dolor. ' \
-        'Aenean massa. Cum sociis natoque penatibus et magnis dis// ' \
-        'parturient montes, nascetur ridiculus mus')
-
       _(@scheme.go_model_filename).must_equal('test_model.go')
       _(@scheme.go_model_name).must_equal('TestModel')
       _(@scheme.graphql_filename).must_equal('test_model.graphqls')

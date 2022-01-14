@@ -9,7 +9,7 @@ This repo is a work in progress
     * [Install Bazel](https://github.com/alpine-hodler/sdk#install-bazel)
     * [Install docker](https://github.com/alpine-hodler/sdk#install-docker)
     * [Install go](https://go.dev/doc/install)
-  * [Build Bazel](https://github.com/alpine-hodler/sdk#build-bazel)
+  * [Build SDK](https://github.com/alpine-hodler/sdk#build-sdk)
   * Servers (`cmd` package)
     * [Graph](https://github.com/alpine-hodler/sdk#graphql)
   * Software Development Kits
@@ -31,7 +31,9 @@ If you're on macOS, [you can install Bazel via Homebrew](https://docs.bazel.buil
 $ brew install bazel
 ```
 
-## Build Bazel
+## Build SDK
+
+Given the installed dependencies above, just run
 
 ```
 $ ./Makefile
@@ -248,13 +250,7 @@ type MySpecialModel struct {
 
 The file above is generated only once and afterward can be extended to our hearts desire.
 
-### Updating the Schema
-
-To add new endpoints, add a json file to schema/model and run the generate script:
-
-```sh
-python3 generate.py
-```
+### Generate Schema
 
 To re-generate a change to the schema:
 

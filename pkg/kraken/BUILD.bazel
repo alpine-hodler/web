@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "kraken",
+    srcs = [
+        "api.go",
+        "client.go",
+        "endpoint.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/kraken",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//internal/env",
+        "//pkg/model",
+        "@com_github_sirupsen_logrus//:logrus",
+    ],
+)

@@ -41,7 +41,7 @@ module Protomodel
   end
 
   def custom_deserializer(field)
-    return nil unless !field.deserializer.nil? && field.deserializer == "UnmarshalFloatFromString"
+    return nil unless !field.deserializer.nil? && field.deserializer == 'UnmarshalFloatFromString'
 
     "\ndata.UnmarshalFloatFromString(#{unmarshal_fn_signature(field)})"
   end
@@ -119,6 +119,8 @@ module Protomodel
     Dir.chdir(PARENT_DIR + '/protomodel') do
       File.open(go_model_filename, 'w') do |f|
         f.write(PKG_DEC)
+        f.write("\nimport \"github.com/alpine-hodler/sdk/pkg/scalar\";")
+        f.write("\nimport \"github.com/alpine-hodler/sdk/internal/serial\";")
         f.write(MSG)
         f.write(protomodel_comment)
         f.write(protomodel_struct)
