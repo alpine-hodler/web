@@ -35,7 +35,7 @@ $ brew install bazel
 
 https://docs.docker.com/get-docker/
 
-We will primarily use docker for generating go and graphqls files from schema/model files.
+We will primarily use docker for generating go and graphqls files from script/meta/schema files.
 
 ## Make SDK
 
