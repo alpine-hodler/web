@@ -28,6 +28,7 @@ const (
 	FeesEndpoint
 	FillsEndpoint
 	NewOrderEndpoint
+	OrderEndpoint
 	OrdersEndpoint
 	PaymentMethodDepositEndpoint
 	PaymentMethodEndpoint
@@ -193,6 +194,11 @@ func OrdersPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
+// Get a single order by id.
+func OrderPath(args client.EndpointArgs) string {
+	return path.Join("/orders", *args["order_id"].PathParam)
+}
+
 // Gets a list of the user's linked payment methods.
 func PaymentMethodPath(args client.EndpointArgs) string {
 	return path.Join("/payment-methods")
@@ -276,6 +282,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		FillsEndpoint:                   FillsPath,
 		NewOrderEndpoint:                NewOrderPath,
 		OrdersEndpoint:                  OrdersPath,
+		OrderEndpoint:                   OrderPath,
 		PaymentMethodEndpoint:           PaymentMethodPath,
 		ProductEndpoint:                 ProductPath,
 		WalletsEndpoint:                 WalletsPath,

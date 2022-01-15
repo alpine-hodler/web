@@ -523,6 +523,11 @@ func (coinbaseClient *C) Orders(opts *model.CoinbaseOrdersOptions) (m []*model.C
 		Fetch().Assign(&m).JoinMessages()
 }
 
+func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err error) {
+	req := coinbaseClient.Get(OrderEndpoint)
+	return m, req.PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
+}
+
 // Transfers gets a list of in-progress and completed transfers of funds in/out of any
 // of the user's accounts.
 //

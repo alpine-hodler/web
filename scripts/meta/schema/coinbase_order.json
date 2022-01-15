@@ -51,6 +51,11 @@
 				}
 			],
 			"description": "List your current open orders. Only open or un-settled orders are returned by default. As soon as an order is no longer open and settled, it will no longer appear in the default request. Open orders may change state between the request and the response depending on market conditions."
+		},
+		{
+			"path": "/orders/{order_id}",
+			"enumRoot": "Order",
+			"description": "Get a single order by id."
 		}
 	],
 	"modelFields": [

@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "websocket_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/alpine-hodler/sdk/examples/coinbase/websocket",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//pkg/coinbase",
+        "//pkg/websocket",
+    ],
+)
+
+go_binary(
+    name = "websocket",
+    embed = [":websocket_lib"],
+    visibility = ["//visibility:public"],
+)

@@ -94,6 +94,10 @@ func (r *queryResolver) CoinbaseOrders(ctx context.Context, opts *model.Coinbase
 	return coinbase.NewClient(coinbase.DefaultConnector).Orders(opts)
 }
 
+func (r *queryResolver) CoinbaseOrder(ctx context.Context, orderID string) (*model.CoinbaseOrder, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).Order(orderID)
+}
+
 func (r *queryResolver) CoinbasePaymentMethods(ctx context.Context) ([]*model.CoinbasePaymentMethod, error) {
 	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethods()
 }
