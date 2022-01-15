@@ -110,8 +110,10 @@ func (req *Request) Fetch() *Assigner {
 
 	// Validate the response, ensuring that there are no error codes or suspicious
 	// messages
-	req.errors.add(req.validateResponse(res))
-	assigner.body = res.Body
+	if res != nil {
+		req.errors.add(req.validateResponse(res))
+		assigner.body = res.Body
+	}
 
 	return assigner
 }

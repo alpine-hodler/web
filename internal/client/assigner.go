@@ -36,7 +36,11 @@ func (assigner *Assigner) runAssignmentCallback(v interface{}) {
 
 // Assign will assign the response body of an http request the interface v
 func (assigner *Assigner) Assign(v interface{}) *Errors {
-	defer assigner.body.Close()
+	defer func() {
+		if body := assigner.body; body != nil {
+			body.Close()
+		}
+	}()
 	assigner.decode(v)
 	assigner.runAssignmentCallback(v)
 	return assigner.errors

@@ -47,6 +47,7 @@ func newCoinbaseClientEnv() *C {
 	c.passphrase = env.CoinbaseProAccessPassphrase.Get()
 	c.secret = env.CoinbaseProSecret.Get()
 	c.url = env.CoinbaseProURL.Get()
+	fmt.Printf("%+v\n", c)
 	return c
 }
 
