@@ -9,7 +9,7 @@ This repo is a work in progress
 To use this package install the sdk that you want using `go get` or `go install`.  For example:
 
 ```
-go get github.com/alpine-hodlr/sdk/coinbase
+go get github.com/alpine-hodlr/sdk/pkg/coinbase
 ```
 
 See the examples directory for examples on how to impliment the SDK.
