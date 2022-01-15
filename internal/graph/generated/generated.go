@@ -8,6 +8,7 @@ import (
 	"errors"
 	"strconv"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -624,6 +625,7 @@ type ComplexityRoot struct {
 		CoinbaseTransfers             func(childComplexity int) int
 		CoinbaseWallets               func(childComplexity int) int
 		CoinbaseWithdrawalFeeEstimate func(childComplexity int, opts *model.CoinbaseWithdrawalFeeEstimateOptions) int
+		CoinbseCancelOrder            func(childComplexity int, orderID string) int
 		IexRules                      func(childComplexity int, value string) int
 		IexRulesSchema                func(childComplexity int) int
 		KrakenServerTime              func(childComplexity int) int
@@ -649,6 +651,7 @@ type QueryResolver interface {
 	CoinbaseAccountHolds(ctx context.Context, accountID string, opts *model.CoinbaseAccountHoldsOptions) ([]*model.CoinbaseAccountHold, error)
 	CoinbaseAccountLedger(ctx context.Context, accountID string, opts *model.CoinbaseAccountLedgerOptions) ([]*model.CoinbaseAccountLedger, error)
 	CoinbaseAccountTransfers(ctx context.Context, accountID string, opts *model.CoinbaseAccountTransferOptions) ([]*model.CoinbaseAccountTransfer, error)
+	CoinbseCancelOrder(ctx context.Context, orderID string) (string, error)
 	CoinbaseCurrencies(ctx context.Context) ([]*model.CoinbaseCurrency, error)
 	CoinbaseCurrencyConversion(ctx context.Context, conversionID string, opts *model.CoinbaseConversionOptions) (*model.CoinbaseCurrencyConversion, error)
 	CoinbaseCurrency(ctx context.Context, currentID string) (*model.CoinbaseCurrency, error)
@@ -3765,6 +3768,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.CoinbaseWithdrawalFeeEstimate(childComplexity, args["opts"].(*model.CoinbaseWithdrawalFeeEstimateOptions)), true
 
+	case "Query.coinbseCancelOrder":
+		if e.complexity.Query.CoinbseCancelOrder == nil {
+			break
+		}
+
+		args, err := ec.field_Query_coinbseCancelOrder_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.CoinbseCancelOrder(childComplexity, args["orderId"].(string)), true
+
 	case "Query.iexRules":
 		if e.complexity.Query.IexRules == nil {
 			break
@@ -4827,6 +4842,7 @@ type Query {
     accountId: String!
     opts: CoinbaseAccountTransferOptions
   ): [CoinbaseAccountTransfer]
+	coinbseCancelOrder(orderId: String!): String!
   coinbaseCurrencies: [CoinbaseCurrency]
   coinbaseCurrencyConversion(
     conversionId: String!
@@ -4850,6 +4866,7 @@ type Query {
   krakenSystemStatus: KrakenSystemStatus
 	OpenseaAssets(opts: OpenseaAssetsOptions): OpenseaAssets
 }
+
 type Mutation {
   coinbaseAccountDeposit(opts: CoinbaseAccountDepositOptions): CoinbaseDeposit
 	coinbaseCancelAllOrders(opts: CoinbaseOrdersOptions): [String]
@@ -5242,6 +5259,21 @@ func (ec *executionContext) field_Query_coinbaseWithdrawalFeeEstimate_args(ctx c
 		}
 	}
 	args["opts"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_coinbseCancelOrder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["orderId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("orderId"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["orderId"] = arg0
 	return args, nil
 }
 
@@ -18637,6 +18669,48 @@ func (ec *executionContext) _Query_coinbaseAccountTransfers(ctx context.Context,
 	return ec.marshalOCoinbaseAccountTransfer2ᚕᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountTransfer(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Query_coinbseCancelOrder(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_coinbseCancelOrder_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().CoinbseCancelOrder(rctx, args["orderId"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Query_coinbaseCurrencies(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -23456,6 +23530,20 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_coinbaseAccountTransfers(ctx, field)
+				return res
+			})
+		case "coinbseCancelOrder":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_coinbseCancelOrder(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
 				return res
 			})
 		case "coinbaseCurrencies":

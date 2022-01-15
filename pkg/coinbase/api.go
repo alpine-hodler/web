@@ -184,6 +184,11 @@ func (coinbaseClient *C) CancelOpenOrders(opts *model.CoinbaseOrdersOptions) (m 
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// CancelOrder will cancel a single open order by {id}.
+func (coinbaseClient *C) CancelOrder(orderID string) (str string, err error) {
+	return str, coinbaseClient.Delete(OrderEndpoint).Fetch().Assign(&str).JoinMessages()
+}
+
 // CreateOrder will create an order. You can place two types of orders: limit
 func (coinbaseClient *C) CreateOrder(opts *model.CoinbaseNewOrderOptions) (m *model.CoinbaseNewOrder, err error) {
 	return m, coinbaseClient.Post(NewOrderEndpoint).

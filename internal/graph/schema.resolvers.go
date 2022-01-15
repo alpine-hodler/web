@@ -70,6 +70,10 @@ func (r *queryResolver) CoinbaseAccountTransfers(ctx context.Context, accountID 
 	return coinbase.NewClient(coinbase.DefaultConnector).AccountTransfers(accountID, opts)
 }
 
+func (r *queryResolver) CoinbseCancelOrder(ctx context.Context, orderID string) (string, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).CancelOrder(orderID)
+}
+
 func (r *queryResolver) CoinbaseCurrencies(ctx context.Context) ([]*model.CoinbaseCurrency, error) {
 	return coinbase.NewClient(coinbase.DefaultConnector).Currencies()
 }

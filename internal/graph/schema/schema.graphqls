@@ -17,6 +17,7 @@ type Query {
     accountId: String!
     opts: CoinbaseAccountTransferOptions
   ): [CoinbaseAccountTransfer]
+	coinbseCancelOrder(orderId: String!): String!
   coinbaseCurrencies: [CoinbaseCurrency]
   coinbaseCurrencyConversion(
     conversionId: String!
