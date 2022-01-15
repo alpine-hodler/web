@@ -87,11 +87,7 @@ func Open() {
 
 ### Connecting
 
-To use nealy any of the coinbase accessors, you first need to establish a valid connection to coinbase pro using your auth credentials.  There are curretly two ways of doing this:
-
-#### .env File
-
-You can create a .env file anywhere on your system and import the env variables into go to create a valid connection
+To use nealy any of the coinbase accessors, you first need to establish a valid connection to coinbase pro using your auth credentials through a .env file.  You can create a .env file anywhere on your system and import the env variables into go to create a valid connection
 
 ```sh
 CB_PRO_URL=
