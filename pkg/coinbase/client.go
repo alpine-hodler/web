@@ -137,7 +137,6 @@ func (coinbaseClient *C) Identifier() string {
 // variables.  See README for more information on how to set these up.
 func DefaultConnector() (client.C, error) {
 	c := newCoinbaseClientEnv()
-	fmt.Printf("%+v\n", c)
 	return c, nil
 }
 
@@ -145,6 +144,13 @@ func DefaultConnector() (client.C, error) {
 func NewClient(conn client.Connector) *C {
 	coinbaseClient := new(C)
 	client.ConstructParent(&coinbaseClient.Parent, conn)
+	return coinbaseClient
+}
+
+func NewClientEnv(envFilepath string) *C {
+	env.Load(envFilepath)
+	coinbaseClient := new(C)
+	client.ConstructParent(&coinbaseClient.Parent, DefaultConnector)
 	return coinbaseClient
 }
 
