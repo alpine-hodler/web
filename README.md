@@ -47,7 +47,13 @@ $ ./Makefile
 
 ## Coinbase
 
-`coinbase` is a package meant to be used as an SDK for creating a third-party connection in your code base to read and write information to coinbase pro using auth credentials.  For example:
+`coinbase` is a package meant to be used as an SDK for creating a third-party connection in your code base to read and write information to coinbase pro using auth credentials.  To install run 
+
+```
+go get github.com/alpine-hodler/sdk/pkg/coinbase
+```
+
+The usage is pretty straight-forward:
 
 ```go
 func CreateOrder() {
@@ -87,11 +93,7 @@ func Open() {
 
 ### Connecting
 
-To use nealy any of the coinbase accessors, you first need to establish a valid connection to coinbase pro using your auth credentials.  There are curretly two ways of doing this:
-
-#### .env File
-
-You can create a .env file anywhere on your system and import the env variables into go to create a valid connection
+To use nealy any of the coinbase accessors, you first need to establish a valid connection to coinbase pro using your auth credentials through a .env file.  You can create a .env file anywhere on your system and import the env variables into go to create a valid connection
 
 ```sh
 CB_PRO_URL=
