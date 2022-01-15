@@ -50,7 +50,7 @@ $ ./Makefile
 `coinbase` is a package meant to be used as an SDK for creating a third-party connection in your code base to read and write information to coinbase pro using auth credentials.  To install run 
 
 ```
-go install github.com/alpine-hodler/sdk/pkg/coinbase
+go get github.com/alpine-hodler/sdk/pkg/coinbase
 ```
 
 The usage is pretty straight-forward:
