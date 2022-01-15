@@ -10,8 +10,6 @@ import (
 )
 
 // Accounts lists all trading accounts from the profile of the API key.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts
 func (coinbaseClient *C) Accounts() (m []*model.CoinbaseAccount, err error) {
 	req := coinbaseClient.Get(AccountsEndpoint)
 	return m, req.Fetch().Assign(&m).JoinMessages()
@@ -20,11 +18,6 @@ func (coinbaseClient *C) Accounts() (m []*model.CoinbaseAccount, err error) {
 // AccountHolds returns a list of holds of an account that belong to the same
 // profile as the API key. Holds are placed for any active orders or pending
 // withdraw requests. As an order is filled, the hold amount is updated.
-//
-// If an order is canceled, any remaining hold is removed. For a withdraw, once
-// it is completed, the hold is removed.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountholds
 func (coinbaseClient *C) AccountHolds(accountId string, opts *model.CoinbaseAccountHoldsOptions) (m []*model.CoinbaseAccountHold, err error) {
 	return m, coinbaseClient.Get(AccountHoldsEndpoint).
 		PathParam("account_id", accountId).
@@ -51,8 +44,6 @@ func (coinbaseClient *C) AccountHolds(accountId string, opts *model.CoinbaseAcco
 
 // AccountLedger lists ledger activity for an account. This includes anything
 // that would affect the accounts balance - transfers, trades, fees, etc
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountledger
 func (coinbaseClient *C) AccountLedger(accountId string, opts *model.CoinbaseAccountLedgerOptions) (m []*model.CoinbaseAccountLedger, err error) {
 	return m, coinbaseClient.Get(AccountLedgerEndpoint).
 		PathParam("account_id", accountId).
@@ -96,8 +87,6 @@ func (coinbaseClient *C) AccountLedger(accountId string, opts *model.CoinbaseAcc
 }
 
 // AccountTransfers lists past withdrawals and deposits for an account.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers
 func (coinbaseClient *C) AccountTransfers(accountId string, opts *model.CoinbaseAccountTransferOptions) (m []*model.CoinbaseAccountTransfer, err error) {
 	return m, coinbaseClient.Get(AccountTransfersEndpoint).
 		PathParam("account_id", accountId).
@@ -136,14 +125,6 @@ func (coinbaseClient *C) AccountTransfers(accountId string, opts *model.Coinbase
 
 // AccountWithdrawal Withdraws funds from the specified profile_id to a
 // www.coinbase.com wallet.
-//
-// Withdraw funds to a coinbase account. You can move funds between your
-// Coinbase accounts and your Coinbase Exchange trading accounts within your
-// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant
-// and free. See the Coinbase Accounts section for retrieving your Coinbase
-// accounts.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
 func (coinbaseClient *C) AccountWithdrawal(opts *model.CoinbaseAccountWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -155,12 +136,7 @@ func (coinbaseClient *C) AccountWithdrawal(opts *model.CoinbaseAccountWithdrawal
 }
 
 // CryptoWithdrawal withdraws funds from the specified profile_id to an external
-//crypto address
-//
-// This endpoint requires the "transfer" permission. API key must belong to
-// default profile.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcrypto
+// crypto address
 func (coinbaseClient *C) CryptoWithdrawal(opts *model.CoinbaseCryptoWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(CryptoWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -176,18 +152,8 @@ func (coinbaseClient *C) CryptoWithdrawal(opts *model.CoinbaseCryptoWithdrawalOp
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// MakeCoinbaseAccountDeposit will deposit funds from a www.coinbase.com wallet
-// to the specified profile_id.
-//
-// Deposit funds from a coinbase account. You can move funds between your
-// Coinbase accounts and your Coinbase Exchange trading accounts within your
-// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant
-// and free. See the Coinbase Accounts section for retrieving your Coinbase
-// accounts.
-//
-// This endpoint requires the "transfer" permission.
-//
-// * source https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount
+// CoinbaseAccountDeposit will deposit funds from a www.coinbase.com wallet to
+// the specified profile_id.
 func (coinbaseClient *C) CoinbaseAccountDeposit(opts *model.CoinbaseAccountDepositOptions) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(AccountDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -201,8 +167,6 @@ func (coinbaseClient *C) CoinbaseAccountDeposit(opts *model.CoinbaseAccountDepos
 // CanceCancelOpenOrderslAll will with best effort, cancel all open orders. This
 // may require you to make the request multiple times until all of the open
 // orders are deleted.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorders
 func (coinbaseClient *C) CancelOpenOrders(opts *model.CoinbaseOrdersOptions) (m []*string, err error) {
 	return m, coinbaseClient.Delete(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
@@ -221,8 +185,6 @@ func (coinbaseClient *C) CancelOpenOrders(opts *model.CoinbaseOrdersOptions) (m 
 }
 
 // CreateOrder will create an order. You can place two types of orders: limit
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postorders
 func (coinbaseClient *C) CreateOrder(opts *model.CoinbaseNewOrderOptions) (m *model.CoinbaseNewOrder, err error) {
 	return m, coinbaseClient.Post(NewOrderEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -245,8 +207,6 @@ func (coinbaseClient *C) CreateOrder(opts *model.CoinbaseNewOrderOptions) (m *mo
 
 // Convert converts funds from from currency to to currency. Funds are
 // converted on the from account in the profile_id profile.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postconversion
 func (coinbaseClient *C) Convert(opts model.CoinbaseConversionsOptions) (m *model.CoinbaseCurrencyConversion, err error) {
 	return m, coinbaseClient.Post(ConversionsEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -275,8 +235,6 @@ func (coinbaseClient *C) Currencies() (m []*model.CoinbaseCurrency, err error) {
 
 // FindAccount returns information for a single account. Use this endpoint when you
 // know the account_id. API key must belong to the same profile as the account.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccount
 func (coinbaseClient *C) FindAccount(accountId string) (m *model.CoinbaseAccount, err error) {
 	req := coinbaseClient.Get(AccountEndpoint)
 	return m, req.PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
@@ -284,16 +242,12 @@ func (coinbaseClient *C) FindAccount(accountId string) (m *model.CoinbaseAccount
 
 // GenerateCryptoAddress will generates a one-time crypto address for depositing
 // crypto.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postcoinbaseaccountaddresses
 func (coinbaseClient *C) GenerateCryptoAddress(walletId string) (m *model.CoinbaseCryptoAddress, err error) {
 	req := coinbaseClient.Post(AddressesEndpoint)
 	return m, req.PathParam("account_id", walletId).Fetch().Assign(&m).JoinMessages()
 }
 
 // Fees will get fees rates and 30 days trailing volume.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees
 func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
 	req := coinbaseClient.Get(FeesEndpoint)
 	return m, req.Fetch().Assign(&m).JoinMessages()
@@ -319,7 +273,6 @@ func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
 // the smallest trade_id. The CB-BEFORE header will have this first trade id so
 // that future requests using the cb-before parameter will fetch fills with a
 // greater trade id (newer fills).
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfills
 func (coinbaseClient *C) Fills(opts *model.CoinbaseFillsOptions) (m []*model.CoinbaseFill, err error) {
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("order_id", func() (i *string) {
@@ -365,8 +318,6 @@ func (coinbaseClient *C) Fills(opts *model.CoinbaseFillsOptions) (m []*model.Coi
 }
 
 // FindConversion gets currency conversion by id (i.e. USD -> USDC).
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getconversion
 func (coinbaseClient *C) FindConversion(conversionId string, opts *model.CoinbaseConversionOptions) (m *model.CoinbaseCurrencyConversion, err error) {
 	return m, coinbaseClient.Get(ConversionEndpoint).
 		PathParam("conversion_id", conversionId).
@@ -379,21 +330,13 @@ func (coinbaseClient *C) FindConversion(conversionId string, opts *model.Coinbas
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// Find gets a single currency by id.
-//
-// Currency codes will conform to the ISO 4217 standard where possible.
-// Currencies which have or had no representation in ISO 4217 may use a custom
-// code.
+// FindCurrency gets a single currency by id.
 func (coinbaseClient *C) FindCurrency(currencyId string) (m *model.CoinbaseCurrency, err error) {
 	req := coinbaseClient.Get(CurrencyEndpoint)
 	return m, req.PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
 }
 
 // FindTransfer get information on a single coinbaseClient.
-//
-// This endpoint requires either the "view" or "trade" permission.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers
 func (coinbaseClient *C) FindTransfer(id string) (m *model.CoinbaseAccountTransfer, err error) {
 	req := coinbaseClient.Get(TransferEndpoint)
 	return m, req.PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
@@ -401,14 +344,6 @@ func (coinbaseClient *C) FindTransfer(id string) (m *model.CoinbaseAccountTransf
 
 // MakePaymentMethodDeposit will deposits funds from a linked external payment
 // method to the specified profile_id.
-//
-// Deposit funds from a payment method. See the Payment Methods section for
-// retrieving your payment methods.
-//
-// This endpoint requires the "transfer" permission. API key must belong to
-// default profile.
-//
-// * source https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositpaymentmethod
 func (coinbaseClient *C) PaymentMethodDeposit(opts *model.CoinbasePaymentMethodDepositOptions) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(PaymentMethodDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -420,8 +355,6 @@ func (coinbaseClient *C) PaymentMethodDeposit(opts *model.CoinbasePaymentMethodD
 }
 
 // PaymentMethods gets a list of the user's linked payment methods
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getpaymentmethods
 func (coinbaseClient *C) PaymentMethods() (m []*model.CoinbasePaymentMethod, err error) {
 	req := coinbaseClient.Get(PaymentMethodEndpoint)
 	return m, req.Fetch().Assign(&m).JoinMessages()
@@ -429,11 +362,6 @@ func (coinbaseClient *C) PaymentMethods() (m []*model.CoinbasePaymentMethod, err
 
 // PaymentMethodWithdrawal ithdraws funds from the specified profile_id to a
 // linked external payment method
-//
-// This endpoint requires the "transfer" permission. API key is restricted to
-// the default profile.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
 func (coinbaseClient *C) PaymentMethodWithdrawal(opts *model.CoinbasePaymentMethodWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(PaymentMethodWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
@@ -448,8 +376,6 @@ func (coinbaseClient *C) PaymentMethodWithdrawal(opts *model.CoinbasePaymentMeth
 // returned by default. As soon as an order is no longer open and settled, it
 // will no longer appear in the default request. Open orders may change state
 // between the request and the response depending on market conditions.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorders
 func (coinbaseClient *C) Orders(opts *model.CoinbaseOrdersOptions) (m []*model.CoinbaseOrder, err error) {
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("profile_id", func() (i *string) {
@@ -523,6 +449,7 @@ func (coinbaseClient *C) Orders(opts *model.CoinbaseOrdersOptions) (m []*model.C
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// Order will get a single order by order id.
 func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err error) {
 	req := coinbaseClient.Get(OrderEndpoint)
 	return m, req.PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
@@ -530,18 +457,12 @@ func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err erro
 
 // Transfers gets a list of in-progress and completed transfers of funds in/out of any
 // of the user's accounts.
-//
-// This endpoint requires either the "view" or "trade" permission.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers
 func (coinbaseClient *C) Transfers() (m []*model.CoinbaseAccountTransfer, err error) {
 	return m, coinbaseClient.Get(TransfersEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
-// All lists all the user's available Coinbase wallets (These are the
+// Wallets lists all the user's available Coinbase wallets (These are the
 // wallets/accounts that are used for buying and selling on www.coinbase.com)
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbaseaccounts
 func (coinbaseClient *C) Wallets() (m []*model.CoinbaseWallet, err error) {
 	req := coinbaseClient.Get(WalletsEndpoint)
 	return m, req.Fetch().Assign(&m).JoinMessages()
@@ -549,11 +470,6 @@ func (coinbaseClient *C) Wallets() (m []*model.CoinbaseWallet, err error) {
 
 // WithdrawalFeeEstimate gets the fee estimate for the crypto withdrawal to
 // crypto address
-//
-// This endpoint requires the "transfer" permission. API key must belong to
-// default profile.
-//
-// * source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getwithdrawfeeestimate
 func (coinbaseClient *C) WithdrawalFeeEstimate(opts *model.CoinbaseWithdrawalFeeEstimateOptions) (m *model.CoinbaseWithdrawalFeeEstimate, err error) {
 	return m, coinbaseClient.Get(WithdrawalFeeEstimateEndpoint).
 		QueryParam("currency", func() (i *string) {
