@@ -16,4 +16,4 @@ See the examples directory for examples on how to impliment the SDK.
 
 ## Development
 
-See the docs on how to develop locally.
+See [here](https://github.com/alpine-hodler/sdk/blob/main/docs/development.md#development) for local development.
