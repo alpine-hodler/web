@@ -69,15 +69,19 @@ func parseErrorMessage(res *http.Response, status int) error {
 
 // validateResponse is a switch condition that parses an error response
 func (req *Request) validateResponse(res *http.Response) (err error) {
-	switch res.StatusCode {
-	case http.StatusBadRequest:
-		err = parseErrorMessage(res, http.StatusBadRequest)
-	case http.StatusUnauthorized:
-		err = parseErrorMessage(res, http.StatusUnauthorized)
-	case http.StatusInternalServerError:
-		err = parseErrorMessage(res, http.StatusInternalServerError)
-	case http.StatusNotFound:
-		err = parseErrorMessage(res, http.StatusNotFound)
+	if res == nil {
+		err = fmt.Errorf("no response, check request and env file")
+	} else {
+		switch res.StatusCode {
+		case http.StatusBadRequest:
+			err = parseErrorMessage(res, http.StatusBadRequest)
+		case http.StatusUnauthorized:
+			err = parseErrorMessage(res, http.StatusUnauthorized)
+		case http.StatusInternalServerError:
+			err = parseErrorMessage(res, http.StatusInternalServerError)
+		case http.StatusNotFound:
+			err = parseErrorMessage(res, http.StatusNotFound)
+		}
 	}
 	if err != nil {
 		logrus.Warn(Logf(req, err.Error()))
