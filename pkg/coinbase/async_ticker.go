@@ -15,7 +15,7 @@ type TickerChannel chan model.CoinbaseWebsocketTicker
 type AsyncTicker struct {
 	Errors *errgroup.Group
 
-	channel         TickerChannel
+	channel         *TickerChannel
 	closed, closing chan struct{}
 	conn            websocket.Connector
 
@@ -63,7 +63,7 @@ func newAsyncTicker(conn websocket.Connector, products ...string) *AsyncTicker {
 // terminated.
 func streamAsyncTickerData(ticker *AsyncTicker) error {
 	defer func(ticker *AsyncTicker) {
-		close(ticker.channel)
+		close(*ticker.channel)
 	}(ticker)
 	for {
 		var row model.CoinbaseWebsocketTicker
@@ -73,7 +73,7 @@ func streamAsyncTickerData(ticker *AsyncTicker) error {
 		select {
 		case <-ticker.closing:
 			return nil
-		case ticker.channel <- row:
+		case *ticker.channel <- row:
 		}
 	}
 }
@@ -87,7 +87,8 @@ func (ticker *AsyncTicker) worker() error {
 		ticker.iteration++
 
 		// Make channels for the process
-		ticker.channel = make(TickerChannel)
+		tmp := make(TickerChannel)
+		ticker.channel = &tmp
 		ticker.closed = make(chan struct{})
 
 		// Start the stream for async ticker data
@@ -114,7 +115,10 @@ func (ticker *AsyncTicker) Open() *AsyncTicker {
 
 // Channel returns the ticker channel for streaming
 func (ticker *AsyncTicker) Channel() TickerChannel {
-	return ticker.channel
+	if ch := ticker.channel; ch != nil {
+		return *ticker.channel
+	}
+	return ticker.Channel()
 }
 
 // Close unsubscribes the message from the websocket and closes the channel.

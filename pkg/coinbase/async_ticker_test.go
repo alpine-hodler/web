@@ -43,7 +43,7 @@ func TestAsyncTickerStream(t *testing.T) {
 				ticker.Open()
 				go func() {
 					tickers := []model.CoinbaseWebsocketTicker{}
-					for ticker := range ticker.channel {
+					for ticker := range *ticker.channel {
 						tickers = append(tickers, ticker)
 					}
 				}()
@@ -57,7 +57,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker.Open()
 			go func() {
 				tickers := []model.CoinbaseWebsocketTicker{}
-				for ticker := range ticker.channel {
+				for ticker := range *ticker.channel {
 					tickers = append(tickers, ticker)
 				}
 			}()
@@ -82,7 +82,7 @@ func TestAsyncTickerStream(t *testing.T) {
 				ticker.Open()
 				go func() {
 					tickers := []model.CoinbaseWebsocketTicker{}
-					for ticker := range ticker.channel {
+					for ticker := range *ticker.channel {
 						tickers = append(tickers, ticker)
 					}
 				}()
@@ -96,7 +96,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker.Open()
 			go func() {
 				tickers := []model.CoinbaseWebsocketTicker{}
-				for ticker := range ticker.channel {
+				for ticker := range *ticker.channel {
 					tickers = append(tickers, ticker)
 				}
 			}()
@@ -104,7 +104,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker.Open()
 			go func() {
 				tickers := []model.CoinbaseWebsocketTicker{}
-				for ticker := range ticker.channel {
+				for ticker := range *ticker.channel {
 					tickers = append(tickers, ticker)
 				}
 			}()
@@ -123,7 +123,7 @@ func TestAsyncTickerStream(t *testing.T) {
 				}
 				go func() {
 					tickers := []model.CoinbaseWebsocketTicker{}
-					for ticker := range ticker.channel {
+					for ticker := range *ticker.channel {
 						tickers = append(tickers, ticker)
 					}
 				}()
