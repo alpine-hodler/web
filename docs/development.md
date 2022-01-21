@@ -60,6 +60,16 @@ fmt.Printf("%+v\n", accounts)
 
 ## Running GraphQL Server
 
+### Using Docker
+
+You can start the graphql server on the 8080 port by running
+
+```
+docker-compose -f "graphql.docker-compose.yaml" up -d --build
+```
+
+### Directly
+
 To start the graphql server go to the `cmd/graphql` directory and generate the graphql binary with go build. You'll also need to make sure the proper auth data is in some /path/to/auth/.env, see coinbase section for example. Then run
 
 ```

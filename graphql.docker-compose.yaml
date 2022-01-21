@@ -1,0 +1,10 @@
+version: '3'
+services:
+  graphql:
+    build:
+      context: .
+      dockerfile: graphql.Dockerfile
+    env_file:
+      - .auth.env
+    ports:
+      - 8080:8080
