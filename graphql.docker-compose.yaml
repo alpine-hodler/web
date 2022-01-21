@@ -4,7 +4,8 @@ services:
     build:
       context: .
       dockerfile: graphql.Dockerfile
-    env_file:
-      - .auth.env
+    environment:
+      - AUTH_FILE=.auth.env
+      - PORT=8080
     ports:
       - 8080:8080

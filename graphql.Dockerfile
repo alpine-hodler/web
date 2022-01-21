@@ -13,6 +13,6 @@ RUN go build
 
 WORKDIR /app
 
-EXPOSE 8080
+EXPOSE $PORT
 
-CMD ["./cmd/graphql/graphql", "start", "--port=8080", "--env=.auth.env"]
+CMD ./cmd/graphql/graphql start --port=$PORT --env=$AUTH_FILE
