@@ -460,6 +460,12 @@ func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err erro
 	return m, req.PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
 }
 
+// Accounts lists all trading accounts from the profile of the API key.
+func (coinbaseClient *C) ProductTicker(productID string) (m *model.CoinbaseProductTicker, err error) {
+	req := coinbaseClient.Get(ProductTickerEndpoint)
+	return m, req.PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
+}
+
 // Transfers gets a list of in-progress and completed transfers of funds in/out of any
 // of the user's accounts.
 func (coinbaseClient *C) Transfers() (m []*model.CoinbaseAccountTransfer, err error) {

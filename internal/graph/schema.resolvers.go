@@ -106,6 +106,10 @@ func (r *queryResolver) CoinbasePaymentMethods(ctx context.Context) ([]*model.Co
 	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethods()
 }
 
+func (r *queryResolver) CoinbaseProductTicker(ctx context.Context, productID string) (*model.CoinbaseProductTicker, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).ProductTicker(productID)
+}
+
 func (r *queryResolver) CoinbaseTransfers(ctx context.Context) ([]*model.CoinbaseAccountTransfer, error) {
 	return coinbase.NewClient(coinbase.DefaultConnector).Transfers()
 }

@@ -28,6 +28,7 @@ go_library(
         "coinbase_order.go",
         "coinbase_payment_method.go",
         "coinbase_picker_data.go",
+        "coinbase_product_ticker.go",
         "coinbase_recurring_options.go",
         "coinbase_sepa_deposit_information.go",
         "coinbase_single_product.go",

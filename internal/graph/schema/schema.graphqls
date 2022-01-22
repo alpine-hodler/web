@@ -29,6 +29,7 @@ type Query {
 	coinbaseOrders(opts: CoinbaseOrdersOptions): [CoinbaseOrder]
 	coinbaseOrder(orderId: String!): CoinbaseOrder
   coinbasePaymentMethods: [CoinbasePaymentMethod]
+	coinbaseProductTicker(productID: String!): CoinbaseProductTicker
   coinbaseTransfers: [CoinbaseAccountTransfer]
   coinbaseTransfer(transferId: String!): CoinbaseAccountTransfer
   coinbaseWallets: [CoinbaseWallet]

@@ -155,6 +155,10 @@ models:
     model: github.com/alpine-hodler/sdk/pkg/model.OpenseaDisplayData
   OpenseaAssets:
     model: github.com/alpine-hodler/sdk/pkg/model.OpenseaAssets
+  CoinbaseProduct:
+    model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProduct
+  CoinbaseProductTicker:
+    model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProductTicker
 resolver:
   dir: internal/graph
   layout: follow-schema

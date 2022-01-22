@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// initialize the client connection
-	client := coinbase.NewClientEnv("/path/to/.env")
+	client := coinbase.NewClientEnv(".env")
 
 	// then use it for something
 	accounts, err := client.Accounts()
