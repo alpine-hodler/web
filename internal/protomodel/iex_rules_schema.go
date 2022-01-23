@@ -11,7 +11,7 @@ import (
 // IexRulesSchema is the latest schema for data points, notification types, and
 // operators used to construct rules.
 type IexRulesSchema struct {
-	ProtoSchema []*IexRulesScheme `json:"schema"`
+	ProtoSchema []*IexRulesScheme `json:"schema" bson:"schema"`
 }
 
 // UnmarshalJSON will deserialize bytes into a IexRulesSchema model

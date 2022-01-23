@@ -7,9 +7,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseLimits references a FIAT account thata CoinbasePaymentMethod belongs
 // to
 type CoinbaseFiatAccount struct {
-	Id           string `json:"id"`
-	Resource     string `json:"resource"`
-	ResourcePath string `json:"resource_path"`
+	Id           string `json:"id" bson:"id"`
+	Resource     string `json:"resource" bson:"resource"`
+	ResourcePath string `json:"resource_path" bson:"resource_path"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseFiatAccount model

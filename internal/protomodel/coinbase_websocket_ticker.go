@@ -12,16 +12,16 @@ import (
 // happens. It batches updates in case of cascading matches, greatly reducing
 // bandwidth requirements.
 type CoinbaseWebsocketTicker struct {
-	BestAsk   float64   `json:"best_ask"`
-	BestBid   float64   `json:"best_bid"`
-	LastSize  float64   `json:"last_size"`
-	Price     float64   `json:"price"`
-	ProductId string    `json:"product_id"`
-	Sequence  int       `json:"sequence"`
-	Side      string    `json:"side"`
-	Time      time.Time `json:"time"`
-	TradeId   int       `json:"trade_id"`
-	Type      string    `json:"type"`
+	BestAsk   float64   `json:"best_ask" bson:"best_ask"`
+	BestBid   float64   `json:"best_bid" bson:"best_bid"`
+	LastSize  float64   `json:"last_size" bson:"last_size"`
+	Price     float64   `json:"price" bson:"price"`
+	ProductId string    `json:"product_id" bson:"product_id"`
+	Sequence  int       `json:"sequence" bson:"sequence"`
+	Side      string    `json:"side" bson:"side"`
+	Time      time.Time `json:"time" bson:"time"`
+	TradeId   int       `json:"trade_id" bson:"trade_id"`
+	Type      string    `json:"type" bson:"type"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseWebsocketTicker model

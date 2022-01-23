@@ -7,8 +7,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // KrakenSystemStatus holds data concerning the current system status or trading
 // mode.
 type KrakenSystemStatus struct {
-	Error       []string                 `json:"error"`
-	ProtoResult KrakenSystemStatusResult `json:"result"`
+	Error       []string                 `json:"error" bson:"error"`
+	ProtoResult KrakenSystemStatusResult `json:"result" bson:"result"`
 }
 
 // UnmarshalJSON will deserialize bytes into a KrakenSystemStatus model

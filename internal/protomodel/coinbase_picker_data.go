@@ -6,23 +6,23 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbasePickerData ??
 type CoinbasePickerData struct {
-	AccountName           string          `json:"account_name"`
-	AccountNumber         string          `json:"account_number"`
-	AccountType           string          `json:"account_type"`
-	BankName              string          `json:"bank_name"`
-	BranchName            string          `json:"branch_name"`
-	CustomerName          string          `json:"customer_name"`
-	Iban                  string          `json:"iban"`
-	IconUrl               string          `json:"icon_url"`
-	InstitutionCode       string          `json:"institution_code"`
-	InstitutionIdentifier string          `json:"institution_identifier"`
-	InstitutionName       string          `json:"institution_name"`
-	PaypalEmail           string          `json:"paypal_email"`
-	PaypalOwner           string          `json:"paypal_owner"`
-	ProtoBalance          CoinbaseBalance `json:"balance"`
-	RoutingNumber         string          `json:"routing_number"`
-	Swift                 string          `json:"swift"`
-	Symbol                string          `json:"symbol"`
+	AccountName           string          `json:"account_name" bson:"account_name"`
+	AccountNumber         string          `json:"account_number" bson:"account_number"`
+	AccountType           string          `json:"account_type" bson:"account_type"`
+	BankName              string          `json:"bank_name" bson:"bank_name"`
+	BranchName            string          `json:"branch_name" bson:"branch_name"`
+	CustomerName          string          `json:"customer_name" bson:"customer_name"`
+	Iban                  string          `json:"iban" bson:"iban"`
+	IconUrl               string          `json:"icon_url" bson:"icon_url"`
+	InstitutionCode       string          `json:"institution_code" bson:"institution_code"`
+	InstitutionIdentifier string          `json:"institution_identifier" bson:"institution_identifier"`
+	InstitutionName       string          `json:"institution_name" bson:"institution_name"`
+	PaypalEmail           string          `json:"paypal_email" bson:"paypal_email"`
+	PaypalOwner           string          `json:"paypal_owner" bson:"paypal_owner"`
+	ProtoBalance          CoinbaseBalance `json:"balance" bson:"balance"`
+	RoutingNumber         string          `json:"routing_number" bson:"routing_number"`
+	Swift                 string          `json:"swift" bson:"swift"`
+	Symbol                string          `json:"symbol" bson:"symbol"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbasePickerData model

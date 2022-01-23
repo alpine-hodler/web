@@ -7,7 +7,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseWithdrawalFeeEstimate is a fee estimate for the crypto withdrawal to
 // crypto address
 type CoinbaseWithdrawalFeeEstimate struct {
-	Fee float64 `json:"fee"`
+	Fee float64 `json:"fee" bson:"fee"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseWithdrawalFeeEstimate

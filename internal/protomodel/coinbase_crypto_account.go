@@ -7,9 +7,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseCryptoAccount references a crypto account that a
 // CoinbasePaymentMethod belongs to
 type CoinbaseCryptoAccount struct {
-	Id           string `json:"id"`
-	Resource     string `json:"resource"`
-	ResourcePath string `json:"resource_path"`
+	Id           string `json:"id" bson:"id"`
+	Resource     string `json:"resource" bson:"resource"`
+	ResourcePath string `json:"resource_path" bson:"resource_path"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseCryptoAccount model

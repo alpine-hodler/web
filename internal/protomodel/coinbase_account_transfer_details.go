@@ -6,9 +6,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseAccountTransferDetails are the details for an account transfer.
 type CoinbaseAccountTransferDetails struct {
-	CoinbaseAccountId       string `json:"coinbase_account_id"`
-	CoinbasePaymentMethodId string `json:"coinbase_payment_method_id"`
-	CoinbaseTransactionId   string `json:"coinbase_transaction_id"`
+	CoinbaseAccountId       string `json:"coinbase_account_id" bson:"coinbase_account_id"`
+	CoinbasePaymentMethodId string `json:"coinbase_payment_method_id" bson:"coinbase_payment_method_id"`
+	CoinbaseTransactionId   string `json:"coinbase_transaction_id" bson:"coinbase_transaction_id"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccountTransferDetails

@@ -6,7 +6,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // The user of the an opensea asset owner
 type OpenseaUser struct {
-	Username string `json:"username"`
+	Username string `json:"username" bson:"username"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaUser model

@@ -7,13 +7,13 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // IEXRulesScheme is one of the latest schemes for data points, notification
 // types, and operators used to construct rules.
 type IexRulesScheme struct {
-	IsLookup  bool    `json:"isLookup"`
-	Label     string  `json:"label"`
-	Scope     string  `json:"scope"`
-	Type      string  `json:"type"`
-	Value     string  `json:"value"`
-	Weight    float64 `json:"weight"`
-	WeightKey string  `json:"weightKey"`
+	IsLookup  bool    `json:"isLookup" bson:"isLookup"`
+	Label     string  `json:"label" bson:"label"`
+	Scope     string  `json:"scope" bson:"scope"`
+	Type      string  `json:"type" bson:"type"`
+	Value     string  `json:"value" bson:"value"`
+	Weight    float64 `json:"weight" bson:"weight"`
+	WeightKey string  `json:"weightKey" bson:"weightKey"`
 }
 
 // UnmarshalJSON will deserialize bytes into a IexRulesScheme model

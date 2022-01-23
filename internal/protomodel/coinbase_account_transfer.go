@@ -11,15 +11,15 @@ import (
 // CoinbaseAccountTransfer will lists past withdrawals and deposits for an
 // account.
 type CoinbaseAccountTransfer struct {
-	Amount       float64                        `json:"amount"`
-	CanceledAt   time.Time                      `json:"canceled_at"`
-	CompletedAt  time.Time                      `json:"completed_at"`
-	CreatedAt    time.Time                      `json:"created_at"`
-	Id           string                         `json:"id"`
-	ProcessedAt  time.Time                      `json:"processed_at"`
-	ProtoDetails CoinbaseAccountTransferDetails `json:"details"`
-	Type         string                         `json:"type"`
-	UserNonce    string                         `json:"user_nonce"`
+	Amount       float64                        `json:"amount" bson:"amount"`
+	CanceledAt   time.Time                      `json:"canceled_at" bson:"canceled_at"`
+	CompletedAt  time.Time                      `json:"completed_at" bson:"completed_at"`
+	CreatedAt    time.Time                      `json:"created_at" bson:"created_at"`
+	Id           string                         `json:"id" bson:"id"`
+	ProcessedAt  time.Time                      `json:"processed_at" bson:"processed_at"`
+	ProtoDetails CoinbaseAccountTransferDetails `json:"details" bson:"details"`
+	Type         string                         `json:"type" bson:"type"`
+	UserNonce    string                         `json:"user_nonce" bson:"user_nonce"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccountTransfer model

@@ -6,9 +6,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseAccountLedgerDetails are the details for account history.
 type CoinbaseAccountLedgerDetails struct {
-	OrderId   string `json:"order_id"`
-	ProductId string `json:"product_id"`
-	TradeId   string `json:"trade_id"`
+	OrderId   string `json:"order_id" bson:"order_id"`
+	ProductId string `json:"product_id" bson:"product_id"`
+	TradeId   string `json:"trade_id" bson:"trade_id"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccountLedgerDetails

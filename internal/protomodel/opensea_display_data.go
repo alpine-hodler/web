@@ -6,7 +6,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // The display type for a collection
 type OpenseaDisplayData struct {
-	CardDisplayStyle string `json:"card_display_style"`
+	CardDisplayStyle string `json:"card_display_style" bson:"card_display_style"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaDisplayData model

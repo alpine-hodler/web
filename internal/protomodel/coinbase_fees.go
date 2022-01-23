@@ -6,9 +6,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseFees are fees rates and 30 days trailing volume.
 type CoinbaseFees struct {
-	MakerFeeRate float64 `json:"maker_fee_rate"`
-	TakerFeeRate float64 `json:"taker_fee_rate"`
-	UsdVolume    float64 `json:"usd_volume"`
+	MakerFeeRate float64 `json:"maker_fee_rate" bson:"maker_fee_rate"`
+	TakerFeeRate float64 `json:"taker_fee_rate" bson:"taker_fee_rate"`
+	UsdVolume    float64 `json:"usd_volume" bson:"usd_volume"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseFees model

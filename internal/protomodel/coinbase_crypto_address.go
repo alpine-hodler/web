@@ -12,21 +12,21 @@ import (
 // CoinbaseCryptoAddress is used for a one-time crypto address for depositing
 // crypto.
 type CoinbaseCryptoAddress struct {
-	Address          string                          `json:"address"`
-	CallbackUrl      string                          `json:"callback_url"`
-	CreateAt         time.Time                       `json:"create_at"`
-	DepositUri       string                          `json:"deposit_uri"`
-	DestinationTag   string                          `json:"destination_tag"`
-	Id               string                          `json:"id"`
-	LegacyAddress    string                          `json:"legacy_address"`
-	Name             string                          `json:"name"`
-	Network          string                          `json:"network"`
-	ProtoAddressInfo CoinbaseCryptoAddressInfo       `json:"address_info"`
-	ProtoWarnings    []*CoinbaseCryptoAddressWarning `json:"warnings"`
-	Resource         string                          `json:"resource"`
-	ResourcePath     string                          `json:"resource_path"`
-	UpdatedAt        time.Time                       `json:"updated_at"`
-	UriScheme        string                          `json:"uri_scheme"`
+	Address          string                          `json:"address" bson:"address"`
+	CallbackUrl      string                          `json:"callback_url" bson:"callback_url"`
+	CreateAt         time.Time                       `json:"create_at" bson:"create_at"`
+	DepositUri       string                          `json:"deposit_uri" bson:"deposit_uri"`
+	DestinationTag   string                          `json:"destination_tag" bson:"destination_tag"`
+	Id               string                          `json:"id" bson:"id"`
+	LegacyAddress    string                          `json:"legacy_address" bson:"legacy_address"`
+	Name             string                          `json:"name" bson:"name"`
+	Network          string                          `json:"network" bson:"network"`
+	ProtoAddressInfo CoinbaseCryptoAddressInfo       `json:"address_info" bson:"address_info"`
+	ProtoWarnings    []*CoinbaseCryptoAddressWarning `json:"warnings" bson:"warnings"`
+	Resource         string                          `json:"resource" bson:"resource"`
+	ResourcePath     string                          `json:"resource_path" bson:"resource_path"`
+	UpdatedAt        time.Time                       `json:"updated_at" bson:"updated_at"`
+	UriScheme        string                          `json:"uri_scheme" bson:"uri_scheme"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseCryptoAddress model

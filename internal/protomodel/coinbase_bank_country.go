@@ -7,8 +7,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseBankCountry are the name and code for the bank's country associated
 // with a wallet
 type CoinbaseBankCountry struct {
-	Code string `json:"code"`
-	Name string `json:"name"`
+	Code string `json:"code" bson:"code"`
+	Name string `json:"name" bson:"name"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseBankCountry model

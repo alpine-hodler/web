@@ -6,8 +6,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseRecurringOptions ??
 type CoinbaseRecurringOptions struct {
-	Label  string `json:"label"`
-	Period string `json:"period"`
+	Label  string `json:"label" bson:"label"`
+	Period string `json:"period" bson:"period"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseRecurringOptions model

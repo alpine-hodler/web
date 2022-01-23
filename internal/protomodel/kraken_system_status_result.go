@@ -13,10 +13,10 @@ import (
 // trading mode.
 type KrakenSystemStatusResult struct {
 	// Current timestamp (RFC3339)
-	Timestamp time.Time `json:"timestamp"`
+	Timestamp time.Time `json:"timestamp" bson:"timestamp"`
 
 	// Enum: "online" "maintenance" "cancel_only" "post_only" Current system status
-	Status scalar.SystemStatus `json:"status"`
+	Status scalar.SystemStatus `json:"status" bson:"status"`
 }
 
 // UnmarshalJSON will deserialize bytes into a KrakenSystemStatusResult model

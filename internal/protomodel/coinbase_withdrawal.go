@@ -7,12 +7,12 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseWithdrawal is data concerning withdrawing funds from the specified
 // profile_id to a www.coinbase.com wallet.
 type CoinbaseWithdrawal struct {
-	Amount   float64 `json:"amount"`
-	Currency string  `json:"currency"`
-	Fee      float64 `json:"fee"`
-	Id       string  `json:"id"`
-	PayoutAt string  `json:"payout_at"`
-	Subtotal float64 `json:"subtotal"`
+	Amount   float64 `json:"amount" bson:"amount"`
+	Currency string  `json:"currency" bson:"currency"`
+	Fee      float64 `json:"fee" bson:"fee"`
+	Id       string  `json:"id" bson:"id"`
+	PayoutAt string  `json:"payout_at" bson:"payout_at"`
+	Subtotal float64 `json:"subtotal" bson:"subtotal"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseWithdrawal model

@@ -11,29 +11,29 @@ import (
 
 // CoinbaseNewOrder is the server's response for placing a new order.
 type CoinbaseNewOrder struct {
-	CreatedAt     time.Time          `json:"created_at"`
-	DoneAt        time.Time          `json:"done_at"`
-	DoneReason    string             `json:"done_reason"`
-	ExpireTime    time.Time          `json:"expire_time"`
-	FillFees      float64            `json:"fill_fees"`
-	FilledSize    float64            `json:"filled_size"`
-	FundingAmount float64            `json:"funding_amount"`
-	Funds         float64            `json:"funds"`
-	Id            string             `json:"id"`
-	PostOnly      bool               `json:"post_only"`
-	Price         float64            `json:"price"`
-	ProductId     string             `json:"product_id"`
-	ProfileId     string             `json:"profile_id"`
-	RejectReason  string             `json:"reject_reason"`
-	Settled       bool               `json:"settled"`
-	Side          scalar.OrderSide   `json:"side"`
-	Size          float64            `json:"size"`
-	SpecificFunds float64            `json:"specific_funds"`
-	Status        string             `json:"status"`
-	Stop          scalar.OrderStop   `json:"stop"`
-	StopPrice     float64            `json:"stop_price"`
-	TimeInForce   scalar.TimeInForce `json:"time_in_force"`
-	Type          scalar.OrderType   `json:"type"`
+	CreatedAt     time.Time          `json:"created_at" bson:"created_at"`
+	DoneAt        time.Time          `json:"done_at" bson:"done_at"`
+	DoneReason    string             `json:"done_reason" bson:"done_reason"`
+	ExpireTime    time.Time          `json:"expire_time" bson:"expire_time"`
+	FillFees      float64            `json:"fill_fees" bson:"fill_fees"`
+	FilledSize    float64            `json:"filled_size" bson:"filled_size"`
+	FundingAmount float64            `json:"funding_amount" bson:"funding_amount"`
+	Funds         float64            `json:"funds" bson:"funds"`
+	Id            string             `json:"id" bson:"id"`
+	PostOnly      bool               `json:"post_only" bson:"post_only"`
+	Price         float64            `json:"price" bson:"price"`
+	ProductId     string             `json:"product_id" bson:"product_id"`
+	ProfileId     string             `json:"profile_id" bson:"profile_id"`
+	RejectReason  string             `json:"reject_reason" bson:"reject_reason"`
+	Settled       bool               `json:"settled" bson:"settled"`
+	Side          scalar.OrderSide   `json:"side" bson:"side"`
+	Size          float64            `json:"size" bson:"size"`
+	SpecificFunds float64            `json:"specific_funds" bson:"specific_funds"`
+	Status        string             `json:"status" bson:"status"`
+	Stop          scalar.OrderStop   `json:"stop" bson:"stop"`
+	StopPrice     float64            `json:"stop_price" bson:"stop_price"`
+	TimeInForce   scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type          scalar.OrderType   `json:"type" bson:"type"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseNewOrder model

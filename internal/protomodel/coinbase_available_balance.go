@@ -6,9 +6,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseAvailableBalance is the available balance on the coinbase account
 type CoinbaseAvailableBalance struct {
-	Amount   float64 `json:"amount"`
-	Currency string  `json:"currency"`
-	Scale    string  `json:"scale"`
+	Amount   float64 `json:"amount" bson:"amount"`
+	Currency string  `json:"currency" bson:"currency"`
+	Scale    string  `json:"scale" bson:"scale"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAvailableBalance model

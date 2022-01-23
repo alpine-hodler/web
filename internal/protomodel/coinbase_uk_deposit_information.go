@@ -6,13 +6,13 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseUkDepositInformation information regarding a wallet's deposits.
 type CoinbaseUkDepositInformation struct {
-	AccountAddress   string              `json:"account_address"`
-	AccountName      string              `json:"account_name"`
-	AccountNumber    string              `json:"account_number"`
-	BankAddress      string              `json:"bank_address"`
-	BankName         string              `json:"bank_name"`
-	ProtoBankCountry CoinbaseBankCountry `json:"bank_country"`
-	Reference        string              `json:"reference"`
+	AccountAddress   string              `json:"account_address" bson:"account_address"`
+	AccountName      string              `json:"account_name" bson:"account_name"`
+	AccountNumber    string              `json:"account_number" bson:"account_number"`
+	BankAddress      string              `json:"bank_address" bson:"bank_address"`
+	BankName         string              `json:"bank_name" bson:"bank_name"`
+	ProtoBankCountry CoinbaseBankCountry `json:"bank_country" bson:"bank_country"`
+	Reference        string              `json:"reference" bson:"reference"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseUkDepositInformation

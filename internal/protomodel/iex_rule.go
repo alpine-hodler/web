@@ -9,13 +9,13 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // IEX Console or through our API using the guidelines below.
 type IexRule struct {
 	// Label of the lookup
-	Label string `json:"label"`
+	Label string `json:"label" bson:"label"`
 
 	// The actual lookup value that should be used in the right condition
-	Value   string `json:"value"`
-	Formula string `json:"formula"`
-	Scope   string `json:"scope"`
-	Type    string `json:"type"`
+	Value   string `json:"value" bson:"value"`
+	Formula string `json:"formula" bson:"formula"`
+	Scope   string `json:"scope" bson:"scope"`
+	Type    string `json:"type" bson:"type"`
 }
 
 // UnmarshalJSON will deserialize bytes into a IexRule model

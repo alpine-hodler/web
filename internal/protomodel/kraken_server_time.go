@@ -6,8 +6,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // KrakenServerTime holds data concerning the server time
 type KrakenServerTime struct {
-	Error       []string               `json:"error"`
-	ProtoResult KrakenServerTimeResult `json:"result"`
+	Error       []string               `json:"error" bson:"error"`
+	ProtoResult KrakenServerTimeResult `json:"result" bson:"result"`
 }
 
 // UnmarshalJSON will deserialize bytes into a KrakenServerTime model

@@ -6,9 +6,9 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseCryptoAddressWarning is a warning for generating a crypting address
 type CoinbaseCryptoAddressWarning struct {
-	Details  string `json:"details"`
-	ImageUrl string `json:"image_url"`
-	Title    string `json:"title"`
+	Details  string `json:"details" bson:"details"`
+	ImageUrl string `json:"image_url" bson:"image_url"`
+	Title    string `json:"title" bson:"title"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseCryptoAddressWarning

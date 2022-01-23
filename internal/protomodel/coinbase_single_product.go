@@ -6,26 +6,26 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseSingleProduct is information on a single product
 type CoinbaseSingleProduct struct {
-	AuctionMode           bool    `json:"auction_mode"`
-	BaseCurrency          string  `json:"base_currency"`
-	BaseIncrement         float64 `json:"base_increment"`
-	BaseMaxSize           float64 `json:"base_max_size"`
-	BaseMinSize           float64 `json:"base_min_size"`
-	CancelOnly            bool    `json:"cancel_only"`
-	DisplayName           string  `json:"display_name"`
-	FxStablecoin          bool    `json:"fx_stablecoin"`
-	Id                    string  `json:"id"`
-	LimitOnly             bool    `json:"limit_only"`
-	MarginEnabled         bool    `json:"margin_enabled"`
-	MaxMarketFunds        float64 `json:"max_market_funds"`
-	MaxSlippagePercentage float64 `json:"max_slippage_percentage"`
-	MinMarketFunds        float64 `json:"min_market_funds"`
-	PostOnly              bool    `json:"post_only"`
-	QuoteCurrency         string  `json:"quote_currency"`
-	QuoteIncrement        float64 `json:"quote_increment"`
-	Status                string  `json:"status"`
-	StatusMessage         string  `json:"status_message"`
-	TradingDisabled       bool    `json:"trading_disabled"`
+	AuctionMode           bool    `json:"auction_mode" bson:"auction_mode"`
+	BaseCurrency          string  `json:"base_currency" bson:"base_currency"`
+	BaseIncrement         float64 `json:"base_increment" bson:"base_increment"`
+	BaseMaxSize           float64 `json:"base_max_size" bson:"base_max_size"`
+	BaseMinSize           float64 `json:"base_min_size" bson:"base_min_size"`
+	CancelOnly            bool    `json:"cancel_only" bson:"cancel_only"`
+	DisplayName           string  `json:"display_name" bson:"display_name"`
+	FxStablecoin          bool    `json:"fx_stablecoin" bson:"fx_stablecoin"`
+	Id                    string  `json:"id" bson:"id"`
+	LimitOnly             bool    `json:"limit_only" bson:"limit_only"`
+	MarginEnabled         bool    `json:"margin_enabled" bson:"margin_enabled"`
+	MaxMarketFunds        float64 `json:"max_market_funds" bson:"max_market_funds"`
+	MaxSlippagePercentage float64 `json:"max_slippage_percentage" bson:"max_slippage_percentage"`
+	MinMarketFunds        float64 `json:"min_market_funds" bson:"min_market_funds"`
+	PostOnly              bool    `json:"post_only" bson:"post_only"`
+	QuoteCurrency         string  `json:"quote_currency" bson:"quote_currency"`
+	QuoteIncrement        float64 `json:"quote_increment" bson:"quote_increment"`
+	Status                string  `json:"status" bson:"status"`
+	StatusMessage         string  `json:"status_message" bson:"status_message"`
+	TradingDisabled       bool    `json:"trading_disabled" bson:"trading_disabled"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseSingleProduct model

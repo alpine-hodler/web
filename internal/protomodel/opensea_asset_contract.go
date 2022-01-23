@@ -7,28 +7,28 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // Asset contracts contain data about the contract itself, such as the
 // CryptoKitties contract or the CoolCats contract.
 type OpenseaAssetContract struct {
-	Address                     string  `json:"address"`
-	AssetContractType           string  `json:"asset_contract_type"`
-	BuyerFeeBasisPoints         int     `json:"buyer_fee_basis_points"`
-	CreatedDate                 string  `json:"created_date"`
-	DefaultToFiat               bool    `json:"default_to_fiat"`
-	Description                 string  `json:"description"`
-	DevBuyFeeBasisPoints        int     `json:"dev_buy_fee_basis_points"`
-	DevSellerFeeBasisPoints     int     `json:"dev_seller_fee_basis_points"`
-	ExternalLink                string  `json:"external_link"`
-	ImageUrl                    string  `json:"image_url"`
-	Name                        string  `json:"name"`
-	NftVersion                  string  `json:"nft_version"`
-	OnlyProxiedTransfers        bool    `json:"only_proxied_transfers"`
-	OpenseaBuyerFeeBasisPoints  int     `json:"opensea_buyer_fee_basis_points"`
-	OpenseaSellerFeeBasisPoints int     `json:"opensea_seller_fee_basis_points"`
-	OpenseaVersion              string  `json:"opensea_version"`
-	Owner                       int     `json:"owner"`
-	PayoutAddress               string  `json:"payout_address"`
-	SchemaName                  string  `json:"schema_name"`
-	SellerFeeBasisPoints        int     `json:"seller_Fee_basis_points"`
-	Symbol                      string  `json:"symbol"`
-	TotalSupply                 float64 `json:"total_supply"`
+	Address                     string  `json:"address" bson:"address"`
+	AssetContractType           string  `json:"asset_contract_type" bson:"asset_contract_type"`
+	BuyerFeeBasisPoints         int     `json:"buyer_fee_basis_points" bson:"buyer_fee_basis_points"`
+	CreatedDate                 string  `json:"created_date" bson:"created_date"`
+	DefaultToFiat               bool    `json:"default_to_fiat" bson:"default_to_fiat"`
+	Description                 string  `json:"description" bson:"description"`
+	DevBuyFeeBasisPoints        int     `json:"dev_buy_fee_basis_points" bson:"dev_buy_fee_basis_points"`
+	DevSellerFeeBasisPoints     int     `json:"dev_seller_fee_basis_points" bson:"dev_seller_fee_basis_points"`
+	ExternalLink                string  `json:"external_link" bson:"external_link"`
+	ImageUrl                    string  `json:"image_url" bson:"image_url"`
+	Name                        string  `json:"name" bson:"name"`
+	NftVersion                  string  `json:"nft_version" bson:"nft_version"`
+	OnlyProxiedTransfers        bool    `json:"only_proxied_transfers" bson:"only_proxied_transfers"`
+	OpenseaBuyerFeeBasisPoints  int     `json:"opensea_buyer_fee_basis_points" bson:"opensea_buyer_fee_basis_points"`
+	OpenseaSellerFeeBasisPoints int     `json:"opensea_seller_fee_basis_points" bson:"opensea_seller_fee_basis_points"`
+	OpenseaVersion              string  `json:"opensea_version" bson:"opensea_version"`
+	Owner                       int     `json:"owner" bson:"owner"`
+	PayoutAddress               string  `json:"payout_address" bson:"payout_address"`
+	SchemaName                  string  `json:"schema_name" bson:"schema_name"`
+	SellerFeeBasisPoints        int     `json:"seller_Fee_basis_points" bson:"seller_Fee_basis_points"`
+	Symbol                      string  `json:"symbol" bson:"symbol"`
+	TotalSupply                 float64 `json:"total_supply" bson:"total_supply"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaAssetContract model

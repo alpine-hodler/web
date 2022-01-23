@@ -6,8 +6,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseBalance is the balance for picker data
 type CoinbaseBalance struct {
-	Amount   float64 `json:"amount"`
-	Currency string  `json:"currency"`
+	Amount   float64 `json:"amount" bson:"amount"`
+	Currency string  `json:"currency" bson:"currency"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseBalance model

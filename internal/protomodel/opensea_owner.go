@@ -6,10 +6,10 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // The owner of an opensea asset
 type OpenseaOwner struct {
-	Address       string      `json:"address"`
-	Config        string      `json:"config"`
-	ProfileImgUrl string      `json:"profile_img_url"`
-	ProtoUser     OpenseaUser `json:"user"`
+	Address       string      `json:"address" bson:"address"`
+	Config        string      `json:"config" bson:"config"`
+	ProfileImgUrl string      `json:"profile_img_url" bson:"profile_img_url"`
+	ProtoUser     OpenseaUser `json:"user" bson:"user"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaOwner model

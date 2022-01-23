@@ -6,8 +6,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseCryptoAddressInfo holds info for a crypto address
 type CoinbaseCryptoAddressInfo struct {
-	Address        string `json:"address"`
-	DestinationTag string `json:"destination_tag"`
+	Address        string `json:"address" bson:"address"`
+	DestinationTag string `json:"destination_tag" bson:"destination_tag"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseCryptoAddressInfo model

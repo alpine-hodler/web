@@ -10,7 +10,7 @@ import (
 
 // OpenseaAssets are a set of assets from opensea NFTs
 type OpenseaAssets struct {
-	ProtoAssets []*OpenseaAsset `json:"assets"`
+	ProtoAssets []*OpenseaAsset `json:"assets" bson:"assets"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaAssets model

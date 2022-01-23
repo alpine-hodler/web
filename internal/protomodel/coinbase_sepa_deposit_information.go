@@ -11,14 +11,14 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // payment, for example to pay monthly rent or for a service like a mobile phone
 // contract.
 type CoinbaseSepaDepositInformation struct {
-	AccountAddress   string              `json:"account_address"`
-	AccountName      string              `json:"account_name"`
-	BankAddress      string              `json:"bank_address"`
-	BankName         string              `json:"bank_name"`
-	Iban             string              `json:"iban"`
-	ProtoBankCountry CoinbaseBankCountry `json:"bank_country"`
-	Reference        string              `json:"reference"`
-	Swift            string              `json:"swift"`
+	AccountAddress   string              `json:"account_address" bson:"account_address"`
+	AccountName      string              `json:"account_name" bson:"account_name"`
+	BankAddress      string              `json:"bank_address" bson:"bank_address"`
+	BankName         string              `json:"bank_name" bson:"bank_name"`
+	Iban             string              `json:"iban" bson:"iban"`
+	ProtoBankCountry CoinbaseBankCountry `json:"bank_country" bson:"bank_country"`
+	Reference        string              `json:"reference" bson:"reference"`
+	Swift            string              `json:"swift" bson:"swift"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseSepaDepositInformation

@@ -12,31 +12,31 @@ import (
 // digital item whose ownership is managed by the blockchain. The below
 // CryptoSaga hero is an example of an asset shown on OpenSea.
 type OpenseaAsset struct {
-	AnimationOriginalUrl string               `json:"animation_original_url"`
-	AnimationUrl         string               `json:"animation_url"`
-	BackgroundColor      string               `json:"background_color"`
-	Decimals             string               `json:"decimals"`
-	Description          string               `json:"description"`
-	ExternalLink         string               `json:"external_link"`
-	Id                   int                  `json:"id"`
-	ImageOriginalUrl     string               `json:"image_original_url"`
-	ImagePreviewUrl      string               `json:"image_preview_url"`
-	ImageThumbnailUrl    string               `json:"image_thumbnail_url"`
-	ImageUrl             string               `json:"image_url"`
-	IsPresale            bool                 `json:"is_presale"`
-	LastSale             float64              `json:"last_sale"`
-	ListingDate          time.Time            `json:"listing_date"`
-	Name                 string               `json:"name"`
-	NumSales             float64              `json:"num_sales"`
-	Permalink            string               `json:"permalink"`
-	ProtoAssetContract   OpenseaAssetContract `json:"asset_contract"`
-	ProtoCollection      OpenseaCollection    `json:"collection"`
-	ProtoCreator         OpenseaCreator       `json:"creator"`
-	ProtoOwner           OpenseaOwner         `json:"owner"`
-	TokenId              string               `json:"token_id"`
-	TokenMetadata        string               `json:"token_metadata"`
-	TopBid               float64              `json:"top_bid"`
-	TransferFee          float64              `json:"transfer_fee"`
+	AnimationOriginalUrl string               `json:"animation_original_url" bson:"animation_original_url"`
+	AnimationUrl         string               `json:"animation_url" bson:"animation_url"`
+	BackgroundColor      string               `json:"background_color" bson:"background_color"`
+	Decimals             string               `json:"decimals" bson:"decimals"`
+	Description          string               `json:"description" bson:"description"`
+	ExternalLink         string               `json:"external_link" bson:"external_link"`
+	Id                   int                  `json:"id" bson:"id"`
+	ImageOriginalUrl     string               `json:"image_original_url" bson:"image_original_url"`
+	ImagePreviewUrl      string               `json:"image_preview_url" bson:"image_preview_url"`
+	ImageThumbnailUrl    string               `json:"image_thumbnail_url" bson:"image_thumbnail_url"`
+	ImageUrl             string               `json:"image_url" bson:"image_url"`
+	IsPresale            bool                 `json:"is_presale" bson:"is_presale"`
+	LastSale             float64              `json:"last_sale" bson:"last_sale"`
+	ListingDate          time.Time            `json:"listing_date" bson:"listing_date"`
+	Name                 string               `json:"name" bson:"name"`
+	NumSales             float64              `json:"num_sales" bson:"num_sales"`
+	Permalink            string               `json:"permalink" bson:"permalink"`
+	ProtoAssetContract   OpenseaAssetContract `json:"asset_contract" bson:"asset_contract"`
+	ProtoCollection      OpenseaCollection    `json:"collection" bson:"collection"`
+	ProtoCreator         OpenseaCreator       `json:"creator" bson:"creator"`
+	ProtoOwner           OpenseaOwner         `json:"owner" bson:"owner"`
+	TokenId              string               `json:"token_id" bson:"token_id"`
+	TokenMetadata        string               `json:"token_metadata" bson:"token_metadata"`
+	TopBid               float64              `json:"top_bid" bson:"top_bid"`
+	TransferFee          float64              `json:"transfer_fee" bson:"transfer_fee"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaAsset model

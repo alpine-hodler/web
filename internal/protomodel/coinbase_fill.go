@@ -6,18 +6,18 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbasePaymentMethod is a partial or complete match on a specific order.
 type CoinbaseFill struct {
-	Fee       float64 `json:"fee"`
-	Liquidity string  `json:"liquidity"`
-	OrderId   string  `json:"order_id"`
-	Price     float64 `json:"price"`
-	ProductId string  `json:"product_id"`
-	ProfileId string  `json:"profile_id"`
-	Settled   bool    `json:"settled"`
-	Side      string  `json:"side"`
-	Size      float64 `json:"size"`
-	TradeId   int     `json:"trade_id"`
-	UsdVolume float64 `json:"usd_volume"`
-	UserId    string  `json:"user_id"`
+	Fee       float64 `json:"fee" bson:"fee"`
+	Liquidity string  `json:"liquidity" bson:"liquidity"`
+	OrderId   string  `json:"order_id" bson:"order_id"`
+	Price     float64 `json:"price" bson:"price"`
+	ProductId string  `json:"product_id" bson:"product_id"`
+	ProfileId string  `json:"profile_id" bson:"profile_id"`
+	Settled   bool    `json:"settled" bson:"settled"`
+	Side      string  `json:"side" bson:"side"`
+	Size      float64 `json:"size" bson:"size"`
+	TradeId   int     `json:"trade_id" bson:"trade_id"`
+	UsdVolume float64 `json:"usd_volume" bson:"usd_volume"`
+	UserId    string  `json:"user_id" bson:"user_id"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseFill model

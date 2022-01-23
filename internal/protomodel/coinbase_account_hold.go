@@ -14,11 +14,11 @@ import (
 // updated. If an order is canceled, any remaining hold is removed. For
 // withdrawals, the hold is removed after it is completed.
 type CoinbaseAccountHold struct {
-	CreatedAt time.Time `json:"created_at"`
-	Id        string    `json:"id"`
-	Ref       string    `json:"ref"`
-	Type      string    `json:"type"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
+	Id        string    `json:"id" bson:"id"`
+	Ref       string    `json:"ref" bson:"ref"`
+	Type      string    `json:"type" bson:"type"`
+	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccountHold model

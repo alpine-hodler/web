@@ -11,13 +11,13 @@ import (
 // CoinbaseProductTicker is a snapshot information about the last trade (tick),
 // best bid/ask and 24h volume.
 type CoinbaseProductTicker struct {
-	Ask     float64   `json:"ask"`
-	Bid     float64   `json:"bid"`
-	Price   float64   `json:"price"`
-	Size    float64   `json:"size"`
-	Time    time.Time `json:"time"`
-	TradeId int       `json:"trade_id"`
-	Volume  float64   `json:"volume"`
+	Ask     float64   `json:"ask" bson:"ask"`
+	Bid     float64   `json:"bid" bson:"bid"`
+	Price   float64   `json:"price" bson:"price"`
+	Size    float64   `json:"size" bson:"size"`
+	Time    time.Time `json:"time" bson:"time"`
+	TradeId int       `json:"trade_id" bson:"trade_id"`
+	Volume  float64   `json:"volume" bson:"volume"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseProductTicker model

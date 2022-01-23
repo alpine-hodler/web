@@ -11,10 +11,10 @@ import (
 // KrakenServerTimeResult holds data concerning the server time
 type KrakenServerTimeResult struct {
 	// RFC 1123 time format
-	Rfc1123 time.Time `json:"rfc1123"`
+	Rfc1123 time.Time `json:"rfc1123" bson:"rfc1123"`
 
 	// Unix timestamp
-	Unixtime int `json:"unixtime"`
+	Unixtime int `json:"unixtime" bson:"unixtime"`
 }
 
 // UnmarshalJSON will deserialize bytes into a KrakenServerTimeResult model

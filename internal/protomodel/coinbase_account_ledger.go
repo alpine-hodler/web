@@ -13,12 +13,12 @@ import (
 // anything that would affect the accounts balance - transfers, trades, fees,
 // etc.
 type CoinbaseAccountLedger struct {
-	Amount       float64                      `json:"amount"`
-	Balance      float64                      `json:"balance"`
-	CreatedAt    time.Time                    `json:"created_at"`
-	Id           string                       `json:"id"`
-	ProtoDetails CoinbaseAccountLedgerDetails `json:"details"`
-	Type         scalar.EntryType             `json:"type"`
+	Amount       float64                      `json:"amount" bson:"amount"`
+	Balance      float64                      `json:"balance" bson:"balance"`
+	CreatedAt    time.Time                    `json:"created_at" bson:"created_at"`
+	Id           string                       `json:"id" bson:"id"`
+	ProtoDetails CoinbaseAccountLedgerDetails `json:"details" bson:"details"`
+	Type         scalar.EntryType             `json:"type" bson:"type"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccountLedger model

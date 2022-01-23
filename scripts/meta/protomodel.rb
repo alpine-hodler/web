@@ -20,7 +20,7 @@ module Protomodel
     fields.each do |field|
       literal = field.description.empty? ? '' : "\n// #{field.description}\n"
       literal += "#{field.go_protofield_name} #{field.go_type}"
-      literal += "`json:\"#{field.identifier}\"`"
+      literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"
       literals << literal
     end
     literals = literals.sort.join("\n")

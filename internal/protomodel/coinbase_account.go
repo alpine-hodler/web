@@ -7,13 +7,13 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 // CoinbaseAccount holds data for trading account from the profile of the API
 // key
 type CoinbaseAccount struct {
-	Available      float64 `json:"available"`
-	Balance        float64 `json:"balance"`
-	Currency       string  `json:"currency"`
-	Hold           float64 `json:"hold"`
-	Id             string  `json:"id"`
-	ProfileId      string  `json:"profile_id"`
-	TradingEnabled bool    `json:"trading_enabled"`
+	Available      float64 `json:"available" bson:"available"`
+	Balance        float64 `json:"balance" bson:"balance"`
+	Currency       string  `json:"currency" bson:"currency"`
+	Hold           float64 `json:"hold" bson:"hold"`
+	Id             string  `json:"id" bson:"id"`
+	ProfileId      string  `json:"profile_id" bson:"profile_id"`
+	TradingEnabled bool    `json:"trading_enabled" bson:"trading_enabled"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseAccount model

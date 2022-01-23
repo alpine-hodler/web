@@ -11,36 +11,36 @@ import (
 // Asset contracts contain data about the contract itself, such as the
 // CryptoKitties contract or the CoolCats contract.
 type OpenseaCollection struct {
-	BannerImageUrl              string             `json:"banner_image_url"`
-	ChatUrl                     string             `json:"chat_url"`
-	CreatedAt                   time.Time          `json:"created_at"`
-	DefaultToFiat               bool               `json:"default_to_fiat"`
-	Description                 string             `json:"description"`
-	DevBuyerFeeBasisPoints      string             `json:"dev_buyer_fee_basis_points"`
-	DevSellerFeeBasisPoints     string             `json:"dev_seller_fee_basis_points"`
-	DiscordUrl                  string             `json:"discord_url"`
-	ExternalUrl                 string             `json:"external_url"`
-	Featured                    bool               `json:"featured"`
-	FeaturedImageUrl            string             `json:"featured_image_url"`
-	Hidden                      bool               `json:"hidden"`
-	ImageUrl                    string             `json:"image_url"`
-	InstagramUsername           string             `json:"instagram_username"`
-	IsSubjectToWhitelist        bool               `json:"is_subject_to_whitelist"`
-	LargeImageUrl               string             `json:"large_image_url"`
-	MediumUsernam               string             `json:"medium_usernam"`
-	Name                        string             `json:"name"`
-	OnlyProxiedTransfers        bool               `json:"only_proxied_transfers"`
-	OpenseaBuyerFeeBasisPoints  string             `json:"opensea_buyer_fee_basis_points"`
-	OpenseaSellerFeeBasisPoints string             `json:"opensea_seller_fee_basis_points"`
-	PayoutAddress               string             `json:"payout_address"`
-	ProtoDisplayData            OpenseaDisplayData `json:"display_data"`
-	RequireEmail                bool               `json:"require_email"`
-	SafelistRequestStatus       string             `json:"safelist_request_status"`
-	ShortDescription            string             `json:"short_description"`
-	Slub                        string             `json:"slub"`
-	TelegramUrl                 string             `json:"telegram_url"`
-	TwitterUsername             string             `json:"twitter_username"`
-	WikiUrl                     string             `json:"wiki_url"`
+	BannerImageUrl              string             `json:"banner_image_url" bson:"banner_image_url"`
+	ChatUrl                     string             `json:"chat_url" bson:"chat_url"`
+	CreatedAt                   time.Time          `json:"created_at" bson:"created_at"`
+	DefaultToFiat               bool               `json:"default_to_fiat" bson:"default_to_fiat"`
+	Description                 string             `json:"description" bson:"description"`
+	DevBuyerFeeBasisPoints      string             `json:"dev_buyer_fee_basis_points" bson:"dev_buyer_fee_basis_points"`
+	DevSellerFeeBasisPoints     string             `json:"dev_seller_fee_basis_points" bson:"dev_seller_fee_basis_points"`
+	DiscordUrl                  string             `json:"discord_url" bson:"discord_url"`
+	ExternalUrl                 string             `json:"external_url" bson:"external_url"`
+	Featured                    bool               `json:"featured" bson:"featured"`
+	FeaturedImageUrl            string             `json:"featured_image_url" bson:"featured_image_url"`
+	Hidden                      bool               `json:"hidden" bson:"hidden"`
+	ImageUrl                    string             `json:"image_url" bson:"image_url"`
+	InstagramUsername           string             `json:"instagram_username" bson:"instagram_username"`
+	IsSubjectToWhitelist        bool               `json:"is_subject_to_whitelist" bson:"is_subject_to_whitelist"`
+	LargeImageUrl               string             `json:"large_image_url" bson:"large_image_url"`
+	MediumUsernam               string             `json:"medium_usernam" bson:"medium_usernam"`
+	Name                        string             `json:"name" bson:"name"`
+	OnlyProxiedTransfers        bool               `json:"only_proxied_transfers" bson:"only_proxied_transfers"`
+	OpenseaBuyerFeeBasisPoints  string             `json:"opensea_buyer_fee_basis_points" bson:"opensea_buyer_fee_basis_points"`
+	OpenseaSellerFeeBasisPoints string             `json:"opensea_seller_fee_basis_points" bson:"opensea_seller_fee_basis_points"`
+	PayoutAddress               string             `json:"payout_address" bson:"payout_address"`
+	ProtoDisplayData            OpenseaDisplayData `json:"display_data" bson:"display_data"`
+	RequireEmail                bool               `json:"require_email" bson:"require_email"`
+	SafelistRequestStatus       string             `json:"safelist_request_status" bson:"safelist_request_status"`
+	ShortDescription            string             `json:"short_description" bson:"short_description"`
+	Slub                        string             `json:"slub" bson:"slub"`
+	TelegramUrl                 string             `json:"telegram_url" bson:"telegram_url"`
+	TwitterUsername             string             `json:"twitter_username" bson:"twitter_username"`
+	WikiUrl                     string             `json:"wiki_url" bson:"wiki_url"`
 }
 
 // UnmarshalJSON will deserialize bytes into a OpenseaCollection model

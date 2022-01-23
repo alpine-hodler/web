@@ -6,8 +6,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // CoinbaseLimits defines limits for a payment method
 type CoinbaseLimits struct {
-	Name string `json:"name"`
-	Type string `json:"type"`
+	Name string `json:"name" bson:"name"`
+	Type string `json:"type" bson:"type"`
 }
 
 // UnmarshalJSON will deserialize bytes into a CoinbaseLimits model
