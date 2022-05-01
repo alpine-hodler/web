@@ -31,7 +31,7 @@ https://go.dev/doc/install
 To build simply run
 
 ```
-./Makefile
+make
 ```
 
 ## Setting up Auth .env file
