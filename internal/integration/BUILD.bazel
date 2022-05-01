@@ -12,8 +12,9 @@ go_library(
 
 go_test(
     name = "integration_test",
+    timeout = "short",
     srcs = ["coinbase_test.go"],
-    data = glob(["data/**"]),
+    data = glob(["testdata/**"]),
     embed = [":integration"],
     deps = [
         "//internal/env",

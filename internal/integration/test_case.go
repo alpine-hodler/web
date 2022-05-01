@@ -16,10 +16,7 @@ type testCase struct {
 }
 
 func newTestCase(t *testing.T, file string) testCase {
-	// wd, err := os.Getwd()
-	// require.NoError(t, err)
-	// fmt.Println("PATH", path.Join(wd, "data", file))
-	jsonFile, err := os.Open(path.Join("data", file))
+	jsonFile, err := os.Open(path.Join("testdata", file))
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -27,6 +27,7 @@ go_library(
 
 go_test(
     name = "coinbase_test",
+    timeout = "short",
     srcs = ["async_ticker_test.go"],
     embed = [":coinbase"],
     deps = [
