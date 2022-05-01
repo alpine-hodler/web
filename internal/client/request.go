@@ -46,16 +46,15 @@ func New(conn Connector, method Method, endpoint Endpoint) *Request {
 	return req
 }
 
-// generateSlub will make an 8 character randomly generated identifier for the body, which can be
-// used to identify request info in logging.
+// generateSlub will make an 8 character randomly generated identifier for the body, which can be used to identify
+// request info in logging.
 func (req *Request) generateSlug() {
 	b := make([]byte, 4)
 	rand.Read(b)
 	req.slug = hex.EncodeToString(b)
 }
 
-// parseErrorMessage takes a response and a status and builder an error message
-// to send to the server
+// parseErrorMessage takes a response and a status and builder an error message to send to the server
 func parseErrorMessage(res *http.Response, status int) error {
 	msg := model.ErrorMessage{}
 	decoder := json.NewDecoder(res.Body)
@@ -81,6 +80,8 @@ func (req *Request) validateResponse(res *http.Response) (err error) {
 			err = parseErrorMessage(res, http.StatusInternalServerError)
 		case http.StatusNotFound:
 			err = parseErrorMessage(res, http.StatusNotFound)
+		case http.StatusForbidden:
+			err = parseErrorMessage(res, http.StatusForbidden)
 		}
 	}
 	if err != nil {
@@ -98,8 +99,7 @@ func (req *Request) AssignmentCallback(cb assignmentCallback) *Request {
 // Fetch will use the req's connector to
 func (req *Request) Fetch() *Assigner {
 	assigner := newAssigner(req)
-	// Generate the slug for identifying requests in async logging (if that ever
-	// happens)
+	// Generate the slug for identifying requests in async logging (if that ever happens)
 	req.generateSlug()
 
 	// Then fetch the request from the API
@@ -108,8 +108,7 @@ func (req *Request) Fetch() *Assigner {
 		req.errors.add(err)
 	}
 
-	// Validate the response, ensuring that there are no error codes or suspicious
-	// messages
+	// Validate the response, ensuring that there are no error codes or suspicious messages
 	if res != nil {
 		req.errors.add(req.validateResponse(res))
 		assigner.body = res.Body
