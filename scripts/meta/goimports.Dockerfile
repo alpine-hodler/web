@@ -6,4 +6,4 @@ FROM golang:latest
 # install goimports so that we can format go files and insert the imported
 # dependencies programatically
 RUN go install golang.org/x/tools/cmd/goimports@latest
-RUN go get github.com/99designs/gqlgen
+RUN go install github.com/99designs/gqlgen@latest

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # the mod cache can cause some goofy warnings if its not cleaned before we build
 go clean -modcache
 
