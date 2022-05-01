@@ -4,8 +4,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseWallet represents a user's available Coinbase wallet (These are the
-// wallets/accounts that are used for buying and selling on www.coinbase.com)
+// CoinbaseWallet represents a user's available Coinbase wallet (These are the wallets/accounts that are used for buying
+// and selling on www.coinbase.com)
 type CoinbaseWallet struct {
 	Active                       bool                            `json:"active" bson:"active"`
 	AvailableOnConsumer          bool                            `json:"available_on_consumer" bson:"available_on_consumer"`

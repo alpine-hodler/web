@@ -8,8 +8,7 @@ import (
 
 // * This is a generated file, do not edit
 
-// CoinbaseAccountTransfer will lists past withdrawals and deposits for an
-// account.
+// CoinbaseAccountTransfer will lists past withdrawals and deposits for an account.
 type CoinbaseAccountTransfer struct {
 	Amount       float64                        `json:"amount" bson:"amount"`
 	CanceledAt   time.Time                      `json:"canceled_at" bson:"canceled_at"`

@@ -24,8 +24,7 @@ func AssetsPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
-// Get takes an endpoint const and endpoint arguments to parse the URL endpoint
-// path.
+// Get takes an endpoint const and endpoint arguments to parse the URL endpoint path.
 func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 	return map[Endpoint]func(args client.EndpointArgs) string{
 		AssetsEndpoint: AssetsPath,

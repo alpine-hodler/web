@@ -11,8 +11,7 @@ type CoinbaseAccountLedgerDetails struct {
 	TradeId   string `json:"trade_id" bson:"trade_id"`
 }
 
-// UnmarshalJSON will deserialize bytes into a CoinbaseAccountLedgerDetails
-// model
+// UnmarshalJSON will deserialize bytes into a CoinbaseAccountLedgerDetails model
 func (coinbaseAccountLedgerDetails *CoinbaseAccountLedgerDetails) UnmarshalJSON(d []byte) error {
 	const (
 		orderIdJsonTag   = "order_id"

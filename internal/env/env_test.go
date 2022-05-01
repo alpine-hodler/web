@@ -26,13 +26,3 @@ func TestName(t *testing.T) {
 		})
 	})
 }
-
-func TestLoad(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("Load test", func() {
-		g.It("Should load environment data from any file", func() {
-			Load(".test.env")
-			g.Assert(CoinbaseProSecret.Get()).Equal("some-beautiful-secret-just-between-us")
-		})
-	})
-}

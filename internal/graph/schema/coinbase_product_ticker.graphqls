@@ -1,8 +1,7 @@
 # * This is a generated file, do not edit
 
 """
- CoinbaseProductTicker is a snapshot information about the last trade (tick),
- best bid/ask and 24h volume.
+ CoinbaseProductTicker is a snapshot information about the last trade (tick), best bid/ask and 24h volume.
 """
 type CoinbaseProductTicker {
   ask: Float

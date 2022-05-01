@@ -15,8 +15,7 @@ type CoinbaseUkDepositInformation struct {
 	Reference        string              `json:"reference" bson:"reference"`
 }
 
-// UnmarshalJSON will deserialize bytes into a CoinbaseUkDepositInformation
-// model
+// UnmarshalJSON will deserialize bytes into a CoinbaseUkDepositInformation model
 func (coinbaseUkDepositInformation *CoinbaseUkDepositInformation) UnmarshalJSON(d []byte) error {
 	const (
 		accountNumberJsonTag  = "account_number"
