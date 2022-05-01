@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseAccount holds data for trading account from the profile of the API
-// key
+// CoinbaseAccount holds data for trading account from the profile of the API key
 type CoinbaseAccount struct {
 	Available      float64 `json:"available" bson:"available"`
 	Balance        float64 `json:"balance" bson:"balance"`

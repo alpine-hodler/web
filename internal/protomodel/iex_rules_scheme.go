@@ -4,8 +4,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// IEXRulesScheme is one of the latest schemes for data points, notification
-// types, and operators used to construct rules.
+// IEXRulesScheme is one of the latest schemes for data points, notification types, and operators used to construct
+// rules.
 type IexRulesScheme struct {
 	IsLookup  bool    `json:"isLookup" bson:"isLookup"`
 	Label     string  `json:"label" bson:"label"`

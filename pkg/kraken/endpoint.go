@@ -25,8 +25,7 @@ func SystemStatusPath(args client.EndpointArgs) string {
 	return path.Join("/0", "public", "SystemStatus")
 }
 
-// Get takes an endpoint const and endpoint arguments to parse the URL endpoint
-// path.
+// Get takes an endpoint const and endpoint arguments to parse the URL endpoint path.
 func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 	return map[Endpoint]func(args client.EndpointArgs) string{
 		ServerTimeEndpoint:   ServerTimePath,

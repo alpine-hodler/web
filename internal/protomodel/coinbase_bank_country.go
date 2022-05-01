@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseBankCountry are the name and code for the bank's country associated
-// with a wallet
+// CoinbaseBankCountry are the name and code for the bank's country associated with a wallet
 type CoinbaseBankCountry struct {
 	Code string `json:"code" bson:"code"`
 	Name string `json:"name" bson:"name"`

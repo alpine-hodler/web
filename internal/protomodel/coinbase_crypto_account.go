@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseCryptoAccount references a crypto account that a
-// CoinbasePaymentMethod belongs to
+// CoinbaseCryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
 type CoinbaseCryptoAccount struct {
 	Id           string `json:"id" bson:"id"`
 	Resource     string `json:"resource" bson:"resource"`

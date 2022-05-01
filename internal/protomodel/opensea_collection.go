@@ -8,8 +8,7 @@ import (
 
 // * This is a generated file, do not edit
 
-// Asset contracts contain data about the contract itself, such as the
-// CryptoKitties contract or the CoolCats contract.
+// Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.
 type OpenseaCollection struct {
 	BannerImageUrl              string             `json:"banner_image_url" bson:"banner_image_url"`
 	ChatUrl                     string             `json:"chat_url" bson:"chat_url"`

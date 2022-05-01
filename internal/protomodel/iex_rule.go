@@ -4,9 +4,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// Rule to evaluate thousands of data points per second and build event-driven,
-// automated alerts using Rules Engine. You can access Rules Engine through the
-// IEX Console or through our API using the guidelines below.
+// Rule to evaluate thousands of data points per second and build event-driven, automated alerts using Rules Engine. You
+// can access Rules Engine through the IEX Console or through our API using the guidelines below.
 type IexRule struct {
 	// Label of the lookup
 	Label string `json:"label" bson:"label"`

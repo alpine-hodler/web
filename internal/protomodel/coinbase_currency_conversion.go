@@ -4,9 +4,8 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseCurrencyConversion is the response that converts funds from from
-// currency to to currency. Funds are converted on the from account in the
-// profile_id profile.
+// CoinbaseCurrencyConversion is the response that converts funds from from currency to to currency. Funds are converted
+// on the from account in the profile_id profile.
 type CoinbaseCurrencyConversion struct {
 	Amount        float64 `json:"amount" bson:"amount"`
 	From          string  `json:"from" bson:"from"`

@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "api.go",
         "async_ticker.go",
-        "client.go",
         "const.go",
         "endpoint.go",
         "mock_c.go",

@@ -8,9 +8,8 @@ import (
 
 // * This is a generated file, do not edit
 
-// CoinbaseWebsocketTicker is real-time price updates every time a match
-// happens. It batches updates in case of cascading matches, greatly reducing
-// bandwidth requirements.
+// CoinbaseWebsocketTicker is real-time price updates every time a match happens. It batches updates in case of
+// cascading matches, greatly reducing bandwidth requirements.
 type CoinbaseWebsocketTicker struct {
 	BestAsk   float64   `json:"best_ask" bson:"best_ask"`
 	BestBid   float64   `json:"best_bid" bson:"best_bid"`

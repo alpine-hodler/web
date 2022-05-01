@@ -8,9 +8,8 @@ import (
 
 // * This is a generated file, do not edit
 
-// Asset is the primary object in the OpenSea API is the, representing a unique
-// digital item whose ownership is managed by the blockchain. The below
-// CryptoSaga hero is an example of an asset shown on OpenSea.
+// Asset is the primary object in the OpenSea API is the, representing a unique digital item whose ownership is managed
+// by the blockchain. The below CryptoSaga hero is an example of an asset shown on OpenSea.
 type OpenseaAsset struct {
 	AnimationOriginalUrl string               `json:"animation_original_url" bson:"animation_original_url"`
 	AnimationUrl         string               `json:"animation_url" bson:"animation_url"`

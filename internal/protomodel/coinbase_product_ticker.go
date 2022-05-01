@@ -8,8 +8,7 @@ import (
 
 // * This is a generated file, do not edit
 
-// CoinbaseProductTicker is a snapshot information about the last trade (tick),
-// best bid/ask and 24h volume.
+// CoinbaseProductTicker is a snapshot information about the last trade (tick), best bid/ask and 24h volume.
 type CoinbaseProductTicker struct {
 	Ask     float64   `json:"ask" bson:"ask"`
 	Bid     float64   `json:"bid" bson:"bid"`

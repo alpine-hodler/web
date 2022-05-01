@@ -16,23 +16,23 @@ module Comment
     split << line.rstrip
   end
 
-  def self.split_go_comment_by_char(comment, count = 80)
+  def self.split_go_comment_by_char(comment, count = 120)
     Comment.split_comment_by_char('//', comment, count)
   end
 
-  def self.split_graphql_comment_by_char(comment, count = 80)
+  def self.split_graphql_comment_by_char(comment, count = 120)
     ['"""', Comment.split_comment_by_char('', comment, count), '"""']
   end
 
-  def self.u_format_go_comment(comment, count = 80)
+  def self.u_format_go_comment(comment, count = 120)
     split_go_comment_by_char(comment, count).join("\n")
   end
 
-  def format_go_comment(comment, count = 80)
+  def format_go_comment(comment, count = 120)
     Comment.split_go_comment_by_char(comment, count).join("\n")
   end
 
-  def format_graphql_comment(comment, count = 80)
+  def format_graphql_comment(comment, count = 120)
     Comment.split_graphql_comment_by_char(comment, count).join("\n")
   end
 end

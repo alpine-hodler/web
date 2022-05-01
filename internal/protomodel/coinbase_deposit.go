@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseDeposit is the response for deposited funds from a www.coinbase.com
-// wallet to the specified profile_id.
+// CoinbaseDeposit is the response for deposited funds from a www.coinbase.com wallet to the specified profile_id.
 type CoinbaseDeposit struct {
 	Amount   float64 `json:"amount" bson:"amount"`
 	Currency string  `json:"currency" bson:"currency"`

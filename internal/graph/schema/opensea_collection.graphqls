@@ -1,8 +1,7 @@
 # * This is a generated file, do not edit
 
 """
- Asset contracts contain data about the contract itself, such as the
- CryptoKitties contract or the CoolCats contract.
+ Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.
 """
 type OpenseaCollection {
   bannerImageUrl: String

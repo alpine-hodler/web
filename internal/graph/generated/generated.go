@@ -3985,11 +3985,9 @@ input CoinbaseAccountDepositOptions {  profileId: String
 	{Name: "internal/graph/schema/coinbase_account_hold.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseHold represents the hold on an account that belong to the same profile
- as the API key. Holds are placed on an account for any active orders or pending
- withdraw requests. As an order is filled, the hold amount is updated. If an
- order is canceled, any remaining hold is removed. For withdrawals, the hold is
- removed after it is completed.
+ CoinbaseHold represents the hold on an account that belong to the same profile as the API key. Holds are placed on an
+ account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an
+ order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.
 """
 type CoinbaseAccountHold {
   id: String
@@ -4006,8 +4004,8 @@ input CoinbaseAccountHoldsOptions {  before: String
 	{Name: "internal/graph/schema/coinbase_account_ledger.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseAccountLedger lists ledger activity for an account. This includes
- anything that would affect the accounts balance - transfers, trades, fees, etc.
+ CoinbaseAccountLedger lists ledger activity for an account. This includes anything that would affect the accounts
+ balance - transfers, trades, fees, etc.
 """
 type CoinbaseAccountLedger {
   id: String
@@ -4038,8 +4036,7 @@ input CoinbaseAccountLedgerOptions {  startDate: String
 	{Name: "internal/graph/schema/coinbase_account_transfer.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseAccountTransfer will lists past withdrawals and deposits for an
- account.
+ CoinbaseAccountTransfer will lists past withdrawals and deposits for an account.
 """
 type CoinbaseAccountTransfer {
   id: String
@@ -4105,8 +4102,7 @@ type CoinbaseBalance {
 	{Name: "internal/graph/schema/coinbase_bank_country.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseBankCountry are the name and code for the bank's country associated
- with a wallet
+ CoinbaseBankCountry are the name and code for the bank's country associated with a wallet
 """
 type CoinbaseBankCountry {
   name: String
@@ -4134,8 +4130,7 @@ input CoinbaseConversionsOptions {  profileId: String
 	{Name: "internal/graph/schema/coinbase_crypto_account.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseCryptoAccount references a crypto account that a CoinbasePaymentMethod
- belongs to
+ CoinbaseCryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
 """
 type CoinbaseCryptoAccount {
   id: String
@@ -4145,8 +4140,7 @@ type CoinbaseCryptoAccount {
 	{Name: "internal/graph/schema/coinbase_crypto_address.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseCryptoAddress is used for a one-time crypto address for depositing
- crypto.
+ CoinbaseCryptoAddress is used for a one-time crypto address for depositing crypto.
 """
 type CoinbaseCryptoAddress {
   id: String
@@ -4198,8 +4192,7 @@ input CoinbaseCryptoWithdrawalOptions {  profileId: String
 	{Name: "internal/graph/schema/coinbase_currency.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseCurrency is a currency that coinbase knows about. Not al currencies may
- be currently in use for trading.
+ CoinbaseCurrency is a currency that coinbase knows about. Not al currencies may be currently in use for trading.
 """
 type CoinbaseCurrency {
   id: String
@@ -4214,9 +4207,8 @@ type CoinbaseCurrency {
 	{Name: "internal/graph/schema/coinbase_currency_conversion.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseCurrencyConversion is the response that converts funds from from
- currency to to currency. Funds are converted on the from account in the
- profile_id profile.
+ CoinbaseCurrencyConversion is the response that converts funds from from currency to to currency. Funds are converted
+ on the from account in the profile_id profile.
 """
 type CoinbaseCurrencyConversion {
   id: String
@@ -4229,8 +4221,7 @@ type CoinbaseCurrencyConversion {
 	{Name: "internal/graph/schema/coinbase_currency_details.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseCurrencyDetails are the details for a currency that coinbase knows
- about
+ CoinbaseCurrencyDetails are the details for a currency that coinbase knows about
 """
 type CoinbaseCurrencyDetails {
   type: String
@@ -4249,8 +4240,7 @@ type CoinbaseCurrencyDetails {
 	{Name: "internal/graph/schema/coinbase_deposit.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseDeposit is the response for deposited funds from a www.coinbase.com
- wallet to the specified profile_id.
+ CoinbaseDeposit is the response for deposited funds from a www.coinbase.com wallet to the specified profile_id.
 """
 type CoinbaseDeposit {
   id: String
@@ -4477,8 +4467,7 @@ type CoinbasePickerData {
 	{Name: "internal/graph/schema/coinbase_product_ticker.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseProductTicker is a snapshot information about the last trade (tick),
- best bid/ask and 24h volume.
+ CoinbaseProductTicker is a snapshot information about the last trade (tick), best bid/ask and 24h volume.
 """
 type CoinbaseProductTicker {
   ask: Float
@@ -4501,12 +4490,10 @@ type CoinbaseRecurringOptions {
 	{Name: "internal/graph/schema/coinbase_sepa_deposit_information.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseSepaDepositInformation information regarding a wallet's deposits. A
- SEPA credit transfer is a single transfer of Euros from one person or
- organisation to another. For example, this could be to pay the deposit for a
- holiday rental or to settle an invoice. A SEPA direct debit is a recurring
- payment, for example to pay monthly rent or for a service like a mobile phone
- contract.
+ CoinbaseSepaDepositInformation information regarding a wallet's deposits. A SEPA credit transfer is a single transfer
+ of Euros from one person or organisation to another. For example, this could be to pay the deposit for a holiday rental
+ or to settle an invoice. A SEPA direct debit is a recurring payment, for example to pay monthly rent or for a service
+ like a mobile phone contract.
 """
 type CoinbaseSepaDepositInformation {
   iban: String
@@ -4548,11 +4535,10 @@ type CoinbaseSingleProduct {
 	{Name: "internal/graph/schema/coinbase_swift_deposit_information.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseSwiftDepositInformation information regarding a wallet's deposits.
- SWIFT stands for Society for Worldwide Interbank Financial Telecommunications.
- Basically, it's a computer network that connects over 900 banks around the
- world – and enables them to transfer money. ING is part of this network. There
- is no fee for accepting deposits into your account with ING.
+ CoinbaseSwiftDepositInformation information regarding a wallet's deposits. SWIFT stands for Society for Worldwide
+ Interbank Financial Telecommunications. Basically, it's a computer network that connects over 900 banks around the
+ world – and enables them to transfer money. ING is part of this network. There is no fee for accepting deposits into
+ your account with ING.
 """
 type CoinbaseSwiftDepositInformation {
   accountNumber: String
@@ -4580,8 +4566,8 @@ type CoinbaseUkDepositInformation {
 	{Name: "internal/graph/schema/coinbase_wallet.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseWallet represents a user's available Coinbase wallet (These are the
- wallets/accounts that are used for buying and selling on www.coinbase.com)
+ CoinbaseWallet represents a user's available Coinbase wallet (These are the wallets/accounts that are used for buying
+ and selling on www.coinbase.com)
 """
 type CoinbaseWallet {
   id: String
@@ -4605,9 +4591,8 @@ type CoinbaseWallet {
 	{Name: "internal/graph/schema/coinbase_websocket_ticker.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseWebsocketTicker is real-time price updates every time a match happens.
- It batches updates in case of cascading matches, greatly reducing bandwidth
- requirements.
+ CoinbaseWebsocketTicker is real-time price updates every time a match happens. It batches updates in case of cascading
+ matches, greatly reducing bandwidth requirements.
 """
 type CoinbaseWebsocketTicker {
   type: String
@@ -4639,8 +4624,7 @@ type CoinbaseWireDepositInformation {
 	{Name: "internal/graph/schema/coinbase_withdrawal.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseWithdrawal is data concerning withdrawing funds from the specified
- profile_id to a www.coinbase.com wallet.
+ CoinbaseWithdrawal is data concerning withdrawing funds from the specified profile_id to a www.coinbase.com wallet.
 """
 type CoinbaseWithdrawal {
   id: String
@@ -4653,8 +4637,7 @@ type CoinbaseWithdrawal {
 	{Name: "internal/graph/schema/coinbase_withdrawal_fee_estimate.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- CoinbaseWithdrawalFeeEstimate is a fee estimate for the crypto withdrawal to
- crypto address
+ CoinbaseWithdrawalFeeEstimate is a fee estimate for the crypto withdrawal to crypto address
 """
 type CoinbaseWithdrawalFeeEstimate {
   fee: Float
@@ -4666,9 +4649,8 @@ input CoinbaseWithdrawalFeeEstimateOptions {  currency: String
 	{Name: "internal/graph/schema/iex_rule.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- Rule to evaluate thousands of data points per second and build event-driven,
- automated alerts using Rules Engine. You can access Rules Engine through the
- IEX Console or through our API using the guidelines below.
+ Rule to evaluate thousands of data points per second and build event-driven, automated alerts using Rules Engine. You
+ can access Rules Engine through the IEX Console or through our API using the guidelines below.
 """
 type IexRule {
   value: String
@@ -4680,8 +4662,7 @@ type IexRule {
 	{Name: "internal/graph/schema/iex_rules_schema.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- IexRulesSchema is the latest schema for data points, notification types, and
- operators used to construct rules.
+ IexRulesSchema is the latest schema for data points, notification types, and operators used to construct rules.
 """
 type IexRulesSchema {
   schema: [IexRulesScheme]
@@ -4689,8 +4670,7 @@ type IexRulesSchema {
 	{Name: "internal/graph/schema/iex_rules_scheme.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- IEXRulesScheme is one of the latest schemes for data points, notification
- types, and operators used to construct rules.
+ IEXRulesScheme is one of the latest schemes for data points, notification types, and operators used to construct rules.
 """
 type IexRulesScheme {
   label: String
@@ -4722,8 +4702,7 @@ type KrakenServerTimeResult {
 	{Name: "internal/graph/schema/kraken_system_status.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- KrakenSystemStatus holds data concerning the current system status or trading
- mode.
+ KrakenSystemStatus holds data concerning the current system status or trading mode.
 """
 type KrakenSystemStatus {
   result: KrakenSystemStatusResult
@@ -4732,8 +4711,7 @@ type KrakenSystemStatus {
 	{Name: "internal/graph/schema/kraken_system_status_result.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- KrakenSystemStatusResult holds data concerning the current system status or
- trading mode.
+ KrakenSystemStatusResult holds data concerning the current system status or trading mode.
 """
 type KrakenSystemStatusResult {
   status: SystemStatus
@@ -4742,9 +4720,8 @@ type KrakenSystemStatusResult {
 	{Name: "internal/graph/schema/opensea_asset.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- Asset is the primary object in the OpenSea API is the, representing a unique
- digital item whose ownership is managed by the blockchain. The below CryptoSaga
- hero is an example of an asset shown on OpenSea.
+ Asset is the primary object in the OpenSea API is the, representing a unique digital item whose ownership is managed by
+ the blockchain. The below CryptoSaga hero is an example of an asset shown on OpenSea.
 """
 type OpenseaAsset {
   id: Int
@@ -4776,8 +4753,7 @@ type OpenseaAsset {
 	{Name: "internal/graph/schema/opensea_asset_contract.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- Asset contracts contain data about the contract itself, such as the
- CryptoKitties contract or the CoolCats contract.
+ Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.
 """
 type OpenseaAssetContract {
   address: String
@@ -4825,8 +4801,7 @@ input OpenseaAssetsOptions {  owner: String
 	{Name: "internal/graph/schema/opensea_collection.graphqls", Input: `# * This is a generated file, do not edit
 
 """
- Asset contracts contain data about the contract itself, such as the
- CryptoKitties contract or the CoolCats contract.
+ Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.
 """
 type OpenseaCollection {
   bannerImageUrl: String

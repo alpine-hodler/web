@@ -46,8 +46,7 @@ func (variable Variable) Name() string {
 	}[variable]
 }
 
-// Get will return the environment variable for a variable-type constant as a
-// string.
+// Get will return the environment variable for a variable-type constant as a string.
 func (variable Variable) Get() string {
 	return os.Getenv(variable.Name())
 }

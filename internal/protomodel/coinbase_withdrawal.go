@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseWithdrawal is data concerning withdrawing funds from the specified
-// profile_id to a www.coinbase.com wallet.
+// CoinbaseWithdrawal is data concerning withdrawing funds from the specified profile_id to a www.coinbase.com wallet.
 type CoinbaseWithdrawal struct {
 	Amount   float64 `json:"amount" bson:"amount"`
 	Currency string  `json:"currency" bson:"currency"`

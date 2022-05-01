@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// Asset contracts contain data about the contract itself, such as the
-// CryptoKitties contract or the CoolCats contract.
+// Asset contracts contain data about the contract itself, such as the CryptoKitties contract or the CoolCats contract.
 type OpenseaAssetContract struct {
 	Address                     string  `json:"address" bson:"address"`
 	AssetContractType           string  `json:"asset_contract_type" bson:"asset_contract_type"`

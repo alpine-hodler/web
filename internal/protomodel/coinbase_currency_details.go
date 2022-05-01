@@ -4,8 +4,7 @@ import "github.com/alpine-hodler/sdk/internal/serial"
 
 // * This is a generated file, do not edit
 
-// CoinbaseCurrencyDetails are the details for a currency that coinbase knows
-// about
+// CoinbaseCurrencyDetails are the details for a currency that coinbase knows about
 type CoinbaseCurrencyDetails struct {
 	CryptoAddressLink     string   `json:"crypto_address_link" bson:"crypto_address_link"`
 	CryptoTransactionLink string   `json:"crypto_transaction_link" bson:"crypto_transaction_link"`
