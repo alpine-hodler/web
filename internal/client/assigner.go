@@ -5,9 +5,8 @@ import (
 	"io"
 )
 
-// Assigner is a struct that embeds a request, giving it access to all the request methods and
-// data.  It serves as a safety mechanism, preventing a user from creating fetch chains in
-// questionable order
+// Assigner is a struct that embeds a request, giving it access to all the request methods and data.  It serves as a
+// safety mechanism, preventing a user from creating fetch chains in questionable order
 type Assigner struct {
 	*Request
 	body io.ReadCloser

@@ -7,7 +7,6 @@ go_library(
         "async_ticker.go",
         "const.go",
         "endpoint.go",
-        "mock_c.go",
         "websocket.go",
     ],
     importpath = "github.com/alpine-hodler/sdk/pkg/coinbase",
@@ -18,8 +17,6 @@ go_library(
         "//pkg/model",
         "//pkg/websocket",
         "//tools",
-        "@com_github_franela_goblin//:goblin",
-        "@com_github_golang_mock//gomock",
         "@com_github_sirupsen_logrus//:logrus",
         "@org_golang_x_sync//errgroup",
     ],
@@ -28,11 +25,18 @@ go_library(
 go_test(
     name = "coinbase_test",
     timeout = "short",
-    srcs = ["async_ticker_test.go"],
+    srcs = [
+        "async_ticker_test.go",
+        "integration_test.go",
+    ],
+    data = glob([".simple-test.env"]),
     embed = [":coinbase"],
     deps = [
+        "//internal/env",
         "//pkg/model",
         "//pkg/websocket",
         "@com_github_franela_goblin//:goblin",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@com_github_stretchr_testify//require",
     ],
 )
