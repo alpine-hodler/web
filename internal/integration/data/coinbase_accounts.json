@@ -1,0 +1,76 @@
+{
+	"expected": [
+		{
+			"id": "b82aa00a-e71d-4ee6-9c81-90304ac37d65",
+			"currency": "BAT",
+			"balance": "0",
+			"available": "0",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "4605653f-8537-4089-9603-918cf03218fb",
+			"currency": "BTC",
+			"balance": "0.00309679",
+			"available": "0.00309679",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "3fc90ff4-fba5-49ad-86fb-a71ffe2197de",
+			"currency": "ETH",
+			"balance": "1.9232",
+			"available": "1.9232",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "fd85311a-b18a-49f0-98ca-1a7be41c2392",
+			"currency": "EUR",
+			"balance": "0",
+			"available": "0",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "0492d3cb-0dca-4f20-abad-826d44f5bdd6",
+			"currency": "GBP",
+			"balance": "0",
+			"available": "0",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "840776d1-c1dc-4cc9-9b1c-9509f5ffe795",
+			"currency": "LINK",
+			"balance": "0",
+			"available": "0",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "9be8708a-ca87-46c8-abce-a3effcec60b5",
+			"currency": "USD",
+			"balance": "18860.313351923407",
+			"available": "18860.313351923407",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		},
+		{
+			"id": "3dad8b1d-87cb-471c-af24-a85d2683d13b",
+			"currency": "USDC",
+			"balance": "0.0009122",
+			"available": "0.0009122",
+			"hold": "0",
+			"profile_id": "f40112d4-a584-4877-89a6-a63c95fb4ed8",
+			"trading_enabled": true
+		}
+	]
+}
