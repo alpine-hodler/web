@@ -12,6 +12,11 @@ build-meta:
 	scripts/build_meta.sh
 	gqlgen generate
 
+generate-meta:
+	docker-compose -f "meta.docker-compose.yaml" run test_generate
+	docker-compose -f "meta.docker-compose.yaml" run generate
+	gqlgen generate
+
 list_pkgs:
 	echo $(PKGS)
 

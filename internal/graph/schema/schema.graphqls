@@ -15,7 +15,7 @@ type Query {
   ): [CoinbaseAccountLedger]
   coinbaseAccountTransfers(
     accountId: String!
-    opts: CoinbaseAccountTransferOptions
+    opts: CoinbaseAccountTransfersOptions
   ): [CoinbaseAccountTransfer]
 	coinbseCancelOrder(orderId: String!): String!
   coinbaseCurrencies: [CoinbaseCurrency]

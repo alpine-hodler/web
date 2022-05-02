@@ -3,8 +3,8 @@ exec:
   filename: internal/graph/generated/generated.go
   package: generated
 model:
-  filename: pkg/model/graph_models_gen.go
-  package: model
+  filename: internal/protomodel/graph_models_gen.go
+  package: protomodel
 models:
   CancelAfter:
     model: github.com/alpine-hodler/sdk/pkg/scalar.CancelAfter
@@ -64,8 +64,6 @@ models:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbasePaymentMethod
   CoinbasePickerData:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbasePickerData
-  CoinbaseRecurringOptions:
-    model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseRecurringOptions
   CoinbaseSEPADepositInformation:
     model: model.CoinbaseSEPADepositInformation
   CoinbaseSWIFTDepositInformation:
@@ -159,6 +157,8 @@ models:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProduct
   CoinbaseProductTicker:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProductTicker
+  CoinbaseRecurringOptions:
+    model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseRecurringOptions
 resolver:
   dir: internal/graph
   layout: follow-schema

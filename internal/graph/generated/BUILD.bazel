@@ -6,6 +6,7 @@ go_library(
     importpath = "github.com/alpine-hodler/sdk/internal/graph/generated",
     visibility = ["//visibility:public"],
     deps = [
+        "//internal/protomodel",
         "//pkg/model",
         "//pkg/scalar",
         "@com_github_99designs_gqlgen//graphql",

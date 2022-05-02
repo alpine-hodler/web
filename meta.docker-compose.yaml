@@ -14,6 +14,7 @@ services:
       - ./pkg/kraken:/usr/src/kraken
       - ./pkg/iex:/usr/src/iex
       - ./pkg/opensea:/usr/src/opensea
+      - ./pkg/option:/usr/src/option
       - ./internal/graph:/usr/src/graph
       - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
@@ -26,6 +27,7 @@ services:
       - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
       - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb
@@ -43,6 +45,7 @@ services:
       - ./pkg/kraken:/usr/src/kraken
       - ./pkg/iex:/usr/src/iex
       - ./pkg/opensea:/usr/src/opensea
+      - ./pkg/option:/usr/src/option
       - ./internal/graph:/usr/src/graph
       - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
@@ -55,6 +58,7 @@ services:
       - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
       - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb

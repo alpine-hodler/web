@@ -1,4 +1,6 @@
 # * This is a generated file, do not edit
 
-input CoinbaseWithdrawalFeeEstimateOptions {  currency: String
-  cryptoAddress: String}
+input CoinbaseWithdrawalFeeEstimateOptions {
+  currency: String
+  cryptoAddress: String
+}

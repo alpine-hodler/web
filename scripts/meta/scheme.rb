@@ -11,6 +11,7 @@ require_relative 'endpoint'
 require_relative 'protomodel'
 require_relative 'model'
 require_relative 'graph_schema'
+require_relative 'option'
 
 # Scheme is the class encapsulation of a single json file in the meta/schema
 # directory
@@ -34,6 +35,7 @@ class Scheme
   include Protomodel
   include Model
   include GraphSchema
+	include Option
 
   def initialize(filename)
     file = File.read(filename)

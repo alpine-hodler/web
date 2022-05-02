@@ -17,7 +17,9 @@ class Endpoint
     :description,
     :query_params,
     :graphql_model_name,
-    :graphql_query_param_filename
+		:go_model_name,
+    :graphql_query_param_filename,
+		:go_query_param_filename
 
   def initialize(api, hash)
     return if hash.nil?
@@ -30,7 +32,9 @@ class Endpoint
 
     gql_base = "#{api}_#{enum_root.to_snake}_options"
     @graphql_model_name = gql_base.to_pascal
+		@go_model_name = "#{api}_#{enum_root.to_snake}".to_pascal
     @graphql_query_param_filename = "#{gql_base}.graphqls"
+		@go_query_param_filename = "#{gql_base}.go"
 
     set_path_parts
     set_query_params
