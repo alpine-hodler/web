@@ -1,5 +1,7 @@
 # * This is a generated file, do not edit
 
-input CoinbaseAccountHoldsOptions {  before: String
+input CoinbaseAccountHoldsOptions {
+  before: String
   after: String
-  limit: Int}
+  limit: Int
+}

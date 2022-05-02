@@ -1,8 +1,10 @@
 # * This is a generated file, do not edit
 
-input CoinbaseAccountLedgerOptions {  startDate: String
+input CoinbaseAccountLedgerOptions {
+  startDate: String
   endDate: String
   before: String
   after: String
-  profileId: String
-  limit: Int}
+  profileID: String
+  limit: Int
+}

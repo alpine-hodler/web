@@ -14,6 +14,7 @@ import (
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/pkg/model"
+	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/alpine-hodler/sdk/pkg/websocket"
 	"github.com/alpine-hodler/sdk/tools"
 	"github.com/sirupsen/logrus"
@@ -171,7 +172,7 @@ func (coinbaseClient *C) Accounts() (m []*model.CoinbaseAccount, err error) {
 // AccountHolds returns a list of holds of an account that belong to the same profile as the API key. Holds are placed
 // for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated.
 func (coinbaseClient *C) AccountHolds(accountId string,
-	opts *model.CoinbaseAccountHoldsOptions) (m []*model.CoinbaseAccountHold, err error) {
+	opts *option.CoinbaseAccountHolds) (m []*model.CoinbaseAccountHold, err error) {
 	return m, coinbaseClient.Get(AccountHoldsEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -198,7 +199,7 @@ func (coinbaseClient *C) AccountHolds(accountId string,
 // AccountLedger lists ledger activity for an account. This includes anything that would affect the accounts balance -
 // transfers, trades, fees, etc
 func (coinbaseClient *C) AccountLedger(accountId string,
-	opts *model.CoinbaseAccountLedgerOptions) (m []*model.CoinbaseAccountLedger, err error) {
+	opts *option.CoinbaseAccountLedger) (m []*model.CoinbaseAccountLedger, err error) {
 	return m, coinbaseClient.Get(AccountLedgerEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -242,7 +243,7 @@ func (coinbaseClient *C) AccountLedger(accountId string,
 
 // AccountTransfers lists past withdrawals and deposits for an account.
 func (coinbaseClient *C) AccountTransfers(accountId string,
-	opts *model.CoinbaseAccountTransferOptions) (m []*model.CoinbaseAccountTransfer, err error) {
+	opts *option.CoinbaseAccountTransfers) (m []*model.CoinbaseAccountTransfer, err error) {
 	return m, coinbaseClient.Get(AccountTransfersEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -280,7 +281,7 @@ func (coinbaseClient *C) AccountTransfers(accountId string,
 
 // AccountWithdrawal Withdraws funds from the specified profile_id to a www.coinbase.com wallet.
 func (coinbaseClient *C) AccountWithdrawal(
-	opts *model.CoinbaseAccountWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
+	opts *option.CoinbaseAccountWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -292,7 +293,7 @@ func (coinbaseClient *C) AccountWithdrawal(
 
 // CryptoWithdrawal withdraws funds from the specified profile_id to an external crypto address
 func (coinbaseClient *C) CryptoWithdrawal(
-	opts *model.CoinbaseCryptoWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
+	opts *option.CoinbaseCryptoWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(CryptoWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -309,7 +310,7 @@ func (coinbaseClient *C) CryptoWithdrawal(
 
 // CoinbaseAccountDeposit will deposit funds from a www.coinbase.com wallet to the specified profile_id.
 func (coinbaseClient *C) CoinbaseAccountDeposit(
-	opts *model.CoinbaseAccountDepositOptions) (m *model.CoinbaseDeposit, err error) {
+	opts *option.CoinbaseAccountDeposit) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(AccountDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -321,8 +322,7 @@ func (coinbaseClient *C) CoinbaseAccountDeposit(
 
 // CanceCancelOpenOrderslAll will with best effort, cancel all open orders. This may require you to make the request
 // multiple times until all of the open orders are deleted.
-func (coinbaseClient *C) CancelOpenOrders(
-	opts *model.CoinbaseOrdersOptions) (m []*string, err error) {
+func (coinbaseClient *C) CancelOpenOrders(opts *option.CoinbaseOrders) (m []*string, err error) {
 	return m, coinbaseClient.Delete(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
@@ -345,8 +345,7 @@ func (coinbaseClient *C) CancelOrder(orderID string) (str string, err error) {
 }
 
 // CreateOrder will create an order. You can place two types of orders: limit
-func (coinbaseClient *C) CreateOrder(
-	opts *model.CoinbaseNewOrderOptions) (m *model.CoinbaseNewOrder, err error) {
+func (coinbaseClient *C) CreateOrder(opts *option.CoinbaseNewOrder) (m *model.CoinbaseNewOrder, err error) {
 	return m, coinbaseClient.Post(NewOrderEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -368,8 +367,7 @@ func (coinbaseClient *C) CreateOrder(
 
 // Convert converts funds from from currency to to currency. Funds are converted on the from account  in the profile_id
 // profile.
-func (coinbaseClient *C) Convert(
-	opts model.CoinbaseConversionsOptions) (m *model.CoinbaseCurrencyConversion, err error) {
+func (coinbaseClient *C) Convert(opts *option.CoinbaseConversions) (m *model.CoinbaseCurrencyConversion, err error) {
 	return m, coinbaseClient.Post(ConversionsEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("from", &opts.From).
@@ -432,7 +430,7 @@ func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
 // Fills are returned sorted by descending trade_id from the largest trade_id to the smallest trade_id. The CB-BEFORE
 // header will have this first trade id so that future requests using the cb-before parameter will fetch fills with a
 // greater trade id (newer fills).
-func (coinbaseClient *C) Fills(opts *model.CoinbaseFillsOptions) (m []*model.CoinbaseFill, err error) {
+func (coinbaseClient *C) Fills(opts *option.CoinbaseFills) (m []*model.CoinbaseFill, err error) {
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("order_id", func() (i *string) {
 			if opts != nil {
@@ -478,7 +476,7 @@ func (coinbaseClient *C) Fills(opts *model.CoinbaseFillsOptions) (m []*model.Coi
 
 // FindConversion gets currency conversion by id (i.e. USD -> USDC).
 func (coinbaseClient *C) FindConversion(conversionId string,
-	opts *model.CoinbaseConversionOptions) (m *model.CoinbaseCurrencyConversion, err error) {
+	opts *option.CoinbaseConversion) (m *model.CoinbaseCurrencyConversion, err error) {
 	return m, coinbaseClient.Get(ConversionEndpoint).
 		PathParam("conversion_id", conversionId).
 		QueryParam("profile_id", func() (i *string) {
@@ -505,7 +503,7 @@ func (coinbaseClient *C) FindTransfer(id string) (m *model.CoinbaseAccountTransf
 // MakePaymentMethodDeposit will deposits funds from a linked external payment method to the
 // specified profile_id.
 func (coinbaseClient *C) PaymentMethodDeposit(
-	opts *model.CoinbasePaymentMethodDepositOptions) (m *model.CoinbaseDeposit, err error) {
+	opts *option.CoinbasePaymentMethodDeposit) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(PaymentMethodDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -523,7 +521,7 @@ func (coinbaseClient *C) PaymentMethods() (m []*model.CoinbasePaymentMethod, err
 
 // PaymentMethodWithdrawal ithdraws funds from the specified profile_id to a linked external payment method
 func (coinbaseClient *C) PaymentMethodWithdrawal(
-	opts *model.CoinbasePaymentMethodWithdrawalOptions) (m *model.CoinbaseWithdrawal, err error) {
+	opts *option.CoinbasePaymentMethodWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(PaymentMethodWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileID).
@@ -536,7 +534,7 @@ func (coinbaseClient *C) PaymentMethodWithdrawal(
 // Orders will list your current open orders. Only open or un-settled orders are returned by default. As soon as an
 // order is no longer open and settled, it will no longer appear in the default request. Open orders may change state
 // between the request and the response depending on market conditions.
-func (coinbaseClient *C) Orders(opts *model.CoinbaseOrdersOptions) (m []*model.CoinbaseOrder, err error) {
+func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.CoinbaseOrder, err error) {
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
@@ -636,7 +634,7 @@ func (coinbaseClient *C) Wallets() (m []*model.CoinbaseWallet, err error) {
 
 // WithdrawalFeeEstimate gets the fee estimate for the crypto withdrawal to crypto address
 func (coinbaseClient *C) WithdrawalFeeEstimate(
-	opts *model.CoinbaseWithdrawalFeeEstimateOptions) (m *model.CoinbaseWithdrawalFeeEstimate, err error) {
+	opts *option.CoinbaseWithdrawalFeeEstimate) (m *model.CoinbaseWithdrawalFeeEstimate, err error) {
 	return m, coinbaseClient.Get(WithdrawalFeeEstimateEndpoint).
 		QueryParam("currency", func() (i *string) {
 			if opts != nil {

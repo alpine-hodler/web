@@ -6,6 +6,7 @@ import (
 
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/pkg/model"
+	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 )
@@ -84,40 +85,39 @@ func testGetWalletID(t *testing.T, client *C, currency string) (walletID string)
 }
 
 func testPostAccountDeposit(t *testing.T, client *C, currency string, amount float64) {
-	_, err := client.CoinbaseAccountDeposit(&model.CoinbaseAccountDepositOptions{
-		CoinbaseAccountID: testGetWalletID(t, client, currency),
-		Amount:            amount,
-		Currency:          currency,
-	})
+	opts := new(option.CoinbaseAccountDeposit).
+		SetCoinbaseAccountID(testGetWalletID(t, client, currency)).
+		SetAmount(amount).
+		SetCurrency(currency)
+	_, err := client.CoinbaseAccountDeposit(opts)
 	require.NoError(t, err)
 }
 
 func testPostAccountWithdrawal(t *testing.T, client *C, currency string, amount float64) {
-	_, err := client.AccountWithdrawal(&model.CoinbaseAccountWithdrawalOptions{
-		CoinbaseAccountID: testGetWalletID(t, client, currency),
-		Amount:            amount,
-		Currency:          currency,
-	})
+	opts := new(option.CoinbaseAccountWithdrawal).
+		SetCoinbaseAccountID(testGetWalletID(t, client, currency)).
+		SetAmount(amount).
+		SetCurrency(currency)
+	_, err := client.AccountWithdrawal(opts)
 	require.NoError(t, err)
 }
 
 func testPostConvert(t *testing.T, client *C, from, to string, amount float64) {
-	profileID := testGetProfileID(t, client, from)
-	_, err := client.Convert(model.CoinbaseConversionsOptions{
-		ProfileID: &profileID,
-		From:      from,
-		To:        to,
-		Amount:    amount,
-	})
+	opts := new(option.CoinbaseConversions).
+		SetProfileID(testGetProfileID(t, client, from)).
+		SetFrom(from).
+		SetTo(to).
+		SetAmount(amount)
+	_, err := client.Convert(opts)
 	require.NoError(t, err)
 }
 
 func testPostCryptoWithdrawal(t *testing.T, client *C, currency string, amount float64) {
-	_, err := client.CryptoWithdrawal(&model.CoinbaseCryptoWithdrawalOptions{
-		CryptoAddress: testGetCryptoAddress(t, client, currency),
-		Amount:        amount,
-		Currency:      currency,
-	})
+	opts := new(option.CoinbaseCryptoWithdrawal).
+		SetCryptoAddress(testGetCryptoAddress(t, client, currency)).
+		SetAmount(amount).
+		SetCurrency(currency)
+	_, err := client.CryptoWithdrawal(opts)
 	require.NoError(t, err)
 }
 
@@ -163,7 +163,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Fills", func() (err error) {
-		_, err = client.Fills(&model.CoinbaseFillsOptions{ProductID: &productID})
+		_, err = client.Fills(new(option.CoinbaseFills).SetProductID(productID))
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Payment Methods", func() (err error) {

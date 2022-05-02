@@ -13,6 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/alpine-hodler/sdk/internal/protomodel"
 	"github.com/alpine-hodler/sdk/pkg/model"
 	"github.com/alpine-hodler/sdk/pkg/scalar"
 	gqlparser "github.com/vektah/gqlparser/v2"
@@ -494,15 +495,15 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CoinbaseAccountDeposit          func(childComplexity int, opts *model.CoinbaseAccountDepositOptions) int
-		CoinbaseAccountWithdrawal       func(childComplexity int, opts *model.CoinbaseAccountWithdrawalOptions) int
-		CoinbaseCancelAllOrders         func(childComplexity int, opts *model.CoinbaseOrdersOptions) int
-		CoinbaseConvertCurrency         func(childComplexity int, opts model.CoinbaseConversionsOptions) int
-		CoinbaseCreateNewOrder          func(childComplexity int, opts *model.CoinbaseNewOrderOptions) int
-		CoinbaseCryptoWithdrawal        func(childComplexity int, opts *model.CoinbaseCryptoWithdrawalOptions) int
+		CoinbaseAccountDeposit          func(childComplexity int, opts *protomodel.CoinbaseAccountDepositOptions) int
+		CoinbaseAccountWithdrawal       func(childComplexity int, opts *protomodel.CoinbaseAccountWithdrawalOptions) int
+		CoinbaseCancelAllOrders         func(childComplexity int, opts *protomodel.CoinbaseOrdersOptions) int
+		CoinbaseConvertCurrency         func(childComplexity int, opts protomodel.CoinbaseConversionsOptions) int
+		CoinbaseCreateNewOrder          func(childComplexity int, opts *protomodel.CoinbaseNewOrderOptions) int
+		CoinbaseCryptoWithdrawal        func(childComplexity int, opts *protomodel.CoinbaseCryptoWithdrawalOptions) int
 		CoinbaseGenerateCryptoAddress   func(childComplexity int, walletID string) int
-		CoinbasePaymentMethodDeposit    func(childComplexity int, opts *model.CoinbasePaymentMethodDepositOptions) int
-		CoinbasePaymentMethodWithdrawal func(childComplexity int, opts *model.CoinbasePaymentMethodWithdrawalOptions) int
+		CoinbasePaymentMethodDeposit    func(childComplexity int, opts *protomodel.CoinbasePaymentMethodDepositOptions) int
+		CoinbasePaymentMethodWithdrawal func(childComplexity int, opts *protomodel.CoinbasePaymentMethodWithdrawalOptions) int
 	}
 
 	OpenseaAsset struct {
@@ -619,68 +620,68 @@ type ComplexityRoot struct {
 
 	Query struct {
 		CoinbaseAccount               func(childComplexity int, accountID string) int
-		CoinbaseAccountHolds          func(childComplexity int, accountID string, opts *model.CoinbaseAccountHoldsOptions) int
-		CoinbaseAccountLedger         func(childComplexity int, accountID string, opts *model.CoinbaseAccountLedgerOptions) int
-		CoinbaseAccountTransfers      func(childComplexity int, accountID string, opts *model.CoinbaseAccountTransferOptions) int
+		CoinbaseAccountHolds          func(childComplexity int, accountID string, opts *protomodel.CoinbaseAccountHoldsOptions) int
+		CoinbaseAccountLedger         func(childComplexity int, accountID string, opts *protomodel.CoinbaseAccountLedgerOptions) int
+		CoinbaseAccountTransfers      func(childComplexity int, accountID string, opts *protomodel.CoinbaseAccountTransfersOptions) int
 		CoinbaseAccounts              func(childComplexity int) int
 		CoinbaseCurrencies            func(childComplexity int) int
 		CoinbaseCurrency              func(childComplexity int, currentID string) int
-		CoinbaseCurrencyConversion    func(childComplexity int, conversionID string, opts *model.CoinbaseConversionOptions) int
+		CoinbaseCurrencyConversion    func(childComplexity int, conversionID string, opts *protomodel.CoinbaseConversionOptions) int
 		CoinbaseFees                  func(childComplexity int) int
-		CoinbaseFills                 func(childComplexity int, opts *model.CoinbaseFillsOptions) int
+		CoinbaseFills                 func(childComplexity int, opts *protomodel.CoinbaseFillsOptions) int
 		CoinbaseOrder                 func(childComplexity int, orderID string) int
-		CoinbaseOrders                func(childComplexity int, opts *model.CoinbaseOrdersOptions) int
+		CoinbaseOrders                func(childComplexity int, opts *protomodel.CoinbaseOrdersOptions) int
 		CoinbasePaymentMethods        func(childComplexity int) int
 		CoinbaseProductTicker         func(childComplexity int, productID string) int
 		CoinbaseTransfer              func(childComplexity int, transferID string) int
 		CoinbaseTransfers             func(childComplexity int) int
 		CoinbaseWallets               func(childComplexity int) int
-		CoinbaseWithdrawalFeeEstimate func(childComplexity int, opts *model.CoinbaseWithdrawalFeeEstimateOptions) int
+		CoinbaseWithdrawalFeeEstimate func(childComplexity int, opts *protomodel.CoinbaseWithdrawalFeeEstimateOptions) int
 		CoinbseCancelOrder            func(childComplexity int, orderID string) int
 		IexRules                      func(childComplexity int, value string) int
 		IexRulesSchema                func(childComplexity int) int
 		KrakenServerTime              func(childComplexity int) int
 		KrakenSystemStatus            func(childComplexity int) int
-		OpenseaAssets                 func(childComplexity int, opts *model.OpenseaAssetsOptions) int
+		OpenseaAssets                 func(childComplexity int, opts *protomodel.OpenseaAssetsOptions) int
 	}
 }
 
 type MutationResolver interface {
-	CoinbaseAccountDeposit(ctx context.Context, opts *model.CoinbaseAccountDepositOptions) (*model.CoinbaseDeposit, error)
-	CoinbaseCancelAllOrders(ctx context.Context, opts *model.CoinbaseOrdersOptions) ([]*string, error)
-	CoinbaseCreateNewOrder(ctx context.Context, opts *model.CoinbaseNewOrderOptions) (*model.CoinbaseNewOrder, error)
-	CoinbaseConvertCurrency(ctx context.Context, opts model.CoinbaseConversionsOptions) (*model.CoinbaseCurrencyConversion, error)
+	CoinbaseAccountDeposit(ctx context.Context, opts *protomodel.CoinbaseAccountDepositOptions) (*model.CoinbaseDeposit, error)
+	CoinbaseCancelAllOrders(ctx context.Context, opts *protomodel.CoinbaseOrdersOptions) ([]*string, error)
+	CoinbaseCreateNewOrder(ctx context.Context, opts *protomodel.CoinbaseNewOrderOptions) (*model.CoinbaseNewOrder, error)
+	CoinbaseConvertCurrency(ctx context.Context, opts protomodel.CoinbaseConversionsOptions) (*model.CoinbaseCurrencyConversion, error)
 	CoinbaseGenerateCryptoAddress(ctx context.Context, walletID string) (*model.CoinbaseCryptoAddress, error)
-	CoinbasePaymentMethodDeposit(ctx context.Context, opts *model.CoinbasePaymentMethodDepositOptions) (*model.CoinbaseDeposit, error)
-	CoinbasePaymentMethodWithdrawal(ctx context.Context, opts *model.CoinbasePaymentMethodWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
-	CoinbaseAccountWithdrawal(ctx context.Context, opts *model.CoinbaseAccountWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
-	CoinbaseCryptoWithdrawal(ctx context.Context, opts *model.CoinbaseCryptoWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
+	CoinbasePaymentMethodDeposit(ctx context.Context, opts *protomodel.CoinbasePaymentMethodDepositOptions) (*model.CoinbaseDeposit, error)
+	CoinbasePaymentMethodWithdrawal(ctx context.Context, opts *protomodel.CoinbasePaymentMethodWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
+	CoinbaseAccountWithdrawal(ctx context.Context, opts *protomodel.CoinbaseAccountWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
+	CoinbaseCryptoWithdrawal(ctx context.Context, opts *protomodel.CoinbaseCryptoWithdrawalOptions) (*model.CoinbaseWithdrawal, error)
 }
 type QueryResolver interface {
 	CoinbaseAccount(ctx context.Context, accountID string) (*model.CoinbaseAccount, error)
 	CoinbaseAccounts(ctx context.Context) ([]*model.CoinbaseAccount, error)
-	CoinbaseAccountHolds(ctx context.Context, accountID string, opts *model.CoinbaseAccountHoldsOptions) ([]*model.CoinbaseAccountHold, error)
-	CoinbaseAccountLedger(ctx context.Context, accountID string, opts *model.CoinbaseAccountLedgerOptions) ([]*model.CoinbaseAccountLedger, error)
-	CoinbaseAccountTransfers(ctx context.Context, accountID string, opts *model.CoinbaseAccountTransferOptions) ([]*model.CoinbaseAccountTransfer, error)
+	CoinbaseAccountHolds(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountHoldsOptions) ([]*model.CoinbaseAccountHold, error)
+	CoinbaseAccountLedger(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountLedgerOptions) ([]*model.CoinbaseAccountLedger, error)
+	CoinbaseAccountTransfers(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountTransfersOptions) ([]*model.CoinbaseAccountTransfer, error)
 	CoinbseCancelOrder(ctx context.Context, orderID string) (string, error)
 	CoinbaseCurrencies(ctx context.Context) ([]*model.CoinbaseCurrency, error)
-	CoinbaseCurrencyConversion(ctx context.Context, conversionID string, opts *model.CoinbaseConversionOptions) (*model.CoinbaseCurrencyConversion, error)
+	CoinbaseCurrencyConversion(ctx context.Context, conversionID string, opts *protomodel.CoinbaseConversionOptions) (*model.CoinbaseCurrencyConversion, error)
 	CoinbaseCurrency(ctx context.Context, currentID string) (*model.CoinbaseCurrency, error)
 	CoinbaseFees(ctx context.Context) (*model.CoinbaseFees, error)
-	CoinbaseFills(ctx context.Context, opts *model.CoinbaseFillsOptions) ([]*model.CoinbaseFill, error)
-	CoinbaseOrders(ctx context.Context, opts *model.CoinbaseOrdersOptions) ([]*model.CoinbaseOrder, error)
+	CoinbaseFills(ctx context.Context, opts *protomodel.CoinbaseFillsOptions) ([]*model.CoinbaseFill, error)
+	CoinbaseOrders(ctx context.Context, opts *protomodel.CoinbaseOrdersOptions) ([]*model.CoinbaseOrder, error)
 	CoinbaseOrder(ctx context.Context, orderID string) (*model.CoinbaseOrder, error)
 	CoinbasePaymentMethods(ctx context.Context) ([]*model.CoinbasePaymentMethod, error)
 	CoinbaseProductTicker(ctx context.Context, productID string) (*model.CoinbaseProductTicker, error)
 	CoinbaseTransfers(ctx context.Context) ([]*model.CoinbaseAccountTransfer, error)
 	CoinbaseTransfer(ctx context.Context, transferID string) (*model.CoinbaseAccountTransfer, error)
 	CoinbaseWallets(ctx context.Context) ([]*model.CoinbaseWallet, error)
-	CoinbaseWithdrawalFeeEstimate(ctx context.Context, opts *model.CoinbaseWithdrawalFeeEstimateOptions) (*model.CoinbaseWithdrawalFeeEstimate, error)
+	CoinbaseWithdrawalFeeEstimate(ctx context.Context, opts *protomodel.CoinbaseWithdrawalFeeEstimateOptions) (*model.CoinbaseWithdrawalFeeEstimate, error)
 	IexRules(ctx context.Context, value string) ([]*model.IexRule, error)
 	IexRulesSchema(ctx context.Context) (*model.IexRulesSchema, error)
 	KrakenServerTime(ctx context.Context) (*model.KrakenServerTime, error)
 	KrakenSystemStatus(ctx context.Context) (*model.KrakenSystemStatus, error)
-	OpenseaAssets(ctx context.Context, opts *model.OpenseaAssetsOptions) (*model.OpenseaAssets, error)
+	OpenseaAssets(ctx context.Context, opts *protomodel.OpenseaAssetsOptions) (*model.OpenseaAssets, error)
 }
 
 type executableSchema struct {
@@ -2941,7 +2942,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseAccountDeposit(childComplexity, args["opts"].(*model.CoinbaseAccountDepositOptions)), true
+		return e.complexity.Mutation.CoinbaseAccountDeposit(childComplexity, args["opts"].(*protomodel.CoinbaseAccountDepositOptions)), true
 
 	case "Mutation.coinbaseAccountWithdrawal":
 		if e.complexity.Mutation.CoinbaseAccountWithdrawal == nil {
@@ -2953,7 +2954,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseAccountWithdrawal(childComplexity, args["opts"].(*model.CoinbaseAccountWithdrawalOptions)), true
+		return e.complexity.Mutation.CoinbaseAccountWithdrawal(childComplexity, args["opts"].(*protomodel.CoinbaseAccountWithdrawalOptions)), true
 
 	case "Mutation.coinbaseCancelAllOrders":
 		if e.complexity.Mutation.CoinbaseCancelAllOrders == nil {
@@ -2965,7 +2966,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseCancelAllOrders(childComplexity, args["opts"].(*model.CoinbaseOrdersOptions)), true
+		return e.complexity.Mutation.CoinbaseCancelAllOrders(childComplexity, args["opts"].(*protomodel.CoinbaseOrdersOptions)), true
 
 	case "Mutation.coinbaseConvertCurrency":
 		if e.complexity.Mutation.CoinbaseConvertCurrency == nil {
@@ -2977,7 +2978,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseConvertCurrency(childComplexity, args["opts"].(model.CoinbaseConversionsOptions)), true
+		return e.complexity.Mutation.CoinbaseConvertCurrency(childComplexity, args["opts"].(protomodel.CoinbaseConversionsOptions)), true
 
 	case "Mutation.coinbaseCreateNewOrder":
 		if e.complexity.Mutation.CoinbaseCreateNewOrder == nil {
@@ -2989,7 +2990,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseCreateNewOrder(childComplexity, args["opts"].(*model.CoinbaseNewOrderOptions)), true
+		return e.complexity.Mutation.CoinbaseCreateNewOrder(childComplexity, args["opts"].(*protomodel.CoinbaseNewOrderOptions)), true
 
 	case "Mutation.coinbaseCryptoWithdrawal":
 		if e.complexity.Mutation.CoinbaseCryptoWithdrawal == nil {
@@ -3001,7 +3002,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbaseCryptoWithdrawal(childComplexity, args["opts"].(*model.CoinbaseCryptoWithdrawalOptions)), true
+		return e.complexity.Mutation.CoinbaseCryptoWithdrawal(childComplexity, args["opts"].(*protomodel.CoinbaseCryptoWithdrawalOptions)), true
 
 	case "Mutation.coinbaseGenerateCryptoAddress":
 		if e.complexity.Mutation.CoinbaseGenerateCryptoAddress == nil {
@@ -3025,7 +3026,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbasePaymentMethodDeposit(childComplexity, args["opts"].(*model.CoinbasePaymentMethodDepositOptions)), true
+		return e.complexity.Mutation.CoinbasePaymentMethodDeposit(childComplexity, args["opts"].(*protomodel.CoinbasePaymentMethodDepositOptions)), true
 
 	case "Mutation.coinbasePaymentMethodWithdrawal":
 		if e.complexity.Mutation.CoinbasePaymentMethodWithdrawal == nil {
@@ -3037,7 +3038,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CoinbasePaymentMethodWithdrawal(childComplexity, args["opts"].(*model.CoinbasePaymentMethodWithdrawalOptions)), true
+		return e.complexity.Mutation.CoinbasePaymentMethodWithdrawal(childComplexity, args["opts"].(*protomodel.CoinbasePaymentMethodWithdrawalOptions)), true
 
 	case "OpenseaAsset.animationOriginalUrl":
 		if e.complexity.OpenseaAsset.AnimationOriginalUrl == nil {
@@ -3677,7 +3678,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseAccountHolds(childComplexity, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountHoldsOptions)), true
+		return e.complexity.Query.CoinbaseAccountHolds(childComplexity, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountHoldsOptions)), true
 
 	case "Query.coinbaseAccountLedger":
 		if e.complexity.Query.CoinbaseAccountLedger == nil {
@@ -3689,7 +3690,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseAccountLedger(childComplexity, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountLedgerOptions)), true
+		return e.complexity.Query.CoinbaseAccountLedger(childComplexity, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountLedgerOptions)), true
 
 	case "Query.coinbaseAccountTransfers":
 		if e.complexity.Query.CoinbaseAccountTransfers == nil {
@@ -3701,7 +3702,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseAccountTransfers(childComplexity, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountTransferOptions)), true
+		return e.complexity.Query.CoinbaseAccountTransfers(childComplexity, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountTransfersOptions)), true
 
 	case "Query.coinbaseAccounts":
 		if e.complexity.Query.CoinbaseAccounts == nil {
@@ -3739,7 +3740,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseCurrencyConversion(childComplexity, args["conversionId"].(string), args["opts"].(*model.CoinbaseConversionOptions)), true
+		return e.complexity.Query.CoinbaseCurrencyConversion(childComplexity, args["conversionId"].(string), args["opts"].(*protomodel.CoinbaseConversionOptions)), true
 
 	case "Query.coinbaseFees":
 		if e.complexity.Query.CoinbaseFees == nil {
@@ -3758,7 +3759,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseFills(childComplexity, args["opts"].(*model.CoinbaseFillsOptions)), true
+		return e.complexity.Query.CoinbaseFills(childComplexity, args["opts"].(*protomodel.CoinbaseFillsOptions)), true
 
 	case "Query.coinbaseOrder":
 		if e.complexity.Query.CoinbaseOrder == nil {
@@ -3782,7 +3783,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseOrders(childComplexity, args["opts"].(*model.CoinbaseOrdersOptions)), true
+		return e.complexity.Query.CoinbaseOrders(childComplexity, args["opts"].(*protomodel.CoinbaseOrdersOptions)), true
 
 	case "Query.coinbasePaymentMethods":
 		if e.complexity.Query.CoinbasePaymentMethods == nil {
@@ -3839,7 +3840,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.CoinbaseWithdrawalFeeEstimate(childComplexity, args["opts"].(*model.CoinbaseWithdrawalFeeEstimateOptions)), true
+		return e.complexity.Query.CoinbaseWithdrawalFeeEstimate(childComplexity, args["opts"].(*protomodel.CoinbaseWithdrawalFeeEstimateOptions)), true
 
 	case "Query.coinbseCancelOrder":
 		if e.complexity.Query.CoinbseCancelOrder == nil {
@@ -3896,7 +3897,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.OpenseaAssets(childComplexity, args["opts"].(*model.OpenseaAssetsOptions)), true
+		return e.complexity.Query.OpenseaAssets(childComplexity, args["opts"].(*protomodel.OpenseaAssetsOptions)), true
 
 	}
 	return 0, false
@@ -3978,10 +3979,12 @@ type CoinbaseAccount {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_deposit_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseAccountDepositOptions {  profileId: String
+input CoinbaseAccountDepositOptions {
+  profileID: String
   amount: Float!
-  coinbaseAccountId: String!
-  currency: String!}`, BuiltIn: false},
+  coinbaseAccountID: String!
+  currency: String!
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_hold.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -3998,9 +4001,11 @@ type CoinbaseAccountHold {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_holds_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseAccountHoldsOptions {  before: String
+input CoinbaseAccountHoldsOptions {
+  before: String
   after: String
-  limit: Int}`, BuiltIn: false},
+  limit: Int
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_ledger.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4027,12 +4032,14 @@ type CoinbaseAccountLedgerDetails {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_ledger_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseAccountLedgerOptions {  startDate: String
+input CoinbaseAccountLedgerOptions {
+  startDate: String
   endDate: String
   before: String
   after: String
-  profileId: String
-  limit: Int}`, BuiltIn: false},
+  profileID: String
+  limit: Int
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_transfer.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4059,27 +4066,22 @@ type CoinbaseAccountTransferDetails {
   coinbaseTransactionId: String
   coinbasePaymentMethodId: String
 }`, BuiltIn: false},
-	{Name: "internal/graph/schema/coinbase_account_transfer_options.graphqls", Input: `# * This is a generated file, do not edit
+	{Name: "internal/graph/schema/coinbase_account_transfers_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseAccountTransferOptions {
+input CoinbaseAccountTransfersOptions {
   before: String
   after: String
   limit: Int
   type: String
-}
-`, BuiltIn: false},
-	{Name: "internal/graph/schema/coinbase_account_transfers_options.graphqls", Input: `# * This is a generated file, do not edit
-
-input CoinbaseAccountTransfersOptions {  before: String
-  after: String
-  limit: Int
-  type: String}`, BuiltIn: false},
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_account_withdrawal_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseAccountWithdrawalOptions {  profileId: String
+input CoinbaseAccountWithdrawalOptions {
+  profileID: String
   amount: Float!
-  coinbaseAccountId: String!
-  currency: String!}`, BuiltIn: false},
+  coinbaseAccountID: String!
+  currency: String!
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_available_balance.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4119,14 +4121,18 @@ input CoinbaseCoinbaseAccountDepositOptions {
 `, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_conversion_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseConversionOptions {  profileId: String}`, BuiltIn: false},
+input CoinbaseConversionOptions {
+  profileID: String
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_conversions_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseConversionsOptions {  profileId: String
+input CoinbaseConversionsOptions {
+  profileID: String
   from: String!
   to: String!
   amount: Float!
-  nonce: String}`, BuiltIn: false},
+  nonce: String
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_crypto_account.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4180,7 +4186,8 @@ type CoinbaseCryptoAddressWarning {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_crypto_withdrawal_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseCryptoWithdrawalOptions {  profileId: String
+input CoinbaseCryptoWithdrawalOptions {
+  profileID: String
   amount: Float!
   cryptoAddress: String!
   currency: String!
@@ -4188,7 +4195,8 @@ input CoinbaseCryptoWithdrawalOptions {  profileId: String
   noDestinationTag: Boolean
   twoFactorCode: String
   nonce: Int
-  fee: Float}`, BuiltIn: false},
+  fee: Float
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_currency.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4291,12 +4299,14 @@ type CoinbaseFill {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_fills_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseFillsOptions {  orderId: String
-  productId: String
-  profileId: String
+input CoinbaseFillsOptions {
+  orderID: String
+  productID: String
+  profileID: String
   limit: Int
   before: Int
-  after: Int}`, BuiltIn: false},
+  after: Int
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_limits.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4338,7 +4348,8 @@ type CoinbaseNewOrder {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_new_order_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseNewOrderOptions {  profileId: String
+input CoinbaseNewOrderOptions {
+  profileID: String
   type: OrderType
   side: OrderSide!
   stp: OrderSTP
@@ -4347,11 +4358,12 @@ input CoinbaseNewOrderOptions {  profileId: String
   price: Float
   size: Float
   funds: Float
-  productId: String!
+  productID: String!
   timeInForce: TimeInForce
   cancelAfter: CancelAfter
   postOnly: Boolean
-  clientOid: String}`, BuiltIn: false},
+  clientOid: String
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_order.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4384,8 +4396,9 @@ type CoinbaseOrder {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_orders_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseOrdersOptions {  profileId: String
-  productId: String
+input CoinbaseOrdersOptions {
+  profileID: String
+  productID: String
   sortedBy: String
   sorting: String
   startDate: Time
@@ -4393,7 +4406,8 @@ input CoinbaseOrdersOptions {  profileId: String
   before: String
   after: String
   limit: Int!
-  status: [String]!}`, BuiltIn: false},
+  status: [String]!
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_payment_method.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4430,16 +4444,20 @@ type CoinbasePaymentMethod {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_payment_method_deposit_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbasePaymentMethodDepositOptions {  profileId: String
+input CoinbasePaymentMethodDepositOptions {
+  profileID: String
   amount: Float!
-  paymentMethodId: String!
-  currency: String!}`, BuiltIn: false},
+  paymentMethodID: String!
+  currency: String!
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_payment_method_withdrawal_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbasePaymentMethodWithdrawalOptions {  profileId: String
+input CoinbasePaymentMethodWithdrawalOptions {
+  profileID: String
   amount: Float!
-  paymentMethodId: String!
-  currency: String!}`, BuiltIn: false},
+  paymentMethodID: String!
+  currency: String!
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_picker_data.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4644,8 +4662,10 @@ type CoinbaseWithdrawalFeeEstimate {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_withdrawal_fee_estimate_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input CoinbaseWithdrawalFeeEstimateOptions {  currency: String
-  cryptoAddress: String}`, BuiltIn: false},
+input CoinbaseWithdrawalFeeEstimateOptions {
+  currency: String
+  cryptoAddress: String
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/iex_rule.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4789,7 +4809,8 @@ type OpenseaAssets {
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/opensea_assets_options.graphqls", Input: `# * This is a generated file, do not edit
 
-input OpenseaAssetsOptions {  owner: String
+input OpenseaAssetsOptions {
+  owner: String
   tokenIds: String
   assetContractAddress: String
   assetContractAddresses: [String]
@@ -4797,7 +4818,8 @@ input OpenseaAssetsOptions {  owner: String
   orderDirection: String
   offset: String
   limit: String
-  collection: String}`, BuiltIn: false},
+  collection: String
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/opensea_collection.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4903,7 +4925,7 @@ type Query {
   ): [CoinbaseAccountLedger]
   coinbaseAccountTransfers(
     accountId: String!
-    opts: CoinbaseAccountTransferOptions
+    opts: CoinbaseAccountTransfersOptions
   ): [CoinbaseAccountTransfer]
 	coinbseCancelOrder(orderId: String!): String!
   coinbaseCurrencies: [CoinbaseCurrency]
@@ -4963,10 +4985,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_coinbaseAccountDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseAccountDepositOptions
+	var arg0 *protomodel.CoinbaseAccountDepositOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseAccountDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountDepositOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseAccountDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountDepositOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -4978,10 +5000,10 @@ func (ec *executionContext) field_Mutation_coinbaseAccountDeposit_args(ctx conte
 func (ec *executionContext) field_Mutation_coinbaseAccountWithdrawal_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseAccountWithdrawalOptions
+	var arg0 *protomodel.CoinbaseAccountWithdrawalOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseAccountWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountWithdrawalOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseAccountWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountWithdrawalOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -4993,10 +5015,10 @@ func (ec *executionContext) field_Mutation_coinbaseAccountWithdrawal_args(ctx co
 func (ec *executionContext) field_Mutation_coinbaseCancelAllOrders_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseOrdersOptions
+	var arg0 *protomodel.CoinbaseOrdersOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseOrdersOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseOrdersOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5008,10 +5030,10 @@ func (ec *executionContext) field_Mutation_coinbaseCancelAllOrders_args(ctx cont
 func (ec *executionContext) field_Mutation_coinbaseConvertCurrency_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.CoinbaseConversionsOptions
+	var arg0 protomodel.CoinbaseConversionsOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalNCoinbaseConversionsOptions2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseConversionsOptions(ctx, tmp)
+		arg0, err = ec.unmarshalNCoinbaseConversionsOptions2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseConversionsOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5023,10 +5045,10 @@ func (ec *executionContext) field_Mutation_coinbaseConvertCurrency_args(ctx cont
 func (ec *executionContext) field_Mutation_coinbaseCreateNewOrder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseNewOrderOptions
+	var arg0 *protomodel.CoinbaseNewOrderOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseNewOrderOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseNewOrderOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseNewOrderOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseNewOrderOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5038,10 +5060,10 @@ func (ec *executionContext) field_Mutation_coinbaseCreateNewOrder_args(ctx conte
 func (ec *executionContext) field_Mutation_coinbaseCryptoWithdrawal_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseCryptoWithdrawalOptions
+	var arg0 *protomodel.CoinbaseCryptoWithdrawalOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseCryptoWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseCryptoWithdrawalOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseCryptoWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseCryptoWithdrawalOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5068,10 +5090,10 @@ func (ec *executionContext) field_Mutation_coinbaseGenerateCryptoAddress_args(ct
 func (ec *executionContext) field_Mutation_coinbasePaymentMethodDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbasePaymentMethodDepositOptions
+	var arg0 *protomodel.CoinbasePaymentMethodDepositOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbasePaymentMethodDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbasePaymentMethodDepositOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbasePaymentMethodDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbasePaymentMethodDepositOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5083,10 +5105,10 @@ func (ec *executionContext) field_Mutation_coinbasePaymentMethodDeposit_args(ctx
 func (ec *executionContext) field_Mutation_coinbasePaymentMethodWithdrawal_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbasePaymentMethodWithdrawalOptions
+	var arg0 *protomodel.CoinbasePaymentMethodWithdrawalOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbasePaymentMethodWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbasePaymentMethodWithdrawalOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbasePaymentMethodWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbasePaymentMethodWithdrawalOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5098,10 +5120,10 @@ func (ec *executionContext) field_Mutation_coinbasePaymentMethodWithdrawal_args(
 func (ec *executionContext) field_Query_OpenseaAssets_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.OpenseaAssetsOptions
+	var arg0 *protomodel.OpenseaAssetsOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOOpenseaAssetsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐOpenseaAssetsOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOOpenseaAssetsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐOpenseaAssetsOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5137,10 +5159,10 @@ func (ec *executionContext) field_Query_coinbaseAccountHolds_args(ctx context.Co
 		}
 	}
 	args["accountId"] = arg0
-	var arg1 *model.CoinbaseAccountHoldsOptions
+	var arg1 *protomodel.CoinbaseAccountHoldsOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg1, err = ec.unmarshalOCoinbaseAccountHoldsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountHoldsOptions(ctx, tmp)
+		arg1, err = ec.unmarshalOCoinbaseAccountHoldsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountHoldsOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5161,10 +5183,10 @@ func (ec *executionContext) field_Query_coinbaseAccountLedger_args(ctx context.C
 		}
 	}
 	args["accountId"] = arg0
-	var arg1 *model.CoinbaseAccountLedgerOptions
+	var arg1 *protomodel.CoinbaseAccountLedgerOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg1, err = ec.unmarshalOCoinbaseAccountLedgerOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountLedgerOptions(ctx, tmp)
+		arg1, err = ec.unmarshalOCoinbaseAccountLedgerOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountLedgerOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5185,10 +5207,10 @@ func (ec *executionContext) field_Query_coinbaseAccountTransfers_args(ctx contex
 		}
 	}
 	args["accountId"] = arg0
-	var arg1 *model.CoinbaseAccountTransferOptions
+	var arg1 *protomodel.CoinbaseAccountTransfersOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg1, err = ec.unmarshalOCoinbaseAccountTransferOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountTransferOptions(ctx, tmp)
+		arg1, err = ec.unmarshalOCoinbaseAccountTransfersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountTransfersOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5224,10 +5246,10 @@ func (ec *executionContext) field_Query_coinbaseCurrencyConversion_args(ctx cont
 		}
 	}
 	args["conversionId"] = arg0
-	var arg1 *model.CoinbaseConversionOptions
+	var arg1 *protomodel.CoinbaseConversionOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg1, err = ec.unmarshalOCoinbaseConversionOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseConversionOptions(ctx, tmp)
+		arg1, err = ec.unmarshalOCoinbaseConversionOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseConversionOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5254,10 +5276,10 @@ func (ec *executionContext) field_Query_coinbaseCurrency_args(ctx context.Contex
 func (ec *executionContext) field_Query_coinbaseFills_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseFillsOptions
+	var arg0 *protomodel.CoinbaseFillsOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseFillsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseFillsOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseFillsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseFillsOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5284,10 +5306,10 @@ func (ec *executionContext) field_Query_coinbaseOrder_args(ctx context.Context, 
 func (ec *executionContext) field_Query_coinbaseOrders_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseOrdersOptions
+	var arg0 *protomodel.CoinbaseOrdersOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseOrdersOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseOrdersOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -5329,10 +5351,10 @@ func (ec *executionContext) field_Query_coinbaseTransfer_args(ctx context.Contex
 func (ec *executionContext) field_Query_coinbaseWithdrawalFeeEstimate_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CoinbaseWithdrawalFeeEstimateOptions
+	var arg0 *protomodel.CoinbaseWithdrawalFeeEstimateOptions
 	if tmp, ok := rawArgs["opts"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("opts"))
-		arg0, err = ec.unmarshalOCoinbaseWithdrawalFeeEstimateOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseWithdrawalFeeEstimateOptions(ctx, tmp)
+		arg0, err = ec.unmarshalOCoinbaseWithdrawalFeeEstimateOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseWithdrawalFeeEstimateOptions(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -15642,7 +15664,7 @@ func (ec *executionContext) _Mutation_coinbaseAccountDeposit(ctx context.Context
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseAccountDeposit(rctx, args["opts"].(*model.CoinbaseAccountDepositOptions))
+		return ec.resolvers.Mutation().CoinbaseAccountDeposit(rctx, args["opts"].(*protomodel.CoinbaseAccountDepositOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15681,7 +15703,7 @@ func (ec *executionContext) _Mutation_coinbaseCancelAllOrders(ctx context.Contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseCancelAllOrders(rctx, args["opts"].(*model.CoinbaseOrdersOptions))
+		return ec.resolvers.Mutation().CoinbaseCancelAllOrders(rctx, args["opts"].(*protomodel.CoinbaseOrdersOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15720,7 +15742,7 @@ func (ec *executionContext) _Mutation_coinbaseCreateNewOrder(ctx context.Context
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseCreateNewOrder(rctx, args["opts"].(*model.CoinbaseNewOrderOptions))
+		return ec.resolvers.Mutation().CoinbaseCreateNewOrder(rctx, args["opts"].(*protomodel.CoinbaseNewOrderOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15759,7 +15781,7 @@ func (ec *executionContext) _Mutation_coinbaseConvertCurrency(ctx context.Contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseConvertCurrency(rctx, args["opts"].(model.CoinbaseConversionsOptions))
+		return ec.resolvers.Mutation().CoinbaseConvertCurrency(rctx, args["opts"].(protomodel.CoinbaseConversionsOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15837,7 +15859,7 @@ func (ec *executionContext) _Mutation_coinbasePaymentMethodDeposit(ctx context.C
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbasePaymentMethodDeposit(rctx, args["opts"].(*model.CoinbasePaymentMethodDepositOptions))
+		return ec.resolvers.Mutation().CoinbasePaymentMethodDeposit(rctx, args["opts"].(*protomodel.CoinbasePaymentMethodDepositOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15876,7 +15898,7 @@ func (ec *executionContext) _Mutation_coinbasePaymentMethodWithdrawal(ctx contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbasePaymentMethodWithdrawal(rctx, args["opts"].(*model.CoinbasePaymentMethodWithdrawalOptions))
+		return ec.resolvers.Mutation().CoinbasePaymentMethodWithdrawal(rctx, args["opts"].(*protomodel.CoinbasePaymentMethodWithdrawalOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15915,7 +15937,7 @@ func (ec *executionContext) _Mutation_coinbaseAccountWithdrawal(ctx context.Cont
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseAccountWithdrawal(rctx, args["opts"].(*model.CoinbaseAccountWithdrawalOptions))
+		return ec.resolvers.Mutation().CoinbaseAccountWithdrawal(rctx, args["opts"].(*protomodel.CoinbaseAccountWithdrawalOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15954,7 +15976,7 @@ func (ec *executionContext) _Mutation_coinbaseCryptoWithdrawal(ctx context.Conte
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CoinbaseCryptoWithdrawal(rctx, args["opts"].(*model.CoinbaseCryptoWithdrawalOptions))
+		return ec.resolvers.Mutation().CoinbaseCryptoWithdrawal(rctx, args["opts"].(*protomodel.CoinbaseCryptoWithdrawalOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18880,7 +18902,7 @@ func (ec *executionContext) _Query_coinbaseAccountHolds(ctx context.Context, fie
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseAccountHolds(rctx, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountHoldsOptions))
+		return ec.resolvers.Query().CoinbaseAccountHolds(rctx, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountHoldsOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18919,7 +18941,7 @@ func (ec *executionContext) _Query_coinbaseAccountLedger(ctx context.Context, fi
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseAccountLedger(rctx, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountLedgerOptions))
+		return ec.resolvers.Query().CoinbaseAccountLedger(rctx, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountLedgerOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18958,7 +18980,7 @@ func (ec *executionContext) _Query_coinbaseAccountTransfers(ctx context.Context,
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseAccountTransfers(rctx, args["accountId"].(string), args["opts"].(*model.CoinbaseAccountTransferOptions))
+		return ec.resolvers.Query().CoinbaseAccountTransfers(rctx, args["accountId"].(string), args["opts"].(*protomodel.CoinbaseAccountTransfersOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -19071,7 +19093,7 @@ func (ec *executionContext) _Query_coinbaseCurrencyConversion(ctx context.Contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseCurrencyConversion(rctx, args["conversionId"].(string), args["opts"].(*model.CoinbaseConversionOptions))
+		return ec.resolvers.Query().CoinbaseCurrencyConversion(rctx, args["conversionId"].(string), args["opts"].(*protomodel.CoinbaseConversionOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -19181,7 +19203,7 @@ func (ec *executionContext) _Query_coinbaseFills(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseFills(rctx, args["opts"].(*model.CoinbaseFillsOptions))
+		return ec.resolvers.Query().CoinbaseFills(rctx, args["opts"].(*protomodel.CoinbaseFillsOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -19220,7 +19242,7 @@ func (ec *executionContext) _Query_coinbaseOrders(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseOrders(rctx, args["opts"].(*model.CoinbaseOrdersOptions))
+		return ec.resolvers.Query().CoinbaseOrders(rctx, args["opts"].(*protomodel.CoinbaseOrdersOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -19472,7 +19494,7 @@ func (ec *executionContext) _Query_coinbaseWithdrawalFeeEstimate(ctx context.Con
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().CoinbaseWithdrawalFeeEstimate(rctx, args["opts"].(*model.CoinbaseWithdrawalFeeEstimateOptions))
+		return ec.resolvers.Query().CoinbaseWithdrawalFeeEstimate(rctx, args["opts"].(*protomodel.CoinbaseWithdrawalFeeEstimateOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -19646,7 +19668,7 @@ func (ec *executionContext) _Query_OpenseaAssets(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().OpenseaAssets(rctx, args["opts"].(*model.OpenseaAssetsOptions))
+		return ec.resolvers.Query().OpenseaAssets(rctx, args["opts"].(*protomodel.OpenseaAssetsOptions))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -20853,8 +20875,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputCoinbaseAccountDepositOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountDepositOptions, error) {
-	var it model.CoinbaseAccountDepositOptions
+func (ec *executionContext) unmarshalInputCoinbaseAccountDepositOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseAccountDepositOptions, error) {
+	var it protomodel.CoinbaseAccountDepositOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -20862,10 +20884,10 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountDepositOptions(ctx cont
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -20878,10 +20900,10 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountDepositOptions(ctx cont
 			if err != nil {
 				return it, err
 			}
-		case "coinbaseAccountId":
+		case "coinbaseAccountID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("coinbaseAccountId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("coinbaseAccountID"))
 			it.CoinbaseAccountID, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -20900,8 +20922,8 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountDepositOptions(ctx cont
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseAccountHoldsOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountHoldsOptions, error) {
-	var it model.CoinbaseAccountHoldsOptions
+func (ec *executionContext) unmarshalInputCoinbaseAccountHoldsOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseAccountHoldsOptions, error) {
+	var it protomodel.CoinbaseAccountHoldsOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -20939,8 +20961,8 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountHoldsOptions(ctx contex
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseAccountLedgerOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountLedgerOptions, error) {
-	var it model.CoinbaseAccountLedgerOptions
+func (ec *executionContext) unmarshalInputCoinbaseAccountLedgerOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseAccountLedgerOptions, error) {
+	var it protomodel.CoinbaseAccountLedgerOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -20980,10 +21002,10 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountLedgerOptions(ctx conte
 			if err != nil {
 				return it, err
 			}
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21002,8 +21024,8 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountLedgerOptions(ctx conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseAccountTransferOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountTransferOptions, error) {
-	var it model.CoinbaseAccountTransferOptions
+func (ec *executionContext) unmarshalInputCoinbaseAccountTransfersOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseAccountTransfersOptions, error) {
+	var it protomodel.CoinbaseAccountTransfersOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21049,8 +21071,8 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountTransferOptions(ctx con
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseAccountTransfersOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountTransfersOptions, error) {
-	var it model.CoinbaseAccountTransfersOptions
+func (ec *executionContext) unmarshalInputCoinbaseAccountWithdrawalOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseAccountWithdrawalOptions, error) {
+	var it protomodel.CoinbaseAccountWithdrawalOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21058,57 +21080,10 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountTransfersOptions(ctx co
 
 	for k, v := range asMap {
 		switch k {
-		case "before":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("before"))
-			it.Before, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "after":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("after"))
-			it.After, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "limit":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("limit"))
-			it.Limit, err = ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "type":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-			it.Type, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
-func (ec *executionContext) unmarshalInputCoinbaseAccountWithdrawalOptions(ctx context.Context, obj interface{}) (model.CoinbaseAccountWithdrawalOptions, error) {
-	var it model.CoinbaseAccountWithdrawalOptions
-	asMap := map[string]interface{}{}
-	for k, v := range obj.(map[string]interface{}) {
-		asMap[k] = v
-	}
-
-	for k, v := range asMap {
-		switch k {
-		case "profileId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21121,10 +21096,10 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountWithdrawalOptions(ctx c
 			if err != nil {
 				return it, err
 			}
-		case "coinbaseAccountId":
+		case "coinbaseAccountID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("coinbaseAccountId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("coinbaseAccountID"))
 			it.CoinbaseAccountID, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -21143,8 +21118,8 @@ func (ec *executionContext) unmarshalInputCoinbaseAccountWithdrawalOptions(ctx c
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseCoinbaseAccountDepositOptions(ctx context.Context, obj interface{}) (model.CoinbaseCoinbaseAccountDepositOptions, error) {
-	var it model.CoinbaseCoinbaseAccountDepositOptions
+func (ec *executionContext) unmarshalInputCoinbaseCoinbaseAccountDepositOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseCoinbaseAccountDepositOptions, error) {
+	var it protomodel.CoinbaseCoinbaseAccountDepositOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21190,8 +21165,8 @@ func (ec *executionContext) unmarshalInputCoinbaseCoinbaseAccountDepositOptions(
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseConversionOptions(ctx context.Context, obj interface{}) (model.CoinbaseConversionOptions, error) {
-	var it model.CoinbaseConversionOptions
+func (ec *executionContext) unmarshalInputCoinbaseConversionOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseConversionOptions, error) {
+	var it protomodel.CoinbaseConversionOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21199,10 +21174,10 @@ func (ec *executionContext) unmarshalInputCoinbaseConversionOptions(ctx context.
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21213,8 +21188,8 @@ func (ec *executionContext) unmarshalInputCoinbaseConversionOptions(ctx context.
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseConversionsOptions(ctx context.Context, obj interface{}) (model.CoinbaseConversionsOptions, error) {
-	var it model.CoinbaseConversionsOptions
+func (ec *executionContext) unmarshalInputCoinbaseConversionsOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseConversionsOptions, error) {
+	var it protomodel.CoinbaseConversionsOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21222,10 +21197,10 @@ func (ec *executionContext) unmarshalInputCoinbaseConversionsOptions(ctx context
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21268,8 +21243,8 @@ func (ec *executionContext) unmarshalInputCoinbaseConversionsOptions(ctx context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseCryptoWithdrawalOptions(ctx context.Context, obj interface{}) (model.CoinbaseCryptoWithdrawalOptions, error) {
-	var it model.CoinbaseCryptoWithdrawalOptions
+func (ec *executionContext) unmarshalInputCoinbaseCryptoWithdrawalOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseCryptoWithdrawalOptions, error) {
+	var it protomodel.CoinbaseCryptoWithdrawalOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21277,10 +21252,10 @@ func (ec *executionContext) unmarshalInputCoinbaseCryptoWithdrawalOptions(ctx co
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21355,8 +21330,8 @@ func (ec *executionContext) unmarshalInputCoinbaseCryptoWithdrawalOptions(ctx co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseFillsOptions(ctx context.Context, obj interface{}) (model.CoinbaseFillsOptions, error) {
-	var it model.CoinbaseFillsOptions
+func (ec *executionContext) unmarshalInputCoinbaseFillsOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseFillsOptions, error) {
+	var it protomodel.CoinbaseFillsOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21364,26 +21339,26 @@ func (ec *executionContext) unmarshalInputCoinbaseFillsOptions(ctx context.Conte
 
 	for k, v := range asMap {
 		switch k {
-		case "orderId":
+		case "orderID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("orderId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("orderID"))
 			it.OrderID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "productId":
+		case "productID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productID"))
 			it.ProductID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21418,8 +21393,8 @@ func (ec *executionContext) unmarshalInputCoinbaseFillsOptions(ctx context.Conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseNewOrderOptions(ctx context.Context, obj interface{}) (model.CoinbaseNewOrderOptions, error) {
-	var it model.CoinbaseNewOrderOptions
+func (ec *executionContext) unmarshalInputCoinbaseNewOrderOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseNewOrderOptions, error) {
+	var it protomodel.CoinbaseNewOrderOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21427,10 +21402,10 @@ func (ec *executionContext) unmarshalInputCoinbaseNewOrderOptions(ctx context.Co
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21499,10 +21474,10 @@ func (ec *executionContext) unmarshalInputCoinbaseNewOrderOptions(ctx context.Co
 			if err != nil {
 				return it, err
 			}
-		case "productId":
+		case "productID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productID"))
 			it.ProductID, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -21545,8 +21520,8 @@ func (ec *executionContext) unmarshalInputCoinbaseNewOrderOptions(ctx context.Co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseOrdersOptions(ctx context.Context, obj interface{}) (model.CoinbaseOrdersOptions, error) {
-	var it model.CoinbaseOrdersOptions
+func (ec *executionContext) unmarshalInputCoinbaseOrdersOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseOrdersOptions, error) {
+	var it protomodel.CoinbaseOrdersOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21554,18 +21529,18 @@ func (ec *executionContext) unmarshalInputCoinbaseOrdersOptions(ctx context.Cont
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "productId":
+		case "productID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("productID"))
 			it.ProductID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21640,8 +21615,8 @@ func (ec *executionContext) unmarshalInputCoinbaseOrdersOptions(ctx context.Cont
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbasePaymentMethodDepositOptions(ctx context.Context, obj interface{}) (model.CoinbasePaymentMethodDepositOptions, error) {
-	var it model.CoinbasePaymentMethodDepositOptions
+func (ec *executionContext) unmarshalInputCoinbasePaymentMethodDepositOptions(ctx context.Context, obj interface{}) (protomodel.CoinbasePaymentMethodDepositOptions, error) {
+	var it protomodel.CoinbasePaymentMethodDepositOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21649,10 +21624,10 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodDepositOptions(ct
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21665,10 +21640,10 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodDepositOptions(ct
 			if err != nil {
 				return it, err
 			}
-		case "paymentMethodId":
+		case "paymentMethodID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("paymentMethodId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("paymentMethodID"))
 			it.PaymentMethodID, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -21687,8 +21662,8 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodDepositOptions(ct
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions(ctx context.Context, obj interface{}) (model.CoinbasePaymentMethodWithdrawalOptions, error) {
-	var it model.CoinbasePaymentMethodWithdrawalOptions
+func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions(ctx context.Context, obj interface{}) (protomodel.CoinbasePaymentMethodWithdrawalOptions, error) {
+	var it protomodel.CoinbasePaymentMethodWithdrawalOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21696,10 +21671,10 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions
 
 	for k, v := range asMap {
 		switch k {
-		case "profileId":
+		case "profileID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("profileID"))
 			it.ProfileID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
@@ -21712,10 +21687,10 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions
 			if err != nil {
 				return it, err
 			}
-		case "paymentMethodId":
+		case "paymentMethodID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("paymentMethodId"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("paymentMethodID"))
 			it.PaymentMethodID, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -21734,8 +21709,8 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCoinbaseWithdrawalFeeEstimateOptions(ctx context.Context, obj interface{}) (model.CoinbaseWithdrawalFeeEstimateOptions, error) {
-	var it model.CoinbaseWithdrawalFeeEstimateOptions
+func (ec *executionContext) unmarshalInputCoinbaseWithdrawalFeeEstimateOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseWithdrawalFeeEstimateOptions, error) {
+	var it protomodel.CoinbaseWithdrawalFeeEstimateOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -21765,8 +21740,8 @@ func (ec *executionContext) unmarshalInputCoinbaseWithdrawalFeeEstimateOptions(c
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputOpenseaAssetsOptions(ctx context.Context, obj interface{}) (model.OpenseaAssetsOptions, error) {
-	var it model.OpenseaAssetsOptions
+func (ec *executionContext) unmarshalInputOpenseaAssetsOptions(ctx context.Context, obj interface{}) (protomodel.OpenseaAssetsOptions, error) {
+	var it protomodel.OpenseaAssetsOptions
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -24402,7 +24377,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNCoinbaseConversionsOptions2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseConversionsOptions(ctx context.Context, v interface{}) (model.CoinbaseConversionsOptions, error) {
+func (ec *executionContext) unmarshalNCoinbaseConversionsOptions2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseConversionsOptions(ctx context.Context, v interface{}) (protomodel.CoinbaseConversionsOptions, error) {
 	res, err := ec.unmarshalInputCoinbaseConversionsOptions(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -24843,7 +24818,7 @@ func (ec *executionContext) marshalOCoinbaseAccount2ᚖgithubᚗcomᚋalpineᚑh
 	return ec._CoinbaseAccount(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseAccountDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountDepositOptions(ctx context.Context, v interface{}) (*model.CoinbaseAccountDepositOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseAccountDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountDepositOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseAccountDepositOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -24899,7 +24874,7 @@ func (ec *executionContext) marshalOCoinbaseAccountHold2ᚖgithubᚗcomᚋalpine
 	return ec._CoinbaseAccountHold(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseAccountHoldsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountHoldsOptions(ctx context.Context, v interface{}) (*model.CoinbaseAccountHoldsOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseAccountHoldsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountHoldsOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseAccountHoldsOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -24962,7 +24937,7 @@ func (ec *executionContext) marshalOCoinbaseAccountLedgerDetails2ᚖgithubᚗcom
 	return ec._CoinbaseAccountLedgerDetails(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseAccountLedgerOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountLedgerOptions(ctx context.Context, v interface{}) (*model.CoinbaseAccountLedgerOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseAccountLedgerOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountLedgerOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseAccountLedgerOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25025,15 +25000,15 @@ func (ec *executionContext) marshalOCoinbaseAccountTransferDetails2ᚖgithubᚗc
 	return ec._CoinbaseAccountTransferDetails(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseAccountTransferOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountTransferOptions(ctx context.Context, v interface{}) (*model.CoinbaseAccountTransferOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseAccountTransfersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountTransfersOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseAccountTransfersOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalInputCoinbaseAccountTransferOptions(ctx, v)
+	res, err := ec.unmarshalInputCoinbaseAccountTransfersOptions(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseAccountWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseAccountWithdrawalOptions(ctx context.Context, v interface{}) (*model.CoinbaseAccountWithdrawalOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseAccountWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseAccountWithdrawalOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseAccountWithdrawalOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25062,7 +25037,7 @@ func (ec *executionContext) marshalOCoinbaseBankCountry2ᚖgithubᚗcomᚋalpine
 	return ec._CoinbaseBankCountry(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseConversionOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseConversionOptions(ctx context.Context, v interface{}) (*model.CoinbaseConversionOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseConversionOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseConversionOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseConversionOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25139,7 +25114,7 @@ func (ec *executionContext) marshalOCoinbaseCryptoAddressWarning2ᚖgithubᚗcom
 	return ec._CoinbaseCryptoAddressWarning(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseCryptoWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseCryptoWithdrawalOptions(ctx context.Context, v interface{}) (*model.CoinbaseCryptoWithdrawalOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseCryptoWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseCryptoWithdrawalOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseCryptoWithdrawalOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25278,7 +25253,7 @@ func (ec *executionContext) marshalOCoinbaseFill2ᚖgithubᚗcomᚋalpineᚑhodl
 	return ec._CoinbaseFill(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseFillsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseFillsOptions(ctx context.Context, v interface{}) (*model.CoinbaseFillsOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseFillsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseFillsOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseFillsOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25300,7 +25275,7 @@ func (ec *executionContext) marshalOCoinbaseNewOrder2ᚖgithubᚗcomᚋalpineᚑ
 	return ec._CoinbaseNewOrder(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseNewOrderOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseNewOrderOptions(ctx context.Context, v interface{}) (*model.CoinbaseNewOrderOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseNewOrderOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseNewOrderOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseNewOrderOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25356,7 +25331,7 @@ func (ec *executionContext) marshalOCoinbaseOrder2ᚖgithubᚗcomᚋalpineᚑhod
 	return ec._CoinbaseOrder(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseOrdersOptions(ctx context.Context, v interface{}) (*model.CoinbaseOrdersOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseOrdersOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseOrdersOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseOrdersOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25412,7 +25387,7 @@ func (ec *executionContext) marshalOCoinbasePaymentMethod2ᚖgithubᚗcomᚋalpi
 	return ec._CoinbasePaymentMethod(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbasePaymentMethodDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbasePaymentMethodDepositOptions(ctx context.Context, v interface{}) (*model.CoinbasePaymentMethodDepositOptions, error) {
+func (ec *executionContext) unmarshalOCoinbasePaymentMethodDepositOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbasePaymentMethodDepositOptions(ctx context.Context, v interface{}) (*protomodel.CoinbasePaymentMethodDepositOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25420,7 +25395,7 @@ func (ec *executionContext) unmarshalOCoinbasePaymentMethodDepositOptions2ᚖgit
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalOCoinbasePaymentMethodWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbasePaymentMethodWithdrawalOptions(ctx context.Context, v interface{}) (*model.CoinbasePaymentMethodWithdrawalOptions, error) {
+func (ec *executionContext) unmarshalOCoinbasePaymentMethodWithdrawalOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbasePaymentMethodWithdrawalOptions(ctx context.Context, v interface{}) (*protomodel.CoinbasePaymentMethodWithdrawalOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25580,7 +25555,7 @@ func (ec *executionContext) marshalOCoinbaseWithdrawalFeeEstimate2ᚖgithubᚗco
 	return ec._CoinbaseWithdrawalFeeEstimate(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCoinbaseWithdrawalFeeEstimateOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐCoinbaseWithdrawalFeeEstimateOptions(ctx context.Context, v interface{}) (*model.CoinbaseWithdrawalFeeEstimateOptions, error) {
+func (ec *executionContext) unmarshalOCoinbaseWithdrawalFeeEstimateOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐCoinbaseWithdrawalFeeEstimateOptions(ctx context.Context, v interface{}) (*protomodel.CoinbaseWithdrawalFeeEstimateOptions, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -25839,7 +25814,7 @@ func (ec *executionContext) marshalOOpenseaAssets2ᚖgithubᚗcomᚋalpineᚑhod
 	return ec._OpenseaAssets(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOOpenseaAssetsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋmodelᚐOpenseaAssetsOptions(ctx context.Context, v interface{}) (*model.OpenseaAssetsOptions, error) {
+func (ec *executionContext) unmarshalOOpenseaAssetsOptions2ᚖgithubᚗcomᚋalpineᚑhodlerᚋsdkᚋinternalᚋprotomodelᚐOpenseaAssetsOptions(ctx context.Context, v interface{}) (*protomodel.OpenseaAssetsOptions, error) {
 	if v == nil {
 		return nil, nil
 	}

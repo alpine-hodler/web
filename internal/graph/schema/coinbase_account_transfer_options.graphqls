@@ -1,8 +1,0 @@
-# * This is a generated file, do not edit
-
-input CoinbaseAccountTransferOptions {
-  before: String
-  after: String
-  limit: Int
-  type: String
-}

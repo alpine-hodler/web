@@ -1,8 +1,10 @@
 # * This is a generated file, do not edit
 
-input CoinbaseFillsOptions {  orderId: String
-  productId: String
-  profileId: String
+input CoinbaseFillsOptions {
+  orderID: String
+  productID: String
+  profileID: String
   limit: Int
   before: Int
-  after: Int}
+  after: Int
+}

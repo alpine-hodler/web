@@ -7,47 +7,48 @@ import (
 	"context"
 
 	"github.com/alpine-hodler/sdk/internal/graph/generated"
+	"github.com/alpine-hodler/sdk/internal/protomodel"
 	"github.com/alpine-hodler/sdk/pkg/coinbase"
 	"github.com/alpine-hodler/sdk/pkg/iex"
 	"github.com/alpine-hodler/sdk/pkg/kraken"
 	"github.com/alpine-hodler/sdk/pkg/model"
-	"github.com/alpine-hodler/sdk/pkg/opensea"
+	"github.com/alpine-hodler/sdk/pkg/option"
 )
 
-func (r *mutationResolver) CoinbaseAccountDeposit(ctx context.Context, opts *model.CoinbaseAccountDepositOptions) (*model.CoinbaseDeposit, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).CoinbaseAccountDeposit(opts)
+func (r *mutationResolver) CoinbaseAccountDeposit(ctx context.Context, opts *protomodel.CoinbaseAccountDepositOptions) (*model.CoinbaseDeposit, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).CoinbaseAccountDeposit(option.CoinbaseAccountDepositFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbaseCancelAllOrders(ctx context.Context, opts *model.CoinbaseOrdersOptions) ([]*string, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).CancelOpenOrders(opts)
+func (r *mutationResolver) CoinbaseCancelAllOrders(ctx context.Context, opts *protomodel.CoinbaseOrdersOptions) ([]*string, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).CancelOpenOrders(option.CoinbaseOrdersFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbaseCreateNewOrder(ctx context.Context, opts *model.CoinbaseNewOrderOptions) (*model.CoinbaseNewOrder, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).CreateOrder(opts)
+func (r *mutationResolver) CoinbaseCreateNewOrder(ctx context.Context, opts *protomodel.CoinbaseNewOrderOptions) (*model.CoinbaseNewOrder, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).CreateOrder(option.CoinbaseNewOrderFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbaseConvertCurrency(ctx context.Context, opts model.CoinbaseConversionsOptions) (*model.CoinbaseCurrencyConversion, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).Convert(opts)
+func (r *mutationResolver) CoinbaseConvertCurrency(ctx context.Context, opts protomodel.CoinbaseConversionsOptions) (*model.CoinbaseCurrencyConversion, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).Convert(option.CoinbaseConversionsFromPrototype(&opts))
 }
 
 func (r *mutationResolver) CoinbaseGenerateCryptoAddress(ctx context.Context, walletID string) (*model.CoinbaseCryptoAddress, error) {
 	return coinbase.NewClient(coinbase.DefaultConnector).GenerateCryptoAddress(walletID)
 }
 
-func (r *mutationResolver) CoinbasePaymentMethodDeposit(ctx context.Context, opts *model.CoinbasePaymentMethodDepositOptions) (*model.CoinbaseDeposit, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethodDeposit(opts)
+func (r *mutationResolver) CoinbasePaymentMethodDeposit(ctx context.Context, opts *protomodel.CoinbasePaymentMethodDepositOptions) (*model.CoinbaseDeposit, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethodDeposit(option.CoinbasePaymentMethodDepositFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbasePaymentMethodWithdrawal(ctx context.Context, opts *model.CoinbasePaymentMethodWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethodWithdrawal(opts)
+func (r *mutationResolver) CoinbasePaymentMethodWithdrawal(ctx context.Context, opts *protomodel.CoinbasePaymentMethodWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).PaymentMethodWithdrawal(option.CoinbasePaymentMethodWithdrawalFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbaseAccountWithdrawal(ctx context.Context, opts *model.CoinbaseAccountWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).AccountWithdrawal(opts)
+func (r *mutationResolver) CoinbaseAccountWithdrawal(ctx context.Context, opts *protomodel.CoinbaseAccountWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).AccountWithdrawal(option.CoinbaseAccountWithdrawalFromPrototype(opts))
 }
 
-func (r *mutationResolver) CoinbaseCryptoWithdrawal(ctx context.Context, opts *model.CoinbaseCryptoWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).CryptoWithdrawal(opts)
+func (r *mutationResolver) CoinbaseCryptoWithdrawal(ctx context.Context, opts *protomodel.CoinbaseCryptoWithdrawalOptions) (*model.CoinbaseWithdrawal, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).CryptoWithdrawal(option.CoinbaseCryptoWithdrawalFromPrototype(opts))
 }
 
 func (r *queryResolver) CoinbaseAccount(ctx context.Context, accountID string) (*model.CoinbaseAccount, error) {
@@ -58,16 +59,16 @@ func (r *queryResolver) CoinbaseAccounts(ctx context.Context) ([]*model.Coinbase
 	return coinbase.NewClient(coinbase.DefaultConnector).Accounts()
 }
 
-func (r *queryResolver) CoinbaseAccountHolds(ctx context.Context, accountID string, opts *model.CoinbaseAccountHoldsOptions) ([]*model.CoinbaseAccountHold, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).AccountHolds(accountID, opts)
+func (r *queryResolver) CoinbaseAccountHolds(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountHoldsOptions) ([]*model.CoinbaseAccountHold, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).AccountHolds(accountID, option.CoinbaseAccountHoldsFromPrototype(opts))
 }
 
-func (r *queryResolver) CoinbaseAccountLedger(ctx context.Context, accountID string, opts *model.CoinbaseAccountLedgerOptions) ([]*model.CoinbaseAccountLedger, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).AccountLedger(accountID, opts)
+func (r *queryResolver) CoinbaseAccountLedger(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountLedgerOptions) ([]*model.CoinbaseAccountLedger, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).AccountLedger(accountID, option.CoinbaseAccountLedgerFromPrototype(opts))
 }
 
-func (r *queryResolver) CoinbaseAccountTransfers(ctx context.Context, accountID string, opts *model.CoinbaseAccountTransferOptions) ([]*model.CoinbaseAccountTransfer, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).AccountTransfers(accountID, opts)
+func (r *queryResolver) CoinbaseAccountTransfers(ctx context.Context, accountID string, opts *protomodel.CoinbaseAccountTransfersOptions) ([]*model.CoinbaseAccountTransfer, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).AccountTransfers(accountID, option.CoinbaseAccountTransfersFromPrototype(opts))
 }
 
 func (r *queryResolver) CoinbseCancelOrder(ctx context.Context, orderID string) (string, error) {
@@ -78,8 +79,8 @@ func (r *queryResolver) CoinbaseCurrencies(ctx context.Context) ([]*model.Coinba
 	return coinbase.NewClient(coinbase.DefaultConnector).Currencies()
 }
 
-func (r *queryResolver) CoinbaseCurrencyConversion(ctx context.Context, conversionID string, opts *model.CoinbaseConversionOptions) (*model.CoinbaseCurrencyConversion, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).FindConversion(conversionID, opts)
+func (r *queryResolver) CoinbaseCurrencyConversion(ctx context.Context, conversionID string, opts *protomodel.CoinbaseConversionOptions) (*model.CoinbaseCurrencyConversion, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).FindConversion(conversionID, option.CoinbaseConversionFromPrototype(opts))
 }
 
 func (r *queryResolver) CoinbaseCurrency(ctx context.Context, currentID string) (*model.CoinbaseCurrency, error) {
@@ -90,12 +91,12 @@ func (r *queryResolver) CoinbaseFees(ctx context.Context) (*model.CoinbaseFees, 
 	return coinbase.NewClient(coinbase.DefaultConnector).Fees()
 }
 
-func (r *queryResolver) CoinbaseFills(ctx context.Context, opts *model.CoinbaseFillsOptions) ([]*model.CoinbaseFill, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).Fills(opts)
+func (r *queryResolver) CoinbaseFills(ctx context.Context, opts *protomodel.CoinbaseFillsOptions) ([]*model.CoinbaseFill, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).Fills(option.CoinbaseFillsFromPrototype(opts))
 }
 
-func (r *queryResolver) CoinbaseOrders(ctx context.Context, opts *model.CoinbaseOrdersOptions) ([]*model.CoinbaseOrder, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).Orders(opts)
+func (r *queryResolver) CoinbaseOrders(ctx context.Context, opts *protomodel.CoinbaseOrdersOptions) ([]*model.CoinbaseOrder, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).Orders(option.CoinbaseOrdersFromPrototype(opts))
 }
 
 func (r *queryResolver) CoinbaseOrder(ctx context.Context, orderID string) (*model.CoinbaseOrder, error) {
@@ -122,8 +123,8 @@ func (r *queryResolver) CoinbaseWallets(ctx context.Context) ([]*model.CoinbaseW
 	return coinbase.NewClient(coinbase.DefaultConnector).Wallets()
 }
 
-func (r *queryResolver) CoinbaseWithdrawalFeeEstimate(ctx context.Context, opts *model.CoinbaseWithdrawalFeeEstimateOptions) (*model.CoinbaseWithdrawalFeeEstimate, error) {
-	return coinbase.NewClient(coinbase.DefaultConnector).WithdrawalFeeEstimate(opts)
+func (r *queryResolver) CoinbaseWithdrawalFeeEstimate(ctx context.Context, opts *protomodel.CoinbaseWithdrawalFeeEstimateOptions) (*model.CoinbaseWithdrawalFeeEstimate, error) {
+	return coinbase.NewClient(coinbase.DefaultConnector).WithdrawalFeeEstimate(option.CoinbaseWithdrawalFeeEstimateFromPrototype(opts))
 }
 
 func (r *queryResolver) IexRules(ctx context.Context, value string) ([]*model.IexRule, error) {
@@ -142,8 +143,8 @@ func (r *queryResolver) KrakenSystemStatus(ctx context.Context) (*model.KrakenSy
 	return kraken.NewClient(kraken.DefaultConnector).SystemStatus()
 }
 
-func (r *queryResolver) OpenseaAssets(ctx context.Context, opts *model.OpenseaAssetsOptions) (*model.OpenseaAssets, error) {
-	return opensea.NewClient(opensea.DefaultConnector).Assets(opts)
+func (r *queryResolver) OpenseaAssets(ctx context.Context, opts *protomodel.OpenseaAssetsOptions) (*model.OpenseaAssets, error) {
+	return nil, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

@@ -10,10 +10,11 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//internal/graph/generated",
+        "//internal/protomodel",
         "//pkg/coinbase",
         "//pkg/iex",
         "//pkg/kraken",
         "//pkg/model",
-        "//pkg/opensea",
+        "//pkg/option",
     ],
 )

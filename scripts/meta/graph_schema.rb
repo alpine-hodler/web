@@ -63,7 +63,7 @@ module GraphSchema
     params = endpoint.query_params.dup.map do |qp|
       "  #{qp.go_protofield_name.to_camel}: #{fmt_graphql_type(qp)}"
     end
-    "input #{endpoint.graphql_model_name} {#{params.join("\n")}}"
+    "input #{endpoint.graphql_model_name} {\n#{params.join("\n")}\n}"
   end
 
   def write_graph_schema
