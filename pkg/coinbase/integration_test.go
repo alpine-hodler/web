@@ -69,7 +69,10 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Specific Products", func() (err error) {
-		product, err := client.Product(productID)
+		products, err := client.Products(nil)
+		require.NotEmpty(t, products)
+
+		product, err := client.Product(products[0].Id)
 		require.NotNil(t, product)
 		return
 	})
