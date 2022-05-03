@@ -35,6 +35,7 @@ const (
 	PaymentMethodWithdrawalEndpoint
 	ProductEndpoint
 	ProductTickerEndpoint
+	ProductsEndpoint
 	TransferEndpoint
 	TransfersEndpoint
 	WalletsEndpoint
@@ -192,14 +193,23 @@ func PaymentMethodPath(args client.EndpointArgs) string {
 	return path.Join("/payment-methods")
 }
 
-// Gets snapshot information about the last trade (tick), best bid/ask and 24h volume.
-func ProductTickerPath(args client.EndpointArgs) string {
-	return path.Join("/products", *args["product_id"].PathParam, "ticker")
+// Gets a list of available currency pairs for trading.
+func ProductsPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/products")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
 }
 
 // Get information on a single product.
 func ProductPath(args client.EndpointArgs) string {
 	return path.Join("/products", *args["product_id"].PathParam)
+}
+
+// Gets snapshot information about the last trade (tick), best bid/ask and 24h volume.
+func ProductTickerPath(args client.EndpointArgs) string {
+	return path.Join("/products", *args["product_id"].PathParam, "ticker")
 }
 
 // Gets all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling
@@ -272,8 +282,9 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		OrdersEndpoint:                  OrdersPath,
 		OrderEndpoint:                   OrderPath,
 		PaymentMethodEndpoint:           PaymentMethodPath,
-		ProductTickerEndpoint:           ProductTickerPath,
+		ProductsEndpoint:                ProductsPath,
 		ProductEndpoint:                 ProductPath,
+		ProductTickerEndpoint:           ProductTickerPath,
 		WalletsEndpoint:                 WalletsPath,
 		AccountWithdrawalEndpoint:       AccountWithdrawalPath,
 		CryptoWithdrawalEndpoint:        CryptoWithdrawalPath,

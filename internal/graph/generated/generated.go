@@ -327,6 +327,29 @@ type ComplexityRoot struct {
 		Symbol                func(childComplexity int) int
 	}
 
+	CoinbaseProduct struct {
+		AuctionMode           func(childComplexity int) int
+		BaseCurrency          func(childComplexity int) int
+		BaseIncrement         func(childComplexity int) int
+		BaseMaxSize           func(childComplexity int) int
+		BaseMinSize           func(childComplexity int) int
+		CancelOnly            func(childComplexity int) int
+		DisplayName           func(childComplexity int) int
+		FxStablecoin          func(childComplexity int) int
+		Id                    func(childComplexity int) int
+		LimitOnly             func(childComplexity int) int
+		MarginEnabled         func(childComplexity int) int
+		MaxMarketFunds        func(childComplexity int) int
+		MaxSlippagePercentage func(childComplexity int) int
+		MinMarketFunds        func(childComplexity int) int
+		PostOnly              func(childComplexity int) int
+		QuoteCurrency         func(childComplexity int) int
+		QuoteIncrement        func(childComplexity int) int
+		Status                func(childComplexity int) int
+		StatusMessage         func(childComplexity int) int
+		TradingDisabled       func(childComplexity int) int
+	}
+
 	CoinbaseProductTicker struct {
 		Ask     func(childComplexity int) int
 		Bid     func(childComplexity int) int
@@ -2135,6 +2158,146 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.CoinbasePickerData.Symbol(childComplexity), true
 
+	case "CoinbaseProduct.auctionMode":
+		if e.complexity.CoinbaseProduct.AuctionMode == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.AuctionMode(childComplexity), true
+
+	case "CoinbaseProduct.baseCurrency":
+		if e.complexity.CoinbaseProduct.BaseCurrency == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.BaseCurrency(childComplexity), true
+
+	case "CoinbaseProduct.baseIncrement":
+		if e.complexity.CoinbaseProduct.BaseIncrement == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.BaseIncrement(childComplexity), true
+
+	case "CoinbaseProduct.baseMaxSize":
+		if e.complexity.CoinbaseProduct.BaseMaxSize == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.BaseMaxSize(childComplexity), true
+
+	case "CoinbaseProduct.baseMinSize":
+		if e.complexity.CoinbaseProduct.BaseMinSize == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.BaseMinSize(childComplexity), true
+
+	case "CoinbaseProduct.cancelOnly":
+		if e.complexity.CoinbaseProduct.CancelOnly == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.CancelOnly(childComplexity), true
+
+	case "CoinbaseProduct.displayName":
+		if e.complexity.CoinbaseProduct.DisplayName == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.DisplayName(childComplexity), true
+
+	case "CoinbaseProduct.fxStablecoin":
+		if e.complexity.CoinbaseProduct.FxStablecoin == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.FxStablecoin(childComplexity), true
+
+	case "CoinbaseProduct.id":
+		if e.complexity.CoinbaseProduct.Id == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.Id(childComplexity), true
+
+	case "CoinbaseProduct.limitOnly":
+		if e.complexity.CoinbaseProduct.LimitOnly == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.LimitOnly(childComplexity), true
+
+	case "CoinbaseProduct.marginEnabled":
+		if e.complexity.CoinbaseProduct.MarginEnabled == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.MarginEnabled(childComplexity), true
+
+	case "CoinbaseProduct.maxMarketFunds":
+		if e.complexity.CoinbaseProduct.MaxMarketFunds == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.MaxMarketFunds(childComplexity), true
+
+	case "CoinbaseProduct.maxSlippagePercentage":
+		if e.complexity.CoinbaseProduct.MaxSlippagePercentage == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.MaxSlippagePercentage(childComplexity), true
+
+	case "CoinbaseProduct.minMarketFunds":
+		if e.complexity.CoinbaseProduct.MinMarketFunds == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.MinMarketFunds(childComplexity), true
+
+	case "CoinbaseProduct.postOnly":
+		if e.complexity.CoinbaseProduct.PostOnly == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.PostOnly(childComplexity), true
+
+	case "CoinbaseProduct.quoteCurrency":
+		if e.complexity.CoinbaseProduct.QuoteCurrency == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.QuoteCurrency(childComplexity), true
+
+	case "CoinbaseProduct.quoteIncrement":
+		if e.complexity.CoinbaseProduct.QuoteIncrement == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.QuoteIncrement(childComplexity), true
+
+	case "CoinbaseProduct.status":
+		if e.complexity.CoinbaseProduct.Status == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.Status(childComplexity), true
+
+	case "CoinbaseProduct.statusMessage":
+		if e.complexity.CoinbaseProduct.StatusMessage == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.StatusMessage(childComplexity), true
+
+	case "CoinbaseProduct.tradingDisabled":
+		if e.complexity.CoinbaseProduct.TradingDisabled == nil {
+			break
+		}
+
+		return e.complexity.CoinbaseProduct.TradingDisabled(childComplexity), true
+
 	case "CoinbaseProductTicker.ask":
 		if e.complexity.CoinbaseProductTicker.Ask == nil {
 			break
@@ -3922,6 +4085,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 		ec.unmarshalInputCoinbaseOrdersOptions,
 		ec.unmarshalInputCoinbasePaymentMethodDepositOptions,
 		ec.unmarshalInputCoinbasePaymentMethodWithdrawalOptions,
+		ec.unmarshalInputCoinbaseProductsOptions,
 		ec.unmarshalInputCoinbaseWithdrawalFeeEstimateOptions,
 		ec.unmarshalInputOpenseaAssetsOptions,
 	)
@@ -4503,6 +4667,33 @@ type CoinbasePickerData {
   iconUrl: String
   balance: CoinbaseBalance
 }`, BuiltIn: false},
+	{Name: "internal/graph/schema/coinbase_product.graphqls", Input: `# * This is a generated file, do not edit
+
+"""
+ CoinbaseProduct represents a currency pair available for trading.
+"""
+type CoinbaseProduct {
+  id: String
+  baseCurrency: String
+  quoteCurrency: String
+  baseMinSize: Float
+  baseMaxSize: Float
+  quoteIncrement: Float
+  baseIncrement: Float
+  displayName: String
+  minMarketFunds: Float
+  maxMarketFunds: Float
+  marginEnabled: Boolean
+  postOnly: Boolean
+  limitOnly: Boolean
+  cancelOnly: Boolean
+  status: Status
+  statusMessage: String
+  tradingDisabled: Boolean
+  fxStablecoin: Boolean
+  maxSlippagePercentage: Float
+  auctionMode: Boolean
+}`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_product_ticker.graphqls", Input: `# * This is a generated file, do not edit
 
 """
@@ -4516,6 +4707,11 @@ type CoinbaseProductTicker {
   price: Float
   size: Float
   time: Time
+}`, BuiltIn: false},
+	{Name: "internal/graph/schema/coinbase_products_options.graphqls", Input: `# * This is a generated file, do not edit
+
+input CoinbaseProductsOptions {
+  type: String
 }`, BuiltIn: false},
 	{Name: "internal/graph/schema/coinbase_recurring_options.graphqls", Input: `# * This is a generated file, do not edit
 
@@ -4924,6 +5120,7 @@ scalar OrderStop
 scalar OrderSTP
 scalar OrderType
 scalar PaymentMethod
+scalar Status
 scalar SystemStatus
 scalar TimeInForce
 scalar Time
@@ -13986,6 +14183,826 @@ func (ec *executionContext) fieldContext_CoinbasePickerData_balance(ctx context.
 				return ec.fieldContext_CoinbaseBalance_currency(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type CoinbaseBalance", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_id(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_id(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Id, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_baseCurrency(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_baseCurrency(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.BaseCurrency, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_baseCurrency(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_quoteCurrency(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_quoteCurrency(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.QuoteCurrency, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_quoteCurrency(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_baseMinSize(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_baseMinSize(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.BaseMinSize, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_baseMinSize(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_baseMaxSize(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_baseMaxSize(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.BaseMaxSize, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_baseMaxSize(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_quoteIncrement(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_quoteIncrement(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.QuoteIncrement, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_quoteIncrement(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_baseIncrement(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_baseIncrement(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.BaseIncrement, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_baseIncrement(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_displayName(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_displayName(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DisplayName, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_displayName(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_minMarketFunds(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_minMarketFunds(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MinMarketFunds, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_minMarketFunds(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_maxMarketFunds(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_maxMarketFunds(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MaxMarketFunds, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_maxMarketFunds(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_marginEnabled(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_marginEnabled(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MarginEnabled, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_marginEnabled(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_postOnly(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_postOnly(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PostOnly, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_postOnly(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_limitOnly(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_limitOnly(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.LimitOnly, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_limitOnly(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_cancelOnly(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_cancelOnly(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.CancelOnly, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_cancelOnly(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_status(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_status(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Status, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(scalar.Status)
+	fc.Result = res
+	return ec.marshalOStatus2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋscalarᚐStatus(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_status(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Status does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_statusMessage(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_statusMessage(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.StatusMessage, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalOString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_statusMessage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_tradingDisabled(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_tradingDisabled(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.TradingDisabled, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_tradingDisabled(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_fxStablecoin(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_fxStablecoin(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FxStablecoin, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_fxStablecoin(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_maxSlippagePercentage(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_maxSlippagePercentage(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MaxSlippagePercentage, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(float64)
+	fc.Result = res
+	return ec.marshalOFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_maxSlippagePercentage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Float does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CoinbaseProduct_auctionMode(ctx context.Context, field graphql.CollectedField, obj *model.CoinbaseProduct) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CoinbaseProduct_auctionMode(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AuctionMode, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CoinbaseProduct_auctionMode(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CoinbaseProduct",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
 		},
 	}
 	return fc, nil
@@ -27547,6 +28564,29 @@ func (ec *executionContext) unmarshalInputCoinbasePaymentMethodWithdrawalOptions
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputCoinbaseProductsOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseProductsOptions, error) {
+	var it protomodel.CoinbaseProductsOptions
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "type":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
+			it.Type, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputCoinbaseWithdrawalFeeEstimateOptions(ctx context.Context, obj interface{}) (protomodel.CoinbaseWithdrawalFeeEstimateOptions, error) {
 	var it protomodel.CoinbaseWithdrawalFeeEstimateOptions
 	asMap := map[string]interface{}{}
@@ -29006,6 +30046,107 @@ func (ec *executionContext) _CoinbasePickerData(ctx context.Context, sel ast.Sel
 		case "balance":
 
 			out.Values[i] = ec._CoinbasePickerData_balance(ctx, field, obj)
+
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var coinbaseProductImplementors = []string{"CoinbaseProduct"}
+
+func (ec *executionContext) _CoinbaseProduct(ctx context.Context, sel ast.SelectionSet, obj *model.CoinbaseProduct) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, coinbaseProductImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("CoinbaseProduct")
+		case "id":
+
+			out.Values[i] = ec._CoinbaseProduct_id(ctx, field, obj)
+
+		case "baseCurrency":
+
+			out.Values[i] = ec._CoinbaseProduct_baseCurrency(ctx, field, obj)
+
+		case "quoteCurrency":
+
+			out.Values[i] = ec._CoinbaseProduct_quoteCurrency(ctx, field, obj)
+
+		case "baseMinSize":
+
+			out.Values[i] = ec._CoinbaseProduct_baseMinSize(ctx, field, obj)
+
+		case "baseMaxSize":
+
+			out.Values[i] = ec._CoinbaseProduct_baseMaxSize(ctx, field, obj)
+
+		case "quoteIncrement":
+
+			out.Values[i] = ec._CoinbaseProduct_quoteIncrement(ctx, field, obj)
+
+		case "baseIncrement":
+
+			out.Values[i] = ec._CoinbaseProduct_baseIncrement(ctx, field, obj)
+
+		case "displayName":
+
+			out.Values[i] = ec._CoinbaseProduct_displayName(ctx, field, obj)
+
+		case "minMarketFunds":
+
+			out.Values[i] = ec._CoinbaseProduct_minMarketFunds(ctx, field, obj)
+
+		case "maxMarketFunds":
+
+			out.Values[i] = ec._CoinbaseProduct_maxMarketFunds(ctx, field, obj)
+
+		case "marginEnabled":
+
+			out.Values[i] = ec._CoinbaseProduct_marginEnabled(ctx, field, obj)
+
+		case "postOnly":
+
+			out.Values[i] = ec._CoinbaseProduct_postOnly(ctx, field, obj)
+
+		case "limitOnly":
+
+			out.Values[i] = ec._CoinbaseProduct_limitOnly(ctx, field, obj)
+
+		case "cancelOnly":
+
+			out.Values[i] = ec._CoinbaseProduct_cancelOnly(ctx, field, obj)
+
+		case "status":
+
+			out.Values[i] = ec._CoinbaseProduct_status(ctx, field, obj)
+
+		case "statusMessage":
+
+			out.Values[i] = ec._CoinbaseProduct_statusMessage(ctx, field, obj)
+
+		case "tradingDisabled":
+
+			out.Values[i] = ec._CoinbaseProduct_tradingDisabled(ctx, field, obj)
+
+		case "fxStablecoin":
+
+			out.Values[i] = ec._CoinbaseProduct_fxStablecoin(ctx, field, obj)
+
+		case "maxSlippagePercentage":
+
+			out.Values[i] = ec._CoinbaseProduct_maxSlippagePercentage(ctx, field, obj)
+
+		case "auctionMode":
+
+			out.Values[i] = ec._CoinbaseProduct_auctionMode(ctx, field, obj)
 
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
@@ -32875,6 +34016,17 @@ func (ec *executionContext) marshalOOrderType2ᚖgithubᚗcomᚋalpineᚑhodler�
 		return graphql.Null
 	}
 	res := graphql.MarshalString(string(*v))
+	return res
+}
+
+func (ec *executionContext) unmarshalOStatus2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋscalarᚐStatus(ctx context.Context, v interface{}) (scalar.Status, error) {
+	tmp, err := graphql.UnmarshalString(v)
+	res := scalar.Status(tmp)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOStatus2githubᚗcomᚋalpineᚑhodlerᚋsdkᚋpkgᚋscalarᚐStatus(ctx context.Context, sel ast.SelectionSet, v scalar.Status) graphql.Marshaler {
+	res := graphql.MarshalString(string(v))
 	return res
 }
 

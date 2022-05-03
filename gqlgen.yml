@@ -129,6 +129,8 @@ models:
     model: github.com/alpine-hodler/sdk/pkg/scalar.OrderType
   PaymentMethod:
     model: github.com/alpine-hodler/sdk/pkg/scalar.PaymentMethod
+  Status:
+    model: github.com/alpine-hodler/sdk/pkg/scalar.Status
   SystemStatus:
     model: github.com/alpine-hodler/sdk/pkg/scalar.SystemStatus
   TimeInForce:
@@ -159,6 +161,8 @@ models:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProductTicker
   CoinbaseRecurringOptions:
     model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseRecurringOptions
+  CoinbaseProducts:
+    model: github.com/alpine-hodler/sdk/pkg/model.CoinbaseProducts
 resolver:
   dir: internal/graph
   layout: follow-schema

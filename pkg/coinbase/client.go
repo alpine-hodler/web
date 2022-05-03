@@ -165,8 +165,7 @@ func (coinbaseClient *C) Identifier() string {
 
 // Accounts lists all trading accounts from the profile of the API key.
 func (coinbaseClient *C) Accounts() (m []*model.CoinbaseAccount, err error) {
-	req := coinbaseClient.Get(AccountsEndpoint)
-	return m, req.Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(AccountsEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // AccountHolds returns a list of holds of an account that belong to the same profile as the API key. Holds are placed
@@ -396,20 +395,17 @@ func (coinbaseClient *C) Currencies() (m []*model.CoinbaseCurrency, err error) {
 // FindAccount returns information for a single account. Use this endpoint when you know the account_id. API key must
 // belong to the same profile as the account.
 func (coinbaseClient *C) FindAccount(accountId string) (m *model.CoinbaseAccount, err error) {
-	req := coinbaseClient.Get(AccountEndpoint)
-	return m, req.PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(AccountEndpoint).PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
 }
 
 // GenerateCryptoAddress will generates a one-time crypto address for depositing crypto.
 func (coinbaseClient *C) GenerateCryptoAddress(walletId string) (m *model.CoinbaseCryptoAddress, err error) {
-	req := coinbaseClient.Post(AddressesEndpoint)
-	return m, req.PathParam("account_id", walletId).Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Post(AddressesEndpoint).PathParam("account_id", walletId).Fetch().Assign(&m).JoinMessages()
 }
 
 // Fees will get fees rates and 30 days trailing volume.
 func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
-	req := coinbaseClient.Get(FeesEndpoint)
-	return m, req.Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(FeesEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // ## API Key Permissions
@@ -490,14 +486,12 @@ func (coinbaseClient *C) FindConversion(conversionId string,
 
 // FindCurrency gets a single currency by id.
 func (coinbaseClient *C) FindCurrency(currencyId string) (m *model.CoinbaseCurrency, err error) {
-	req := coinbaseClient.Get(CurrencyEndpoint)
-	return m, req.PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(CurrencyEndpoint).PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
 }
 
 // FindTransfer get information on a single coinbaseClient.
 func (coinbaseClient *C) FindTransfer(id string) (m *model.CoinbaseAccountTransfer, err error) {
-	req := coinbaseClient.Get(TransferEndpoint)
-	return m, req.PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(TransferEndpoint).PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
 }
 
 // MakePaymentMethodDeposit will deposits funds from a linked external payment method to the
@@ -515,8 +509,7 @@ func (coinbaseClient *C) PaymentMethodDeposit(
 
 // PaymentMethods gets a list of the user's linked payment methods
 func (coinbaseClient *C) PaymentMethods() (m []*model.CoinbasePaymentMethod, err error) {
-	req := coinbaseClient.Get(PaymentMethodEndpoint)
-	return m, req.Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(PaymentMethodEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // PaymentMethodWithdrawal ithdraws funds from the specified profile_id to a linked external payment method
@@ -609,8 +602,24 @@ func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.Coinbas
 
 // Order will get a single order by order id.
 func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err error) {
-	req := coinbaseClient.Get(OrderEndpoint)
-	return m, req.PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(OrderEndpoint).PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
+}
+
+// Products will return a slce of all available currency pairs for trading.
+func (coinbaseClient *C) Products(opts *option.CoinbaseProducts) (m []*model.CoinbaseProduct, err error) {
+	return m, coinbaseClient.Get(ProductsEndpoint).
+		QueryParam("type", func() (i *string) {
+			if opts != nil {
+				i = opts.Type
+			}
+			return
+		}()).
+		Fetch().Assign(&m).JoinMessages()
+}
+
+// Product will get information on a single product using a productID.
+func (coinbaseClient *C) Product(productID string) (m *model.CoinbaseProduct, err error) {
+	return m, coinbaseClient.Get(ProductEndpoint).PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
 }
 
 // Accounts lists all trading accounts from the profile of the API key.
@@ -628,8 +637,7 @@ func (coinbaseClient *C) Transfers() (m []*model.CoinbaseAccountTransfer, err er
 // Wallets lists all the user's available Coinbase wallets (These are the wallets/accounts that are  used for buying
 // and selling on www.coinbase.com)
 func (coinbaseClient *C) Wallets() (m []*model.CoinbaseWallet, err error) {
-	req := coinbaseClient.Get(WalletsEndpoint)
-	return m, req.Fetch().Assign(&m).JoinMessages()
+	return m, coinbaseClient.Get(WalletsEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // WithdrawalFeeEstimate gets the fee estimate for the crypto withdrawal to crypto address

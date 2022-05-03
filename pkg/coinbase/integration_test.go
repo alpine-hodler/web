@@ -59,8 +59,18 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		findPaymentMethod(t, client, paymentMethod)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET Products", func() (err error) {
+		products, err := client.Products(nil)
+		require.NotEmpty(t, products)
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET Specific Account", func() (err error) {
 		_, err = client.FindAccount(findAccountID(t, client, currency))
+		return
+	})
+	makeSimpleRequestAssertion(t, "Should GET Specific Products", func() (err error) {
+		product, err := client.Product(productID)
+		require.NotNil(t, product)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Specific Currency", func() (err error) {

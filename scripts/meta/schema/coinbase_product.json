@@ -1,8 +1,19 @@
 {
 	"api": "coinbase",
-	"model": "coinbase_single_product",
-	"modelDescription": "CoinbaseSingleProduct is information on a single product",
+	"model": "coinbase_product",
+	"modelDescription": "CoinbaseProduct represents a currency pair available for trading.",
 	"endpoints": [
+		{
+			"path": "/products",
+			"enumRoot": "Products",
+			"description": "Gets a list of available currency pairs for trading.",
+			"queryParams": [
+				{
+					"identifier": "type",
+					"goType": "string"
+				}
+			]
+		},
 		{
 			"path": "/products/{product_id}",
 			"enumRoot": "Product",
@@ -74,7 +85,7 @@
 		},
 		{
 			"identifier": "status",
-			"goType": "string"
+			"goType": "scalar.Status"
 		},
 		{
 			"identifier": "status_message",

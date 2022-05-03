@@ -128,6 +128,10 @@ type CoinbasePaymentMethodWithdrawalOptions struct {
 	Currency        string  `json:"currency"`
 }
 
+type CoinbaseProductsOptions struct {
+	Type *string `json:"type"`
+}
+
 type CoinbaseWithdrawalFeeEstimateOptions struct {
 	Currency      *string `json:"currency"`
 	CryptoAddress *string `json:"cryptoAddress"`

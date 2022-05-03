@@ -16,6 +16,7 @@ type Transform interface {
 	UnmarshalFloat(name string, v *float64) error
 	UnmarshalInt64(name string, v *int64) error
 	UnmarshalInt(name string, v *int) error
+	UnmarshalStatus(name string, v *scalar.Status) error
 	UnmarshalSystemStatus(name string, v *scalar.SystemStatus) error
 	UnmarshalLocation(name string, v *time.Location) error
 	UnmarshalOrderSide(name string, v *scalar.OrderSide) error

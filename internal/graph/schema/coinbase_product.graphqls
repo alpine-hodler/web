@@ -1,0 +1,27 @@
+# * This is a generated file, do not edit
+
+"""
+ CoinbaseProduct represents a currency pair available for trading.
+"""
+type CoinbaseProduct {
+  id: String
+  baseCurrency: String
+  quoteCurrency: String
+  baseMinSize: Float
+  baseMaxSize: Float
+  quoteIncrement: Float
+  baseIncrement: Float
+  displayName: String
+  minMarketFunds: Float
+  maxMarketFunds: Float
+  marginEnabled: Boolean
+  postOnly: Boolean
+  limitOnly: Boolean
+  cancelOnly: Boolean
+  status: Status
+  statusMessage: String
+  tradingDisabled: Boolean
+  fxStablecoin: Boolean
+  maxSlippagePercentage: Float
+  auctionMode: Boolean
+}

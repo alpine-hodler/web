@@ -6,6 +6,7 @@ scalar OrderStop
 scalar OrderSTP
 scalar OrderType
 scalar PaymentMethod
+scalar Status
 scalar SystemStatus
 scalar TimeInForce
 scalar Time

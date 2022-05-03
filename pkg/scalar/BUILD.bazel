@@ -11,6 +11,7 @@ go_library(
         "order_stp.go",
         "order_type.go",
         "payment_method.go",
+        "status.go",
         "system_status.go",
         "time_in_force.go",
         "transfer_method.go",

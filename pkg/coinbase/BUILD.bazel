@@ -28,6 +28,7 @@ go_test(
     timeout = "short",
     srcs = [
         "async_ticker_test.go",
+        "helpers_test.go",
         "integration_test.go",
     ],
     data = glob([".simple-test.env"]),
