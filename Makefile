@@ -1,7 +1,6 @@
 PKGS=$(shell scripts/list_pkgs.sh ./pkg)
 
 default:
-	go mod tidy
 	scripts/build_meta.sh
 	scripts/build_bazel.sh
 
@@ -10,12 +9,6 @@ build-bazel:
 
 build-meta:
 	scripts/build_meta.sh
-	gqlgen generate
-
-generate-meta:
-	docker-compose -f "meta.docker-compose.yaml" run test_generate
-	docker-compose -f "meta.docker-compose.yaml" run generate
-	gqlgen generate
 
 list_pkgs:
 	echo $(PKGS)

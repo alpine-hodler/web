@@ -7,7 +7,6 @@ go_library(
         "body.go",
         "body_type.go",
         "client.go",
-        "client_mock.go",
         "connector.go",
         "endpoint.go",
         "errors.go",
@@ -20,7 +19,6 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//pkg/model",
-        "@com_github_golang_mock//gomock",
         "@com_github_sirupsen_logrus//:logrus",
     ],
 )

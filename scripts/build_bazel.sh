@@ -13,6 +13,3 @@ bazel build //...
 
 # run tests
 bazel test //... --test_verbose_timeout_warnings
-
-# # regenerate graphql stuff
-# go get github.com/99designs/gqlgen; go run github.com/99designs/gqlgen generate

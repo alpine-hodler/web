@@ -5,7 +5,7 @@ require_relative 'comment'
 # SDKEndpoints is responsible for methods that generate the endpoint.go code in
 # sdk packages
 module SDKEndpoints
-  ENDPOINT_TYPE = "\ntype Endpoint int;"
+  ENDPOINT_TYPE = "\ntype Endpoint uint8;"
   MSG = "\n// * This is a generated file, do not edit"
   GET_MSG = 'Get takes an endpoint const and endpoint arguments to parse the URL endpoint path.'
 

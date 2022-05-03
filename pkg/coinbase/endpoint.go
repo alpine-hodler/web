@@ -8,7 +8,7 @@ import (
 )
 
 // * This is a generated file, do not edit
-type Endpoint int
+type Endpoint uint8
 
 const (
 	_ Endpoint = iota
