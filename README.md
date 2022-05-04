@@ -1,10 +1,8 @@
 [![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk)
 
-# sdk
+# SDK
 
-sdk is a monorepo that provides a graphql server and various SDKs for connecting to and interacting with APIs and websockets.
-
-This repo is a work in progress
+SDK is a library wraps third-party API.
 
 ## Usage
 

@@ -19,8 +19,6 @@ brew install bazel
 
 https://docs.docker.com/get-docker/
 
-We will primarily use docker for generating go and graphqls files from script/meta/schema files.
-
 ### Install Go
 
 https://go.dev/doc/install
@@ -58,26 +56,6 @@ accounts := client.Accounts()
 fmt.Printf("%+v\n", accounts)
 ```
 
-## Running GraphQL Server
-
-### Using Docker
-
-You can start the graphql server on the 8080 port by running
-
-```
-docker-compose -f "graphql.docker-compose.yaml" up -d --build
-```
-
-### Directly
-
-To start the graphql server go to the `cmd/graphql` directory and generate the graphql binary with go build. You'll also need to make sure the proper auth data is in some /path/to/auth/.env, see coinbase section for example. Then run
-
-```
-./graphql start --port=8080 --env=/path/to/auth/.env
-```
-
-and visit http://localhost:8080/
-
 ## Extending the API
 
 To extend the api, you'll need to add a new schema to the `scripts/meta/schema` directory, following the template layed out in `scripts/meta/schema/schema.json`.  Then simply run the generate method:
@@ -90,22 +68,16 @@ This will add data to the following:
 
 - protomodel: A new protomodel will be created for the data, this is a purely generated go model
 - model: A new model will the created for the data.  This model extends the protomodel struct and is open to extension
-- model accessors: A set of functions to access struct and non-native go types, primiarly used by the graphql resolver.  The file structure lives in the pkg/model directory.
-- internal/graph/schema: A new graphql type will be added as a 1-1 relationship with the generated protomodel
 - endpoint accessors: A set of endpoint accessor will be added to the pkg/{api} package
-
-You'll also need to run
-
-```
-gqlgen generate
-```
-
-to generate the graphql structures.
 
 ### Testing
 
-You can test the meta package with
-
+Build the meta executor with
 ```
-docker-compose -f "meta.docker-compose.yaml" run test_generate
+make build-meta
+```
+
+Generate data from the meta exector with
+```
+make generate
 ```
