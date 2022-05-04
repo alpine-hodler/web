@@ -1,19 +1,18 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // OpenseaAssets are options for API requests.
 type OpenseaAssets struct {
-	protomodel.OpenseaAssetsOptions
-}
-
-// OpenseaAssetsFromPrototype will initialize the exportable options struct from the internal prototype.
-func OpenseaAssetsFromPrototype(proto *protomodel.OpenseaAssetsOptions) (opts *OpenseaAssets) {
-	if proto != nil {
-		opts.OpenseaAssetsOptions = *proto
-	}
-	return
+	AssetContractAddress   *string   `json:"asset_contract_address" bson:"asset_contract_address"`
+	AssetContractAddresses []*string `json:"asset_contract_addresses" bson:"asset_contract_addresses"`
+	Collection             *string   `json:"collection" bson:"collection"`
+	Limit                  *string   `json:"limit" bson:"limit"`
+	Offset                 *string   `json:"offset" bson:"offset"`
+	OrderBy                *string   `json:"order_by" bson:"order_by"`
+	OrderDirection         *string   `json:"order_direction" bson:"order_direction"`
+	Owner                  *string   `json:"owner" bson:"owner"`
+	TokenIds               *string   `json:"token_ids" bson:"token_ids"`
 }
 
 // SetOwner sets the Owner field on OpenseaAssets.

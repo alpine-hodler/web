@@ -1,36 +1,32 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseFills are options for API requests.
 type CoinbaseFills struct {
-	protomodel.CoinbaseFillsOptions
+	After     *int    `json:"after" bson:"after"`
+	Before    *int    `json:"before" bson:"before"`
+	Limit     *int    `json:"limit" bson:"limit"`
+	OrderId   *string `json:"order_id" bson:"order_id"`
+	ProductId *string `json:"product_id" bson:"product_id"`
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
 }
 
-// CoinbaseFillsFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseFillsFromPrototype(proto *protomodel.CoinbaseFillsOptions) (opts *CoinbaseFills) {
-	if proto != nil {
-		opts.CoinbaseFillsOptions = *proto
-	}
-	return
-}
-
-// SetOrderID sets the OrderID field on CoinbaseFills.
-func (opts *CoinbaseFills) SetOrderID(orderId string) *CoinbaseFills {
-	opts.OrderID = &orderId
+// SetOrderId sets the OrderId field on CoinbaseFills.
+func (opts *CoinbaseFills) SetOrderId(orderId string) *CoinbaseFills {
+	opts.OrderId = &orderId
 	return opts
 }
 
-// SetProductID sets the ProductID field on CoinbaseFills.
-func (opts *CoinbaseFills) SetProductID(productId string) *CoinbaseFills {
-	opts.ProductID = &productId
+// SetProductId sets the ProductId field on CoinbaseFills.
+func (opts *CoinbaseFills) SetProductId(productId string) *CoinbaseFills {
+	opts.ProductId = &productId
 	return opts
 }
 
-// SetProfileID sets the ProfileID field on CoinbaseFills.
-func (opts *CoinbaseFills) SetProfileID(profileId string) *CoinbaseFills {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbaseFills.
+func (opts *CoinbaseFills) SetProfileId(profileId string) *CoinbaseFills {
+	opts.ProfileId = &profileId
 	return opts
 }
 

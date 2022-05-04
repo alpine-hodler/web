@@ -1,8 +1,0 @@
-# * This is a generated file, do not edit
-
-"""
- The display type for a collection
-"""
-type OpenseaDisplayData {
-  cardDisplayStyle: String
-}

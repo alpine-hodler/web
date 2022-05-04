@@ -1,24 +1,19 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseConversions are options for API requests.
 type CoinbaseConversions struct {
-	protomodel.CoinbaseConversionsOptions
+	Amount    float64 `json:"amount" bson:"amount"`
+	From      string  `json:"from" bson:"from"`
+	Nonce     *string `json:"nonce" bson:"nonce"`
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	To        string  `json:"to" bson:"to"`
 }
 
-// CoinbaseConversionsFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseConversionsFromPrototype(proto *protomodel.CoinbaseConversionsOptions) (opts *CoinbaseConversions) {
-	if proto != nil {
-		opts.CoinbaseConversionsOptions = *proto
-	}
-	return
-}
-
-// SetProfileID sets the ProfileID field on CoinbaseConversions.
-func (opts *CoinbaseConversions) SetProfileID(profileId string) *CoinbaseConversions {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbaseConversions.
+func (opts *CoinbaseConversions) SetProfileId(profileId string) *CoinbaseConversions {
+	opts.ProfileId = &profileId
 	return opts
 }
 

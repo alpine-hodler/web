@@ -15,8 +15,6 @@ services:
       - ./pkg/iex:/usr/src/iex
       - ./pkg/opensea:/usr/src/opensea
       - ./pkg/option:/usr/src/option
-      - ./internal/graph:/usr/src/graph
-      - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
       - ./internal/protomodel:/usr/src/protomodel
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
@@ -30,7 +28,6 @@ services:
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
-      - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
     depends_on:
@@ -46,8 +43,6 @@ services:
       - ./pkg/iex:/usr/src/iex
       - ./pkg/opensea:/usr/src/opensea
       - ./pkg/option:/usr/src/option
-      - ./internal/graph:/usr/src/graph
-      - ./gqlgen.yml:/usr/src/gqlgen.yml
       - ./pkg/model:/usr/src/model
       - ./internal/protomodel:/usr/src/protomodel
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
@@ -61,7 +56,6 @@ services:
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
-      - ./scripts/meta/query_param.rb:/usr/src/meta/query_param.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/test:/usr/src/meta/test
       - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb

@@ -1,19 +1,13 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseAccountTransfers are options for API requests.
 type CoinbaseAccountTransfers struct {
-	protomodel.CoinbaseAccountTransfersOptions
-}
-
-// CoinbaseAccountTransfersFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseAccountTransfersFromPrototype(proto *protomodel.CoinbaseAccountTransfersOptions) (opts *CoinbaseAccountTransfers) {
-	if proto != nil {
-		opts.CoinbaseAccountTransfersOptions = *proto
-	}
-	return
+	After  *string `json:"after" bson:"after"`
+	Before *string `json:"before" bson:"before"`
+	Limit  *int    `json:"limit" bson:"limit"`
+	Type   *string `json:"type" bson:"type"`
 }
 
 // SetBefore sets the Before field on CoinbaseAccountTransfers.
@@ -35,7 +29,7 @@ func (opts *CoinbaseAccountTransfers) SetLimit(limit int) *CoinbaseAccountTransf
 }
 
 // SetType sets the Type field on CoinbaseAccountTransfers.
-func (opts *CoinbaseAccountTransfers) SetType(t string) *CoinbaseAccountTransfers {
-	opts.Type = &t
+func (opts *CoinbaseAccountTransfers) SetType(typ string) *CoinbaseAccountTransfers {
+	opts.Type = &typ
 	return opts
 }

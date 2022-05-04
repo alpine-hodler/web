@@ -1,9 +1,0 @@
-# * This is a generated file, do not edit
-
-"""
- CoinbaseRecurringOptions ??
-"""
-type CoinbaseRecurringOptions {
-  period: String
-  label: String
-}

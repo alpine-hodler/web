@@ -1,24 +1,23 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseCryptoWithdrawal are options for API requests.
 type CoinbaseCryptoWithdrawal struct {
-	protomodel.CoinbaseCryptoWithdrawalOptions
+	Amount           float64  `json:"amount" bson:"amount"`
+	CryptoAddress    string   `json:"crypto_address" bson:"crypto_address"`
+	Currency         string   `json:"currency" bson:"currency"`
+	DestinationTag   *string  `json:"destination_tag" bson:"destination_tag"`
+	Fee              *float64 `json:"fee" bson:"fee"`
+	NoDestinationTag *bool    `json:"no_destination_tag" bson:"no_destination_tag"`
+	Nonce            *int     `json:"nonce" bson:"nonce"`
+	ProfileId        *string  `json:"profile_id" bson:"profile_id"`
+	TwoFactorCode    *string  `json:"two_factor_code" bson:"two_factor_code"`
 }
 
-// CoinbaseCryptoWithdrawalFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseCryptoWithdrawalFromPrototype(proto *protomodel.CoinbaseCryptoWithdrawalOptions) (opts *CoinbaseCryptoWithdrawal) {
-	if proto != nil {
-		opts.CoinbaseCryptoWithdrawalOptions = *proto
-	}
-	return
-}
-
-// SetProfileID sets the ProfileID field on CoinbaseCryptoWithdrawal.
-func (opts *CoinbaseCryptoWithdrawal) SetProfileID(profileId string) *CoinbaseCryptoWithdrawal {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbaseCryptoWithdrawal.
+func (opts *CoinbaseCryptoWithdrawal) SetProfileId(profileId string) *CoinbaseCryptoWithdrawal {
+	opts.ProfileId = &profileId
 	return opts
 }
 

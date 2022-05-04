@@ -52,7 +52,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Fills", func() (err error) {
-		_, err = client.Fills(new(option.CoinbaseFills).SetProductID(productID))
+		_, err = client.Fills(new(option.CoinbaseFills).SetProductId(productID))
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET Payment Methods", func() (err error) {

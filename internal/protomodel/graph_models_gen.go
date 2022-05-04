@@ -9,9 +9,9 @@ import (
 )
 
 type CoinbaseAccountDepositOptions struct {
-	ProfileID         *string `json:"profileID"`
+	ProfileID         *string `json:"profileId"`
 	Amount            float64 `json:"amount"`
-	CoinbaseAccountID string  `json:"coinbaseAccountID"`
+	CoinbaseAccountID string  `json:"coinbaseAccountId"`
 	Currency          string  `json:"currency"`
 }
 
@@ -26,7 +26,7 @@ type CoinbaseAccountLedgerOptions struct {
 	EndDate   *string `json:"endDate"`
 	Before    *string `json:"before"`
 	After     *string `json:"after"`
-	ProfileID *string `json:"profileID"`
+	ProfileID *string `json:"profileId"`
 	Limit     *int    `json:"limit"`
 }
 
@@ -38,9 +38,9 @@ type CoinbaseAccountTransfersOptions struct {
 }
 
 type CoinbaseAccountWithdrawalOptions struct {
-	ProfileID         *string `json:"profileID"`
+	ProfileID         *string `json:"profileId"`
 	Amount            float64 `json:"amount"`
-	CoinbaseAccountID string  `json:"coinbaseAccountID"`
+	CoinbaseAccountID string  `json:"coinbaseAccountId"`
 	Currency          string  `json:"currency"`
 }
 
@@ -52,11 +52,11 @@ type CoinbaseCoinbaseAccountDepositOptions struct {
 }
 
 type CoinbaseConversionOptions struct {
-	ProfileID *string `json:"profileID"`
+	ProfileID *string `json:"profileId"`
 }
 
 type CoinbaseConversionsOptions struct {
-	ProfileID *string `json:"profileID"`
+	ProfileID *string `json:"profileId"`
 	From      string  `json:"from"`
 	To        string  `json:"to"`
 	Amount    float64 `json:"amount"`
@@ -64,7 +64,7 @@ type CoinbaseConversionsOptions struct {
 }
 
 type CoinbaseCryptoWithdrawalOptions struct {
-	ProfileID        *string  `json:"profileID"`
+	ProfileID        *string  `json:"profileId"`
 	Amount           float64  `json:"amount"`
 	CryptoAddress    string   `json:"cryptoAddress"`
 	Currency         string   `json:"currency"`
@@ -76,16 +76,16 @@ type CoinbaseCryptoWithdrawalOptions struct {
 }
 
 type CoinbaseFillsOptions struct {
-	OrderID   *string `json:"orderID"`
-	ProductID *string `json:"productID"`
-	ProfileID *string `json:"profileID"`
+	OrderID   *string `json:"orderId"`
+	ProductID *string `json:"productId"`
+	ProfileID *string `json:"profileId"`
 	Limit     *int    `json:"limit"`
 	Before    *int    `json:"before"`
 	After     *int    `json:"after"`
 }
 
 type CoinbaseNewOrderOptions struct {
-	ProfileID   *string             `json:"profileID"`
+	ProfileID   *string             `json:"profileId"`
 	Type        *scalar.OrderType   `json:"type"`
 	Side        scalar.OrderSide    `json:"side"`
 	Stp         *scalar.OrderSTP    `json:"stp"`
@@ -94,7 +94,7 @@ type CoinbaseNewOrderOptions struct {
 	Price       *float64            `json:"price"`
 	Size        *float64            `json:"size"`
 	Funds       *float64            `json:"funds"`
-	ProductID   string              `json:"productID"`
+	ProductID   string              `json:"productId"`
 	TimeInForce *scalar.TimeInForce `json:"timeInForce"`
 	CancelAfter *scalar.CancelAfter `json:"cancelAfter"`
 	PostOnly    *bool               `json:"postOnly"`
@@ -102,8 +102,8 @@ type CoinbaseNewOrderOptions struct {
 }
 
 type CoinbaseOrdersOptions struct {
-	ProfileID *string    `json:"profileID"`
-	ProductID *string    `json:"productID"`
+	ProfileID *string    `json:"profileId"`
+	ProductID *string    `json:"productId"`
 	SortedBy  *string    `json:"sortedBy"`
 	Sorting   *string    `json:"sorting"`
 	StartDate *time.Time `json:"startDate"`
@@ -115,16 +115,16 @@ type CoinbaseOrdersOptions struct {
 }
 
 type CoinbasePaymentMethodDepositOptions struct {
-	ProfileID       *string `json:"profileID"`
+	ProfileID       *string `json:"profileId"`
 	Amount          float64 `json:"amount"`
-	PaymentMethodID string  `json:"paymentMethodID"`
+	PaymentMethodID string  `json:"paymentMethodId"`
 	Currency        string  `json:"currency"`
 }
 
 type CoinbasePaymentMethodWithdrawalOptions struct {
-	ProfileID       *string `json:"profileID"`
+	ProfileID       *string `json:"profileId"`
 	Amount          float64 `json:"amount"`
-	PaymentMethodID string  `json:"paymentMethodID"`
+	PaymentMethodID string  `json:"paymentMethodId"`
 	Currency        string  `json:"currency"`
 }
 

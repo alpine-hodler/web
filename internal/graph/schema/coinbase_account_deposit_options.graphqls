@@ -1,8 +1,0 @@
-# * This is a generated file, do not edit
-
-input CoinbaseAccountDepositOptions {
-  profileID: String
-  amount: Float!
-  coinbaseAccountID: String!
-  currency: String!
-}

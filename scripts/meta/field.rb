@@ -3,7 +3,8 @@
 require 'string_inflection'
 using StringInflection
 
-# Field holds state concerning endpoints given by the mete/schema json files
+# Field holds state concerning endpoints given by the meta/schema json files.  It encapsulates methods for manupilating
+# this data for various use cases in go, such as structs, functions, closures, etc.
 class Field
   attr_reader \
     :datetime_layout,
@@ -50,5 +51,30 @@ class Field
     return go_field_name unless go_struct?
 
     "Proto#{go_field_name}"
+  end
+
+  def go_variable_name
+    name = @go_field_name.to_camel
+
+    # `type` is a go keyword, the convention will be to replace it with `typ`.
+    return 'typ' if name == 'type'
+
+    name
+  end
+
+  def ptr_go_type
+    return go_type if required
+
+    if go_type.include?('[]')
+      "[]*#{go_type.dup.gsub('[]', '')}"
+    else
+      "*#{go_type}"
+    end
+  end
+
+  def ptr_go_variable
+    return go_variable_name if required go_type.include?('[]')
+
+    "&#{go_variable_name}"
   end
 end

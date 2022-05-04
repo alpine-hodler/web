@@ -22,8 +22,5 @@ go_library(
     ],
     importpath = "github.com/alpine-hodler/sdk/pkg/option",
     visibility = ["//visibility:public"],
-    deps = [
-        "//internal/protomodel",
-        "//pkg/scalar",
-    ],
+    deps = ["//pkg/scalar"],
 )

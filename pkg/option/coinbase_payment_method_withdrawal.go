@@ -1,25 +1,18 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbasePaymentMethodWithdrawal are options for API requests.
 type CoinbasePaymentMethodWithdrawal struct {
-	protomodel.CoinbasePaymentMethodWithdrawalOptions
+	Amount          float64 `json:"amount" bson:"amount"`
+	Currency        string  `json:"currency" bson:"currency"`
+	PaymentMethodId string  `json:"payment_method_id" bson:"payment_method_id"`
+	ProfileId       *string `json:"profile_id" bson:"profile_id"`
 }
 
-// CoinbasePaymentMethodWithdrawalFromPrototype will initialize the exportable options struct from the internal
-// prototype.
-func CoinbasePaymentMethodWithdrawalFromPrototype(proto *protomodel.CoinbasePaymentMethodWithdrawalOptions) (opts *CoinbasePaymentMethodWithdrawal) {
-	if proto != nil {
-		opts.CoinbasePaymentMethodWithdrawalOptions = *proto
-	}
-	return
-}
-
-// SetProfileID sets the ProfileID field on CoinbasePaymentMethodWithdrawal.
-func (opts *CoinbasePaymentMethodWithdrawal) SetProfileID(profileId string) *CoinbasePaymentMethodWithdrawal {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbasePaymentMethodWithdrawal.
+func (opts *CoinbasePaymentMethodWithdrawal) SetProfileId(profileId string) *CoinbasePaymentMethodWithdrawal {
+	opts.ProfileId = &profileId
 	return opts
 }
 
@@ -29,9 +22,9 @@ func (opts *CoinbasePaymentMethodWithdrawal) SetAmount(amount float64) *Coinbase
 	return opts
 }
 
-// SetPaymentMethodID sets the PaymentMethodID field on CoinbasePaymentMethodWithdrawal.
-func (opts *CoinbasePaymentMethodWithdrawal) SetPaymentMethodID(paymentMethodId string) *CoinbasePaymentMethodWithdrawal {
-	opts.PaymentMethodID = paymentMethodId
+// SetPaymentMethodId sets the PaymentMethodId field on CoinbasePaymentMethodWithdrawal.
+func (opts *CoinbasePaymentMethodWithdrawal) SetPaymentMethodId(paymentMethodId string) *CoinbasePaymentMethodWithdrawal {
+	opts.PaymentMethodId = paymentMethodId
 	return opts
 }
 

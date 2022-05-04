@@ -233,7 +233,7 @@ func (coinbaseClient *C) AccountLedger(accountId string,
 		}()).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProfileID
+				i = opts.ProfileId
 			}
 			return
 		}()).
@@ -283,9 +283,9 @@ func (coinbaseClient *C) AccountWithdrawal(
 	opts *option.CoinbaseAccountWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
+			SetString("profile_id", opts.ProfileId).
 			SetFloat("amount", &opts.Amount).
-			SetString("coinbase_account_id", &opts.CoinbaseAccountID).
+			SetString("coinbase_account_id", &opts.CoinbaseAccountId).
 			SetString("currency", &opts.Currency)).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -295,7 +295,7 @@ func (coinbaseClient *C) CryptoWithdrawal(
 	opts *option.CoinbaseCryptoWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(CryptoWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
+			SetString("profile_id", opts.ProfileId).
 			SetFloat("amount", &opts.Amount).
 			SetString("crypto_address", &opts.CryptoAddress).
 			SetString("currency", &opts.Currency).
@@ -312,8 +312,8 @@ func (coinbaseClient *C) CoinbaseAccountDeposit(
 	opts *option.CoinbaseAccountDeposit) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(AccountDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
-			SetString("coinbase_account_id", &opts.CoinbaseAccountID).
+			SetString("profile_id", opts.ProfileId).
+			SetString("coinbase_account_id", &opts.CoinbaseAccountId).
 			SetString("currency", &opts.Currency).
 			SetFloat("amount", &opts.Amount)).
 		Fetch().Assign(&m).JoinMessages()
@@ -325,13 +325,13 @@ func (coinbaseClient *C) CancelOpenOrders(opts *option.CoinbaseOrders) (m []*str
 	return m, coinbaseClient.Delete(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProfileID
+				i = opts.ProfileId
 			}
 			return
 		}()).
 		QueryParam("product_id", func() (i *string) {
-			if opts != nil && opts.ProductID != nil {
-				i = opts.ProductID
+			if opts != nil && opts.ProductId != nil {
+				i = opts.ProductId
 			}
 			return
 		}()).
@@ -347,8 +347,8 @@ func (coinbaseClient *C) CancelOrder(orderID string) (str string, err error) {
 func (coinbaseClient *C) CreateOrder(opts *option.CoinbaseNewOrder) (m *model.CoinbaseNewOrder, err error) {
 	return m, coinbaseClient.Post(NewOrderEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
-			SetString("product_id", &opts.ProductID).
+			SetString("profile_id", opts.ProfileId).
+			SetString("product_id", &opts.ProductId).
 			SetFloat("stop_price", opts.StopPrice).
 			SetFloat("size", opts.Size).
 			SetFloat("price", opts.Price).
@@ -373,8 +373,8 @@ func (coinbaseClient *C) Convert(opts *option.CoinbaseConversions) (m *model.Coi
 			SetString("to", &opts.To).
 			SetFloat("amount", &opts.Amount).
 			SetString("profile_id", func() (s *string) {
-				if opts.ProfileID != nil {
-					s = opts.ProfileID
+				if opts.ProfileId != nil {
+					s = opts.ProfileId
 				}
 				return
 			}()).
@@ -430,19 +430,19 @@ func (coinbaseClient *C) Fills(opts *option.CoinbaseFills) (m []*model.CoinbaseF
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("order_id", func() (i *string) {
 			if opts != nil {
-				i = opts.OrderID
+				i = opts.OrderId
 			}
 			return
 		}()).
 		QueryParam("product_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProductID
+				i = opts.ProductId
 			}
 			return
 		}()).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProfileID
+				i = opts.ProfileId
 			}
 			return
 		}()).
@@ -477,7 +477,7 @@ func (coinbaseClient *C) FindConversion(conversionId string,
 		PathParam("conversion_id", conversionId).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProfileID
+				i = opts.ProfileId
 			}
 			return
 		}()).
@@ -500,8 +500,8 @@ func (coinbaseClient *C) PaymentMethodDeposit(
 	opts *option.CoinbasePaymentMethodDeposit) (m *model.CoinbaseDeposit, err error) {
 	return m, coinbaseClient.Post(PaymentMethodDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
-			SetString("payment_method_id", &opts.PaymentMethodID).
+			SetString("profile_id", opts.ProfileId).
+			SetString("payment_method_id", &opts.PaymentMethodId).
 			SetString("currency", &opts.Currency).
 			SetFloat("amount", &opts.Amount)).
 		Fetch().Assign(&m).JoinMessages()
@@ -517,9 +517,9 @@ func (coinbaseClient *C) PaymentMethodWithdrawal(
 	opts *option.CoinbasePaymentMethodWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
 	return m, coinbaseClient.Post(PaymentMethodWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileID).
+			SetString("profile_id", opts.ProfileId).
 			SetFloat("amount", &opts.Amount).
-			SetString("payment_method_id", &opts.PaymentMethodID).
+			SetString("payment_method_id", &opts.PaymentMethodId).
 			SetString("currency", &opts.Currency)).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -531,13 +531,13 @@ func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.Coinbas
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
-				i = opts.ProfileID
+				i = opts.ProfileId
 			}
 			return
 		}()).
 		QueryParam("product_id", func() (i *string) {
-			if opts != nil && opts.ProductID != nil {
-				i = opts.ProductID
+			if opts != nil && opts.ProductId != nil {
+				i = opts.ProductId
 			}
 			return
 		}()).
@@ -590,7 +590,7 @@ func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.Coinbas
 			if opts != nil && opts.Status != nil {
 				slice := []string{}
 				for _, v := range opts.Status {
-					slice = append(slice, *v)
+					slice = append(slice, v)
 				}
 				tmp := strings.Join(slice, ", ")
 				i = &tmp

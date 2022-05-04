@@ -1,33 +1,35 @@
 package option
 
 // * This is a generated file, do not edit
-import (
-	"github.com/alpine-hodler/sdk/internal/protomodel"
-	"github.com/alpine-hodler/sdk/pkg/scalar"
-)
+import "github.com/alpine-hodler/sdk/pkg/scalar"
 
 // CoinbaseNewOrder are options for API requests.
 type CoinbaseNewOrder struct {
-	protomodel.CoinbaseNewOrderOptions
+	CancelAfter *scalar.CancelAfter `json:"cancel_after" bson:"cancel_after"`
+	ClientOid   *string             `json:"client_oid" bson:"client_oid"`
+	Funds       *float64            `json:"funds" bson:"funds"`
+	PostOnly    *bool               `json:"post_only" bson:"post_only"`
+	Price       *float64            `json:"price" bson:"price"`
+	ProductId   string              `json:"product_id" bson:"product_id"`
+	ProfileId   *string             `json:"profile_id" bson:"profile_id"`
+	Side        scalar.OrderSide    `json:"side" bson:"side"`
+	Size        *float64            `json:"size" bson:"size"`
+	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
+	StopPrice   *float64            `json:"stop_price" bson:"stop_price"`
+	Stp         *scalar.OrderSTP    `json:"stp" bson:"stp"`
+	TimeInForce *scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type        *scalar.OrderType   `json:"type" bson:"type"`
 }
 
-// CoinbaseNewOrderFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseNewOrderFromPrototype(proto *protomodel.CoinbaseNewOrderOptions) (opts *CoinbaseNewOrder) {
-	if proto != nil {
-		opts.CoinbaseNewOrderOptions = *proto
-	}
-	return
-}
-
-// SetProfileID sets the ProfileID field on CoinbaseNewOrder.
-func (opts *CoinbaseNewOrder) SetProfileID(profileId string) *CoinbaseNewOrder {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbaseNewOrder.
+func (opts *CoinbaseNewOrder) SetProfileId(profileId string) *CoinbaseNewOrder {
+	opts.ProfileId = &profileId
 	return opts
 }
 
 // SetType sets the Type field on CoinbaseNewOrder.
-func (opts *CoinbaseNewOrder) SetType(t scalar.OrderType) *CoinbaseNewOrder {
-	opts.Type = &t
+func (opts *CoinbaseNewOrder) SetType(typ scalar.OrderType) *CoinbaseNewOrder {
+	opts.Type = &typ
 	return opts
 }
 
@@ -73,9 +75,9 @@ func (opts *CoinbaseNewOrder) SetFunds(funds float64) *CoinbaseNewOrder {
 	return opts
 }
 
-// SetProductID sets the ProductID field on CoinbaseNewOrder.
-func (opts *CoinbaseNewOrder) SetProductID(productId string) *CoinbaseNewOrder {
-	opts.ProductID = productId
+// SetProductId sets the ProductId field on CoinbaseNewOrder.
+func (opts *CoinbaseNewOrder) SetProductId(productId string) *CoinbaseNewOrder {
+	opts.ProductId = productId
 	return opts
 }
 

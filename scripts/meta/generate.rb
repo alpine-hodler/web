@@ -19,16 +19,19 @@ def generate_models
     endpoint_store.add(scheme) unless scheme.model_only
     scheme.write_protomodel
     scheme.write_model
-		scheme.write_option
-    scheme.write_graph_schema
-    scheme.update_gqlgen
+    scheme.write_option
+
+    # TODO: fully deprecate support for graphql in the sdk.  We keep the functionality around for now in case we want to
+    # TODO use it to generate files in a graphql aux repo.
+    # scheme.write_graph_schema
+    # scheme.update_gqlgen
     schema << scheme
   end
 
   Model.write_protomodel_accessors(schema)
 
   endpoint_store.write_sdk
-  endpoint_store.write_graphql_inputs
+  # endpoint_store.write_graphql_inputs
 end
 
 generate_models

@@ -1,9 +1,0 @@
-# * This is a generated file, do not edit
-
-"""
- CoinbaseCryptoAddressInfo holds info for a crypto address
-"""
-type CoinbaseCryptoAddressInfo {
-  address: String
-  destinationTag: String
-}

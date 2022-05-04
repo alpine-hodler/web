@@ -4,7 +4,7 @@ require 'string_inflection'
 using StringInflection
 
 require_relative 'path_part'
-require_relative 'query_param'
+require_relative 'field'
 
 # Endpoint holds state concerning endpoints given by the mete/schema json files
 class Endpoint
@@ -17,9 +17,9 @@ class Endpoint
     :description,
     :query_params,
     :graphql_model_name,
-		:go_model_name,
+    :go_model_name,
     :graphql_query_param_filename,
-		:go_query_param_filename
+    :go_query_param_filename
 
   def initialize(api, hash)
     return if hash.nil?
@@ -32,9 +32,9 @@ class Endpoint
 
     gql_base = "#{api}_#{enum_root.to_snake}_options"
     @graphql_model_name = gql_base.to_pascal
-		@go_model_name = "#{api}_#{enum_root.to_snake}".to_pascal
+    @go_model_name = "#{api}_#{enum_root.to_snake}".to_pascal
     @graphql_query_param_filename = "#{gql_base}.graphqls"
-		@go_query_param_filename = "#{api}_#{enum_root.to_snake}.go"
+    @go_query_param_filename = "#{api}_#{enum_root.to_snake}.go"
 
     set_path_parts
     set_query_params
@@ -65,7 +65,7 @@ class Endpoint
   def set_query_params
     @query_params = []
     (hash[:queryParams] || []).each do |subhash|
-      @query_params << QueryParam.new(subhash)
+      @query_params << Field.new(subhash)
     end
   end
 end

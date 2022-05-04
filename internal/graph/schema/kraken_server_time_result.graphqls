@@ -1,9 +1,0 @@
-# * This is a generated file, do not edit
-
-"""
- KrakenServerTimeResult holds data concerning the server time
-"""
-type KrakenServerTimeResult {
-  unixtime: Int
-  rfc1123: Time
-}

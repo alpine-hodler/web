@@ -10,7 +10,7 @@ import (
 
 func convertCurrency(t *testing.T, client *C, from, to string, amount float64) {
 	opts := new(option.CoinbaseConversions).
-		SetProfileID(findProfileID(t, client, from)).
+		SetProfileId(findProfileID(t, client, from)).
 		SetFrom(from).
 		SetTo(to).
 		SetAmount(amount)
@@ -89,7 +89,7 @@ func generateCryptoAddress(t *testing.T, client *C, currency string) string {
 
 func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64) {
 	opts := new(option.CoinbaseAccountDeposit).
-		SetCoinbaseAccountID(findWalletID(t, client, currency)).
+		SetCoinbaseAccountId(findWalletID(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
 	_, err := client.CoinbaseAccountDeposit(opts)
@@ -98,7 +98,7 @@ func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64
 
 func makeAccountWithdrawal(t *testing.T, client *C, currency string, amount float64) {
 	opts := new(option.CoinbaseAccountWithdrawal).
-		SetCoinbaseAccountID(findWalletID(t, client, currency)).
+		SetCoinbaseAccountId(findWalletID(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
 	_, err := client.AccountWithdrawal(opts)

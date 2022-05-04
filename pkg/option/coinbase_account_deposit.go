@@ -1,24 +1,18 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseAccountDeposit are options for API requests.
 type CoinbaseAccountDeposit struct {
-	protomodel.CoinbaseAccountDepositOptions
+	Amount            float64 `json:"amount" bson:"amount"`
+	CoinbaseAccountId string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
+	Currency          string  `json:"currency" bson:"currency"`
+	ProfileId         *string `json:"profile_id" bson:"profile_id"`
 }
 
-// CoinbaseAccountDepositFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseAccountDepositFromPrototype(proto *protomodel.CoinbaseAccountDepositOptions) (opts *CoinbaseAccountDeposit) {
-	if proto != nil {
-		opts.CoinbaseAccountDepositOptions = *proto
-	}
-	return
-}
-
-// SetProfileID sets the ProfileID field on CoinbaseAccountDeposit.
-func (opts *CoinbaseAccountDeposit) SetProfileID(profileId string) *CoinbaseAccountDeposit {
-	opts.ProfileID = &profileId
+// SetProfileId sets the ProfileId field on CoinbaseAccountDeposit.
+func (opts *CoinbaseAccountDeposit) SetProfileId(profileId string) *CoinbaseAccountDeposit {
+	opts.ProfileId = &profileId
 	return opts
 }
 
@@ -28,9 +22,9 @@ func (opts *CoinbaseAccountDeposit) SetAmount(amount float64) *CoinbaseAccountDe
 	return opts
 }
 
-// SetCoinbaseAccountID sets the CoinbaseAccountID field on CoinbaseAccountDeposit.
-func (opts *CoinbaseAccountDeposit) SetCoinbaseAccountID(coinbaseAccountId string) *CoinbaseAccountDeposit {
-	opts.CoinbaseAccountID = coinbaseAccountId
+// SetCoinbaseAccountId sets the CoinbaseAccountId field on CoinbaseAccountDeposit.
+func (opts *CoinbaseAccountDeposit) SetCoinbaseAccountId(coinbaseAccountId string) *CoinbaseAccountDeposit {
+	opts.CoinbaseAccountId = coinbaseAccountId
 	return opts
 }
 

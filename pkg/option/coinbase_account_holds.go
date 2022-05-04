@@ -1,19 +1,12 @@
 package option
 
 // * This is a generated file, do not edit
-import "github.com/alpine-hodler/sdk/internal/protomodel"
 
 // CoinbaseAccountHolds are options for API requests.
 type CoinbaseAccountHolds struct {
-	protomodel.CoinbaseAccountHoldsOptions
-}
-
-// CoinbaseAccountHoldsFromPrototype will initialize the exportable options struct from the internal prototype.
-func CoinbaseAccountHoldsFromPrototype(proto *protomodel.CoinbaseAccountHoldsOptions) (opts *CoinbaseAccountHolds) {
-	if proto != nil {
-		opts.CoinbaseAccountHoldsOptions = *proto
-	}
-	return
+	After  *string `json:"after" bson:"after"`
+	Before *string `json:"before" bson:"before"`
+	Limit  *int    `json:"limit" bson:"limit"`
 }
 
 // SetBefore sets the Before field on CoinbaseAccountHolds.

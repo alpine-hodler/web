@@ -2,58 +2,10 @@ load("@bazel_gazelle//:deps.bzl", "go_repository")
 
 def go_dependencies():
     go_repository(
-        name = "com_github_99designs_gqlgen",
-        importpath = "github.com/99designs/gqlgen",
-        sum = "h1:bTgv7FQz3+NROg6ooHtlkaJ82Uqrp6e5sAziXTBo1hc=",
-        version = "v0.17.5",
-    )
-
-    go_repository(
-        name = "com_github_agnivade_levenshtein",
-        importpath = "github.com/agnivade/levenshtein",
-        sum = "h1:QY8M92nrzkmr798gCo3kmMyqXFzdQVpxLlGPRBij0P8=",
-        version = "v1.1.1",
-    )
-
-    go_repository(
-        name = "com_github_andreyvit_diff",
-        importpath = "github.com/andreyvit/diff",
-        sum = "h1:bvNMNQO63//z+xNgfBlViaCIJKLlCJ6/fmUseuG0wVQ=",
-        version = "v0.0.0-20170406064948-c7f18ee00883",
-    )
-
-    go_repository(
-        name = "com_github_arbovm_levenshtein",
-        importpath = "github.com/arbovm/levenshtein",
-        sum = "h1:jfIu9sQUG6Ig+0+Ap1h4unLjW6YQJpKZVmUzxsD4E/Q=",
-        version = "v0.0.0-20160628152529-48b4e1c0c4d0",
-    )
-
-    go_repository(
-        name = "com_github_burntsushi_toml",
-        importpath = "github.com/BurntSushi/toml",
-        sum = "h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=",
-        version = "v0.3.1",
-    )
-
-    go_repository(
-        name = "com_github_cpuguy83_go_md2man_v2",
-        importpath = "github.com/cpuguy83/go-md2man/v2",
-        sum = "h1:r/myEWzV9lfsM1tFLgDyu0atFtJ1fXn261LKYj/3DxU=",
-        version = "v2.0.1",
-    )
-
-    go_repository(
         name = "com_github_davecgh_go_spew",
         importpath = "github.com/davecgh/go-spew",
         sum = "h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=",
         version = "v1.1.1",
-    )
-    go_repository(
-        name = "com_github_dgryski_trifles",
-        importpath = "github.com/dgryski/trifles",
-        sum = "h1:fRzb/w+pyskVMQ+UbP35JkH8yB7MYb4q/qhBarqZE6g=",
-        version = "v0.0.0-20200323201526-dd97f9abfb48",
     )
 
     go_repository(
@@ -61,18 +13,6 @@ def go_dependencies():
         importpath = "github.com/franela/goblin",
         sum = "h1:NrF81UtW8gG2LBGkXFQFqlfNnvMt9WdB46sfdJY4oqc=",
         version = "v0.0.0-20211003143422-0a4f594942bf",
-    )
-    go_repository(
-        name = "com_github_golang_protobuf",
-        importpath = "github.com/golang/protobuf",
-        sum = "h1:LUVKkCeviFUMKqHa4tXIIij/lbhnMbP7Fn5wKdKkRh4=",
-        version = "v1.5.0",
-    )
-    go_repository(
-        name = "com_github_google_go_cmp",
-        importpath = "github.com/google/go-cmp",
-        sum = "h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=",
-        version = "v0.5.5",
     )
 
     go_repository(
@@ -83,30 +23,10 @@ def go_dependencies():
     )
 
     go_repository(
-        name = "com_github_hashicorp_golang_lru",
-        importpath = "github.com/hashicorp/golang-lru",
-        sum = "h1:YDjusn29QI/Das2iO9M0BHnIbxPeyuCHsjMW+lJfyTc=",
-        version = "v0.5.4",
-    )
-
-    go_repository(
-        name = "com_github_inconshreveable_mousetrap",
-        importpath = "github.com/inconshreveable/mousetrap",
-        sum = "h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=",
-        version = "v1.0.0",
-    )
-
-    go_repository(
         name = "com_github_joho_godotenv",
         importpath = "github.com/joho/godotenv",
         sum = "h1:3l4+N6zfMWnkbPEXKng2o2/MR5mSwTrBih4ZEkkz1lg=",
         version = "v1.4.0",
-    )
-    go_repository(
-        name = "com_github_kevinmbeaulieu_eq_go",
-        importpath = "github.com/kevinmbeaulieu/eq-go",
-        sum = "h1:AQgYHURDOmnVJ62jnEk0W/7yFKEn+Lv8RHN6t7mB0Zo=",
-        version = "v1.0.0",
     )
 
     go_repository(
@@ -127,39 +47,6 @@ def go_dependencies():
         sum = "h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=",
         version = "v0.1.0",
     )
-    go_repository(
-        name = "com_github_logrusorgru_aurora_v3",
-        importpath = "github.com/logrusorgru/aurora/v3",
-        sum = "h1:R6zcoZZbvVcGMvDCKo45A9U/lzYyzl5NfYIvznmDfE4=",
-        version = "v3.0.0",
-    )
-
-    go_repository(
-        name = "com_github_matryer_moq",
-        importpath = "github.com/matryer/moq",
-        sum = "h1:RtpiPUM8L7ZSCbSwK+QcZH/E9tgqAkFjKQxsRs25b4w=",
-        version = "v0.2.7",
-    )
-
-    go_repository(
-        name = "com_github_mattn_go_colorable",
-        importpath = "github.com/mattn/go-colorable",
-        sum = "h1:jF+Du6AlPIjs2BiUiQlKOX0rt3SujHxPnksPKZbaA40=",
-        version = "v0.1.12",
-    )
-    go_repository(
-        name = "com_github_mattn_go_isatty",
-        importpath = "github.com/mattn/go-isatty",
-        sum = "h1:yVuAays6BHfxijgZPzw+3Zlu5yQgKGP2/hcQbHb7S9Y=",
-        version = "v0.0.14",
-    )
-
-    go_repository(
-        name = "com_github_mitchellh_mapstructure",
-        importpath = "github.com/mitchellh/mapstructure",
-        sum = "h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=",
-        version = "v1.5.0",
-    )
 
     go_repository(
         name = "com_github_pmezard_go_difflib",
@@ -169,38 +56,10 @@ def go_dependencies():
     )
 
     go_repository(
-        name = "com_github_russross_blackfriday_v2",
-        importpath = "github.com/russross/blackfriday/v2",
-        sum = "h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=",
-        version = "v2.1.0",
-    )
-
-    go_repository(
-        name = "com_github_sergi_go_diff",
-        importpath = "github.com/sergi/go-diff",
-        sum = "h1:we8PVUC3FE2uYfodKH/nBHMSetSfHDR6scGdBi+erh0=",
-        version = "v1.1.0",
-    )
-
-    go_repository(
         name = "com_github_sirupsen_logrus",
         importpath = "github.com/sirupsen/logrus",
         sum = "h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=",
         version = "v1.8.1",
-    )
-
-    go_repository(
-        name = "com_github_spf13_cobra",
-        importpath = "github.com/spf13/cobra",
-        sum = "h1:y+wJpx64xcgO1V+RcnwW0LEHxTKRi2ZDPSBjWnrg88Q=",
-        version = "v1.4.0",
-    )
-
-    go_repository(
-        name = "com_github_spf13_pflag",
-        importpath = "github.com/spf13/pflag",
-        sum = "h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=",
-        version = "v1.0.5",
     )
 
     go_repository(
@@ -218,27 +77,6 @@ def go_dependencies():
     )
 
     go_repository(
-        name = "com_github_urfave_cli_v2",
-        importpath = "github.com/urfave/cli/v2",
-        sum = "h1:m2pxjjDFgDxSPtO8WSdbndj17Wu2y8vOT86wE/tjr+I=",
-        version = "v2.4.0",
-    )
-
-    go_repository(
-        name = "com_github_vektah_gqlparser_v2",
-        importpath = "github.com/vektah/gqlparser/v2",
-        sum = "h1:29TGc6QmhEUq5fll+2FPoTmhUhR65WEKN4VK/jo0OlM=",
-        version = "v2.4.2",
-    )
-
-    go_repository(
-        name = "com_github_yuin_goldmark",
-        importpath = "github.com/yuin/goldmark",
-        sum = "h1:/vn0k+RBvwlxEmP5E7SZMqNxPhfMVFEJiykr15/0XKM=",
-        version = "v1.4.1",
-    )
-
-    go_repository(
         name = "in_gopkg_check_v1",
         importpath = "gopkg.in/check.v1",
         sum = "h1:YR8cESwS4TdDjEe65xsg0ogRM/Nc3DYOhEAlW+xobZo=",
@@ -246,42 +84,10 @@ def go_dependencies():
     )
 
     go_repository(
-        name = "in_gopkg_yaml_v2",
-        importpath = "gopkg.in/yaml.v2",
-        sum = "h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=",
-        version = "v2.4.0",
-    )
-    go_repository(
         name = "in_gopkg_yaml_v3",
         importpath = "gopkg.in/yaml.v3",
         sum = "h1:h8qDotaEPuJATrMmW04NCwg7v22aHH28wwpauUhK9Oo=",
         version = "v3.0.0-20210107192922-496545a6307b",
-    )
-    go_repository(
-        name = "org_golang_google_protobuf",
-        importpath = "google.golang.org/protobuf",
-        sum = "h1:w43yiav+6bVFTBQFZX0r7ipe9JQ1QsbMgHwbBziscLw=",
-        version = "v1.28.0",
-    )
-
-    go_repository(
-        name = "org_golang_x_crypto",
-        importpath = "golang.org/x/crypto",
-        sum = "h1:7I4JAnoQBe7ZtJcBaYHi5UtiO8tQHbUSXxL+pnGRANg=",
-        version = "v0.0.0-20210921155107-089bfa567519",
-    )
-
-    go_repository(
-        name = "org_golang_x_mod",
-        importpath = "golang.org/x/mod",
-        sum = "h1:kQgndtyPBW/JIYERgdxfwMYh3AVStj88WQTlNDi2a+o=",
-        version = "v0.6.0-dev.0.20220106191415-9b9b3d81d5e3",
-    )
-    go_repository(
-        name = "org_golang_x_net",
-        importpath = "golang.org/x/net",
-        sum = "h1:OfiFi4JbukWwe3lzw+xunroH1mnC1e2Gy5cxNJApiSY=",
-        version = "v0.0.0-20211015210444-4f30a5c0130f",
     )
 
     go_repository(
@@ -295,29 +101,4 @@ def go_dependencies():
         importpath = "golang.org/x/sys",
         sum = "h1:Js08h5hqB5xyWR789+QqueR6sDE8mk+YvpETZ+F6X9Y=",
         version = "v0.0.0-20220429233432-b5fbb4746d32",
-    )
-    go_repository(
-        name = "org_golang_x_term",
-        importpath = "golang.org/x/term",
-        sum = "h1:v+OssWQX+hTHEmOBgwxdZxK4zHq3yOs8F9J7mk0PY8E=",
-        version = "v0.0.0-20201126162022-7de9c90e9dd1",
-    )
-    go_repository(
-        name = "org_golang_x_text",
-        importpath = "golang.org/x/text",
-        sum = "h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=",
-        version = "v0.3.7",
-    )
-
-    go_repository(
-        name = "org_golang_x_tools",
-        importpath = "golang.org/x/tools",
-        sum = "h1:QjFRCZxdOhBJ/UNgnBZLbNV13DlbnK0quyivTnXJM20=",
-        version = "v0.1.10",
-    )
-    go_repository(
-        name = "org_golang_x_xerrors",
-        importpath = "golang.org/x/xerrors",
-        sum = "h1:go1bK/D/BFZV2I8cIQd1NKEZ+0owSTG1fDTci4IqFcE=",
-        version = "v0.0.0-20200804184101-5ec99f83aff1",
     )

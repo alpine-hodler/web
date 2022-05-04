@@ -1,3 +1,5 @@
+# This compose file is no longer in use as the graphql data has been deprecated from the SDK library.  This file is left
+# for posterity in case we decided to decouple the graphql logic to its own repo.
 version: '3'
 services:
   graphql:
