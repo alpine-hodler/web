@@ -37,6 +37,7 @@ go_test(
         "//internal/env",
         "//pkg/model",
         "//pkg/option",
+        "//pkg/scalar",
         "//pkg/websocket",
         "@com_github_franela_goblin//:goblin",
         "@com_github_sirupsen_logrus//:logrus",

@@ -36,6 +36,7 @@ const (
 	ProductEndpoint
 	ProductTickerEndpoint
 	ProductsEndpoint
+	ProfilesEndpoint
 	TransferEndpoint
 	TransfersEndpoint
 	WalletsEndpoint
@@ -212,6 +213,15 @@ func ProductTickerPath(args client.EndpointArgs) string {
 	return path.Join("/products", *args["product_id"].PathParam, "ticker")
 }
 
+// Gets a list of all of the current user's profiles.
+func ProfilesPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/profiles")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
+}
+
 // Gets all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling
 // on www.coinbase.com)
 func WalletsPath(args client.EndpointArgs) string {
@@ -285,6 +295,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		ProductsEndpoint:                ProductsPath,
 		ProductEndpoint:                 ProductPath,
 		ProductTickerEndpoint:           ProductTickerPath,
+		ProfilesEndpoint:                ProfilesPath,
 		WalletsEndpoint:                 WalletsPath,
 		AccountWithdrawalEndpoint:       AccountWithdrawalPath,
 		CryptoWithdrawalEndpoint:        CryptoWithdrawalPath,

@@ -30,6 +30,7 @@ go_library(
         "coinbase_picker_data.go",
         "coinbase_product.go",
         "coinbase_product_ticker.go",
+        "coinbase_profile.go",
         "coinbase_recurring_options.go",
         "coinbase_sepa_deposit_information.go",
         "coinbase_single_product.go",

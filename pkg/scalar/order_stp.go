@@ -5,7 +5,7 @@ type OrderSTP string
 
 const (
 	// OrderSTP_DC = decrease and cancel, default
-	OrderSTP_DC = "dc"
+	OrderSTP_DC OrderSTP = "dc"
 
 	// OrderSTP_CO = cancel oldest
 	OrderSTP_CO OrderSTP = "co"

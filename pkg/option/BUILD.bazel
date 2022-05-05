@@ -17,6 +17,7 @@ go_library(
         "coinbase_payment_method_deposit.go",
         "coinbase_payment_method_withdrawal.go",
         "coinbase_products.go",
+        "coinbase_profiles.go",
         "coinbase_withdrawal_fee_estimate.go",
         "opensea_assets.go",
     ],

@@ -73,7 +73,7 @@ class Field
   end
 
   def ptr_go_variable
-    return go_variable_name if required go_type.include?('[]')
+    return go_variable_name if required || go_type.include?('[]')
 
     "&#{go_variable_name}"
   end

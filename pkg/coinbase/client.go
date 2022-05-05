@@ -130,8 +130,9 @@ func (coinbaseClient *C) setHeaders(hreq *http.Request, creq client.Request) (e 
 	hreq.Header.Add("cb-access-sign", sig)
 	hreq.Header.Add("cb-access-timestamp", timestamp)
 
-	logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
-	logrus.Debug(client.Logf(&creq, logMsg, coinbaseClient.key, coinbaseClient.passphrase, timestamp, sig))
+	// TODO wrap this in a logger
+	// logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
+	// fmt.Println(client.Logf(&creq, logMsg, coinbaseClient.key, coinbaseClient.passphrase, timestamp, sig))
 	return
 }
 
@@ -340,7 +341,7 @@ func (coinbaseClient *C) CancelOpenOrders(opts *option.CoinbaseOrders) (m []*str
 
 // CancelOrder will cancel a single open order by {id}.
 func (coinbaseClient *C) CancelOrder(orderID string) (str string, err error) {
-	return str, coinbaseClient.Delete(OrderEndpoint).Fetch().Assign(&str).JoinMessages()
+	return str, coinbaseClient.Delete(OrderEndpoint).PathParam("order_id", orderID).Fetch().Assign(&str).JoinMessages()
 }
 
 // CreateOrder will create an order. You can place two types of orders: limit
@@ -528,7 +529,7 @@ func (coinbaseClient *C) PaymentMethodWithdrawal(
 // order is no longer open and settled, it will no longer appear in the default request. Open orders may change state
 // between the request and the response depending on market conditions.
 func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.CoinbaseOrder, err error) {
-	return m, coinbaseClient.Get(FillsEndpoint).
+	return m, coinbaseClient.Get(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
 				i = opts.ProfileId
@@ -627,6 +628,19 @@ func (coinbaseClient *C) ProductTicker(
 	productID string) (m *model.CoinbaseProductTicker, err error) {
 	req := coinbaseClient.Get(ProductTickerEndpoint)
 	return m, req.PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
+}
+
+// Profiles will return a slice of all of the current user's profiles.
+func (coinbaseClient *C) Profiles(opts *option.CoinbaseProfiles) (m []*model.CoinbaseProfile, err error) {
+	return m, coinbaseClient.Get(ProfilesEndpoint).
+		QueryParam("active", func() (i *string) {
+			if opts != nil && opts.Active != nil {
+				boolStr := strconv.FormatBool(*opts.Active)
+				i = &boolStr
+			}
+			return
+		}()).
+		Fetch().Assign(&m).JoinMessages()
 }
 
 // Transfers gets a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
