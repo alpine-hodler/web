@@ -1,17 +1,14 @@
 package coinbase
 
 import (
-	"io/ioutil"
 	"testing"
 
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/pkg/option"
-	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 )
 
 func TestSimpleAPIIntegration(t *testing.T) {
-	logrus.SetOutput(ioutil.Discard)
 	env.Load(".simple-test.env")
 	var (
 		client        = NewClient(DefaultConnector)

@@ -7,9 +7,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/alpine-hodler/sdk/internal/log"
 	"github.com/alpine-hodler/sdk/pkg/model"
-
-	"github.com/sirupsen/logrus"
 )
 
 type assignmentCallback func(interface{}, *Request) error
@@ -85,7 +84,7 @@ func (req *Request) validateResponse(res *http.Response) (err error) {
 		}
 	}
 	if err != nil {
-		logrus.Warn(Logf(req, err.Error()))
+		Logf(log.WARN, req, err.Error())
 	}
 	return
 }

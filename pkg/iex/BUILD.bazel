@@ -12,7 +12,7 @@ go_library(
     deps = [
         "//internal/client",
         "//internal/env",
+        "//internal/log",
         "//pkg/model",
-        "@com_github_sirupsen_logrus//:logrus",
     ],
 )

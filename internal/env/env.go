@@ -11,6 +11,7 @@ type Variable int
 
 const (
 	_ Variable = iota
+	AlpineHodlerLogLevel
 	CoinbaseProURL
 	CoinbaseProAccessPassphrase
 	CoinbaseProAccessKey
@@ -24,6 +25,7 @@ const (
 )
 
 const (
+	alpineHodlerLogLevel          = "ALPINE_HODLER_LOG_LEVEL"
 	coinbaseProURLID              = "CB_PRO_URL"
 	coinbaseProAccessPassphraseID = "CB_PRO_ACCESS_PASSPHRASE"
 	coinbaseProAccessKeyID        = "CB_PRO_ACCESS_KEY"
@@ -46,6 +48,7 @@ func Load(filepath string) {
 // Name will return the variable name of the env variable.
 func (variable Variable) Name() string {
 	return map[Variable]string{
+		AlpineHodlerLogLevel:        alpineHodlerLogLevel,
 		CoinbaseProURL:              coinbaseProURLID,
 		CoinbaseProAccessPassphrase: coinbaseProAccessPassphraseID,
 		CoinbaseProAccessKey:        coinbaseProAccessKeyID,

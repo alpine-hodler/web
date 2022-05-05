@@ -10,10 +10,9 @@ import (
 	"net/url"
 
 	"github.com/alpine-hodler/sdk/internal/env"
+	"github.com/alpine-hodler/sdk/internal/log"
 
 	"github.com/alpine-hodler/sdk/internal/client"
-
-	"github.com/sirupsen/logrus"
 )
 
 // C is the kraken client
@@ -47,13 +46,13 @@ func (kraken *C) setHeaders(hreq *http.Request, creq client.Request) (e error) {
 	hreq.Header.Add("API-Sign", sig)
 
 	logMsg := `{Client:{Access:{API-Sign:%s}}}`
-	logrus.Debug(client.Logf(&creq, logMsg, sig))
+	client.Logf(log.DEBUG, &creq, logMsg, sig)
 	return
 }
 
 func (kraken *C) Do(creq client.Request) (*http.Response, error) {
 	uri := env.KrakenURL.Get() + creq.EndpointPath()
-	logrus.Debug(client.Logf(&creq, `{Client:{URI:%s}}`, uri))
+	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
 	hreq, err := http.NewRequest(creq.MethodStr(), uri, bytes.NewReader(creq.GetBody().Bytes()))
 	if err != nil {
 		return nil, err

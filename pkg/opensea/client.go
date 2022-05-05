@@ -5,8 +5,7 @@ import (
 	"net/http"
 
 	"github.com/alpine-hodler/sdk/internal/client"
-
-	"github.com/sirupsen/logrus"
+	"github.com/alpine-hodler/sdk/internal/log"
 )
 
 // C is the opensea client
@@ -25,7 +24,7 @@ func (opensea *C) setHeaders(hreq *http.Request, creq client.Request) (e error) 
 
 func (opensea *C) Do(creq client.Request) (*http.Response, error) {
 	uri := "https://api.opensea.io" + creq.EndpointPath()
-	logrus.Debug(client.Logf(&creq, `{Client:{URI:%s}}`, uri))
+	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
 	hreq, err := http.NewRequest(creq.MethodStr(), uri, bytes.NewReader(creq.GetBody().Bytes()))
 	if err != nil {
 		return nil, err

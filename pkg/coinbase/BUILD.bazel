@@ -14,11 +14,11 @@ go_library(
     deps = [
         "//internal/client",
         "//internal/env",
+        "//internal/log",
         "//pkg/model",
         "//pkg/option",
         "//pkg/websocket",
         "//tools",
-        "@com_github_sirupsen_logrus//:logrus",
         "@org_golang_x_sync//errgroup",
     ],
 )
@@ -40,7 +40,6 @@ go_test(
         "//pkg/scalar",
         "//pkg/websocket",
         "@com_github_franela_goblin//:goblin",
-        "@com_github_sirupsen_logrus//:logrus",
         "@com_github_stretchr_testify//require",
     ],
 )

@@ -13,11 +13,11 @@ import (
 
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/internal/env"
+	"github.com/alpine-hodler/sdk/internal/log"
 	"github.com/alpine-hodler/sdk/pkg/model"
 	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/alpine-hodler/sdk/pkg/websocket"
 	"github.com/alpine-hodler/sdk/tools"
-	"github.com/sirupsen/logrus"
 )
 
 // C is the coinbase pro client
@@ -131,8 +131,8 @@ func (coinbaseClient *C) setHeaders(hreq *http.Request, creq client.Request) (e 
 	hreq.Header.Add("cb-access-timestamp", timestamp)
 
 	// TODO wrap this in a logger
-	// logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
-	// fmt.Println(client.Logf(&creq, logMsg, coinbaseClient.key, coinbaseClient.passphrase, timestamp, sig))
+	logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
+	client.Logf(log.DEBUG, &creq, logMsg, coinbaseClient.key, coinbaseClient.passphrase, timestamp, sig)
 	return
 }
 
@@ -141,7 +141,7 @@ func (coinbaseClient *C) Do(creq client.Request) (*http.Response, error) {
 	// TODO make data-compatible for non-get requests
 	uri := coinbaseClient.url + creq.EndpointPath()
 
-	logrus.Debug(client.Logf(&creq, `{Client:{URI:%s}}`, uri))
+	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
 
 	hreq, err := http.NewRequest(creq.MethodStr(), uri, bytes.NewReader(creq.GetBody().Bytes()))
 	if err != nil {

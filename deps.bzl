@@ -56,13 +56,6 @@ def go_dependencies():
     )
 
     go_repository(
-        name = "com_github_sirupsen_logrus",
-        importpath = "github.com/sirupsen/logrus",
-        sum = "h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=",
-        version = "v1.8.1",
-    )
-
-    go_repository(
         name = "com_github_stretchr_objx",
         importpath = "github.com/stretchr/objx",
         sum = "h1:4G4v2dO3VZwixGIRoQ5Lfboy6nUhCyYzaqnIAPPhYs4=",
@@ -95,10 +88,4 @@ def go_dependencies():
         importpath = "golang.org/x/sync",
         sum = "h1:5KslGYwFpkhGh+Q16bwMP3cOontH8FOep7tGV86Y7SQ=",
         version = "v0.0.0-20210220032951-036812b2e83c",
-    )
-    go_repository(
-        name = "org_golang_x_sys",
-        importpath = "golang.org/x/sys",
-        sum = "h1:Js08h5hqB5xyWR789+QqueR6sDE8mk+YvpETZ+F6X9Y=",
-        version = "v0.0.0-20220429233432-b5fbb4746d32",
     )

@@ -10,10 +10,9 @@ import (
 	"net/url"
 
 	"github.com/alpine-hodler/sdk/internal/env"
+	"github.com/alpine-hodler/sdk/internal/log"
 
 	"github.com/alpine-hodler/sdk/internal/client"
-
-	"github.com/sirupsen/logrus"
 )
 
 // C is the iex client
@@ -44,7 +43,7 @@ func authorizedURI(creq client.Request) string {
 
 func (iex *C) Do(creq client.Request) (*http.Response, error) {
 	uri := authorizedURI(creq)
-	logrus.Debug(client.Logf(&creq, `{Client:{URI:%s}}`, uri))
+	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
 	hreq, err := http.NewRequest(creq.MethodStr(), uri, bytes.NewReader(creq.GetBody().Bytes()))
 	if err != nil {
 		return nil, err
