@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/alpine-hodler/sdk/internal/log"
-	"github.com/alpine-hodler/sdk/pkg/model"
 )
 
 type assignmentCallback func(interface{}, *Request) error
@@ -26,6 +25,12 @@ type Request struct {
 	// slug is an 8 character randomly generated identifiery for the body, to be
 	// used to identify request info in logging.
 	slug string
+}
+
+type ErrorMessage struct {
+	Message    string `json:"message"`
+	Status     string `json:"status"`
+	StatusCode string `json:"status_code"`
 }
 
 func (req *Request) EndpointArgs() EndpointArgs { return req.endpointArgs }
@@ -55,7 +60,7 @@ func (req *Request) generateSlug() {
 
 // parseErrorMessage takes a response and a status and builder an error message to send to the server
 func parseErrorMessage(res *http.Response, status int) error {
-	msg := model.ErrorMessage{}
+	msg := ErrorMessage{}
 	decoder := json.NewDecoder(res.Body)
 	if err := decoder.Decode(&msg); err != nil {
 		return err

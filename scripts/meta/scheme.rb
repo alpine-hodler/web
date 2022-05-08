@@ -8,10 +8,10 @@ using StringInflection
 require_relative 'comment'
 require_relative 'field'
 require_relative 'endpoint'
-require_relative 'protomodel'
-require_relative 'model'
-require_relative 'graph_schema'
+require_relative 'unmarshaller'
+require_relative 'go_struct'
 require_relative 'option'
+require_relative 'setters'
 
 # Scheme is the class encapsulation of a single json file in the meta/schema
 # directory
@@ -25,17 +25,15 @@ class Scheme
     :model,
     :model_only,
     :filename,
-    :graphql_comment,
-    :graphql_filename,
     :fields,
     :endpoints,
     :go_model_variable_name
 
   include Comment
-  include Protomodel
-  include Model
-  include GraphSchema
+  include Unmarshaller
 	include Option
+	include GoStruct
+	include Setters
 
   def initialize(filename)
     file = File.read(filename)
@@ -52,9 +50,6 @@ class Scheme
     @go_model_filename = "#{@model}.go"
     @go_model_name = @model.to_pascal
     @go_model_variable_name = @go_model_name.to_camel
-
-    @graphql_comment = format_graphql_comment(@description)
-    @graphql_filename = "#{@model}.graphqls"
 
     @fields = hash[:modelFields].map { |field| Field.new(field) }
     @endpoints = (hash[:endpoints] || []).map { |ep| Endpoint.new(api, ep) }

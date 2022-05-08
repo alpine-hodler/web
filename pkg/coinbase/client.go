@@ -14,8 +14,6 @@ import (
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/internal/log"
-	"github.com/alpine-hodler/sdk/pkg/model"
-	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/alpine-hodler/sdk/pkg/websocket"
 	"github.com/alpine-hodler/sdk/tools"
 )
@@ -165,14 +163,13 @@ func (coinbaseClient *C) Identifier() string {
 }
 
 // Accounts lists all trading accounts from the profile of the API key.
-func (coinbaseClient *C) Accounts() (m []*model.CoinbaseAccount, err error) {
+func (coinbaseClient *C) Accounts() (m []*Account, err error) {
 	return m, coinbaseClient.Get(AccountsEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // AccountHolds returns a list of holds of an account that belong to the same profile as the API key. Holds are placed
 // for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated.
-func (coinbaseClient *C) AccountHolds(accountId string,
-	opts *option.CoinbaseAccountHolds) (m []*model.CoinbaseAccountHold, err error) {
+func (coinbaseClient *C) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []*AccountHold, err error) {
 	return m, coinbaseClient.Get(AccountHoldsEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -198,8 +195,7 @@ func (coinbaseClient *C) AccountHolds(accountId string,
 
 // AccountLedger lists ledger activity for an account. This includes anything that would affect the accounts balance -
 // transfers, trades, fees, etc
-func (coinbaseClient *C) AccountLedger(accountId string,
-	opts *option.CoinbaseAccountLedger) (m []*model.CoinbaseAccountLedger, err error) {
+func (coinbaseClient *C) AccountLedger(accountId string, opts *AccountLedgerOptions) (m []*AccountLedger, err error) {
 	return m, coinbaseClient.Get(AccountLedgerEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -243,7 +239,7 @@ func (coinbaseClient *C) AccountLedger(accountId string,
 
 // AccountTransfers lists past withdrawals and deposits for an account.
 func (coinbaseClient *C) AccountTransfers(accountId string,
-	opts *option.CoinbaseAccountTransfers) (m []*model.CoinbaseAccountTransfer, err error) {
+	opts *AccountTransfersOptions) (m []*AccountTransfer, err error) {
 	return m, coinbaseClient.Get(AccountTransfersEndpoint).
 		PathParam("account_id", accountId).
 		QueryParam("before", func() (i *string) {
@@ -280,8 +276,7 @@ func (coinbaseClient *C) AccountTransfers(accountId string,
 }
 
 // AccountWithdrawal Withdraws funds from the specified profile_id to a www.coinbase.com wallet.
-func (coinbaseClient *C) AccountWithdrawal(
-	opts *option.CoinbaseAccountWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
+func (coinbaseClient *C) AccountWithdrawal(opts *AccountWithdrawalOptions) (m *Withdrawal, err error) {
 	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -292,8 +287,7 @@ func (coinbaseClient *C) AccountWithdrawal(
 }
 
 // CryptoWithdrawal withdraws funds from the specified profile_id to an external crypto address
-func (coinbaseClient *C) CryptoWithdrawal(
-	opts *option.CoinbaseCryptoWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
+func (coinbaseClient *C) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal, err error) {
 	return m, coinbaseClient.Post(CryptoWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -309,8 +303,7 @@ func (coinbaseClient *C) CryptoWithdrawal(
 }
 
 // CoinbaseAccountDeposit will deposit funds from a www.coinbase.com wallet to the specified profile_id.
-func (coinbaseClient *C) CoinbaseAccountDeposit(
-	opts *option.CoinbaseAccountDeposit) (m *model.CoinbaseDeposit, err error) {
+func (coinbaseClient *C) CoinbaseAccountDeposit(opts *AccountDepositOptions) (m *Deposit, err error) {
 	return m, coinbaseClient.Post(AccountDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -322,7 +315,7 @@ func (coinbaseClient *C) CoinbaseAccountDeposit(
 
 // CanceCancelOpenOrderslAll will with best effort, cancel all open orders. This may require you to make the request
 // multiple times until all of the open orders are deleted.
-func (coinbaseClient *C) CancelOpenOrders(opts *option.CoinbaseOrders) (m []*string, err error) {
+func (coinbaseClient *C) CancelOpenOrders(opts *OrdersOptions) (m []*string, err error) {
 	return m, coinbaseClient.Delete(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
@@ -345,7 +338,7 @@ func (coinbaseClient *C) CancelOrder(orderID string) (str string, err error) {
 }
 
 // CreateOrder will create an order. You can place two types of orders: limit
-func (coinbaseClient *C) CreateOrder(opts *option.CoinbaseNewOrder) (m *model.CoinbaseNewOrder, err error) {
+func (coinbaseClient *C) CreateOrder(opts *NewOrderOptions) (m *NewOrder, err error) {
 	return m, coinbaseClient.Post(NewOrderEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -367,7 +360,7 @@ func (coinbaseClient *C) CreateOrder(opts *option.CoinbaseNewOrder) (m *model.Co
 
 // Convert converts funds from from currency to to currency. Funds are converted on the from account  in the profile_id
 // profile.
-func (coinbaseClient *C) Convert(opts *option.CoinbaseConversions) (m *model.CoinbaseCurrencyConversion, err error) {
+func (coinbaseClient *C) Convert(opts *ConversionsOptions) (m *CurrencyConversion, err error) {
 	return m, coinbaseClient.Post(ConversionsEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("from", &opts.From).
@@ -389,23 +382,23 @@ func (coinbaseClient *C) Convert(opts *option.CoinbaseConversions) (m *model.Coi
 }
 
 // Currencies gets a list of all known currencies
-func (coinbaseClient *C) Currencies() (m []*model.CoinbaseCurrency, err error) {
+func (coinbaseClient *C) Currencies() (m []*Currency, err error) {
 	return m, coinbaseClient.Get(CurrenciesEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // FindAccount returns information for a single account. Use this endpoint when you know the account_id. API key must
 // belong to the same profile as the account.
-func (coinbaseClient *C) FindAccount(accountId string) (m *model.CoinbaseAccount, err error) {
+func (coinbaseClient *C) FindAccount(accountId string) (m *Account, err error) {
 	return m, coinbaseClient.Get(AccountEndpoint).PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
 }
 
 // GenerateCryptoAddress will generates a one-time crypto address for depositing crypto.
-func (coinbaseClient *C) GenerateCryptoAddress(walletId string) (m *model.CoinbaseCryptoAddress, err error) {
+func (coinbaseClient *C) GenerateCryptoAddress(walletId string) (m *CryptoAddress, err error) {
 	return m, coinbaseClient.Post(AddressesEndpoint).PathParam("account_id", walletId).Fetch().Assign(&m).JoinMessages()
 }
 
 // Fees will get fees rates and 30 days trailing volume.
-func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
+func (coinbaseClient *C) Fees() (m *Fees, err error) {
 	return m, coinbaseClient.Get(FeesEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
@@ -427,7 +420,7 @@ func (coinbaseClient *C) Fees() (m *model.CoinbaseFees, err error) {
 // Fills are returned sorted by descending trade_id from the largest trade_id to the smallest trade_id. The CB-BEFORE
 // header will have this first trade id so that future requests using the cb-before parameter will fetch fills with a
 // greater trade id (newer fills).
-func (coinbaseClient *C) Fills(opts *option.CoinbaseFills) (m []*model.CoinbaseFill, err error) {
+func (coinbaseClient *C) Fills(opts *FillsOptions) (m []*Fill, err error) {
 	return m, coinbaseClient.Get(FillsEndpoint).
 		QueryParam("order_id", func() (i *string) {
 			if opts != nil {
@@ -473,7 +466,7 @@ func (coinbaseClient *C) Fills(opts *option.CoinbaseFills) (m []*model.CoinbaseF
 
 // FindConversion gets currency conversion by id (i.e. USD -> USDC).
 func (coinbaseClient *C) FindConversion(conversionId string,
-	opts *option.CoinbaseConversion) (m *model.CoinbaseCurrencyConversion, err error) {
+	opts *ConversionOptions) (m *CurrencyConversion, err error) {
 	return m, coinbaseClient.Get(ConversionEndpoint).
 		PathParam("conversion_id", conversionId).
 		QueryParam("profile_id", func() (i *string) {
@@ -486,19 +479,18 @@ func (coinbaseClient *C) FindConversion(conversionId string,
 }
 
 // FindCurrency gets a single currency by id.
-func (coinbaseClient *C) FindCurrency(currencyId string) (m *model.CoinbaseCurrency, err error) {
+func (coinbaseClient *C) FindCurrency(currencyId string) (m *Currency, err error) {
 	return m, coinbaseClient.Get(CurrencyEndpoint).PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
 }
 
 // FindTransfer get information on a single coinbaseClient.
-func (coinbaseClient *C) FindTransfer(id string) (m *model.CoinbaseAccountTransfer, err error) {
+func (coinbaseClient *C) FindTransfer(id string) (m *AccountTransfer, err error) {
 	return m, coinbaseClient.Get(TransferEndpoint).PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
 }
 
 // MakePaymentMethodDeposit will deposits funds from a linked external payment method to the
 // specified profile_id.
-func (coinbaseClient *C) PaymentMethodDeposit(
-	opts *option.CoinbasePaymentMethodDeposit) (m *model.CoinbaseDeposit, err error) {
+func (coinbaseClient *C) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Deposit, err error) {
 	return m, coinbaseClient.Post(PaymentMethodDepositEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -509,13 +501,12 @@ func (coinbaseClient *C) PaymentMethodDeposit(
 }
 
 // PaymentMethods gets a list of the user's linked payment methods
-func (coinbaseClient *C) PaymentMethods() (m []*model.CoinbasePaymentMethod, err error) {
+func (coinbaseClient *C) PaymentMethods() (m []*PaymentMethod, err error) {
 	return m, coinbaseClient.Get(PaymentMethodEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // PaymentMethodWithdrawal ithdraws funds from the specified profile_id to a linked external payment method
-func (coinbaseClient *C) PaymentMethodWithdrawal(
-	opts *option.CoinbasePaymentMethodWithdrawal) (m *model.CoinbaseWithdrawal, err error) {
+func (coinbaseClient *C) PaymentMethodWithdrawal(opts *PaymentMethodWithdrawalOptions) (m *Withdrawal, err error) {
 	return m, coinbaseClient.Post(PaymentMethodWithdrawalEndpoint).
 		Body(client.NewBody(client.BodyTypeJSON).
 			SetString("profile_id", opts.ProfileId).
@@ -528,7 +519,7 @@ func (coinbaseClient *C) PaymentMethodWithdrawal(
 // Orders will list your current open orders. Only open or un-settled orders are returned by default. As soon as an
 // order is no longer open and settled, it will no longer appear in the default request. Open orders may change state
 // between the request and the response depending on market conditions.
-func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.CoinbaseOrder, err error) {
+func (coinbaseClient *C) Orders(opts *OrdersOptions) (m []*Order, err error) {
 	return m, coinbaseClient.Get(OrdersEndpoint).
 		QueryParam("profile_id", func() (i *string) {
 			if opts != nil {
@@ -602,12 +593,12 @@ func (coinbaseClient *C) Orders(opts *option.CoinbaseOrders) (m []*model.Coinbas
 }
 
 // Order will get a single order by order id.
-func (coinbaseClient *C) Order(orderID string) (m *model.CoinbaseOrder, err error) {
+func (coinbaseClient *C) Order(orderID string) (m *Order, err error) {
 	return m, coinbaseClient.Get(OrderEndpoint).PathParam("order_id", orderID).Fetch().Assign(&m).JoinMessages()
 }
 
 // Products will return a slce of all available currency pairs for trading.
-func (coinbaseClient *C) Products(opts *option.CoinbaseProducts) (m []*model.CoinbaseProduct, err error) {
+func (coinbaseClient *C) Products(opts *ProductsOptions) (m []*Product, err error) {
 	return m, coinbaseClient.Get(ProductsEndpoint).
 		QueryParam("type", func() (i *string) {
 			if opts != nil {
@@ -619,19 +610,19 @@ func (coinbaseClient *C) Products(opts *option.CoinbaseProducts) (m []*model.Coi
 }
 
 // Product will get information on a single product using a productID.
-func (coinbaseClient *C) Product(productID string) (m *model.CoinbaseProduct, err error) {
+func (coinbaseClient *C) Product(productID string) (m *Product, err error) {
 	return m, coinbaseClient.Get(ProductEndpoint).PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
 }
 
 // Accounts lists all trading accounts from the profile of the API key.
 func (coinbaseClient *C) ProductTicker(
-	productID string) (m *model.CoinbaseProductTicker, err error) {
+	productID string) (m *ProductTicker, err error) {
 	req := coinbaseClient.Get(ProductTickerEndpoint)
 	return m, req.PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
 }
 
 // Profiles will return a slice of all of the current user's profiles.
-func (coinbaseClient *C) Profiles(opts *option.CoinbaseProfiles) (m []*model.CoinbaseProfile, err error) {
+func (coinbaseClient *C) Profiles(opts *ProfilesOptions) (m []*Profile, err error) {
 	return m, coinbaseClient.Get(ProfilesEndpoint).
 		QueryParam("active", func() (i *string) {
 			if opts != nil && opts.Active != nil {
@@ -644,19 +635,19 @@ func (coinbaseClient *C) Profiles(opts *option.CoinbaseProfiles) (m []*model.Coi
 }
 
 // Transfers gets a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
-func (coinbaseClient *C) Transfers() (m []*model.CoinbaseAccountTransfer, err error) {
+func (coinbaseClient *C) Transfers() (m []*AccountTransfer, err error) {
 	return m, coinbaseClient.Get(TransfersEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // Wallets lists all the user's available Coinbase wallets (These are the wallets/accounts that are  used for buying
 // and selling on www.coinbase.com)
-func (coinbaseClient *C) Wallets() (m []*model.CoinbaseWallet, err error) {
+func (coinbaseClient *C) Wallets() (m []*Wallet, err error) {
 	return m, coinbaseClient.Get(WalletsEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
 // WithdrawalFeeEstimate gets the fee estimate for the crypto withdrawal to crypto address
 func (coinbaseClient *C) WithdrawalFeeEstimate(
-	opts *option.CoinbaseWithdrawalFeeEstimate) (m *model.CoinbaseWithdrawalFeeEstimate, err error) {
+	opts *WithdrawalFeeEstimateOptions) (m *WithdrawalFeeEstimate, err error) {
 	return m, coinbaseClient.Get(WithdrawalFeeEstimateEndpoint).
 		QueryParam("currency", func() (i *string) {
 			if opts != nil {

@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require_relative 'scheme'
-require_relative 'protomodel'
 require_relative 'model'
 require_relative 'endpoint_store'
 require_relative 'option'
@@ -17,9 +16,9 @@ def generate_models
 
     scheme = Scheme.new(filename)
     endpoint_store.add(scheme) unless scheme.model_only
-    scheme.write_protomodel
-    scheme.write_model
-    scheme.write_option
+    # scheme.write_protomodel
+    # scheme.write_model
+    # scheme.write_option
 
     # TODO: fully deprecate support for graphql in the sdk.  We keep the functionality around for now in case we want to
     # TODO use it to generate files in a graphql aux repo.
@@ -28,7 +27,9 @@ def generate_models
     schema << scheme
   end
 
-  Model.write_protomodel_accessors(schema)
+  # Model.write_protomodel_accessors(schema)
+	Model::write(schema)
+	Option::write(schema)
 
   endpoint_store.write_sdk
   # endpoint_store.write_graphql_inputs

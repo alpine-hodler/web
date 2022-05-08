@@ -11,25 +11,21 @@ services:
     command: [ruby, /usr/src/meta/generate.rb]
     volumes:
       - ./pkg/coinbase:/usr/src/coinbase
-      - ./pkg/kraken:/usr/src/kraken
-      - ./pkg/iex:/usr/src/iex
-      - ./pkg/opensea:/usr/src/opensea
       - ./pkg/option:/usr/src/option
-      - ./pkg/model:/usr/src/model
-      - ./internal/protomodel:/usr/src/protomodel
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
       - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
-      - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/unmarshaller.rb:/usr/src/meta/unmarshaller.rb
+      - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
+      - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
-      - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
-      - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
+      - ./scripts/meta/go_endpoints.rb:/usr/src/meta/go_endpoints.rb
     depends_on:
       - goimports
   test_generate:
@@ -39,25 +35,21 @@ services:
     command: [ruby, /usr/src/meta/test/test.rb]
     volumes:
       - ./pkg/coinbase:/usr/src/coinbase
-      - ./pkg/kraken:/usr/src/kraken
-      - ./pkg/iex:/usr/src/iex
-      - ./pkg/opensea:/usr/src/opensea
       - ./pkg/option:/usr/src/option
-      - ./pkg/model:/usr/src/model
-      - ./internal/protomodel:/usr/src/protomodel
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
       - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
-      - ./scripts/meta/graph_schema.rb:/usr/src/meta/graph_schema.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/unmarshaller.rb:/usr/src/meta/unmarshaller.rb
+      - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
+      - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
-      - ./scripts/meta/protomodel.rb:/usr/src/meta/protomodel.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/test:/usr/src/meta/test
-      - ./scripts/meta/sdk_endpoints.rb:/usr/src/meta/sdk_endpoints.rb
+      - ./scripts/meta/go_endpoints.rb:/usr/src/meta/go_endpoints.rb
     depends_on:
       - goimports

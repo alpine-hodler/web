@@ -1,7 +1,0 @@
-# IEX
-
-```
-IEX_URL=
-IEX_KEY=
-IEX_SECRET=
-```

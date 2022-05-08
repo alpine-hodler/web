@@ -3,14 +3,12 @@ package coinbase
 import (
 	"testing"
 
-	"github.com/alpine-hodler/sdk/pkg/model"
-	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/alpine-hodler/sdk/pkg/scalar"
 	"github.com/stretchr/testify/require"
 )
 
-func convertCurrency(t *testing.T, client *C, from, to string, amount float64) *model.CoinbaseCurrencyConversion {
-	opts := new(option.CoinbaseConversions).
+func convertCurrency(t *testing.T, client *C, from, to string, amount float64) *CurrencyConversion {
+	opts := new(ConversionsOptions).
 		SetProfileId(findProfileID(t, client, from)).
 		SetFrom(from).
 		SetTo(to).
@@ -20,7 +18,7 @@ func convertCurrency(t *testing.T, client *C, from, to string, amount float64) *
 	return conversion
 }
 
-func findAccount(t *testing.T, client *C, currency string) *model.CoinbaseAccount {
+func findAccount(t *testing.T, client *C, currency string) *Account {
 	accounts, err := client.Accounts()
 	require.NoError(t, err)
 	require.NotEmpty(t, accounts)
@@ -38,7 +36,7 @@ func findAccountID(t *testing.T, client *C, currency string) (accountID string) 
 	return account.Id
 }
 
-func findCurrency(t *testing.T, client *C, currency string) *model.CoinbaseCurrency {
+func findCurrency(t *testing.T, client *C, currency string) *Currency {
 	currencies, err := client.Currencies()
 	require.NoError(t, err)
 	require.NotEmpty(t, currencies)
@@ -50,7 +48,7 @@ func findCurrency(t *testing.T, client *C, currency string) *model.CoinbaseCurre
 	return nil
 }
 
-func findPaymentMethod(t *testing.T, client *C, name string) *model.CoinbasePaymentMethod {
+func findPaymentMethod(t *testing.T, client *C, name string) *PaymentMethod {
 	methods, err := client.PaymentMethods()
 	require.NoError(t, err)
 	require.NotEmpty(t, methods)
@@ -68,7 +66,7 @@ func findProfileID(t *testing.T, client *C, currency string) string {
 	return account.ProfileId
 }
 
-func findProfileByName(t *testing.T, client *C, name string) *model.CoinbaseProfile {
+func findProfileByName(t *testing.T, client *C, name string) *Profile {
 	profiles, err := client.Profiles(nil)
 	require.NoError(t, err)
 	for _, profile := range profiles {
@@ -100,8 +98,8 @@ func generateCryptoAddress(t *testing.T, client *C, currency string) string {
 	return address.Address
 }
 
-func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64) *model.CoinbaseDeposit {
-	opts := new(option.CoinbaseAccountDeposit).
+func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64) *Deposit {
+	opts := new(AccountDepositOptions).
 		SetCoinbaseAccountId(findWalletID(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
@@ -111,7 +109,7 @@ func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64
 }
 
 func makeAccountWithdrawal(t *testing.T, client *C, currency string, amount float64) {
-	opts := new(option.CoinbaseAccountWithdrawal).
+	opts := new(AccountWithdrawalOptions).
 		SetCoinbaseAccountId(findWalletID(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
@@ -120,7 +118,7 @@ func makeAccountWithdrawal(t *testing.T, client *C, currency string, amount floa
 }
 
 func makeCryptoWithdrawal(t *testing.T, client *C, currency string, amount float64) {
-	opts := new(option.CoinbaseCryptoWithdrawal).
+	opts := new(CryptoWithdrawalOptions).
 		SetCryptoAddress(generateCryptoAddress(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
@@ -128,8 +126,8 @@ func makeCryptoWithdrawal(t *testing.T, client *C, currency string, amount float
 	require.NoError(t, err)
 }
 
-func makeNewOrder(t *testing.T, client *C, productID string, profile *model.CoinbaseProfile) *model.CoinbaseNewOrder {
-	opts := new(option.CoinbaseNewOrder).
+func makeNewOrder(t *testing.T, client *C, productID string, profile *Profile) *NewOrder {
+	opts := new(NewOrderOptions).
 		SetProfileId(profile.Id).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).

@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/alpine-hodler/sdk/internal/env"
-	"github.com/alpine-hodler/sdk/pkg/option"
 	"github.com/stretchr/testify/require"
 )
 
@@ -69,7 +68,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Fills", func() (err error) {
-		_, err = client.Fills(new(option.CoinbaseFills).SetProductId(productID))
+		_, err = client.Fills(new(FillsOptions).SetProductId(productID))
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Order", func() (err error) {
@@ -78,7 +77,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Orders", func() (err error) {
-		_, err = client.Orders(new(option.CoinbaseOrders).SetProductId("BTC-USD").SetLimit(1))
+		_, err = client.Orders(new(OrdersOptions).SetProductId("BTC-USD").SetLimit(1))
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.PaymentMethods", func() (err error) {
@@ -128,7 +127,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.WithdrawalFeeEstimate", func() (err error) {
-		_, err = client.WithdrawalFeeEstimate(new(option.CoinbaseWithdrawalFeeEstimate).
+		_, err = client.WithdrawalFeeEstimate(new(WithdrawalFeeEstimateOptions).
 			SetCryptoAddress(generateCryptoAddress(t, client, "USDC")).
 			SetCurrency("USDC"))
 		return

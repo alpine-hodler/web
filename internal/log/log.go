@@ -27,7 +27,7 @@ var (
 
 	// supress will only be set true of there is some init() error that isn't worth terminating the runtmie over but also
 	// prevents us from using the logging functionality.  An example of this is when there is no $HOME environment
-	// variable, in which case we simply don't log anything.
+	// variable, in which case we supress logging.
 	supress bool
 
 	homeNotDefined = fmt.Errorf("$HOME is not defined")

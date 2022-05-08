@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'sdk_endpoints'
-require_relative 'graph_schema'
+require_relative 'go_endpoints'
 
 # EndpointStore holds endpoint data by api
 class EndpointStore
-  include SDKEndpoints
-	include GraphSchema
+  include GoEndpoints
 
   def initialize
     tree = proc { Hash.new { |hash, key| hash[key] = [] } }

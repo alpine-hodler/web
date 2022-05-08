@@ -1,13 +1,12 @@
 package coinbase
 
 import (
-	"github.com/alpine-hodler/sdk/pkg/model"
 	"github.com/alpine-hodler/sdk/pkg/websocket"
 
 	"golang.org/x/sync/errgroup"
 )
 
-type TickerChannel chan model.CoinbaseWebsocketTicker
+type TickerChannel chan WebsocketTicker
 
 // AsyncTicker is an object that helps maintain state when trying to stream product ticker data.  It starts an
 // underlying worker and queues versions of itself to stream from the websocket connection.
@@ -60,7 +59,7 @@ func streamAsyncTickerData(ticker *AsyncTicker) error {
 		close(*ticker.channel)
 	}(ticker)
 	for {
-		var row model.CoinbaseWebsocketTicker
+		var row WebsocketTicker
 		if err := ticker.conn.ReadJSON(&row); err != nil {
 			return err
 		}

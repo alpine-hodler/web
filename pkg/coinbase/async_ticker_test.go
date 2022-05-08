@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/model"
 	"github.com/alpine-hodler/sdk/pkg/websocket"
 	. "github.com/franela/goblin"
 )
@@ -42,7 +41,7 @@ func TestAsyncTickerStream(t *testing.T) {
 				ticker := newAsyncTicker(mockC)
 				ticker.Open()
 				go func() {
-					tickers := []model.CoinbaseWebsocketTicker{}
+					tickers := []WebsocketTicker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}
@@ -56,7 +55,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
 			go func() {
-				tickers := []model.CoinbaseWebsocketTicker{}
+				tickers := []WebsocketTicker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -81,7 +80,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			for i := 0; i < treshold; i++ {
 				ticker.Open()
 				go func() {
-					tickers := []model.CoinbaseWebsocketTicker{}
+					tickers := []WebsocketTicker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}
@@ -95,7 +94,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
 			go func() {
-				tickers := []model.CoinbaseWebsocketTicker{}
+				tickers := []WebsocketTicker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -103,7 +102,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			time.Sleep(2 * time.Microsecond)
 			ticker.Open()
 			go func() {
-				tickers := []model.CoinbaseWebsocketTicker{}
+				tickers := []WebsocketTicker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -122,7 +121,7 @@ func TestAsyncTickerStream(t *testing.T) {
 					go ticker.Open()
 				}
 				go func() {
-					tickers := []model.CoinbaseWebsocketTicker{}
+					tickers := []WebsocketTicker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}

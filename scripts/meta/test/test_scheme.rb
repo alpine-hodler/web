@@ -18,7 +18,6 @@ describe Scheme do
       _(@scheme.api).must_equal('test_api')
       _(@scheme.go_model_filename).must_equal('test_model.go')
       _(@scheme.go_model_name).must_equal('TestModel')
-      _(@scheme.graphql_filename).must_equal('test_model.graphqls')
     end
   end
 end

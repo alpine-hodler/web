@@ -32,7 +32,7 @@ class Endpoint
 
     gql_base = "#{api}_#{enum_root.to_snake}_options"
     @graphql_model_name = gql_base.to_pascal
-    @go_model_name = "#{api}_#{enum_root.to_snake}".to_pascal
+    @go_model_name = "#{enum_root.to_snake}".to_pascal
     @graphql_query_param_filename = "#{gql_base}.graphqls"
     @go_query_param_filename = "#{api}_#{enum_root.to_snake}.go"
 

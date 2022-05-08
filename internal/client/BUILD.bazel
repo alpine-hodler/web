@@ -17,8 +17,5 @@ go_library(
     ],
     importpath = "github.com/alpine-hodler/sdk/internal/client",
     visibility = ["//visibility:public"],
-    deps = [
-        "//internal/log",
-        "//pkg/model",
-    ],
+    deps = ["//internal/log"],
 )
