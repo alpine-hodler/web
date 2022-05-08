@@ -30,12 +30,6 @@ const (
 	coinbaseProAccessPassphraseID = "CB_PRO_ACCESS_PASSPHRASE"
 	coinbaseProAccessKeyID        = "CB_PRO_ACCESS_KEY"
 	coinbaseProSecretID           = "CB_PRO_SECRET"
-	iexURLID                      = "IEX_URL"
-	iexKeyID                      = "IEX_KEY"
-	iexSecretID                   = "IEX_SECRET"
-	krakenURLID                   = "KRAKEN_URL"
-	krakenKeyID                   = "KRAKEN_KEY"
-	krakenSecretID                = "KRAKEN_SECRET"
 )
 
 func Load(filepath string) {
@@ -46,25 +40,19 @@ func Load(filepath string) {
 }
 
 // Name will return the variable name of the env variable.
-func (variable Variable) Name() string {
+func (variable Variable) String() string {
 	return map[Variable]string{
 		AlpineHodlerLogLevel:        alpineHodlerLogLevel,
 		CoinbaseProURL:              coinbaseProURLID,
 		CoinbaseProAccessPassphrase: coinbaseProAccessPassphraseID,
 		CoinbaseProAccessKey:        coinbaseProAccessKeyID,
 		CoinbaseProSecret:           coinbaseProSecretID,
-		IEXURL:                      iexURLID,
-		IEXKey:                      iexKeyID,
-		IEXSecret:                   iexSecretID,
-		KrakenURL:                   krakenURLID,
-		KrakenKey:                   krakenKeyID,
-		KrakenSecret:                krakenSecretID,
 	}[variable]
 }
 
 // Get will return the environment variable for a variable-type constant as a string.
 func (variable Variable) Get() string {
-	return os.Getenv(variable.Name())
+	return os.Getenv(variable.String())
 }
 
 // SetCoinbaseProURL will set the CB_PRO_URL environment variable

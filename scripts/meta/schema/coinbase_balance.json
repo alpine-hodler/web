@@ -1,0 +1,17 @@
+{
+	"api": "coinbase",
+	"model": "balance",
+	"modelDescription": "Balance is the balance for picker data",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "amount",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "currency",
+			"goType": "string"
+		}
+	]
+}

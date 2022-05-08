@@ -1,0 +1,47 @@
+{
+	"api": "coinbase",
+	"model": "product_ticker",
+	"modelDescription": "ProductTicker is a snapshot information about the last trade (tick), best bid/ask and 24h volume.",
+	"endpoints": [
+		{
+			"path": "/products/{product_id}/ticker",
+			"enumRoot": "ProductTicker",
+			"description": "Gets snapshot information about the last trade (tick), best bid/ask and 24h volume."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "ask",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "bid",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "volume",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "trade_id",
+			"goType": "int"
+		},
+		{
+			"identifier": "price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatFromString"
+		},
+		{
+			"identifier": "time",
+			"goType": "time.Time"
+		}
+	]
+}

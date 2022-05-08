@@ -7,13 +7,11 @@ import (
 	"time"
 
 	"github.com/alpine-hodler/sdk/pkg/websocket"
-	. "github.com/franela/goblin"
 )
 
 func TestAsyncTickerStream(t *testing.T) {
-	g := Goblin(t)
-	g.Describe("mock third-party usage", func() {
-		g.It("should start and close without error", func() {
+	t.Run("mock third-party usage", func(t *testing.T) {
+		t.Run("should start and close without error", func(t *testing.T) {
 			// some third-party goroutines
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
@@ -33,8 +31,8 @@ func TestAsyncTickerStream(t *testing.T) {
 		})
 	})
 
-	g.Describe("ticker#Close", func() {
-		g.It("should close without error", func() {
+	t.Run("ticker#Close", func(t *testing.T) {
+		t.Run("should close without error", func(t *testing.T) {
 			treshold := 100
 			for i := 0; i < treshold; i++ {
 				mockC, _ := websocket.NewMock()
@@ -50,7 +48,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			}
 		})
 
-		g.It("should closew without error on long runtime", func() {
+		t.Run("should closew without error on long runtime", func(t *testing.T) {
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
@@ -65,15 +63,15 @@ func TestAsyncTickerStream(t *testing.T) {
 			time.Sleep(2 * time.Millisecond)
 		})
 
-		g.It("should do nothing when there is no stream", func() {
+		t.Run("should do nothing when there is no stream", func(t *testing.T) {
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
 			ticker.Close()
 		})
 	})
 
-	g.Describe("ticker#Open", func() {
-		g.It("should re-initialize channel data after each close", func() {
+	t.Run("ticker#Open", func(t *testing.T) {
+		t.Run("should re-initialize channel data after each close", func(t *testing.T) {
 			treshold := 100
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
@@ -89,7 +87,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			}
 		})
 
-		g.It("should be able to start stream over again", func() {
+		t.Run("should be able to start stream over again", func(t *testing.T) {
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
@@ -111,7 +109,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker.Close()
 		})
 
-		g.It("should not fatal if you start streams concurrently", func() {
+		t.Run("should not fatal if you start streams concurrently", func(t *testing.T) {
 			mockC, _ := websocket.NewMock()
 			ticker := newAsyncTicker(mockC)
 			treshold := 1000

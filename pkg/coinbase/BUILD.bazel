@@ -39,7 +39,6 @@ go_test(
         "//internal/env",
         "//pkg/scalar",
         "//pkg/websocket",
-        "@com_github_franela_goblin//:goblin",
         "@com_github_stretchr_testify//require",
     ],
 )
