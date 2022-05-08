@@ -162,6 +162,12 @@ func (coinbaseClient *C) Identifier() string {
 	return "Coinbase Pro"
 }
 
+// Accont returns information for a single account. Use this endpoint when you know the account_id. API key must
+// belong to the same profile as the account.
+func (coinbaseClient *C) Account(accountId string) (m *Account, err error) {
+	return m, coinbaseClient.Get(AccountEndpoint).PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
+}
+
 // Accounts lists all trading accounts from the profile of the API key.
 func (coinbaseClient *C) Accounts() (m []*Account, err error) {
 	return m, coinbaseClient.Get(AccountsEndpoint).Fetch().Assign(&m).JoinMessages()
@@ -235,6 +241,11 @@ func (coinbaseClient *C) AccountLedger(accountId string, opts *AccountLedgerOpti
 			return
 		}()).
 		Fetch().Assign(&m).JoinMessages()
+}
+
+// AccountTransfer get information on a single coinbaseClient.
+func (coinbaseClient *C) AccountTransfer(id string) (m *AccountTransfer, err error) {
+	return m, coinbaseClient.Get(TransferEndpoint).PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
 }
 
 // AccountTransfers lists past withdrawals and deposits for an account.
@@ -386,10 +397,23 @@ func (coinbaseClient *C) Currencies() (m []*Currency, err error) {
 	return m, coinbaseClient.Get(CurrenciesEndpoint).Fetch().Assign(&m).JoinMessages()
 }
 
-// FindAccount returns information for a single account. Use this endpoint when you know the account_id. API key must
-// belong to the same profile as the account.
-func (coinbaseClient *C) FindAccount(accountId string) (m *Account, err error) {
-	return m, coinbaseClient.Get(AccountEndpoint).PathParam("account_id", accountId).Fetch().Assign(&m).JoinMessages()
+// Currency gets a single currency by id.
+func (coinbaseClient *C) Currency(currencyId string) (m *Currency, err error) {
+	return m, coinbaseClient.Get(CurrencyEndpoint).PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
+}
+
+// CurrencyConversion gets currency conversion by id (i.e. USD -> USDC).
+func (coinbaseClient *C) CurrencyConversion(conversionId string,
+	opts *ConversionOptions) (m *CurrencyConversion, err error) {
+	return m, coinbaseClient.Get(ConversionEndpoint).
+		PathParam("conversion_id", conversionId).
+		QueryParam("profile_id", func() (i *string) {
+			if opts != nil {
+				i = opts.ProfileId
+			}
+			return
+		}()).
+		Fetch().Assign(&m).JoinMessages()
 }
 
 // GenerateCryptoAddress will generates a one-time crypto address for depositing crypto.
@@ -462,30 +486,6 @@ func (coinbaseClient *C) Fills(opts *FillsOptions) (m []*Fill, err error) {
 			return
 		}()).
 		Fetch().Assign(&m).JoinMessages()
-}
-
-// FindConversion gets currency conversion by id (i.e. USD -> USDC).
-func (coinbaseClient *C) FindConversion(conversionId string,
-	opts *ConversionOptions) (m *CurrencyConversion, err error) {
-	return m, coinbaseClient.Get(ConversionEndpoint).
-		PathParam("conversion_id", conversionId).
-		QueryParam("profile_id", func() (i *string) {
-			if opts != nil {
-				i = opts.ProfileId
-			}
-			return
-		}()).
-		Fetch().Assign(&m).JoinMessages()
-}
-
-// FindCurrency gets a single currency by id.
-func (coinbaseClient *C) FindCurrency(currencyId string) (m *Currency, err error) {
-	return m, coinbaseClient.Get(CurrencyEndpoint).PathParam("currency_id", currencyId).Fetch().Assign(&m).JoinMessages()
-}
-
-// FindTransfer get information on a single coinbaseClient.
-func (coinbaseClient *C) FindTransfer(id string) (m *AccountTransfer, err error) {
-	return m, coinbaseClient.Get(TransferEndpoint).PathParam("transfer_id", id).Fetch().Assign(&m).JoinMessages()
 }
 
 // MakePaymentMethodDeposit will deposits funds from a linked external payment method to the

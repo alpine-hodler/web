@@ -52,7 +52,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		fromCurrency := "USD"
 		makeAccountDeposit(t, client, fromCurrency, 1)
 		conversion := convertCurrency(t, client, fromCurrency, currency, 1)
-		_, err = client.FindConversion(conversion.Id, nil)
+		_, err = client.CurrencyConversion(conversion.Id, nil)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Currencies", func() (err error) {
@@ -94,7 +94,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.FindAccount", func() (err error) {
-		_, err = client.FindAccount(findAccountID(t, client, currency))
+		_, err = client.Account(findAccountID(t, client, currency))
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Product", func() (err error) {
@@ -106,14 +106,14 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.FindCurrency", func() (err error) {
-		_, err = client.FindCurrency(currency)
+		_, err = client.Currency(currency)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.FindTransfer", func() (err error) {
 		transfer := makeAccountDeposit(t, client, "USD", 1.0)
 		require.NotNil(t, transfer)
 
-		_, err = client.FindTransfer(transfer.Id)
+		_, err = client.AccountTransfer(transfer.Id)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Transfers", func() (err error) {
