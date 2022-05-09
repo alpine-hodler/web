@@ -10,6 +10,7 @@ import (
 type Transform interface {
 	// unmarshal is a wrapper for setting data in model unmarhallers
 	Unmarshal(key string, fn func(interface{}) error) error
+	UnmarshalBidAsk(key string, v *scalar.BidAsk) error
 	UnmarshalBool(name string, v *bool) error
 	UnmarshalEntryType(name string, v *scalar.EntryType) error
 	UnmarshalFloatString(name string, v *float64) error

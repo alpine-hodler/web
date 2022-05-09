@@ -1,0 +1,50 @@
+{
+	"api": "coinbase",
+	"model": "auction",
+	"modelDescription": "Auction is an object of data concerning a book request.",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "open_price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "open_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "best_bid_price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "best_bid_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "best_ask_price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "best_ask_size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "auction_state",
+			"goType": "string"
+		},
+		{
+			"identifier": "can_open",
+			"goType": "string"
+		},
+		{
+			"identifier": "time",
+			"goType": "time.Time"
+		}
+	]
+}

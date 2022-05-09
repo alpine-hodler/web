@@ -3,6 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "scalar",
     srcs = [
+        "bid_ask.go",
         "cancel_after.go",
         "entry_type.go",
         "order_cancel_time.go",

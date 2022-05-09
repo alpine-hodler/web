@@ -20,6 +20,7 @@ const (
 	AccountWithdrawalEndpoint
 	AccountsEndpoint
 	AddressesEndpoint
+	BookEndpoint
 	ConversionEndpoint
 	ConversionsEndpoint
 	CryptoWithdrawalEndpoint
@@ -93,6 +94,15 @@ func TransfersPath(args client.EndpointArgs) string {
 // Get information on a single transfer.
 func TransferPath(args client.EndpointArgs) string {
 	return path.Join("/transfers", *args["transfer_id"].PathParam)
+}
+
+// Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.
+func BookPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/products", *args["product_id"].PathParam, "book")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
 }
 
 // Generates a one-time crypto address for depositing crypto, using a wallet account id. This endpoint requires the
@@ -285,6 +295,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		AccountTransfersEndpoint:        AccountTransfersPath,
 		TransfersEndpoint:               TransfersPath,
 		TransferEndpoint:                TransferPath,
+		BookEndpoint:                    BookPath,
 		AddressesEndpoint:               AddressesPath,
 		CurrenciesEndpoint:              CurrenciesPath,
 		CurrencyEndpoint:                CurrencyPath,

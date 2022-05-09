@@ -34,6 +34,17 @@ func (m _json) Unmarshal(key string, fn func(interface{}) error) error {
 	return nil
 }
 
+func (m _json) UnmarshalBidAsk(name string, v *scalar.BidAsk) error {
+	if val := m[name]; val != nil {
+		byt, err := json.Marshal(v)
+		if err != nil {
+			return err
+		}
+		*v = scalar.BidAsk(byt)
+	}
+	return nil
+}
+
 func (m _json) UnmarshalBool(name string, v *bool) error {
 	if val := m[name]; val != nil {
 		*v = val.(bool)

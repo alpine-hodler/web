@@ -9,6 +9,7 @@ import (
 
 func TestSimpleIntegrations(t *testing.T) {
 	env.Load(".simple-test.env")
+	env.SetAlpineHodlerLogLevel("2")
 	var (
 		client        = NewClient(DefaultConnector)
 		currency      = "USDC"
@@ -48,6 +49,10 @@ func TestSimpleIntegrations(t *testing.T) {
 		_, err = client.AccountTransfers(findAccountID(t, client, currency), nil)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.Book", func() (err error) {
+		_, err = client.Book(productID, new(BookOptions).SetLevel(1))
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.CurrencyConversion", func() (err error) {
 		fromCurrency := "USD"
 		makeAccountDeposit(t, client, fromCurrency, 1)
@@ -77,7 +82,10 @@ func TestSimpleIntegrations(t *testing.T) {
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Orders", func() (err error) {
-		_, err = client.Orders(new(OrdersOptions).SetProductId("BTC-USD").SetLimit(1))
+		makeNewOrder(t, client, productID, findProfileByName(t, client, profileName))
+		_, err = client.Orders(new(OrdersOptions).SetProductId(productID).SetLimit(1))
+		_, cancellationError := client.CancelOpenOrders(nil)
+		require.NoError(t, cancellationError)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.PaymentMethods", func() (err error) {

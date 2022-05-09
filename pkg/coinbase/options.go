@@ -33,6 +33,20 @@ type AccountTransfersOptions struct {
 	Type   *string `json:"type" bson:"type"`
 }
 
+// BookOptions are options for API requests.
+type BookOptions struct {
+	// Levels 1 and 2 are aggregated. The size field is the sum of the size of the orders at that price, and num-orders is
+	// the count of orders at that price; size should not be multiplied by num-orders. Level 3 is non-aggregated and returns
+	// the entire order book. While the book is in an auction, the L1, L2 and L3 book will also contain the most recent
+	// indicative quote disseminated during the auction, and auction_mode will be set to true. These indicative quote
+	// messages are sent on an interval basis (approximately once a second) during the collection phase of an auction and
+	// includes information about the tentative price and size affiliated with the completion. Level 1 and Level 2 are
+	// recommended for polling. For the most up-to-date data, consider using the websocket stream. Level 3 is only
+	// recommended for users wishing to maintain a full real-time order book using the websocket stream. Abuse of Level 3
+	// via polling will cause your access to be limited or blocked.
+	Level *int32 `json:"level" bson:"level"`
+}
+
 // ConversionsOptions are options for API requests.
 type ConversionsOptions struct {
 	Amount    float64 `json:"amount" bson:"amount"`
@@ -225,6 +239,12 @@ func (opts *AccountTransfersOptions) SetLimit(limit int) *AccountTransfersOption
 // SetType sets the Type field on AccountTransfersOptions.
 func (opts *AccountTransfersOptions) SetType(typ string) *AccountTransfersOptions {
 	opts.Type = &typ
+	return opts
+}
+
+// SetLevel sets the Level field on BookOptions.
+func (opts *BookOptions) SetLevel(level int32) *BookOptions {
+	opts.Level = &level
 	return opts
 }
 

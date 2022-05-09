@@ -286,6 +286,19 @@ func (coinbaseClient *C) AccountTransfers(accountId string,
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// Accont returns information for a single account. Use this endpoint when you know the account_id. API key must
+// belong to the same profile as the account.
+func (coinbaseClient *C) Book(productID string, opts *BookOptions) (m *Book, _ error) {
+	return m, coinbaseClient.Get(BookEndpoint).PathParam("product_id", productID).
+		QueryParam("level", func() (i *string) {
+			if opts != nil {
+				i = tools.Int32PtrStringPtr(opts.Level)
+			}
+			return
+		}()).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // AccountWithdrawal Withdraws funds from the specified profile_id to a www.coinbase.com wallet.
 func (coinbaseClient *C) AccountWithdrawal(opts *AccountWithdrawalOptions) (m *Withdrawal, _ error) {
 	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).

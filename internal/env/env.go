@@ -55,6 +55,11 @@ func (variable Variable) Get() string {
 	return os.Getenv(variable.String())
 }
 
+// SetAlpineHodlerLogLevel will set the ALPINE_HODLER_LOG_LEVEL environment variable
+func SetAlpineHodlerLogLevel(level string) error {
+	return os.Setenv(alpineHodlerLogLevel, level)
+}
+
 // SetCoinbaseProURL will set the CB_PRO_URL environment variable
 func SetCoinbaseProURL(url string) error {
 	return os.Setenv(coinbaseProURLID, url)

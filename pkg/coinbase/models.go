@@ -70,6 +70,19 @@ type AccountTransferDetails struct {
 	CoinbaseTransactionId   string `json:"coinbase_transaction_id" bson:"coinbase_transaction_id"`
 }
 
+// Auction is an object of data concerning a book request.
+type Auction struct {
+	AuctionState string    `json:"auction_state" bson:"auction_state"`
+	BestAskPrice float64   `json:"best_ask_price" bson:"best_ask_price"`
+	BestAskSize  float64   `json:"best_ask_size" bson:"best_ask_size"`
+	BestBidPrice float64   `json:"best_bid_price" bson:"best_bid_price"`
+	BestBidSize  float64   `json:"best_bid_size" bson:"best_bid_size"`
+	CanOpen      string    `json:"can_open" bson:"can_open"`
+	OpenPrice    float64   `json:"open_price" bson:"open_price"`
+	OpenSize     float64   `json:"open_size" bson:"open_size"`
+	Time         time.Time `json:"time" bson:"time"`
+}
+
 // AvailableBalance is the available balance on the coinbase account
 type AvailableBalance struct {
 	Amount   float64 `json:"amount" bson:"amount"`
@@ -87,6 +100,15 @@ type Balance struct {
 type BankCountry struct {
 	Code string `json:"code" bson:"code"`
 	Name string `json:"name" bson:"name"`
+}
+
+// Book is a list of open orders for a product. The amount of detail shown can be customized with the level parameter.
+type Book struct {
+	Asks        scalar.BidAsk `json:"asks" bson:"asks"`
+	Auction     Auction       `json:"auction" bson:"auction"`
+	AuctionMode bool          `json:"auction_mode" bson:"auction_mode"`
+	Bids        scalar.BidAsk `json:"bids" bson:"bids"`
+	Sequence    float64       `json:"sequence" bson:"sequence"`
 }
 
 // CryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
@@ -657,6 +679,38 @@ func (accountTransferDetails *AccountTransferDetails) UnmarshalJSON(d []byte) er
 	return nil
 }
 
+// UnmarshalJSON will deserialize bytes into a Auction model
+func (auction *Auction) UnmarshalJSON(d []byte) error {
+	const (
+		openPriceJsonTag    = "open_price"
+		openSizeJsonTag     = "open_size"
+		bestBidPriceJsonTag = "best_bid_price"
+		bestBidSizeJsonTag  = "best_bid_size"
+		bestAskPriceJsonTag = "best_ask_price"
+		bestAskSizeJsonTag  = "best_ask_size"
+		auctionStateJsonTag = "auction_state"
+		canOpenJsonTag      = "can_open"
+		timeJsonTag         = "time"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalFloatString(bestAskPriceJsonTag, &auction.BestAskPrice)
+	data.UnmarshalFloatString(bestAskSizeJsonTag, &auction.BestAskSize)
+	data.UnmarshalFloatString(bestBidPriceJsonTag, &auction.BestBidPrice)
+	data.UnmarshalFloatString(bestBidSizeJsonTag, &auction.BestBidSize)
+	data.UnmarshalFloatString(openPriceJsonTag, &auction.OpenPrice)
+	data.UnmarshalFloatString(openSizeJsonTag, &auction.OpenSize)
+	data.UnmarshalString(auctionStateJsonTag, &auction.AuctionState)
+	data.UnmarshalString(canOpenJsonTag, &auction.CanOpen)
+	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &auction.Time)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // UnmarshalJSON will deserialize bytes into a AvailableBalance model
 func (availableBalance *AvailableBalance) UnmarshalJSON(d []byte) error {
 	const (
@@ -701,6 +755,30 @@ func (bankCountry *BankCountry) UnmarshalJSON(d []byte) error {
 	}
 	data.UnmarshalString(codeJsonTag, &bankCountry.Code)
 	data.UnmarshalString(nameJsonTag, &bankCountry.Name)
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a Book model
+func (book *Book) UnmarshalJSON(d []byte) error {
+	const (
+		bidsJsonTag        = "bids"
+		asksJsonTag        = "asks"
+		sequenceJsonTag    = "sequence"
+		auctionModeJsonTag = "auction_mode"
+		auctionJsonTag     = "auction"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	book.Auction = Auction{}
+	if err := data.UnmarshalStruct(auctionJsonTag, &book.Auction); err != nil {
+		return err
+	}
+	data.UnmarshalBidAsk(asksJsonTag, &book.Asks)
+	data.UnmarshalBidAsk(bidsJsonTag, &book.Bids)
+	data.UnmarshalBool(auctionModeJsonTag, &book.AuctionMode)
+	data.UnmarshalFloat(sequenceJsonTag, &book.Sequence)
 	return nil
 }
 
