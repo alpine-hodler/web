@@ -26,7 +26,7 @@
 		{
 			"identifier": "min_size",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "status",
@@ -39,7 +39,7 @@
 		{
 			"identifier": "max_precision",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "convertible_to",

@@ -36,22 +36,22 @@
 		{
 			"identifier": "base_min_size",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "base_max_size",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "quote_increment",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "base_increment",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "display_name",
@@ -60,12 +60,12 @@
 		{
 			"identifier": "min_market_funds",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "max_market_funds",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "margin_enabled",
@@ -102,7 +102,7 @@
 		{
 			"identifier": "max_slippage_percentage",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "auction_mode",

@@ -111,7 +111,7 @@ func (m _json) UnmarshalOrderType(name string, v *scalar.OrderType) error {
 	return nil
 }
 
-func (m _json) UnmarshalFloatFromString(name string, v *float64) (err error) {
+func (m _json) UnmarshalFloatString(name string, v *float64) (err error) {
 	if val := m[name]; val != nil {
 		*v, err = strconv.ParseFloat(val.(string), 64)
 	}
@@ -198,6 +198,17 @@ func (m _json) UnmarshalTime(layout string, name string, v *time.Time) (err erro
 func (m _json) UnmarshalTransferMethod(name string, v *scalar.TransferMethod) error {
 	if val := m[name]; val != nil {
 		*v = scalar.TransferMethod(val.(string))
+	}
+	return nil
+}
+
+func (m _json) UnmarshalUnixString(name string, v *time.Time) error {
+	if val := m[name]; val != nil {
+		intVar, err := strconv.Atoi(val.(string))
+		if err != nil {
+			return err
+		}
+		*v = time.Unix(int64(intVar), 0)
 	}
 	return nil
 }

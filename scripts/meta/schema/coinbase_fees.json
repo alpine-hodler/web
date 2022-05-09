@@ -13,17 +13,17 @@
 		{
 			"identifier": "taker_fee_rate",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "maker_fee_rate",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "usd_volume",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		}
 	]
 }

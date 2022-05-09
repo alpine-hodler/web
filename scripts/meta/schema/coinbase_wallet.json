@@ -21,7 +21,7 @@
 		{
 			"identifier": "balance",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "currency",
@@ -74,7 +74,7 @@
 		{
 			"identifier": "hold_balance",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "hold_currency",

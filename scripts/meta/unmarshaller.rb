@@ -21,15 +21,14 @@ module Unmarshaller
   end
 
   def custom_deserializer(field)
-    return nil unless !field.deserializer.nil? && field.deserializer == 'UnmarshalFloatFromString'
+    return nil unless !field.deserializer.nil? && field.deserializer == 'UnmarshalFloatString'
 
-    "\ndata.UnmarshalFloatFromString(#{unmarshal_fn_signature(field)})"
+    "\ndata.UnmarshalFloatString(#{unmarshal_fn_signature(field)})"
   end
 
   def time_deserializer(field)
-    sig = [field.datetime_layout, field.go_field_tag, "&#{struct_access_variable(field)}"]
-    unm = ["err = data.UnmarshalTime(#{sig.join(',')})", RETURN_ERR]
-    unm.join(';')
+		sig = [field.datetime_layout, field.go_field_tag, "&#{struct_access_variable(field)}"]
+		["err = data.UnmarshalTime(#{sig.join(',')})", RETURN_ERR].join(';')
   end
 
   def scalar_deserializer(field, sig)
@@ -56,6 +55,12 @@ module Unmarshaller
   end
 
   def get_deserializer(field, sig)
+		# if the deserializer is passed into the field via the schema, then just type it exactly.  Otherwise, just use the
+		# default type deserializer.
+    unless field.deserializer.nil?
+      sig = [field.go_field_tag, "&#{struct_access_variable(field)}"]
+      return ["err = data.#{field.deserializer}(#{sig.join(',')})", RETURN_ERR].join(';')
+		end
     {
       'string' => "\ndata.UnmarshalString(#{sig})",
       'bool' => "\ndata.UnmarshalBool(#{sig})",

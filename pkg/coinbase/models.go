@@ -35,12 +35,12 @@ type AccountHold struct {
 // AccountLedger lists ledger activity for an account. This includes anything that would affect the accounts balance -
 // transfers, trades, fees, etc.
 type AccountLedger struct {
-	Amount       float64              `json:"amount" bson:"amount"`
-	Balance      float64              `json:"balance" bson:"balance"`
-	CreatedAt    time.Time            `json:"created_at" bson:"created_at"`
-	Id           string               `json:"id" bson:"id"`
-	ProtoDetails AccountLedgerDetails `json:"details" bson:"details"`
-	Type         scalar.EntryType     `json:"type" bson:"type"`
+	Amount    float64              `json:"amount" bson:"amount"`
+	Balance   float64              `json:"balance" bson:"balance"`
+	CreatedAt time.Time            `json:"created_at" bson:"created_at"`
+	Details   AccountLedgerDetails `json:"details" bson:"details"`
+	Id        string               `json:"id" bson:"id"`
+	Type      scalar.EntryType     `json:"type" bson:"type"`
 }
 
 // AccountLedgerDetails are the details for account history.
@@ -52,15 +52,15 @@ type AccountLedgerDetails struct {
 
 // AccountTransfer will lists past withdrawals and deposits for an account.
 type AccountTransfer struct {
-	Amount       float64                `json:"amount" bson:"amount"`
-	CanceledAt   time.Time              `json:"canceled_at" bson:"canceled_at"`
-	CompletedAt  time.Time              `json:"completed_at" bson:"completed_at"`
-	CreatedAt    time.Time              `json:"created_at" bson:"created_at"`
-	Id           string                 `json:"id" bson:"id"`
-	ProcessedAt  time.Time              `json:"processed_at" bson:"processed_at"`
-	ProtoDetails AccountTransferDetails `json:"details" bson:"details"`
-	Type         string                 `json:"type" bson:"type"`
-	UserNonce    string                 `json:"user_nonce" bson:"user_nonce"`
+	Amount      float64                `json:"amount" bson:"amount"`
+	CanceledAt  time.Time              `json:"canceled_at" bson:"canceled_at"`
+	CompletedAt time.Time              `json:"completed_at" bson:"completed_at"`
+	CreatedAt   time.Time              `json:"created_at" bson:"created_at"`
+	Details     AccountTransferDetails `json:"details" bson:"details"`
+	Id          string                 `json:"id" bson:"id"`
+	ProcessedAt time.Time              `json:"processed_at" bson:"processed_at"`
+	Type        string                 `json:"type" bson:"type"`
+	UserNonce   string                 `json:"user_nonce" bson:"user_nonce"`
 }
 
 // AccountTransferDetails are the details for an account transfer.
@@ -98,21 +98,21 @@ type CryptoAccount struct {
 
 // CryptoAddress is used for a one-time crypto address for depositing crypto.
 type CryptoAddress struct {
-	Address          string                  `json:"address" bson:"address"`
-	CallbackUrl      string                  `json:"callback_url" bson:"callback_url"`
-	CreateAt         time.Time               `json:"create_at" bson:"create_at"`
-	DepositUri       string                  `json:"deposit_uri" bson:"deposit_uri"`
-	DestinationTag   string                  `json:"destination_tag" bson:"destination_tag"`
-	Id               string                  `json:"id" bson:"id"`
-	LegacyAddress    string                  `json:"legacy_address" bson:"legacy_address"`
-	Name             string                  `json:"name" bson:"name"`
-	Network          string                  `json:"network" bson:"network"`
-	ProtoAddressInfo CryptoAddressInfo       `json:"address_info" bson:"address_info"`
-	ProtoWarnings    []*CryptoAddressWarning `json:"warnings" bson:"warnings"`
-	Resource         string                  `json:"resource" bson:"resource"`
-	ResourcePath     string                  `json:"resource_path" bson:"resource_path"`
-	UpdatedAt        time.Time               `json:"updated_at" bson:"updated_at"`
-	UriScheme        string                  `json:"uri_scheme" bson:"uri_scheme"`
+	Address        string                  `json:"address" bson:"address"`
+	AddressInfo    CryptoAddressInfo       `json:"address_info" bson:"address_info"`
+	CallbackUrl    string                  `json:"callback_url" bson:"callback_url"`
+	CreateAt       time.Time               `json:"create_at" bson:"create_at"`
+	DepositUri     string                  `json:"deposit_uri" bson:"deposit_uri"`
+	DestinationTag string                  `json:"destination_tag" bson:"destination_tag"`
+	Id             string                  `json:"id" bson:"id"`
+	LegacyAddress  string                  `json:"legacy_address" bson:"legacy_address"`
+	Name           string                  `json:"name" bson:"name"`
+	Network        string                  `json:"network" bson:"network"`
+	Resource       string                  `json:"resource" bson:"resource"`
+	ResourcePath   string                  `json:"resource_path" bson:"resource_path"`
+	UpdatedAt      time.Time               `json:"updated_at" bson:"updated_at"`
+	UriScheme      string                  `json:"uri_scheme" bson:"uri_scheme"`
+	Warnings       []*CryptoAddressWarning `json:"warnings" bson:"warnings"`
 }
 
 // CryptoAddressInfo holds info for a crypto address
@@ -131,12 +131,12 @@ type CryptoAddressWarning struct {
 // Currency is a currency that coinbase knows about. Not al currencies may be currently in use for trading.
 type Currency struct {
 	ConvertibleTo []string        `json:"convertible_to" bson:"convertible_to"`
+	Details       CurrencyDetails `json:"details" bson:"details"`
 	Id            string          `json:"id" bson:"id"`
 	MaxPrecision  float64         `json:"max_precision" bson:"max_precision"`
 	Message       string          `json:"message" bson:"message"`
 	MinSize       float64         `json:"min_size" bson:"min_size"`
 	Name          string          `json:"name" bson:"name"`
-	ProtoDetails  CurrencyDetails `json:"details" bson:"details"`
 	Status        string          `json:"status" bson:"status"`
 }
 
@@ -240,6 +240,29 @@ type NewOrder struct {
 	Type          scalar.OrderType   `json:"type" bson:"type"`
 }
 
+// Oracle is cryptographically signed price-info ready to be posted on-chain using Compound's Open Oracle smart
+// contract.
+type Oracle struct {
+	// Messages are an array contains abi-encoded values [kind, timestamp, key, value], where kind always equals to
+	// 'prices', timestamp is the time when the price was obtained, key is asset ticker (e.g. 'eth') and value is asset
+	// price
+	Messages []string `json:"messages" bson:"messages"`
+
+	// Prices contains human-readable asset prices
+	Prices OraclePrices `json:"prices" bson:"prices"`
+
+	// Signatures are an array of Ethereum-compatible ECDSA signatures for each message
+	Signatures []string `json:"signatures" bson:"signatures"`
+
+	// Timestamp indicates when the latest datapoint was obtained
+	Timestamp time.Time `json:"timestamp" bson:"timestamp"`
+}
+
+// OraclePrices contain human-readable asset prices.
+type OraclePrices struct {
+	AdditionalProp string `json:"additionalProp" bson:"additionalProp"`
+}
+
 // Order is an open order.
 type Order struct {
 	CreatedAt      time.Time          `json:"created_at" bson:"created_at"`
@@ -269,33 +292,33 @@ type Order struct {
 
 // PaymentMethod is a payment method used on coinbase
 type PaymentMethod struct {
-	AllowBuy              bool                `json:"allow_buy" bson:"allow_buy"`
-	AllowDeposit          bool                `json:"allow_deposit" bson:"allow_deposit"`
-	AllowSell             bool                `json:"allow_sell" bson:"allow_sell"`
-	AllowWithdraw         bool                `json:"allow_withdraw" bson:"allow_withdraw"`
-	CdvStatus             string              `json:"cdv_status" bson:"cdv_status"`
-	CreateAt              time.Time           `json:"create_at" bson:"create_at"`
-	Currency              string              `json:"currency" bson:"currency"`
-	HoldBusinessDays      int                 `json:"hold_business_days" bson:"hold_business_days"`
-	HoldDays              int                 `json:"hold_days" bson:"hold_days"`
-	Id                    string              `json:"id" bson:"id"`
-	InstantBuy            bool                `json:"instant_buy" bson:"instant_buy"`
-	InstantSale           bool                `json:"instant_sale" bson:"instant_sale"`
-	Name                  string              `json:"name" bson:"name"`
-	PrimaryBuy            bool                `json:"primary_buy" bson:"primary_buy"`
-	PrimarySell           bool                `json:"primary_sell" bson:"primary_sell"`
-	ProtoAvailableBalance AvailableBalance    `json:"available_balance" bson:"available_balance"`
-	ProtoCryptoAccount    CryptoAccount       `json:"crypto_account" bson:"crypto_account"`
-	ProtoFiatAccount      FiatAccount         `json:"fiat_account" bson:"fiat_account"`
-	ProtoLimits           Limits              `json:"limits" bson:"limits"`
-	ProtoPickerData       PickerData          `json:"picker_data" bson:"picker_data"`
-	ProtoRecurringOptions []*RecurringOptions `json:"recurring_options" bson:"recurring_options"`
-	Resource              string              `json:"resource" bson:"resource"`
-	ResourcePath          string              `json:"resource_path" bson:"resource_path"`
-	Type                  string              `json:"type" bson:"type"`
-	UpdatedAt             time.Time           `json:"updated_at" bson:"updated_at"`
-	VerificationMethod    string              `json:"verification_method" bson:"verification_method"`
-	Verified              bool                `json:"verified" bson:"verified"`
+	AllowBuy           bool                `json:"allow_buy" bson:"allow_buy"`
+	AllowDeposit       bool                `json:"allow_deposit" bson:"allow_deposit"`
+	AllowSell          bool                `json:"allow_sell" bson:"allow_sell"`
+	AllowWithdraw      bool                `json:"allow_withdraw" bson:"allow_withdraw"`
+	AvailableBalance   AvailableBalance    `json:"available_balance" bson:"available_balance"`
+	CdvStatus          string              `json:"cdv_status" bson:"cdv_status"`
+	CreateAt           time.Time           `json:"create_at" bson:"create_at"`
+	CryptoAccount      CryptoAccount       `json:"crypto_account" bson:"crypto_account"`
+	Currency           string              `json:"currency" bson:"currency"`
+	FiatAccount        FiatAccount         `json:"fiat_account" bson:"fiat_account"`
+	HoldBusinessDays   int                 `json:"hold_business_days" bson:"hold_business_days"`
+	HoldDays           int                 `json:"hold_days" bson:"hold_days"`
+	Id                 string              `json:"id" bson:"id"`
+	InstantBuy         bool                `json:"instant_buy" bson:"instant_buy"`
+	InstantSale        bool                `json:"instant_sale" bson:"instant_sale"`
+	Limits             Limits              `json:"limits" bson:"limits"`
+	Name               string              `json:"name" bson:"name"`
+	PickerData         PickerData          `json:"picker_data" bson:"picker_data"`
+	PrimaryBuy         bool                `json:"primary_buy" bson:"primary_buy"`
+	PrimarySell        bool                `json:"primary_sell" bson:"primary_sell"`
+	RecurringOptions   []*RecurringOptions `json:"recurring_options" bson:"recurring_options"`
+	Resource           string              `json:"resource" bson:"resource"`
+	ResourcePath       string              `json:"resource_path" bson:"resource_path"`
+	Type               string              `json:"type" bson:"type"`
+	UpdatedAt          time.Time           `json:"updated_at" bson:"updated_at"`
+	VerificationMethod string              `json:"verification_method" bson:"verification_method"`
+	Verified           bool                `json:"verified" bson:"verified"`
 }
 
 // PickerData ??
@@ -303,6 +326,7 @@ type PickerData struct {
 	AccountName           string  `json:"account_name" bson:"account_name"`
 	AccountNumber         string  `json:"account_number" bson:"account_number"`
 	AccountType           string  `json:"account_type" bson:"account_type"`
+	Balance               Balance `json:"balance" bson:"balance"`
 	BankName              string  `json:"bank_name" bson:"bank_name"`
 	BranchName            string  `json:"branch_name" bson:"branch_name"`
 	CustomerName          string  `json:"customer_name" bson:"customer_name"`
@@ -313,7 +337,6 @@ type PickerData struct {
 	InstitutionName       string  `json:"institution_name" bson:"institution_name"`
 	PaypalEmail           string  `json:"paypal_email" bson:"paypal_email"`
 	PaypalOwner           string  `json:"paypal_owner" bson:"paypal_owner"`
-	ProtoBalance          Balance `json:"balance" bson:"balance"`
 	RoutingNumber         string  `json:"routing_number" bson:"routing_number"`
 	Swift                 string  `json:"swift" bson:"swift"`
 	Symbol                string  `json:"symbol" bson:"symbol"`
@@ -376,14 +399,14 @@ type RecurringOptions struct {
 // or to settle an invoice. A SEPA direct debit is a recurring payment, for example to pay monthly rent or for a service
 // like a mobile phone contract.
 type SepaDepositInformation struct {
-	AccountAddress   string      `json:"account_address" bson:"account_address"`
-	AccountName      string      `json:"account_name" bson:"account_name"`
-	BankAddress      string      `json:"bank_address" bson:"bank_address"`
-	BankName         string      `json:"bank_name" bson:"bank_name"`
-	Iban             string      `json:"iban" bson:"iban"`
-	ProtoBankCountry BankCountry `json:"bank_country" bson:"bank_country"`
-	Reference        string      `json:"reference" bson:"reference"`
-	Swift            string      `json:"swift" bson:"swift"`
+	AccountAddress string      `json:"account_address" bson:"account_address"`
+	AccountName    string      `json:"account_name" bson:"account_name"`
+	BankAddress    string      `json:"bank_address" bson:"bank_address"`
+	BankCountry    BankCountry `json:"bank_country" bson:"bank_country"`
+	BankName       string      `json:"bank_name" bson:"bank_name"`
+	Iban           string      `json:"iban" bson:"iban"`
+	Reference      string      `json:"reference" bson:"reference"`
+	Swift          string      `json:"swift" bson:"swift"`
 }
 
 // SwiftDepositInformation information regarding a wallet's deposits. SWIFT stands for Society for Worldwide Interbank
@@ -391,13 +414,13 @@ type SepaDepositInformation struct {
 // enables them to transfer money. ING is part of this network. There is no fee for accepting deposits into your account
 // with ING.
 type SwiftDepositInformation struct {
-	AccountAddress   string      `json:"account_address" bson:"account_address"`
-	AccountName      string      `json:"account_name" bson:"account_name"`
-	AccountNumber    string      `json:"account_number" bson:"account_number"`
-	BankAddress      string      `json:"bank_address" bson:"bank_address"`
-	BankName         string      `json:"bank_name" bson:"bank_name"`
-	ProtoBankCountry BankCountry `json:"bank_country" bson:"bank_country"`
-	Reference        string      `json:"reference" bson:"reference"`
+	AccountAddress string      `json:"account_address" bson:"account_address"`
+	AccountName    string      `json:"account_name" bson:"account_name"`
+	AccountNumber  string      `json:"account_number" bson:"account_number"`
+	BankAddress    string      `json:"bank_address" bson:"bank_address"`
+	BankCountry    BankCountry `json:"bank_country" bson:"bank_country"`
+	BankName       string      `json:"bank_name" bson:"bank_name"`
+	Reference      string      `json:"reference" bson:"reference"`
 }
 
 // Ticker is real-time price updates every time a match happens. It batches updates in case of cascading matches,
@@ -417,47 +440,47 @@ type Ticker struct {
 
 // UkDepositInformation information regarding a wallet's deposits.
 type UkDepositInformation struct {
-	AccountAddress   string      `json:"account_address" bson:"account_address"`
-	AccountName      string      `json:"account_name" bson:"account_name"`
-	AccountNumber    string      `json:"account_number" bson:"account_number"`
-	BankAddress      string      `json:"bank_address" bson:"bank_address"`
-	BankName         string      `json:"bank_name" bson:"bank_name"`
-	ProtoBankCountry BankCountry `json:"bank_country" bson:"bank_country"`
-	Reference        string      `json:"reference" bson:"reference"`
+	AccountAddress string      `json:"account_address" bson:"account_address"`
+	AccountName    string      `json:"account_name" bson:"account_name"`
+	AccountNumber  string      `json:"account_number" bson:"account_number"`
+	BankAddress    string      `json:"bank_address" bson:"bank_address"`
+	BankCountry    BankCountry `json:"bank_country" bson:"bank_country"`
+	BankName       string      `json:"bank_name" bson:"bank_name"`
+	Reference      string      `json:"reference" bson:"reference"`
 }
 
 // Wallet represents a user's available Coinbase wallet (These are the wallets/accounts that are used for buying and
 // selling on www.coinbase.com)
 type Wallet struct {
-	Active                       bool                    `json:"active" bson:"active"`
-	AvailableOnConsumer          bool                    `json:"available_on_consumer" bson:"available_on_consumer"`
-	Balance                      float64                 `json:"balance" bson:"balance"`
-	Currency                     string                  `json:"currency" bson:"currency"`
-	DestinationTagName           string                  `json:"destination_tag_name" bson:"destination_tag_name"`
-	DestinationTagRegex          string                  `json:"destination_tag_regex" bson:"destination_tag_regex"`
-	HoldBalance                  float64                 `json:"hold_balance" bson:"hold_balance"`
-	HoldCurrency                 string                  `json:"hold_currency" bson:"hold_currency"`
-	Id                           string                  `json:"id" bson:"id"`
-	Name                         string                  `json:"name" bson:"name"`
-	Primary                      bool                    `json:"primary" bson:"primary"`
-	ProtoSepaDepositInformation  SepaDepositInformation  `json:"sepa_deposit_information" bson:"sepa_deposit_information"`
-	ProtoSwiftDepositInformation SwiftDepositInformation `json:"swift_deposit_information" bson:"swift_deposit_information"`
-	ProtoUkDepositInformation    UkDepositInformation    `json:"uk_deposit_information" bson:"uk_deposit_information"`
-	ProtoWireDepositInformation  WireDepositInformation  `json:"wire_deposit_information" bson:"wire_deposit_information"`
-	Ready                        bool                    `json:"ready" bson:"ready"`
-	Type                         string                  `json:"type" bson:"type"`
+	Active                  bool                    `json:"active" bson:"active"`
+	AvailableOnConsumer     bool                    `json:"available_on_consumer" bson:"available_on_consumer"`
+	Balance                 float64                 `json:"balance" bson:"balance"`
+	Currency                string                  `json:"currency" bson:"currency"`
+	DestinationTagName      string                  `json:"destination_tag_name" bson:"destination_tag_name"`
+	DestinationTagRegex     string                  `json:"destination_tag_regex" bson:"destination_tag_regex"`
+	HoldBalance             float64                 `json:"hold_balance" bson:"hold_balance"`
+	HoldCurrency            string                  `json:"hold_currency" bson:"hold_currency"`
+	Id                      string                  `json:"id" bson:"id"`
+	Name                    string                  `json:"name" bson:"name"`
+	Primary                 bool                    `json:"primary" bson:"primary"`
+	Ready                   bool                    `json:"ready" bson:"ready"`
+	SepaDepositInformation  SepaDepositInformation  `json:"sepa_deposit_information" bson:"sepa_deposit_information"`
+	SwiftDepositInformation SwiftDepositInformation `json:"swift_deposit_information" bson:"swift_deposit_information"`
+	Type                    string                  `json:"type" bson:"type"`
+	UkDepositInformation    UkDepositInformation    `json:"uk_deposit_information" bson:"uk_deposit_information"`
+	WireDepositInformation  WireDepositInformation  `json:"wire_deposit_information" bson:"wire_deposit_information"`
 }
 
 // WireDepositInformation information regarding a wallet's deposits
 type WireDepositInformation struct {
-	AccountAddress   string      `json:"account_address" bson:"account_address"`
-	AccountName      string      `json:"account_name" bson:"account_name"`
-	AccountNumber    string      `json:"account_number" bson:"account_number"`
-	BankAddress      string      `json:"bank_address" bson:"bank_address"`
-	BankName         string      `json:"bank_name" bson:"bank_name"`
-	ProtoBankCountry BankCountry `json:"bank_country" bson:"bank_country"`
-	Reference        string      `json:"reference" bson:"reference"`
-	RoutingNumber    string      `json:"routing_number" bson:"routing_number"`
+	AccountAddress string      `json:"account_address" bson:"account_address"`
+	AccountName    string      `json:"account_name" bson:"account_name"`
+	AccountNumber  string      `json:"account_number" bson:"account_number"`
+	BankAddress    string      `json:"bank_address" bson:"bank_address"`
+	BankCountry    BankCountry `json:"bank_country" bson:"bank_country"`
+	BankName       string      `json:"bank_name" bson:"bank_name"`
+	Reference      string      `json:"reference" bson:"reference"`
+	RoutingNumber  string      `json:"routing_number" bson:"routing_number"`
 }
 
 // Withdrawal is data concerning withdrawing funds from the specified profile_id to a www.coinbase.com wallet.
@@ -491,9 +514,9 @@ func (account *Account) UnmarshalJSON(d []byte) error {
 		return err
 	}
 	data.UnmarshalBool(tradingEnabledJsonTag, &account.TradingEnabled)
-	data.UnmarshalFloatFromString(availableJsonTag, &account.Available)
-	data.UnmarshalFloatFromString(balanceJsonTag, &account.Balance)
-	data.UnmarshalFloatFromString(holdJsonTag, &account.Hold)
+	data.UnmarshalFloatString(availableJsonTag, &account.Available)
+	data.UnmarshalFloatString(balanceJsonTag, &account.Balance)
+	data.UnmarshalFloatString(holdJsonTag, &account.Hold)
 	data.UnmarshalString(currencyJsonTag, &account.Currency)
 	data.UnmarshalString(idJsonTag, &account.Id)
 	data.UnmarshalString(profileIdJsonTag, &account.ProfileId)
@@ -541,13 +564,13 @@ func (accountLedger *AccountLedger) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	accountLedger.ProtoDetails = AccountLedgerDetails{}
-	if err := data.UnmarshalStruct(detailsJsonTag, &accountLedger.ProtoDetails); err != nil {
+	accountLedger.Details = AccountLedgerDetails{}
+	if err := data.UnmarshalStruct(detailsJsonTag, &accountLedger.Details); err != nil {
 		return err
 	}
 	data.UnmarshalEntryType(typeJsonTag, &accountLedger.Type)
-	data.UnmarshalFloatFromString(amountJsonTag, &accountLedger.Amount)
-	data.UnmarshalFloatFromString(balanceJsonTag, &accountLedger.Balance)
+	data.UnmarshalFloatString(amountJsonTag, &accountLedger.Amount)
+	data.UnmarshalFloatString(balanceJsonTag, &accountLedger.Balance)
 	data.UnmarshalString(idJsonTag, &accountLedger.Id)
 	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &accountLedger.CreatedAt)
 	if err != nil {
@@ -590,11 +613,11 @@ func (accountTransfer *AccountTransfer) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	accountTransfer.ProtoDetails = AccountTransferDetails{}
-	if err := data.UnmarshalStruct(detailsJsonTag, &accountTransfer.ProtoDetails); err != nil {
+	accountTransfer.Details = AccountTransferDetails{}
+	if err := data.UnmarshalStruct(detailsJsonTag, &accountTransfer.Details); err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &accountTransfer.Amount)
+	data.UnmarshalFloatString(amountJsonTag, &accountTransfer.Amount)
 	data.UnmarshalString(idJsonTag, &accountTransfer.Id)
 	data.UnmarshalString(typeJsonTag, &accountTransfer.Type)
 	data.UnmarshalString(userNonceJsonTag, &accountTransfer.UserNonce)
@@ -645,7 +668,7 @@ func (availableBalance *AvailableBalance) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &availableBalance.Amount)
+	data.UnmarshalFloatString(amountJsonTag, &availableBalance.Amount)
 	data.UnmarshalString(currencyJsonTag, &availableBalance.Currency)
 	data.UnmarshalString(scaleJsonTag, &availableBalance.Scale)
 	return nil
@@ -661,7 +684,7 @@ func (balance *Balance) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &balance.Amount)
+	data.UnmarshalFloatString(amountJsonTag, &balance.Amount)
 	data.UnmarshalString(currencyJsonTag, &balance.Currency)
 	return nil
 }
@@ -721,8 +744,8 @@ func (cryptoAddress *CryptoAddress) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	cryptoAddress.ProtoAddressInfo = CryptoAddressInfo{}
-	if err := data.UnmarshalStruct(addressInfoJsonTag, &cryptoAddress.ProtoAddressInfo); err != nil {
+	cryptoAddress.AddressInfo = CryptoAddressInfo{}
+	if err := data.UnmarshalStruct(addressInfoJsonTag, &cryptoAddress.AddressInfo); err != nil {
 		return err
 	}
 	data.UnmarshalString(addressJsonTag, &cryptoAddress.Address)
@@ -751,7 +774,7 @@ func (cryptoAddress *CryptoAddress) UnmarshalJSON(d []byte) error {
 			if err := json.Unmarshal(bytes, &obj); err != nil {
 				return err
 			}
-			cryptoAddress.ProtoWarnings = append(cryptoAddress.ProtoWarnings, &obj)
+			cryptoAddress.Warnings = append(cryptoAddress.Warnings, &obj)
 		}
 	}
 	return nil
@@ -805,12 +828,12 @@ func (currency *Currency) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	currency.ProtoDetails = CurrencyDetails{}
-	if err := data.UnmarshalStruct(detailsJsonTag, &currency.ProtoDetails); err != nil {
+	currency.Details = CurrencyDetails{}
+	if err := data.UnmarshalStruct(detailsJsonTag, &currency.Details); err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(maxPrecisionJsonTag, &currency.MaxPrecision)
-	data.UnmarshalFloatFromString(minSizeJsonTag, &currency.MinSize)
+	data.UnmarshalFloatString(maxPrecisionJsonTag, &currency.MaxPrecision)
+	data.UnmarshalFloatString(minSizeJsonTag, &currency.MinSize)
 	data.UnmarshalString(idJsonTag, &currency.Id)
 	data.UnmarshalString(messageJsonTag, &currency.Message)
 	data.UnmarshalString(nameJsonTag, &currency.Name)
@@ -833,7 +856,7 @@ func (currencyConversion *CurrencyConversion) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &currencyConversion.Amount)
+	data.UnmarshalFloatString(amountJsonTag, &currencyConversion.Amount)
 	data.UnmarshalString(fromAccountIdJsonTag, &currencyConversion.FromAccountId)
 	data.UnmarshalString(fromJsonTag, &currencyConversion.From)
 	data.UnmarshalString(idJsonTag, &currencyConversion.Id)
@@ -891,9 +914,9 @@ func (deposit *Deposit) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &deposit.Amount)
-	data.UnmarshalFloatFromString(feeJsonTag, &deposit.Fee)
-	data.UnmarshalFloatFromString(subtotalJsonTag, &deposit.Subtotal)
+	data.UnmarshalFloatString(amountJsonTag, &deposit.Amount)
+	data.UnmarshalFloatString(feeJsonTag, &deposit.Fee)
+	data.UnmarshalFloatString(subtotalJsonTag, &deposit.Subtotal)
 	data.UnmarshalString(currencyJsonTag, &deposit.Currency)
 	data.UnmarshalString(idJsonTag, &deposit.Id)
 	data.UnmarshalString(payoutAtJsonTag, &deposit.PayoutAt)
@@ -911,9 +934,9 @@ func (fees *Fees) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(makerFeeRateJsonTag, &fees.MakerFeeRate)
-	data.UnmarshalFloatFromString(takerFeeRateJsonTag, &fees.TakerFeeRate)
-	data.UnmarshalFloatFromString(usdVolumeJsonTag, &fees.UsdVolume)
+	data.UnmarshalFloatString(makerFeeRateJsonTag, &fees.MakerFeeRate)
+	data.UnmarshalFloatString(takerFeeRateJsonTag, &fees.TakerFeeRate)
+	data.UnmarshalFloatString(usdVolumeJsonTag, &fees.UsdVolume)
 	return nil
 }
 
@@ -955,10 +978,10 @@ func (fill *Fill) UnmarshalJSON(d []byte) error {
 		return err
 	}
 	data.UnmarshalBool(settledJsonTag, &fill.Settled)
-	data.UnmarshalFloatFromString(feeJsonTag, &fill.Fee)
-	data.UnmarshalFloatFromString(priceJsonTag, &fill.Price)
-	data.UnmarshalFloatFromString(sizeJsonTag, &fill.Size)
-	data.UnmarshalFloatFromString(usdVolumeJsonTag, &fill.UsdVolume)
+	data.UnmarshalFloatString(feeJsonTag, &fill.Fee)
+	data.UnmarshalFloatString(priceJsonTag, &fill.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &fill.Size)
+	data.UnmarshalFloatString(usdVolumeJsonTag, &fill.UsdVolume)
 	data.UnmarshalInt(tradeIdJsonTag, &fill.TradeId)
 	data.UnmarshalString(liquidityJsonTag, &fill.Liquidity)
 	data.UnmarshalString(orderIdJsonTag, &fill.OrderId)
@@ -1017,14 +1040,14 @@ func (newOrder *NewOrder) UnmarshalJSON(d []byte) error {
 	}
 	data.UnmarshalBool(postOnlyJsonTag, &newOrder.PostOnly)
 	data.UnmarshalBool(settledJsonTag, &newOrder.Settled)
-	data.UnmarshalFloatFromString(fillFeesJsonTag, &newOrder.FillFees)
-	data.UnmarshalFloatFromString(filledSizeJsonTag, &newOrder.FilledSize)
-	data.UnmarshalFloatFromString(fundingAmountJsonTag, &newOrder.FundingAmount)
-	data.UnmarshalFloatFromString(fundsJsonTag, &newOrder.Funds)
-	data.UnmarshalFloatFromString(priceJsonTag, &newOrder.Price)
-	data.UnmarshalFloatFromString(sizeJsonTag, &newOrder.Size)
-	data.UnmarshalFloatFromString(specificFundsJsonTag, &newOrder.SpecificFunds)
-	data.UnmarshalFloatFromString(stopPriceJsonTag, &newOrder.StopPrice)
+	data.UnmarshalFloatString(fillFeesJsonTag, &newOrder.FillFees)
+	data.UnmarshalFloatString(filledSizeJsonTag, &newOrder.FilledSize)
+	data.UnmarshalFloatString(fundingAmountJsonTag, &newOrder.FundingAmount)
+	data.UnmarshalFloatString(fundsJsonTag, &newOrder.Funds)
+	data.UnmarshalFloatString(priceJsonTag, &newOrder.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &newOrder.Size)
+	data.UnmarshalFloatString(specificFundsJsonTag, &newOrder.SpecificFunds)
+	data.UnmarshalFloatString(stopPriceJsonTag, &newOrder.StopPrice)
 	data.UnmarshalOrderSide(sideJsonTag, &newOrder.Side)
 	data.UnmarshalOrderStop(stopJsonTag, &newOrder.Stop)
 	data.UnmarshalOrderType(typeJsonTag, &newOrder.Type)
@@ -1047,6 +1070,44 @@ func (newOrder *NewOrder) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a Oracle model
+func (oracle *Oracle) UnmarshalJSON(d []byte) error {
+	const (
+		timestampJsonTag  = "timestamp"
+		messagesJsonTag   = "messages"
+		signaturesJsonTag = "signatures"
+		pricesJsonTag     = "prices"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalStringSlice(messagesJsonTag, &oracle.Messages)
+	data.UnmarshalStringSlice(signaturesJsonTag, &oracle.Signatures)
+	oracle.Prices = OraclePrices{}
+	if err := data.UnmarshalStruct(pricesJsonTag, &oracle.Prices); err != nil {
+		return err
+	}
+	err = data.UnmarshalUnixString(timestampJsonTag, &oracle.Timestamp)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a OraclePrices model
+func (oraclePrices *OraclePrices) UnmarshalJSON(d []byte) error {
+	const (
+		additionalPropJsonTag = "additionalProp"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalString(additionalPropJsonTag, &oraclePrices.AdditionalProp)
 	return nil
 }
 
@@ -1083,15 +1144,15 @@ func (order *Order) UnmarshalJSON(d []byte) error {
 	}
 	data.UnmarshalBool(postOnlyJsonTag, &order.PostOnly)
 	data.UnmarshalBool(settledJsonTag, &order.Settled)
-	data.UnmarshalFloatFromString(executedValueJsonTag, &order.ExecutedValue)
-	data.UnmarshalFloatFromString(fillFeesJsonTag, &order.FillFees)
-	data.UnmarshalFloatFromString(filledSizeJsonTag, &order.FilledSize)
-	data.UnmarshalFloatFromString(fundingAmountJsonTag, &order.FundingAmount)
-	data.UnmarshalFloatFromString(fundsJsonTag, &order.Funds)
-	data.UnmarshalFloatFromString(priceJsonTag, &order.Price)
-	data.UnmarshalFloatFromString(sizeJsonTag, &order.Size)
-	data.UnmarshalFloatFromString(specifiedFundsJsonTag, &order.SpecifiedFunds)
-	data.UnmarshalFloatFromString(stopPriceJsonTag, &order.StopPrice)
+	data.UnmarshalFloatString(executedValueJsonTag, &order.ExecutedValue)
+	data.UnmarshalFloatString(fillFeesJsonTag, &order.FillFees)
+	data.UnmarshalFloatString(filledSizeJsonTag, &order.FilledSize)
+	data.UnmarshalFloatString(fundingAmountJsonTag, &order.FundingAmount)
+	data.UnmarshalFloatString(fundsJsonTag, &order.Funds)
+	data.UnmarshalFloatString(priceJsonTag, &order.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &order.Size)
+	data.UnmarshalFloatString(specifiedFundsJsonTag, &order.SpecifiedFunds)
+	data.UnmarshalFloatString(stopPriceJsonTag, &order.StopPrice)
 	data.UnmarshalOrderSide(sideJsonTag, &order.Side)
 	data.UnmarshalOrderType(typeJsonTag, &order.Type)
 	data.UnmarshalString(doneReasonJsonTag, &order.DoneReason)
@@ -1185,27 +1246,27 @@ func (paymentMethod *PaymentMethod) UnmarshalJSON(d []byte) error {
 			if err := json.Unmarshal(bytes, &obj); err != nil {
 				return err
 			}
-			paymentMethod.ProtoRecurringOptions = append(paymentMethod.ProtoRecurringOptions, &obj)
+			paymentMethod.RecurringOptions = append(paymentMethod.RecurringOptions, &obj)
 		}
 	}
-	paymentMethod.ProtoAvailableBalance = AvailableBalance{}
-	if err := data.UnmarshalStruct(availableBalanceJsonTag, &paymentMethod.ProtoAvailableBalance); err != nil {
+	paymentMethod.AvailableBalance = AvailableBalance{}
+	if err := data.UnmarshalStruct(availableBalanceJsonTag, &paymentMethod.AvailableBalance); err != nil {
 		return err
 	}
-	paymentMethod.ProtoCryptoAccount = CryptoAccount{}
-	if err := data.UnmarshalStruct(cryptoAccountJsonTag, &paymentMethod.ProtoCryptoAccount); err != nil {
+	paymentMethod.CryptoAccount = CryptoAccount{}
+	if err := data.UnmarshalStruct(cryptoAccountJsonTag, &paymentMethod.CryptoAccount); err != nil {
 		return err
 	}
-	paymentMethod.ProtoFiatAccount = FiatAccount{}
-	if err := data.UnmarshalStruct(fiatAccountJsonTag, &paymentMethod.ProtoFiatAccount); err != nil {
+	paymentMethod.FiatAccount = FiatAccount{}
+	if err := data.UnmarshalStruct(fiatAccountJsonTag, &paymentMethod.FiatAccount); err != nil {
 		return err
 	}
-	paymentMethod.ProtoLimits = Limits{}
-	if err := data.UnmarshalStruct(limitsJsonTag, &paymentMethod.ProtoLimits); err != nil {
+	paymentMethod.Limits = Limits{}
+	if err := data.UnmarshalStruct(limitsJsonTag, &paymentMethod.Limits); err != nil {
 		return err
 	}
-	paymentMethod.ProtoPickerData = PickerData{}
-	if err := data.UnmarshalStruct(pickerDataJsonTag, &paymentMethod.ProtoPickerData); err != nil {
+	paymentMethod.PickerData = PickerData{}
+	if err := data.UnmarshalStruct(pickerDataJsonTag, &paymentMethod.PickerData); err != nil {
 		return err
 	}
 	return nil
@@ -1252,8 +1313,8 @@ func (pickerData *PickerData) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(routingNumberJsonTag, &pickerData.RoutingNumber)
 	data.UnmarshalString(swiftJsonTag, &pickerData.Swift)
 	data.UnmarshalString(symbolJsonTag, &pickerData.Symbol)
-	pickerData.ProtoBalance = Balance{}
-	if err := data.UnmarshalStruct(balanceJsonTag, &pickerData.ProtoBalance); err != nil {
+	pickerData.Balance = Balance{}
+	if err := data.UnmarshalStruct(balanceJsonTag, &pickerData.Balance); err != nil {
 		return err
 	}
 	return nil
@@ -1294,13 +1355,13 @@ func (product *Product) UnmarshalJSON(d []byte) error {
 	data.UnmarshalBool(marginEnabledJsonTag, &product.MarginEnabled)
 	data.UnmarshalBool(postOnlyJsonTag, &product.PostOnly)
 	data.UnmarshalBool(tradingDisabledJsonTag, &product.TradingDisabled)
-	data.UnmarshalFloatFromString(baseIncrementJsonTag, &product.BaseIncrement)
-	data.UnmarshalFloatFromString(baseMaxSizeJsonTag, &product.BaseMaxSize)
-	data.UnmarshalFloatFromString(baseMinSizeJsonTag, &product.BaseMinSize)
-	data.UnmarshalFloatFromString(maxMarketFundsJsonTag, &product.MaxMarketFunds)
-	data.UnmarshalFloatFromString(maxSlippagePercentageJsonTag, &product.MaxSlippagePercentage)
-	data.UnmarshalFloatFromString(minMarketFundsJsonTag, &product.MinMarketFunds)
-	data.UnmarshalFloatFromString(quoteIncrementJsonTag, &product.QuoteIncrement)
+	data.UnmarshalFloatString(baseIncrementJsonTag, &product.BaseIncrement)
+	data.UnmarshalFloatString(baseMaxSizeJsonTag, &product.BaseMaxSize)
+	data.UnmarshalFloatString(baseMinSizeJsonTag, &product.BaseMinSize)
+	data.UnmarshalFloatString(maxMarketFundsJsonTag, &product.MaxMarketFunds)
+	data.UnmarshalFloatString(maxSlippagePercentageJsonTag, &product.MaxSlippagePercentage)
+	data.UnmarshalFloatString(minMarketFundsJsonTag, &product.MinMarketFunds)
+	data.UnmarshalFloatString(quoteIncrementJsonTag, &product.QuoteIncrement)
 	data.UnmarshalStatus(statusJsonTag, &product.Status)
 	data.UnmarshalString(baseCurrencyJsonTag, &product.BaseCurrency)
 	data.UnmarshalString(displayNameJsonTag, &product.DisplayName)
@@ -1325,11 +1386,11 @@ func (productTicker *ProductTicker) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(askJsonTag, &productTicker.Ask)
-	data.UnmarshalFloatFromString(bidJsonTag, &productTicker.Bid)
-	data.UnmarshalFloatFromString(priceJsonTag, &productTicker.Price)
-	data.UnmarshalFloatFromString(sizeJsonTag, &productTicker.Size)
-	data.UnmarshalFloatFromString(volumeJsonTag, &productTicker.Volume)
+	data.UnmarshalFloatString(askJsonTag, &productTicker.Ask)
+	data.UnmarshalFloatString(bidJsonTag, &productTicker.Bid)
+	data.UnmarshalFloatString(priceJsonTag, &productTicker.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &productTicker.Size)
+	data.UnmarshalFloatString(volumeJsonTag, &productTicker.Volume)
 	data.UnmarshalInt(tradeIdJsonTag, &productTicker.TradeId)
 	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &productTicker.Time)
 	if err != nil {
@@ -1404,8 +1465,8 @@ func (sepaDepositInformation *SepaDepositInformation) UnmarshalJSON(d []byte) er
 	data.UnmarshalString(ibanJsonTag, &sepaDepositInformation.Iban)
 	data.UnmarshalString(referenceJsonTag, &sepaDepositInformation.Reference)
 	data.UnmarshalString(swiftJsonTag, &sepaDepositInformation.Swift)
-	sepaDepositInformation.ProtoBankCountry = BankCountry{}
-	if err := data.UnmarshalStruct(bankCountryJsonTag, &sepaDepositInformation.ProtoBankCountry); err != nil {
+	sepaDepositInformation.BankCountry = BankCountry{}
+	if err := data.UnmarshalStruct(bankCountryJsonTag, &sepaDepositInformation.BankCountry); err != nil {
 		return err
 	}
 	return nil
@@ -1432,8 +1493,8 @@ func (swiftDepositInformation *SwiftDepositInformation) UnmarshalJSON(d []byte) 
 	data.UnmarshalString(bankAddressJsonTag, &swiftDepositInformation.BankAddress)
 	data.UnmarshalString(bankNameJsonTag, &swiftDepositInformation.BankName)
 	data.UnmarshalString(referenceJsonTag, &swiftDepositInformation.Reference)
-	swiftDepositInformation.ProtoBankCountry = BankCountry{}
-	if err := data.UnmarshalStruct(bankCountryJsonTag, &swiftDepositInformation.ProtoBankCountry); err != nil {
+	swiftDepositInformation.BankCountry = BankCountry{}
+	if err := data.UnmarshalStruct(bankCountryJsonTag, &swiftDepositInformation.BankCountry); err != nil {
 		return err
 	}
 	return nil
@@ -1457,10 +1518,10 @@ func (ticker *Ticker) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(bestAskJsonTag, &ticker.BestAsk)
-	data.UnmarshalFloatFromString(bestBidJsonTag, &ticker.BestBid)
-	data.UnmarshalFloatFromString(lastSizeJsonTag, &ticker.LastSize)
-	data.UnmarshalFloatFromString(priceJsonTag, &ticker.Price)
+	data.UnmarshalFloatString(bestAskJsonTag, &ticker.BestAsk)
+	data.UnmarshalFloatString(bestBidJsonTag, &ticker.BestBid)
+	data.UnmarshalFloatString(lastSizeJsonTag, &ticker.LastSize)
+	data.UnmarshalFloatString(priceJsonTag, &ticker.Price)
 	data.UnmarshalInt(sequenceJsonTag, &ticker.Sequence)
 	data.UnmarshalInt(tradeIdJsonTag, &ticker.TradeId)
 	data.UnmarshalString(productIdJsonTag, &ticker.ProductId)
@@ -1494,8 +1555,8 @@ func (ukDepositInformation *UkDepositInformation) UnmarshalJSON(d []byte) error 
 	data.UnmarshalString(bankAddressJsonTag, &ukDepositInformation.BankAddress)
 	data.UnmarshalString(bankNameJsonTag, &ukDepositInformation.BankName)
 	data.UnmarshalString(referenceJsonTag, &ukDepositInformation.Reference)
-	ukDepositInformation.ProtoBankCountry = BankCountry{}
-	if err := data.UnmarshalStruct(bankCountryJsonTag, &ukDepositInformation.ProtoBankCountry); err != nil {
+	ukDepositInformation.BankCountry = BankCountry{}
+	if err := data.UnmarshalStruct(bankCountryJsonTag, &ukDepositInformation.BankCountry); err != nil {
 		return err
 	}
 	return nil
@@ -1530,8 +1591,8 @@ func (wallet *Wallet) UnmarshalJSON(d []byte) error {
 	data.UnmarshalBool(availableOnConsumerJsonTag, &wallet.AvailableOnConsumer)
 	data.UnmarshalBool(primaryJsonTag, &wallet.Primary)
 	data.UnmarshalBool(readyJsonTag, &wallet.Ready)
-	data.UnmarshalFloatFromString(balanceJsonTag, &wallet.Balance)
-	data.UnmarshalFloatFromString(holdBalanceJsonTag, &wallet.HoldBalance)
+	data.UnmarshalFloatString(balanceJsonTag, &wallet.Balance)
+	data.UnmarshalFloatString(holdBalanceJsonTag, &wallet.HoldBalance)
 	data.UnmarshalString(currencyJsonTag, &wallet.Currency)
 	data.UnmarshalString(destinationTagNameJsonTag, &wallet.DestinationTagName)
 	data.UnmarshalString(destinationTagRegexJsonTag, &wallet.DestinationTagRegex)
@@ -1539,20 +1600,20 @@ func (wallet *Wallet) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(idJsonTag, &wallet.Id)
 	data.UnmarshalString(nameJsonTag, &wallet.Name)
 	data.UnmarshalString(typeJsonTag, &wallet.Type)
-	wallet.ProtoSepaDepositInformation = SepaDepositInformation{}
-	if err := data.UnmarshalStruct(sepaDepositInformationJsonTag, &wallet.ProtoSepaDepositInformation); err != nil {
+	wallet.SepaDepositInformation = SepaDepositInformation{}
+	if err := data.UnmarshalStruct(sepaDepositInformationJsonTag, &wallet.SepaDepositInformation); err != nil {
 		return err
 	}
-	wallet.ProtoSwiftDepositInformation = SwiftDepositInformation{}
-	if err := data.UnmarshalStruct(swiftDepositInformationJsonTag, &wallet.ProtoSwiftDepositInformation); err != nil {
+	wallet.SwiftDepositInformation = SwiftDepositInformation{}
+	if err := data.UnmarshalStruct(swiftDepositInformationJsonTag, &wallet.SwiftDepositInformation); err != nil {
 		return err
 	}
-	wallet.ProtoUkDepositInformation = UkDepositInformation{}
-	if err := data.UnmarshalStruct(ukDepositInformationJsonTag, &wallet.ProtoUkDepositInformation); err != nil {
+	wallet.UkDepositInformation = UkDepositInformation{}
+	if err := data.UnmarshalStruct(ukDepositInformationJsonTag, &wallet.UkDepositInformation); err != nil {
 		return err
 	}
-	wallet.ProtoWireDepositInformation = WireDepositInformation{}
-	if err := data.UnmarshalStruct(wireDepositInformationJsonTag, &wallet.ProtoWireDepositInformation); err != nil {
+	wallet.WireDepositInformation = WireDepositInformation{}
+	if err := data.UnmarshalStruct(wireDepositInformationJsonTag, &wallet.WireDepositInformation); err != nil {
 		return err
 	}
 	return nil
@@ -1581,8 +1642,8 @@ func (wireDepositInformation *WireDepositInformation) UnmarshalJSON(d []byte) er
 	data.UnmarshalString(bankNameJsonTag, &wireDepositInformation.BankName)
 	data.UnmarshalString(referenceJsonTag, &wireDepositInformation.Reference)
 	data.UnmarshalString(routingNumberJsonTag, &wireDepositInformation.RoutingNumber)
-	wireDepositInformation.ProtoBankCountry = BankCountry{}
-	if err := data.UnmarshalStruct(bankCountryJsonTag, &wireDepositInformation.ProtoBankCountry); err != nil {
+	wireDepositInformation.BankCountry = BankCountry{}
+	if err := data.UnmarshalStruct(bankCountryJsonTag, &wireDepositInformation.BankCountry); err != nil {
 		return err
 	}
 	return nil
@@ -1602,9 +1663,9 @@ func (withdrawal *Withdrawal) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalFloatFromString(amountJsonTag, &withdrawal.Amount)
-	data.UnmarshalFloatFromString(feeJsonTag, &withdrawal.Fee)
-	data.UnmarshalFloatFromString(subtotalJsonTag, &withdrawal.Subtotal)
+	data.UnmarshalFloatString(amountJsonTag, &withdrawal.Amount)
+	data.UnmarshalFloatString(feeJsonTag, &withdrawal.Fee)
+	data.UnmarshalFloatString(subtotalJsonTag, &withdrawal.Subtotal)
 	data.UnmarshalString(currencyJsonTag, &withdrawal.Currency)
 	data.UnmarshalString(idJsonTag, &withdrawal.Id)
 	data.UnmarshalString(payoutAtJsonTag, &withdrawal.PayoutAt)

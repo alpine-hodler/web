@@ -12,7 +12,7 @@ type Transform interface {
 	Unmarshal(key string, fn func(interface{}) error) error
 	UnmarshalBool(name string, v *bool) error
 	UnmarshalEntryType(name string, v *scalar.EntryType) error
-	UnmarshalFloatFromString(name string, v *float64) error
+	UnmarshalFloatString(name string, v *float64) error
 	UnmarshalFloat(name string, v *float64) error
 	UnmarshalInt64(name string, v *int64) error
 	UnmarshalInt(name string, v *int) error
@@ -32,6 +32,7 @@ type Transform interface {
 	UnmarshalTime(layout string, name string, v *time.Time) error
 	UnmarshalTimeInForce(name string, v *scalar.TimeInForce) error
 	UnmarshalTransferMethod(name string, v *scalar.TransferMethod) error
+	UnmarshalUnixString(name string, v *time.Time) error
 	Value(key string) interface{}
 }
 

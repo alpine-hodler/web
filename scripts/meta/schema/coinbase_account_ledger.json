@@ -43,7 +43,7 @@
 		{
 			"identifier": "amount",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "created_at",
@@ -52,7 +52,7 @@
 		{
 			"identifier": "balance",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "type",

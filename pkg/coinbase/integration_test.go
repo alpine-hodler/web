@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestSimpleAPIIntegration(t *testing.T) {
+func TestSimpleIntegrations(t *testing.T) {
 	env.Load(".simple-test.env")
 	var (
 		client        = NewClient(DefaultConnector)
@@ -48,7 +48,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		_, err = client.AccountTransfers(findAccountID(t, client, currency), nil)
 		return
 	})
-	makeSimpleRequestAssertion(t, "Should GET client.FindConversion", func() (err error) {
+	makeSimpleRequestAssertion(t, "Should GET client.CurrencyConversion", func() (err error) {
 		fromCurrency := "USD"
 		makeAccountDeposit(t, client, fromCurrency, 1)
 		conversion := convertCurrency(t, client, fromCurrency, currency, 1)
@@ -59,7 +59,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		_, err = client.Currencies()
 		return
 	})
-	makeSimpleRequestAssertion(t, "Should GET client.FindCurrency", func() (err error) {
+	makeSimpleRequestAssertion(t, "Should GET client.Currency", func() (err error) {
 		require.NotNil(t, findCurrency(t, client, currency))
 		return
 	})
@@ -93,7 +93,7 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		require.NotNil(t, findProfileByName(t, client, profileName))
 		return
 	})
-	makeSimpleRequestAssertion(t, "Should GET client.FindAccount", func() (err error) {
+	makeSimpleRequestAssertion(t, "Should GET client.Account", func() (err error) {
 		_, err = client.Account(findAccountID(t, client, currency))
 		return
 	})
@@ -105,15 +105,20 @@ func TestSimpleAPIIntegration(t *testing.T) {
 		require.NotNil(t, product)
 		return
 	})
-	makeSimpleRequestAssertion(t, "Should GET client.FindCurrency", func() (err error) {
+	makeSimpleRequestAssertion(t, "Should GET client.Currency", func() (err error) {
 		_, err = client.Currency(currency)
 		return
 	})
-	makeSimpleRequestAssertion(t, "Should GET client.FindTransfer", func() (err error) {
+	makeSimpleRequestAssertion(t, "Should GET client.AccountTransfer", func() (err error) {
 		transfer := makeAccountDeposit(t, client, "USD", 1.0)
 		require.NotNil(t, transfer)
 
 		_, err = client.AccountTransfer(transfer.Id)
+		return
+	})
+	makeSimpleRequestAssertion(t, "Should GET client.SignedPrices", func() (err error) {
+		_, err = client.SignedPrices()
+		require.NoError(t, err)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Transfers", func() (err error) {

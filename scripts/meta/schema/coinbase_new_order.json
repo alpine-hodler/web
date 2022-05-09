@@ -31,21 +31,21 @@
 				{
 					"identifier": "stop_price",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatFromString"
+					"unmarshaller": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "price",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatFromString"
+					"unmarshaller": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "size",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatFromString"
+					"unmarshaller": "UnmarshalFloatString"
 				},
 				{"identifier": "funds",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatFromString"
+					"unmarshaller": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "product_id",
@@ -80,12 +80,12 @@
 		{
 			"identifier": "price",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "size",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "product_id",
@@ -102,12 +102,12 @@
 		{
 			"identifier": "funds",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "specific_funds",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "type",
@@ -144,12 +144,12 @@
 		{
 			"identifier": "fill_fees",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "filled_size",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "status",
@@ -166,12 +166,12 @@
 		{
 			"identifier": "stop_price",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "funding_amount",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		}
 	]
 }

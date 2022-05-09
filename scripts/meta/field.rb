@@ -50,7 +50,7 @@ class Field
   def go_protofield_name
     return go_field_name unless go_struct?
 
-    "Proto#{go_field_name}"
+    "#{go_field_name}"
   end
 
   def go_variable_name

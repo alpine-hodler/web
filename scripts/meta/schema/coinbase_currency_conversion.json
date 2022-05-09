@@ -53,7 +53,7 @@
 		{
 			"identifier": "amount",
 			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatFromString"
+			"unmarshaller": "UnmarshalFloatString"
 		},
 		{
 			"identifier": "from_account_id",

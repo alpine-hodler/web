@@ -28,6 +28,7 @@ const (
 	FeesEndpoint
 	FillsEndpoint
 	NewOrderEndpoint
+	OracleEndpoint
 	OrderEndpoint
 	OrdersEndpoint
 	PaymentMethodDepositEndpoint
@@ -173,6 +174,11 @@ func NewOrderPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
+// Get cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart contract.
+func OraclePath(args client.EndpointArgs) string {
+	return path.Join("/oracle")
+}
+
 // List your current open orders. Only open or un-settled orders are returned by default. As soon as an order is no
 // longer open and settled, it will no longer appear in the default request. Open orders may change state between the
 // request and the response depending on market conditions.
@@ -289,6 +295,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		FeesEndpoint:                    FeesPath,
 		FillsEndpoint:                   FillsPath,
 		NewOrderEndpoint:                NewOrderPath,
+		OracleEndpoint:                  OraclePath,
 		OrdersEndpoint:                  OrdersPath,
 		OrderEndpoint:                   OrderPath,
 		PaymentMethodEndpoint:           PaymentMethodPath,

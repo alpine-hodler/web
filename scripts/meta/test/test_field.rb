@@ -6,7 +6,7 @@ describe Field do
     @field1 = Field.new({
                           identifier: 'id',
                           goType: 'string',
-                          unmarshaller: 'UnmarshalFloatFromString'
+                          unmarshaller: 'UnmarshalFloatString'
                         })
 
     @field2 = Field.new({
@@ -22,7 +22,7 @@ describe Field do
       _(@field1.identifier).must_equal('id')
       _(@field1.go_type).must_equal('string')
       _(@field1.datetime_layout).must_equal('time.RFC3339Nano')
-      _(@field1.deserializer).must_equal('UnmarshalFloatFromString')
+      _(@field1.deserializer).must_equal('UnmarshalFloatString')
       _(@field1.go_field_name).must_equal('Id')
       _(@field1.go_field_tag).must_equal('idJsonTag')
       _(@field1.description).must_equal('')
@@ -45,7 +45,7 @@ describe Field do
 
   describe 'when a field represents a go struct' do
     it 'must return a protofield name' do
-      _(@field2.go_protofield_name).must_equal('ProtoSomeDatetime')
+      _(@field2.go_protofield_name).must_equal('SomeDatetime')
     end
   end
 end

@@ -5,7 +5,7 @@ module GoStruct
   def model_struct
     literals = []
     fields.each do |field|
-      literal = field.description.empty? ? '' : "\n// #{field.description}\n"
+      literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"
       literal += "#{field.go_protofield_name} #{field.go_type}"
       literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"
       literals << literal
@@ -19,7 +19,7 @@ module GoStruct
     return literals unless endpoint.query_params?
 
     endpoint.query_params.each do |field|
-      literal = field.description.empty? ? '' : "\n// #{field.description}\n"
+      literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"
       literal += "#{field.go_protofield_name} #{field.ptr_go_type}"
       literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"
       literals << literal
