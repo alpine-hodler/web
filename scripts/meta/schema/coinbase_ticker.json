@@ -1,7 +1,7 @@
 {
 	"api": "coinbase",
-	"model": "websocket_ticker",
-	"modelDescription": "WebsocketTicker is real-time price updates every time a match happens.  It batches updates in case of cascading matches, greatly reducing bandwidth requirements.",
+	"model": "ticker",
+	"modelDescription": "Ticker is real-time price updates every time a match happens.  It batches updates in case of cascading matches, greatly reducing bandwidth requirements.",
 	"modelOnly": true,
 	"modelFields": [
 		{

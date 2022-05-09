@@ -39,7 +39,7 @@ func TestAsyncTickerStream(t *testing.T) {
 				ticker := newAsyncTicker(mockC)
 				ticker.Open()
 				go func() {
-					tickers := []WebsocketTicker{}
+					tickers := []Ticker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}
@@ -53,7 +53,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
 			go func() {
-				tickers := []WebsocketTicker{}
+				tickers := []Ticker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -78,7 +78,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			for i := 0; i < treshold; i++ {
 				ticker.Open()
 				go func() {
-					tickers := []WebsocketTicker{}
+					tickers := []Ticker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}
@@ -92,7 +92,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			ticker := newAsyncTicker(mockC)
 			ticker.Open()
 			go func() {
-				tickers := []WebsocketTicker{}
+				tickers := []Ticker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -100,7 +100,7 @@ func TestAsyncTickerStream(t *testing.T) {
 			time.Sleep(2 * time.Microsecond)
 			ticker.Open()
 			go func() {
-				tickers := []WebsocketTicker{}
+				tickers := []Ticker{}
 				for ticker := range ticker.Channel() {
 					tickers = append(tickers, ticker)
 				}
@@ -119,7 +119,7 @@ func TestAsyncTickerStream(t *testing.T) {
 					go ticker.Open()
 				}
 				go func() {
-					tickers := []WebsocketTicker{}
+					tickers := []Ticker{}
 					for ticker := range ticker.Channel() {
 						tickers = append(tickers, ticker)
 					}

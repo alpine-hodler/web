@@ -7,7 +7,7 @@ type ProductWebsocket struct {
 }
 
 // Ticker ticker uses the ProductWebsocket connection to query coinbase for ticket data, then it puts that data onto a
-// channel for model.CoinbaseWebsocketTicker
+// channel for model.CoinbaseTicker
 func (productWebsocket *ProductWebsocket) Ticker(products ...string) *AsyncTicker {
 	return newAsyncTicker(productWebsocket.conn, products...)
 }

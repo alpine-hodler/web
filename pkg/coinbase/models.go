@@ -400,6 +400,21 @@ type SwiftDepositInformation struct {
 	Reference        string      `json:"reference" bson:"reference"`
 }
 
+// Ticker is real-time price updates every time a match happens. It batches updates in case of cascading matches,
+// greatly reducing bandwidth requirements.
+type Ticker struct {
+	BestAsk   float64   `json:"best_ask" bson:"best_ask"`
+	BestBid   float64   `json:"best_bid" bson:"best_bid"`
+	LastSize  float64   `json:"last_size" bson:"last_size"`
+	Price     float64   `json:"price" bson:"price"`
+	ProductId string    `json:"product_id" bson:"product_id"`
+	Sequence  int       `json:"sequence" bson:"sequence"`
+	Side      string    `json:"side" bson:"side"`
+	Time      time.Time `json:"time" bson:"time"`
+	TradeId   int       `json:"trade_id" bson:"trade_id"`
+	Type      string    `json:"type" bson:"type"`
+}
+
 // UkDepositInformation information regarding a wallet's deposits.
 type UkDepositInformation struct {
 	AccountAddress   string      `json:"account_address" bson:"account_address"`
@@ -431,21 +446,6 @@ type Wallet struct {
 	ProtoWireDepositInformation  WireDepositInformation  `json:"wire_deposit_information" bson:"wire_deposit_information"`
 	Ready                        bool                    `json:"ready" bson:"ready"`
 	Type                         string                  `json:"type" bson:"type"`
-}
-
-// WebsocketTicker is real-time price updates every time a match happens. It batches updates in case of cascading
-// matches, greatly reducing bandwidth requirements.
-type WebsocketTicker struct {
-	BestAsk   float64   `json:"best_ask" bson:"best_ask"`
-	BestBid   float64   `json:"best_bid" bson:"best_bid"`
-	LastSize  float64   `json:"last_size" bson:"last_size"`
-	Price     float64   `json:"price" bson:"price"`
-	ProductId string    `json:"product_id" bson:"product_id"`
-	Sequence  int       `json:"sequence" bson:"sequence"`
-	Side      string    `json:"side" bson:"side"`
-	Time      time.Time `json:"time" bson:"time"`
-	TradeId   int       `json:"trade_id" bson:"trade_id"`
-	Type      string    `json:"type" bson:"type"`
 }
 
 // WireDepositInformation information regarding a wallet's deposits
@@ -1439,6 +1439,40 @@ func (swiftDepositInformation *SwiftDepositInformation) UnmarshalJSON(d []byte) 
 	return nil
 }
 
+// UnmarshalJSON will deserialize bytes into a Ticker model
+func (ticker *Ticker) UnmarshalJSON(d []byte) error {
+	const (
+		typeJsonTag      = "type"
+		productIdJsonTag = "product_id"
+		tradeIdJsonTag   = "trade_id"
+		sequenceJsonTag  = "sequence"
+		timeJsonTag      = "time"
+		sideJsonTag      = "side"
+		priceJsonTag     = "price"
+		lastSizeJsonTag  = "last_size"
+		bestBidJsonTag   = "best_bid"
+		bestAskJsonTag   = "best_ask"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalFloatFromString(bestAskJsonTag, &ticker.BestAsk)
+	data.UnmarshalFloatFromString(bestBidJsonTag, &ticker.BestBid)
+	data.UnmarshalFloatFromString(lastSizeJsonTag, &ticker.LastSize)
+	data.UnmarshalFloatFromString(priceJsonTag, &ticker.Price)
+	data.UnmarshalInt(sequenceJsonTag, &ticker.Sequence)
+	data.UnmarshalInt(tradeIdJsonTag, &ticker.TradeId)
+	data.UnmarshalString(productIdJsonTag, &ticker.ProductId)
+	data.UnmarshalString(sideJsonTag, &ticker.Side)
+	data.UnmarshalString(typeJsonTag, &ticker.Type)
+	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &ticker.Time)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // UnmarshalJSON will deserialize bytes into a UkDepositInformation model
 func (ukDepositInformation *UkDepositInformation) UnmarshalJSON(d []byte) error {
 	const (
@@ -1519,40 +1553,6 @@ func (wallet *Wallet) UnmarshalJSON(d []byte) error {
 	}
 	wallet.ProtoWireDepositInformation = WireDepositInformation{}
 	if err := data.UnmarshalStruct(wireDepositInformationJsonTag, &wallet.ProtoWireDepositInformation); err != nil {
-		return err
-	}
-	return nil
-}
-
-// UnmarshalJSON will deserialize bytes into a WebsocketTicker model
-func (websocketTicker *WebsocketTicker) UnmarshalJSON(d []byte) error {
-	const (
-		typeJsonTag      = "type"
-		productIdJsonTag = "product_id"
-		tradeIdJsonTag   = "trade_id"
-		sequenceJsonTag  = "sequence"
-		timeJsonTag      = "time"
-		sideJsonTag      = "side"
-		priceJsonTag     = "price"
-		lastSizeJsonTag  = "last_size"
-		bestBidJsonTag   = "best_bid"
-		bestAskJsonTag   = "best_ask"
-	)
-	data, err := serial.NewJSONTransform(d)
-	if err != nil {
-		return err
-	}
-	data.UnmarshalFloatFromString(bestAskJsonTag, &websocketTicker.BestAsk)
-	data.UnmarshalFloatFromString(bestBidJsonTag, &websocketTicker.BestBid)
-	data.UnmarshalFloatFromString(lastSizeJsonTag, &websocketTicker.LastSize)
-	data.UnmarshalFloatFromString(priceJsonTag, &websocketTicker.Price)
-	data.UnmarshalInt(sequenceJsonTag, &websocketTicker.Sequence)
-	data.UnmarshalInt(tradeIdJsonTag, &websocketTicker.TradeId)
-	data.UnmarshalString(productIdJsonTag, &websocketTicker.ProductId)
-	data.UnmarshalString(sideJsonTag, &websocketTicker.Side)
-	data.UnmarshalString(typeJsonTag, &websocketTicker.Type)
-	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &websocketTicker.Time)
-	if err != nil {
 		return err
 	}
 	return nil
