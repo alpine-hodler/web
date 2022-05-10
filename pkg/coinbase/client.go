@@ -365,7 +365,7 @@ func (coinbaseClient *C) CoinbaseAccountDeposit(opts *AccountDepositOptions) (m 
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// CanceCancelOpenOrderslAll will with best effort, cancel all open orders. This may require you to make the request
+// CancelOpenOrders will with best effort, cancel all open orders. This may require you to make the request
 // multiple times until all of the open orders are deleted.
 func (coinbaseClient *C) CancelOpenOrders(opts *OrdersOptions) (m []*string, _ error) {
 	return m, coinbaseClient.Delete(ordersEndpoint).
