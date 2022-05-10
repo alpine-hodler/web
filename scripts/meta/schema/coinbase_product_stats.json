@@ -1,0 +1,44 @@
+{
+	"api": "coinbase",
+	"model": "product_stats",
+	"modelDescription": "ProductStats are 30day and 24hour stats for a product.",
+	"endpoints": [
+		{
+			"path": "/products/{product_id}/stats",
+			"enumRoot": "ProductStats",
+			"description": "Gets 30day and 24hour stats for a product."
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "open",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "high",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "low",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "last",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "volume",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "volume_30day",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		}
+	]
+}

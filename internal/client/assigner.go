@@ -19,6 +19,19 @@ func newAssigner(req *Request) *Assigner {
 
 func (assigner *Assigner) decode(v interface{}) {
 	if !assigner.errors.Any() {
+		// TODO: wrap these debugging tools into the assigner as a logging method, or do something like that.
+		// body, err := ioutil.ReadAll(assigner.body)
+		// if err != nil {
+		// 	panic(err)
+		// }
+
+		// var data map[string]interface{}
+		// if err := json.Unmarshal(body, &data); err != nil {
+		// 	panic(err)
+		// }
+
+		// fmt.Println(data)
+
 		if err := json.NewDecoder(assigner.body).Decode(v); err != nil {
 			assigner.errors.add(err)
 		}

@@ -103,6 +103,11 @@ func TestSimpleIntegrations(t *testing.T) {
 		require.NotEmpty(t, products)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.ProductStats", func() (err error) {
+		stats, err := client.ProductStats(productID)
+		require.NotEmpty(t, stats)
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.Profiles", func() (err error) {
 		require.NotNil(t, findProfileByName(t, client, profileName))
 		return

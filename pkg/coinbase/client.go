@@ -655,9 +655,14 @@ func (coinbaseClient *C) Product(productID string) (m *Product, _ error) {
 	return m, coinbaseClient.Get(ProductEndpoint).PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
 }
 
+// Accounts will return 30day and 24hour stats for a product.
+func (coinbaseClient *C) ProductStats(productID string) (m *ProductStats, _ error) {
+	req := coinbaseClient.Get(ProductStatsEndpoint)
+	return m, req.PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
+}
+
 // Accounts lists all trading accounts from the profile of the API key.
-func (coinbaseClient *C) ProductTicker(
-	productID string) (m *ProductTicker, _ error) {
+func (coinbaseClient *C) ProductTicker(productID string) (m *ProductTicker, _ error) {
 	req := coinbaseClient.Get(ProductTickerEndpoint)
 	return m, req.PathParam("product_id", productID).Fetch().Assign(&m).JoinMessages()
 }

@@ -392,6 +392,16 @@ type Product struct {
 	TradingDisabled       bool          `json:"trading_disabled" bson:"trading_disabled"`
 }
 
+// ProductStats are 30day and 24hour stats for a product.
+type ProductStats struct {
+	High        float64 `json:"high" bson:"high"`
+	Last        float64 `json:"last" bson:"last"`
+	Low         float64 `json:"low" bson:"low"`
+	Open        float64 `json:"open" bson:"open"`
+	Volume      float64 `json:"volume" bson:"volume"`
+	Volume30day float64 `json:"volume_30day" bson:"volume_30day"`
+}
+
 // ProductTicker is a snapshot information about the last trade (tick), best bid/ask and 24h volume.
 type ProductTicker struct {
 	Ask     float64   `json:"ask" bson:"ask"`
@@ -1450,6 +1460,29 @@ func (product *Product) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(idJsonTag, &product.Id)
 	data.UnmarshalString(quoteCurrencyJsonTag, &product.QuoteCurrency)
 	data.UnmarshalString(statusMessageJsonTag, &product.StatusMessage)
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a ProductStats model
+func (productStats *ProductStats) UnmarshalJSON(d []byte) error {
+	const (
+		openJsonTag        = "open"
+		highJsonTag        = "high"
+		lowJsonTag         = "low"
+		lastJsonTag        = "last"
+		volumeJsonTag      = "volume"
+		volume30dayJsonTag = "volume_30day"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalFloatString(highJsonTag, &productStats.High)
+	data.UnmarshalFloatString(lastJsonTag, &productStats.Last)
+	data.UnmarshalFloatString(lowJsonTag, &productStats.Low)
+	data.UnmarshalFloatString(openJsonTag, &productStats.Open)
+	data.UnmarshalFloatString(volume30dayJsonTag, &productStats.Volume30day)
+	data.UnmarshalFloatString(volumeJsonTag, &productStats.Volume)
 	return nil
 }
 

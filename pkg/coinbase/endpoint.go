@@ -37,6 +37,7 @@ const (
 	PaymentMethodEndpoint
 	PaymentMethodWithdrawalEndpoint
 	ProductEndpoint
+	ProductStatsEndpoint
 	ProductTickerEndpoint
 	ProductsEndpoint
 	ProfilesEndpoint
@@ -234,6 +235,11 @@ func ProductPath(args client.EndpointArgs) string {
 	return path.Join("/products", *args["product_id"].PathParam)
 }
 
+// Gets 30day and 24hour stats for a product.
+func ProductStatsPath(args client.EndpointArgs) string {
+	return path.Join("/products", *args["product_id"].PathParam, "stats")
+}
+
 // Gets snapshot information about the last trade (tick), best bid/ask and 24h volume.
 func ProductTickerPath(args client.EndpointArgs) string {
 	return path.Join("/products", *args["product_id"].PathParam, "ticker")
@@ -323,6 +329,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		PaymentMethodEndpoint:           PaymentMethodPath,
 		ProductsEndpoint:                ProductsPath,
 		ProductEndpoint:                 ProductPath,
+		ProductStatsEndpoint:            ProductStatsPath,
 		ProductTickerEndpoint:           ProductTickerPath,
 		ProfilesEndpoint:                ProfilesPath,
 		WalletsEndpoint:                 WalletsPath,
