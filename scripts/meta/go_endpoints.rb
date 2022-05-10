@@ -5,25 +5,25 @@ require_relative 'comment'
 # GoEndpoints is responsible for methods that generate the endpoint.go code in
 # sdk packages
 module GoEndpoints
-  ENDPOINT_TYPE = "\ntype Endpoint uint8;"
+  ENDPOINT_TYPE = "\ntype endpoint uint8;"
   MSG = "\n// * This is a generated file, do not edit"
   GET_MSG = 'Get takes an endpoint const and endpoint arguments to parse the URL endpoint path.'
 
   def self.endpoint_consts(endpoints)
-    consts = ['_ Endpoint = iota'] | endpoints.dup.map { |ep| ep.go_const }.sort
+    consts = ['_ endpoint = iota'] | endpoints.dup.map { |ep| ep.go_const }.sort
     "const(#{consts.join(';')})"
   end
 
   def get_function(endpoints)
     mappings = endpoints.dup.map { |ep| "#{ep.go_const}: #{ep.enum_root}Path," }
     comment = Comment.u_format_go_comment(GET_MSG)
-    rec = "\n#{comment}\nfunc (endpoint Endpoint)"
+    rec = "\n#{comment}\nfunc (ep endpoint)"
     sig = 'Path(args client.EndpointArgs) string'
 
-    map = 'map[Endpoint]func(args client.EndpointArgs) string'
+    map = 'map[endpoint]func(args client.EndpointArgs) string'
     wrapper = "#{map}{\n#{mappings.join("\n")}\n}"
 
-    "#{rec} #{sig} {return #{wrapper}[endpoint](args)};"
+    "#{rec} #{sig} {return #{wrapper}[ep](args)};"
   end
 
   def self.pkg_name(api)

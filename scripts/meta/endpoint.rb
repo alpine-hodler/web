@@ -26,8 +26,8 @@ class Endpoint
 
     @hash = hash
     @path = hash[:path]
-    @enum_root = hash[:enumRoot]
-    @go_const = "#{enum_root.to_pascal}Endpoint"
+    @enum_root = hash[:enumRoot].to_camel
+    @go_const = "#{enum_root.to_camel}Endpoint"
     @description = hash[:description] || ''
 
     gql_base = "#{api}_#{enum_root.to_snake}_options"

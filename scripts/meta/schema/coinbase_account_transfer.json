@@ -49,22 +49,22 @@
 		{
 			"identifier": "created_at",
 			"goType": "time.Time",
-			"datetimeLayout": "CoinbaseTimeLayout1"
+			"datetimeLayout": "coinbaseTimeLayout1"
 		},
 		{
 			"identifier": "completed_at",
 			"goType": "time.Time",
-			"datetimeLayout": "CoinbaseTimeLayout1"
+			"datetimeLayout": "coinbaseTimeLayout1"
 		},
 		{
 			"identifier": "canceled_at",
 			"goType": "time.Time",
-			"datetimeLayout": "CoinbaseTimeLayout1"
+			"datetimeLayout": "coinbaseTimeLayout1"
 		},
 		{
 			"identifier": "processed_at",
 			"goType": "time.Time",
-			"datetimeLayout": "CoinbaseTimeLayout1"
+			"datetimeLayout": "coinbaseTimeLayout1"
 		},
 		{
 			"identifier": "amount",

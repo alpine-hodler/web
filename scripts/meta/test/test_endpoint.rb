@@ -5,7 +5,7 @@ describe Endpoint do
   before do
     @endpoint1 = Endpoint.new('test_api', {
                                 path: 'some/{path_id}',
-                                enumRoot: 'SomeEnumRoot',
+                                enumRoot: 'someEnumRoot',
                                 description: 'some description',
                                 queryParams: [
                                   {
@@ -22,7 +22,7 @@ describe Endpoint do
 
     @endpoint2 = Endpoint.new('test_api', {
                                 path: 'some/{path_id}',
-                                enumRoot: 'SomeEnumRoot',
+                                enumRoot: 'someEnumRoot',
                                 description: 'some description'
                               })
   end
@@ -30,8 +30,8 @@ describe Endpoint do
   describe 'when parsing data from the list' do
     it 'must initialize accessors' do
       _(@endpoint1.path).must_equal('some/{path_id}')
-      _(@endpoint1.enum_root).must_equal('SomeEnumRoot')
-      _(@endpoint1.go_const).must_equal('SomeEnumRootEndpoint')
+      _(@endpoint1.enum_root).must_equal('someEnumRoot')
+      _(@endpoint1.go_const).must_equal('someEnumRootEndpoint')
       _(@endpoint1.description).must_equal('some description')
       _(@endpoint1.graphql_model_name).must_equal('TestApiSomeEnumRootOptions')
       _(@endpoint1.graphql_query_param_filename).must_equal('test_api_some_enum_root_options.graphqls')

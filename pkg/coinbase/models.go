@@ -657,19 +657,19 @@ func (accountTransfer *AccountTransfer) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(idJsonTag, &accountTransfer.Id)
 	data.UnmarshalString(typeJsonTag, &accountTransfer.Type)
 	data.UnmarshalString(userNonceJsonTag, &accountTransfer.UserNonce)
-	err = data.UnmarshalTime(CoinbaseTimeLayout1, canceledAtJsonTag, &accountTransfer.CanceledAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, canceledAtJsonTag, &accountTransfer.CanceledAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(CoinbaseTimeLayout1, completedAtJsonTag, &accountTransfer.CompletedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, completedAtJsonTag, &accountTransfer.CompletedAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(CoinbaseTimeLayout1, createdAtJsonTag, &accountTransfer.CreatedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, createdAtJsonTag, &accountTransfer.CreatedAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(CoinbaseTimeLayout1, processedAtJsonTag, &accountTransfer.ProcessedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, processedAtJsonTag, &accountTransfer.ProcessedAt)
 	if err != nil {
 		return err
 	}
