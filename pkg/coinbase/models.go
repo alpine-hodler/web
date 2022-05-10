@@ -111,6 +111,10 @@ type Book struct {
 	Sequence    float64       `json:"sequence" bson:"sequence"`
 }
 
+// Candles are the historic rates for a product. Rates are returned in grouped buckets. Candle schema is of the form
+// `[timestamp, price_low, price_high, price_open, price_close]`
+type Candles [][]float64
+
 // CryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
 type CryptoAccount struct {
 	Id           string `json:"id" bson:"id"`

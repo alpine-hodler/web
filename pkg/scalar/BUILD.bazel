@@ -6,6 +6,7 @@ go_library(
         "bid_ask.go",
         "cancel_after.go",
         "entry_type.go",
+        "granularity.go",
         "order_cancel_time.go",
         "order_side.go",
         "order_stop.go",

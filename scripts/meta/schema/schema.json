@@ -75,6 +75,10 @@
 				}
 			}
 		},
+		"nonStruct": {
+			"type": "string",
+			"description": "The type of the model if it's not a struct."
+		},
 		"modelFields": {
 			"type": "array",
 			"description": "Fields to generate golang packages to store and access data from iex api requests",

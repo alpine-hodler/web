@@ -21,6 +21,7 @@ const (
 	AccountsEndpoint
 	AddressesEndpoint
 	BookEndpoint
+	CandlesEndpoint
 	ConversionEndpoint
 	ConversionsEndpoint
 	CryptoWithdrawalEndpoint
@@ -99,6 +100,15 @@ func TransferPath(args client.EndpointArgs) string {
 // Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.
 func BookPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/products", *args["product_id"].PathParam, "book")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
+}
+
+// Get the historic rates for a product
+func CandlesPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/products", *args["product_id"].PathParam, "candles")
 	var sb strings.Builder
 	sb.WriteString(p)
 	sb.WriteString(args.QueryPath().String())
@@ -296,6 +306,7 @@ func (endpoint Endpoint) Path(args client.EndpointArgs) string {
 		TransfersEndpoint:               TransfersPath,
 		TransferEndpoint:                TransferPath,
 		BookEndpoint:                    BookPath,
+		CandlesEndpoint:                 CandlesPath,
 		AddressesEndpoint:               AddressesPath,
 		CurrenciesEndpoint:              CurrenciesPath,
 		CurrencyEndpoint:                CurrencyPath,

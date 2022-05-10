@@ -27,7 +27,8 @@ class Scheme
     :filename,
     :fields,
     :endpoints,
-    :go_model_variable_name
+    :go_model_variable_name,
+		:non_struct
 
   include Comment
   include Unmarshaller
@@ -45,6 +46,7 @@ class Scheme
     @filename = filename
     @model = hash[:model].to_s
     @model_only = hash[:modelOnly] || false
+		@non_struct = hash[:nonStruct]
 
     @go_comment = format_go_comment(@description)
     @go_model_filename = "#{@model}.go"

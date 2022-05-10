@@ -286,6 +286,17 @@ func (coinbaseClient *C) AccountTransfers(accountId string,
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// AccountWithdrawal Withdraws funds from the specified profile_id to a www.coinbase.com wallet.
+func (coinbaseClient *C) AccountWithdrawal(opts *AccountWithdrawalOptions) (m *Withdrawal, _ error) {
+	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
+		Body(client.NewBody(client.BodyTypeJSON).
+			SetString("profile_id", opts.ProfileId).
+			SetFloat("amount", &opts.Amount).
+			SetString("coinbase_account_id", &opts.CoinbaseAccountId).
+			SetString("currency", &opts.Currency)).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // Accont returns information for a single account. Use this endpoint when you know the account_id. API key must
 // belong to the same profile as the account.
 func (coinbaseClient *C) Book(productID string, opts *BookOptions) (m *Book, _ error) {
@@ -299,14 +310,31 @@ func (coinbaseClient *C) Book(productID string, opts *BookOptions) (m *Book, _ e
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// AccountWithdrawal Withdraws funds from the specified profile_id to a www.coinbase.com wallet.
-func (coinbaseClient *C) AccountWithdrawal(opts *AccountWithdrawalOptions) (m *Withdrawal, _ error) {
-	return m, coinbaseClient.Post(AccountWithdrawalEndpoint).
-		Body(client.NewBody(client.BodyTypeJSON).
-			SetString("profile_id", opts.ProfileId).
-			SetFloat("amount", &opts.Amount).
-			SetString("coinbase_account_id", &opts.CoinbaseAccountId).
-			SetString("currency", &opts.Currency)).
+// Candles gets the historic rates for a product. Rates are returned in grouped buckets.
+func (coinbaseClient *C) Candles(productID string, opts *CandlesOptions) (m *Candles, _ error) {
+	return m, coinbaseClient.Get(CandlesEndpoint).
+		PathParam("product_id", productID).
+		QueryParam("granularity", func() (i *string) {
+			if opts != nil {
+				granularity := opts.Granularity.Int()
+				i = tools.IntPtrStringPtr(&granularity)
+			}
+			return
+		}()).
+		QueryParam("start", func() (i *string) {
+			if opts != nil && opts.Start != nil {
+				start := opts.Start.Format(CoinbaseTimeLayout1)
+				i = &start
+			}
+			return
+		}()).
+		QueryParam("end", func() (i *string) {
+			if opts != nil && opts.End != nil {
+				end := opts.End.Format(CoinbaseTimeLayout1)
+				i = &end
+			}
+			return
+		}()).
 		Fetch().Assign(&m).JoinMessages()
 }
 

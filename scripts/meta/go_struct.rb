@@ -3,6 +3,8 @@
 # GoStruct will build the go struct scheme.
 module GoStruct
   def model_struct
+    return "\n#{go_comment}\ntype #{go_model_name} #{non_struct}\n" unless non_struct.nil?
+
     literals = []
     fields.each do |field|
       literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"

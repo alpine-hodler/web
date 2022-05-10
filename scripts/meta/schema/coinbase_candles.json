@@ -1,0 +1,28 @@
+{
+	"api": "coinbase",
+	"model": "candles",
+	"modelDescription": "Candles are the historic rates for a product. Rates are returned in grouped buckets. Candle schema is of the form `[timestamp, price_low, price_high, price_open, price_close]`",
+	"endpoints": [
+		{
+			"path": "/products/{product_id}/candles",
+			"enumRoot": "Candles",
+			"description": "Get the historic rates for a product",
+			"queryParams": [
+				{
+					"identifier": "granularity",
+					"goType": "scalar.Granularity"
+				},
+				{
+					"identifier": "start",
+					"goType": "time.Time"
+				},
+				{
+					"identifier": "end",
+					"goType": "time.Time"
+				}
+			]
+		}
+	],
+	"nonStruct": "[][]float64",
+	"modelFields": []
+}

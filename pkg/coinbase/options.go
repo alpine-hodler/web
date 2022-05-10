@@ -47,6 +47,13 @@ type BookOptions struct {
 	Level *int32 `json:"level" bson:"level"`
 }
 
+// CandlesOptions are options for API requests.
+type CandlesOptions struct {
+	End         *time.Time          `json:"end" bson:"end"`
+	Granularity *scalar.Granularity `json:"granularity" bson:"granularity"`
+	Start       *time.Time          `json:"start" bson:"start"`
+}
+
 // ConversionsOptions are options for API requests.
 type ConversionsOptions struct {
 	Amount    float64 `json:"amount" bson:"amount"`
@@ -245,6 +252,24 @@ func (opts *AccountTransfersOptions) SetType(typ string) *AccountTransfersOption
 // SetLevel sets the Level field on BookOptions.
 func (opts *BookOptions) SetLevel(level int32) *BookOptions {
 	opts.Level = &level
+	return opts
+}
+
+// SetGranularity sets the Granularity field on CandlesOptions.
+func (opts *CandlesOptions) SetGranularity(granularity scalar.Granularity) *CandlesOptions {
+	opts.Granularity = &granularity
+	return opts
+}
+
+// SetStart sets the Start field on CandlesOptions.
+func (opts *CandlesOptions) SetStart(start time.Time) *CandlesOptions {
+	opts.Start = &start
+	return opts
+}
+
+// SetEnd sets the End field on CandlesOptions.
+func (opts *CandlesOptions) SetEnd(end time.Time) *CandlesOptions {
+	opts.End = &end
 	return opts
 }
 

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/alpine-hodler/sdk/internal/env"
+	"github.com/alpine-hodler/sdk/pkg/scalar"
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,6 +52,11 @@ func TestSimpleIntegrations(t *testing.T) {
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Book", func() (err error) {
 		_, err = client.Book(productID, new(BookOptions).SetLevel(1))
+		return
+	})
+	makeSimpleRequestAssertion(t, "Should GET client.Candles", func() (err error) {
+		candles, err := client.Candles(productID, new(CandlesOptions).SetGranularity(scalar.Seconds60))
+		require.NotEmpty(t, candles)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.CurrencyConversion", func() (err error) {
@@ -111,10 +117,6 @@ func TestSimpleIntegrations(t *testing.T) {
 
 		product, err := client.Product(products[0].Id)
 		require.NotNil(t, product)
-		return
-	})
-	makeSimpleRequestAssertion(t, "Should GET client.Currency", func() (err error) {
-		_, err = client.Currency(currency)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.AccountTransfer", func() (err error) {

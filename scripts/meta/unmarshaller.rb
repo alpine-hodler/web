@@ -27,8 +27,8 @@ module Unmarshaller
   end
 
   def time_deserializer(field)
-		sig = [field.datetime_layout, field.go_field_tag, "&#{struct_access_variable(field)}"]
-		["err = data.UnmarshalTime(#{sig.join(',')})", RETURN_ERR].join(';')
+    sig = [field.datetime_layout, field.go_field_tag, "&#{struct_access_variable(field)}"]
+    ["err = data.UnmarshalTime(#{sig.join(',')})", RETURN_ERR].join(';')
   end
 
   def scalar_deserializer(field, sig)
@@ -55,12 +55,12 @@ module Unmarshaller
   end
 
   def get_deserializer(field, sig)
-		# if the deserializer is passed into the field via the schema, then just type it exactly.  Otherwise, just use the
-		# default type deserializer.
+    # if the deserializer is passed into the field via the schema, then just type it exactly.  Otherwise, just use the
+    # default type deserializer.
     unless field.deserializer.nil?
       sig = [field.go_field_tag, "&#{struct_access_variable(field)}"]
       return ["err = data.#{field.deserializer}(#{sig.join(',')})", RETURN_ERR].join(';')
-		end
+    end
     {
       'string' => "\ndata.UnmarshalString(#{sig})",
       'bool' => "\ndata.UnmarshalBool(#{sig})",
@@ -90,6 +90,8 @@ module Unmarshaller
   public
 
   def unmarshaller
+    return '' unless non_struct.nil?
+
     fn = [constantize_json_go_tags, SERIAL_DECLARATION, deserializers]
 
     comment = format_go_comment("UnmarshalJSON will deserialize bytes into a #{go_model_name} model")
