@@ -35,6 +35,8 @@ module GoHTTP
   end
 
   def return_args(endpoint)
+		return "error" if endpoint.no_assignment?
+
     val = if endpoint.return_type.nil?
             endpoint.slice ? "[]*#{go_model_name}" : "*#{go_model_name}"
           else
@@ -44,7 +46,9 @@ module GoHTTP
     "(#{RETURL_ALIAS} #{val}, _ error)"
   end
 
-  def fetch_call(_endpoint)
+  def fetch_call(endpoint)
+		return "Fetch().NoAssignment().JoinMessages()" if endpoint.no_assignment?
+
     "Fetch().Assign(&#{RETURL_ALIAS}).JoinMessages()"
   end
 
@@ -81,6 +85,8 @@ module GoHTTP
       body_call(endpoint),
       fetch_call(endpoint)
     ].flatten.compact
+		return "return #{calls.join(".\n")}" if endpoint.no_assignment?
+
     "return #{RETURL_ALIAS}, #{calls.join(".\n")}"
   end
 

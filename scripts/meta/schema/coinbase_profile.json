@@ -15,6 +15,43 @@
 					"goType": "bool"
 				}
 			]
+		},
+		{
+			"path": "/profiles",
+			"httpMethod": "POST",
+			"enumRoot": "CreateProfile",
+			"description": "CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of profiles.",
+			"body": [
+				{
+					"identifier": "name",
+					"goType": "string"
+				}
+			]
+		},
+		{
+			"path": "/profiles/transfer",
+			"httpMethod": "POST",
+			"enumRoot": "CreateProfileTransfer",
+			"returnType": "none",
+			"description": "CreateProfileTransfer will transfer an amount of currency from one profile to another.  This endpoint requires the \"transfer\" permission.",
+			"body": [
+				{
+					"identifier": "from",
+					"goType": "string"
+				},
+				{
+					"identifier": "to",
+					"goType": "string"
+				},
+				{
+					"identifier": "currency",
+					"goType": "string"
+				},
+				{
+					"identifier": "amount",
+					"goType": "string"
+				}
+			]
 		}
 	],
 	"modelFields": [

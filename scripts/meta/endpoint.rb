@@ -74,6 +74,10 @@ class Endpoint
     !@query_params.empty?
   end
 
+	def no_assignment?
+		@return_type == "none"
+	end
+
   private
 
   def set_path_parts

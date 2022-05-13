@@ -143,6 +143,19 @@ type ProfilesOptions struct {
 	Active *bool `json:"active" bson:"active"`
 }
 
+// CreateProfileOptions are options for API requests.
+type CreateProfileOptions struct {
+	Name *string `json:"name" bson:"name"`
+}
+
+// CreateProfileTransferOptions are options for API requests.
+type CreateProfileTransferOptions struct {
+	Amount   *string `json:"amount" bson:"amount"`
+	Currency *string `json:"currency" bson:"currency"`
+	From     *string `json:"from" bson:"from"`
+	To       *string `json:"to" bson:"to"`
+}
+
 // TradesOptions are options for API requests.
 type TradesOptions struct {
 	After  *int32 `json:"after" bson:"after"`
@@ -374,6 +387,36 @@ func (opts *ConvertCurrencyOptions) SetAmount(amount float64) *ConvertCurrencyOp
 // SetNonce sets the Nonce field on ConvertCurrencyOptions.
 func (opts *ConvertCurrencyOptions) SetNonce(nonce string) *ConvertCurrencyOptions {
 	opts.Nonce = &nonce
+	return opts
+}
+
+// SetName sets the Name field on CreateProfileOptions.
+func (opts *CreateProfileOptions) SetName(name string) *CreateProfileOptions {
+	opts.Name = &name
+	return opts
+}
+
+// SetFrom sets the From field on CreateProfileTransferOptions.
+func (opts *CreateProfileTransferOptions) SetFrom(from string) *CreateProfileTransferOptions {
+	opts.From = &from
+	return opts
+}
+
+// SetTo sets the To field on CreateProfileTransferOptions.
+func (opts *CreateProfileTransferOptions) SetTo(to string) *CreateProfileTransferOptions {
+	opts.To = &to
+	return opts
+}
+
+// SetCurrency sets the Currency field on CreateProfileTransferOptions.
+func (opts *CreateProfileTransferOptions) SetCurrency(currency string) *CreateProfileTransferOptions {
+	opts.Currency = &currency
+	return opts
+}
+
+// SetAmount sets the Amount field on CreateProfileTransferOptions.
+func (opts *CreateProfileTransferOptions) SetAmount(amount string) *CreateProfileTransferOptions {
+	opts.Amount = &amount
 	return opts
 }
 
@@ -736,6 +779,23 @@ func (opts *ConvertCurrencyOptions) SetBody(req *client.Request) {
 		SetBodyString("to", &opts.To).
 		SetBodyFloat("amount", &opts.Amount).
 		SetBodyString("nonce", opts.Nonce)
+}
+
+func (opts *CreateProfileOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("name", opts.Name)
+}
+
+func (opts *CreateProfileTransferOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("from", opts.From).
+		SetBodyString("to", opts.To).
+		SetBodyString("currency", opts.Currency).
+		SetBodyString("amount", opts.Amount)
 }
 
 func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {

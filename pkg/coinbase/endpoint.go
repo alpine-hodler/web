@@ -25,6 +25,8 @@ const (
 	candlesEndpoint
 	coinbaseAccountDepositEndpoint
 	convertCurrencyEndpoint
+	createProfileEndpoint
+	createProfileTransferEndpoint
 	cryptoWithdrawalEndpoint
 	currenciesEndpoint
 	currencyConversionEndpoint
@@ -257,6 +259,18 @@ func profilesPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
+// CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of
+// profiles.
+func createProfilePath(args client.EndpointArgs) string {
+	return path.Join("/profiles")
+}
+
+// CreateProfileTransfer will transfer an amount of currency from one profile to another. This endpoint requires the
+// "transfer" permission.
+func createProfileTransferPath(args client.EndpointArgs) string {
+	return path.Join("/profiles", "transfer")
+}
+
 // Gets a list the latest trades for a product.
 func tradesPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/products", *args["product_id"].PathParam, "trades")
@@ -334,6 +348,8 @@ func (ep endpoint) Path(args client.EndpointArgs) string {
 		productStatsEndpoint:            productStatsPath,
 		productTickerEndpoint:           productTickerPath,
 		profilesEndpoint:                profilesPath,
+		createProfileEndpoint:           createProfilePath,
+		createProfileTransferEndpoint:   createProfileTransferPath,
 		tradesEndpoint:                  tradesPath,
 		walletsEndpoint:                 walletsPath,
 		accountWithdrawalEndpoint:       accountWithdrawalPath,

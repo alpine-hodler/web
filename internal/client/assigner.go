@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"io"
+	"time"
 )
 
 // Assigner is a struct that embeds a request, giving it access to all the request methods and data.  It serves as a
@@ -17,6 +18,17 @@ func newAssigner(req *Request) *Assigner {
 	return assigner
 }
 
+// Profile represents a profile to interact with the API.
+type Profile struct {
+	Active    bool      `json:"active" bson:"active"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
+	HasMargin bool      `json:"has_margin" bson:"has_margin"`
+	Id        string    `json:"id" bson:"id"`
+	IsDefault bool      `json:"is_default" bson:"is_default"`
+	Name      string    `json:"name" bson:"name"`
+	UserId    string    `json:"user_id" bson:"user_id"`
+}
+
 func (assigner *Assigner) decode(v interface{}) {
 	if !assigner.errors.Any() {
 		// TODO: wrap these debugging tools into the assigner as a logging method, or do something like that.
@@ -25,9 +37,13 @@ func (assigner *Assigner) decode(v interface{}) {
 		// 	panic(err)
 		// }
 
-		// var data map[string]interface{}
+		// var data error
 		// if err := json.Unmarshal(body, &data); err != nil {
-		// 	panic(err)
+		// 	log.Printf("error decoding sakura response: %v", err)
+		// 	if e, ok := err.(*json.SyntaxError); ok {
+		// 		log.Printf("syntax error at byte offset %d", e.Offset)
+		// 	}
+		// 	log.Printf("sakura response: %q", body)
 		// }
 
 		// fmt.Println(data)
@@ -55,5 +71,15 @@ func (assigner *Assigner) Assign(v interface{}) *Errors {
 	}()
 	assigner.decode(v)
 	assigner.runAssignmentCallback(v)
+	return assigner.errors
+}
+
+func (assigner *Assigner) NoAssignment() *Errors {
+	defer func() {
+		if body := assigner.body; body != nil {
+			body.Close()
+		}
+	}()
+	assigner.runAssignmentCallback(nil)
 	return assigner.errors
 }

@@ -179,6 +179,23 @@ func TestSimpleIntegrations(t *testing.T) {
 		makeNewOrder(t, client, "BTC-USD", profile)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should POST client.CreateProfile", func() (err error) {
+		// TODO: Fix {Message:Invalid scope Status:403 Forbidden StatusCode:Forbidden}
+		// _, err = client.CreateProfile(new(CreateProfileOptions).SetName("test"))
+		return
+	})
+	makeSimpleRequestAssertion(t, "Should POST client.CreateProfileTransfer", func() (err error) {
+		// TODO: count the amount before and then after and make sure their difference is 1.
+		profile1 := findProfileByName(t, client, profileName)
+		profile2 := findProfileByName(t, client, "Simple Test")
+		makeAccountDeposit(t, client, "USDC", 1.0)
+		err = client.CreateProfileTransfer(new(CreateProfileTransferOptions).
+			SetFrom(profile1.Id).
+			SetTo(profile2.Id).
+			SetCurrency("USD").
+			SetAmount("1"))
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should POST client.PaymentMethodDeposit", func() (err error) {
 		makeAccountDeposit(t, client, currency, 1)
 		makeCryptoWithdrawal(t, client, currency, 1)

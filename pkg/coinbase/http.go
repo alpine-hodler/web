@@ -109,6 +109,22 @@ func (c *C) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConversion
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of
+// profiles.
+func (c *C) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error) {
+	return m, c.Post(createProfileEndpoint).
+		SetBody(client.BodyTypeJSON, opts).
+		Fetch().Assign(&m).JoinMessages()
+}
+
+// CreateProfileTransfer will transfer an amount of currency from one profile to another. This endpoint requires the
+// "transfer" permission.
+func (c *C) CreateProfileTransfer(opts *CreateProfileTransferOptions) error {
+	return c.Post(createProfileTransferEndpoint).
+		SetBody(client.BodyTypeJSON, opts).
+		Fetch().NoAssignment().JoinMessages()
+}
+
 // Withdraws funds from the specified profile_id to an external crypto address. This endpoint requires the "transfer"
 // permission. API key must belong to default profile.
 func (c *C) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal, _ error) {
