@@ -4,6 +4,18 @@
 	"modelDescription": "Profile represents a profile to interact with the API.",
 	"endpoints": [
 		{
+			"path": "/profiles/{profile_id}",
+			"httpMethod": "GET",
+			"enumRoot": "Profile",
+			"description": "Profile returns information for a single profile. Use this endpoint when you know the profile_id.  This endpoint requires the \"view\" permission and is accessible by any profile's API key.",
+			"queryParams": [
+				{
+					"identifier": "active",
+					"goType": "bool"
+				}
+			]
+		},
+		{
 			"path": "/profiles",
 			"httpMethod": "GET",
 			"enumRoot": "Profiles",

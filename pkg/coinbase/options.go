@@ -138,6 +138,11 @@ type ProductsOptions struct {
 	Type *string `json:"type" bson:"type"`
 }
 
+// ProfileOptions are options for API requests.
+type ProfileOptions struct {
+	Active *bool `json:"active" bson:"active"`
+}
+
 // ProfilesOptions are options for API requests.
 type ProfilesOptions struct {
 	Active *bool `json:"active" bson:"active"`
@@ -714,6 +719,12 @@ func (opts *ProductsOptions) SetType(typ string) *ProductsOptions {
 	return opts
 }
 
+// SetActive sets the Active field on ProfileOptions.
+func (opts *ProfileOptions) SetActive(active bool) *ProfileOptions {
+	opts.Active = &active
+	return opts
+}
+
 // SetActive sets the Active field on ProfilesOptions.
 func (opts *ProfilesOptions) SetActive(active bool) *ProfilesOptions {
 	opts.Active = &active
@@ -947,6 +958,13 @@ func (opts *ProductsOptions) SetQueryParams(req *client.Request) {
 		return
 	}
 	req.SetQueryParamString("type", opts.Type)
+}
+
+func (opts *ProfileOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamBool("active", opts.Active)
 }
 
 func (opts *ProfilesOptions) SetQueryParams(req *client.Request) {

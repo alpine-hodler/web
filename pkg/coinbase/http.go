@@ -249,6 +249,15 @@ func (c *C) Products(opts *ProductsOptions) (m []*Product, _ error) {
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// Profile returns information for a single profile. Use this endpoint when you know the profile_id. This endpoint
+// requires the "view" permission and is accessible by any profile's API key.
+func (c *C) Profile(profileId string, opts *ProfileOptions) (m *Profile, _ error) {
+	return m, c.Get(profileEndpoint).
+		PathParam("profile_id", profileId).
+		SetQueryParams(opts).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // Gets a list of all of the current user's profiles.
 func (c *C) Profiles(opts *ProfilesOptions) (m []*Profile, _ error) {
 	return m, c.Get(profilesEndpoint).

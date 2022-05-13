@@ -124,6 +124,10 @@ func TestSimpleIntegrations(t *testing.T) {
 		require.NotNil(t, product)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.Profile", func() (err error) {
+		_, err = client.Profile(findProfileByName(t, client, profileName).Id, nil)
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.AccountTransfer", func() (err error) {
 		transfer := makeAccountDeposit(t, client, "USD", 1.0)
 		require.NotNil(t, transfer)

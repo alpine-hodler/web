@@ -44,6 +44,7 @@ const (
 	productStatsEndpoint
 	productTickerEndpoint
 	productsEndpoint
+	profileEndpoint
 	profilesEndpoint
 	signedPricesEndpoint
 	tradesEndpoint
@@ -250,6 +251,16 @@ func productTickerPath(args client.EndpointArgs) string {
 	return path.Join("/products", *args["product_id"].PathParam, "ticker")
 }
 
+// Profile returns information for a single profile. Use this endpoint when you know the profile_id. This endpoint
+// requires the "view" permission and is accessible by any profile's API key.
+func profilePath(args client.EndpointArgs) (p string) {
+	p = path.Join("/profiles", *args["profile_id"].PathParam)
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
+}
+
 // Gets a list of all of the current user's profiles.
 func profilesPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/profiles")
@@ -347,6 +358,7 @@ func (ep endpoint) Path(args client.EndpointArgs) string {
 		productEndpoint:                 productPath,
 		productStatsEndpoint:            productStatsPath,
 		productTickerEndpoint:           productTickerPath,
+		profileEndpoint:                 profilePath,
 		profilesEndpoint:                profilesPath,
 		createProfileEndpoint:           createProfilePath,
 		createProfileTransferEndpoint:   createProfileTransferPath,
