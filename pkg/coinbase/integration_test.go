@@ -133,7 +133,11 @@ func TestSimpleIntegrations(t *testing.T) {
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.SignedPrices", func() (err error) {
 		_, err = client.SignedPrices()
-		require.NoError(t, err)
+		return
+	})
+	makeSimpleRequestAssertion(t, "Should GET client.Trades", func() (err error) {
+		trades, err := client.Trades(productID, nil)
+		require.NotEmpty(t, trades)
 		return
 	})
 	makeSimpleRequestAssertion(t, "Should GET client.Transfers", func() (err error) {
