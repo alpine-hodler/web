@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/accounts/{account_id}/ledger",
+			"httpMethod": "GET",
 			"enumRoot": "AccountLedger",
+			"slice": true,
 			"queryParams": [
 				{
 					"identifier": "start_date",

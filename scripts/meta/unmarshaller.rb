@@ -66,6 +66,7 @@ module Unmarshaller
       'bool' => "\ndata.UnmarshalBool(#{sig})",
       'time.Time' => "\n#{time_deserializer(field)}",
       'int' => "\ndata.UnmarshalInt(#{sig})",
+			'int32' => "\ndata.UnmarshalInt32(#{sig})",
       '[]string' => "\ndata.UnmarshalStringSlice(#{sig})",
       'float64' => "\ndata.UnmarshalFloat(#{sig})"
     }[field.go_type]

@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/fees",
+			"httpMethod": "GET",
 			"enumRoot": "Fees",
 			"description": "Get fees rates and 30 days trailing volume."
 		}

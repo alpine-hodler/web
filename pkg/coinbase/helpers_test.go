@@ -8,12 +8,12 @@ import (
 )
 
 func convertCurrency(t *testing.T, client *C, from, to string, amount float64) *CurrencyConversion {
-	opts := new(ConversionsOptions).
+	opts := new(ConvertCurrencyOptions).
 		SetProfileId(findProfileID(t, client, from)).
 		SetFrom(from).
 		SetTo(to).
 		SetAmount(amount)
-	conversion, err := client.Convert(opts)
+	conversion, err := client.ConvertCurrency(opts)
 	require.NoError(t, err)
 	return conversion
 }
@@ -99,7 +99,7 @@ func generateCryptoAddress(t *testing.T, client *C, currency string) string {
 }
 
 func makeAccountDeposit(t *testing.T, client *C, currency string, amount float64) *Deposit {
-	opts := new(AccountDepositOptions).
+	opts := new(CoinbaseAccountDepositOptions).
 		SetCoinbaseAccountId(findWalletID(t, client, currency)).
 		SetAmount(amount).
 		SetCurrency(currency)
@@ -139,7 +139,7 @@ func makeNewOrder(t *testing.T, client *C, productID string, profile *Profile) *
 		SetStopPrice(1.0).
 		SetSize(1.0).
 		SetPrice(1.0)
-	order, err := client.CreateOrder(opts)
+	order, err := client.NewOrder(opts)
 	require.NoError(t, err)
 	return order
 }

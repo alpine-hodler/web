@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/coinbase-accounts",
+			"httpMethod": "GET",
 			"enumRoot": "Wallets",
+			"slice": true,
 			"description": "Gets all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling on www.coinbase.com)"
 		}
 	],

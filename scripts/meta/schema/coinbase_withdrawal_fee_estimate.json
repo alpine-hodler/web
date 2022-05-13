@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/withdrawals/fee-estimate",
+			"httpMethod": "GET",
 			"enumRoot": "WithdrawalFeeEstimate",
 			"queryParams": [
 				{

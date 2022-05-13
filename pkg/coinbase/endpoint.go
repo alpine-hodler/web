@@ -12,36 +12,39 @@ type endpoint uint8
 
 const (
 	_ endpoint = iota
-	accountDepositEndpoint
 	accountEndpoint
 	accountHoldsEndpoint
 	accountLedgerEndpoint
+	accountTransferEndpoint
 	accountTransfersEndpoint
 	accountWithdrawalEndpoint
 	accountsEndpoint
-	addressesEndpoint
 	bookEndpoint
+	cancelOpenOrdersEndpoint
+	cancelOrderEndpoint
 	candlesEndpoint
-	conversionEndpoint
-	conversionsEndpoint
+	coinbaseAccountDepositEndpoint
+	convertCurrencyEndpoint
 	cryptoWithdrawalEndpoint
 	currenciesEndpoint
+	currencyConversionEndpoint
 	currencyEndpoint
 	feesEndpoint
 	fillsEndpoint
+	generateCryptoAddressEndpoint
 	newOrderEndpoint
-	oracleEndpoint
 	orderEndpoint
 	ordersEndpoint
 	paymentMethodDepositEndpoint
-	paymentMethodEndpoint
 	paymentMethodWithdrawalEndpoint
+	paymentMethodsEndpoint
 	productEndpoint
 	productStatsEndpoint
 	productTickerEndpoint
 	productsEndpoint
 	profilesEndpoint
-	transferEndpoint
+	signedPricesEndpoint
+	tradesEndpoint
 	transfersEndpoint
 	walletsEndpoint
 	withdrawalFeeEstimateEndpoint
@@ -58,9 +61,9 @@ func accountPath(args client.EndpointArgs) string {
 	return path.Join("/accounts", *args["account_id"].PathParam)
 }
 
-// List the holds of an account that belong to the same profile as the API key. Holds are placed on an account for any
-// active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an order is
-// canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.
+// AccountHolds will return the holds of an account that belong to the same profile as the API key. Holds are placed on
+// an account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If
+// an order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.
 func accountHoldsPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/accounts", *args["account_id"].PathParam, "holds")
 	var sb strings.Builder
@@ -79,7 +82,7 @@ func accountLedgerPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
-// Lists past withdrawals and deposits for an account.
+// AccountTransfers returns past withdrawals and deposits for an account.
 func accountTransfersPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/accounts", *args["account_id"].PathParam, "transfers")
 	var sb strings.Builder
@@ -88,13 +91,13 @@ func accountTransfersPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
-// Gets a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
+// Transfers is a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
 func transfersPath(args client.EndpointArgs) string {
 	return path.Join("/transfers")
 }
 
-// Get information on a single transfer.
-func transferPath(args client.EndpointArgs) string {
+// AccountTransfer returns information on a single transfer.
+func accountTransferPath(args client.EndpointArgs) string {
 	return path.Join("/transfers", *args["transfer_id"].PathParam)
 }
 
@@ -116,9 +119,9 @@ func candlesPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
-// Generates a one-time crypto address for depositing crypto, using a wallet account id. This endpoint requires the
-// "transfer" permission. API key must belong to default profile.
-func addressesPath(args client.EndpointArgs) string {
+// GenerateCryptoAddress will create a one-time crypto address for depositing crypto, using a wallet account id. This
+// endpoint requires the "transfer" permission. API key must belong to default profile.
+func generateCryptoAddressPath(args client.EndpointArgs) string {
 	return path.Join("/coinbase-accounts", *args["account_id"].PathParam, "addresses")
 }
 
@@ -132,19 +135,15 @@ func currencyPath(args client.EndpointArgs) string {
 	return path.Join("/currencies", *args["currency_id"].PathParam)
 }
 
-// Converts funds from from currency to to currency. Funds are converted on the from account in the profile_id profile.
-// This endpoint requires the "trade" permission. A successful conversion will be assigned a conversion id. The
-// corresponding ledger entries for a conversion will reference this conversion id
-func conversionsPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/conversions")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+// ConvertCurrency converts funds from from currency to to currency. Funds are converted on the from account in the
+// profile_id profile. This endpoint requires the "trade" permission. A successful conversion will be assigned a
+// conversion id. The corresponding ledger entries for a conversion will reference this conversion id
+func convertCurrencyPath(args client.EndpointArgs) string {
+	return path.Join("/conversions")
 }
 
-// Gets a currency conversion by id (i.e. USD -> USDC).
-func conversionPath(args client.EndpointArgs) (p string) {
+// CurrencyConversion returns the currency conversion by conversion id (i.e. USD -> USDC).
+func currencyConversionPath(args client.EndpointArgs) (p string) {
 	p = path.Join("/conversions", *args["conversion_id"].PathParam)
 	var sb strings.Builder
 	sb.WriteString(p)
@@ -153,21 +152,13 @@ func conversionPath(args client.EndpointArgs) (p string) {
 }
 
 // Deposits funds from a www.coinbase.com wallet to the specified profile_id.
-func accountDepositPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/deposits", "coinbase-account")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func coinbaseAccountDepositPath(args client.EndpointArgs) string {
+	return path.Join("/deposits", "coinbase-account")
 }
 
 // Deposits funds from a linked external payment method to the specified profile_id.
-func paymentMethodDepositPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/deposits", "payment-method")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func paymentMethodDepositPath(args client.EndpointArgs) string {
+	return path.Join("/deposits", "payment-method")
 }
 
 // Get fees rates and 30 days trailing volume.
@@ -187,16 +178,13 @@ func fillsPath(args client.EndpointArgs) (p string) {
 // Create an order. You can place two types of orders: limit and market. Orders can only be placed if your account has
 // sufficient funds. Once an order is placed, your account funds will be put on hold for the duration of the order. How
 // much and which funds are put on hold depends on the order type and parameters specified.
-func newOrderPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/orders")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func newOrderPath(args client.EndpointArgs) string {
+	return path.Join("/orders")
 }
 
-// Get cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart contract.
-func oraclePath(args client.EndpointArgs) string {
+// SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart
+// contract.
+func signedPricesPath(args client.EndpointArgs) string {
 	return path.Join("/oracle")
 }
 
@@ -216,8 +204,23 @@ func orderPath(args client.EndpointArgs) string {
 	return path.Join("/orders", *args["order_id"].PathParam)
 }
 
-// Gets a list of the user's linked payment methods.
-func paymentMethodPath(args client.EndpointArgs) string {
+// CancelOrder will cancel a single open order by order id.
+func cancelOrderPath(args client.EndpointArgs) string {
+	return path.Join("/orders", *args["order_id"].PathParam)
+}
+
+// CancelOpenOrders will try with best effort to cancel all open orders. This may require you to make the request
+// multiple times until all of the open orders are deleted.
+func cancelOpenOrdersPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/orders")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
+}
+
+// PaymentMethods returns a list of the user's linked payment methods.
+func paymentMethodsPath(args client.EndpointArgs) string {
 	return path.Join("/payment-methods")
 }
 
@@ -254,6 +257,15 @@ func profilesPath(args client.EndpointArgs) (p string) {
 	return sb.String()
 }
 
+// Gets a list the latest trades for a product.
+func tradesPath(args client.EndpointArgs) (p string) {
+	p = path.Join("/products", *args["product_id"].PathParam, "trades")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(args.QueryPath().String())
+	return sb.String()
+}
+
 // Gets all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling
 // on www.coinbase.com)
 func walletsPath(args client.EndpointArgs) string {
@@ -264,32 +276,20 @@ func walletsPath(args client.EndpointArgs) string {
 // can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your daily limits.
 // Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts section for
 // retrieving your Coinbase accounts. This endpoint requires the "transfer" permission.
-func accountWithdrawalPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/withdrawals", "coinbase-account")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func accountWithdrawalPath(args client.EndpointArgs) string {
+	return path.Join("/withdrawals", "coinbase-account")
 }
 
 // Withdraws funds from the specified profile_id to an external crypto address. This endpoint requires the "transfer"
 // permission. API key must belong to default profile.
-func cryptoWithdrawalPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/withdrawals", "crypto")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func cryptoWithdrawalPath(args client.EndpointArgs) string {
+	return path.Join("/withdrawals", "crypto")
 }
 
 // Withdraws funds from the specified profile_id to a linked external payment method. This endpoint requires the
 // "transfer" permission. API key is restricted to the default profile.
-func paymentMethodWithdrawalPath(args client.EndpointArgs) (p string) {
-	p = path.Join("/withdrawals", "payment-method")
-	var sb strings.Builder
-	sb.WriteString(p)
-	sb.WriteString(args.QueryPath().String())
-	return sb.String()
+func paymentMethodWithdrawalPath(args client.EndpointArgs) string {
+	return path.Join("/withdrawals", "payment-method")
 }
 
 // Gets the fee estimate for the crypto withdrawal to crypto address
@@ -310,28 +310,31 @@ func (ep endpoint) Path(args client.EndpointArgs) string {
 		accountLedgerEndpoint:           accountLedgerPath,
 		accountTransfersEndpoint:        accountTransfersPath,
 		transfersEndpoint:               transfersPath,
-		transferEndpoint:                transferPath,
+		accountTransferEndpoint:         accountTransferPath,
 		bookEndpoint:                    bookPath,
 		candlesEndpoint:                 candlesPath,
-		addressesEndpoint:               addressesPath,
+		generateCryptoAddressEndpoint:   generateCryptoAddressPath,
 		currenciesEndpoint:              currenciesPath,
 		currencyEndpoint:                currencyPath,
-		conversionsEndpoint:             conversionsPath,
-		conversionEndpoint:              conversionPath,
-		accountDepositEndpoint:          accountDepositPath,
+		convertCurrencyEndpoint:         convertCurrencyPath,
+		currencyConversionEndpoint:      currencyConversionPath,
+		coinbaseAccountDepositEndpoint:  coinbaseAccountDepositPath,
 		paymentMethodDepositEndpoint:    paymentMethodDepositPath,
 		feesEndpoint:                    feesPath,
 		fillsEndpoint:                   fillsPath,
 		newOrderEndpoint:                newOrderPath,
-		oracleEndpoint:                  oraclePath,
+		signedPricesEndpoint:            signedPricesPath,
 		ordersEndpoint:                  ordersPath,
 		orderEndpoint:                   orderPath,
-		paymentMethodEndpoint:           paymentMethodPath,
+		cancelOrderEndpoint:             cancelOrderPath,
+		cancelOpenOrdersEndpoint:        cancelOpenOrdersPath,
+		paymentMethodsEndpoint:          paymentMethodsPath,
 		productsEndpoint:                productsPath,
 		productEndpoint:                 productPath,
 		productStatsEndpoint:            productStatsPath,
 		productTickerEndpoint:           productTickerPath,
 		profilesEndpoint:                profilesPath,
+		tradesEndpoint:                  tradesPath,
 		walletsEndpoint:                 walletsPath,
 		accountWithdrawalEndpoint:       accountWithdrawalPath,
 		cryptoWithdrawalEndpoint:        cryptoWithdrawalPath,

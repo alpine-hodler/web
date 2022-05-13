@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/stats",
+			"httpMethod": "GET",
 			"enumRoot": "ProductStats",
 			"description": "Gets 30day and 24hour stats for a product."
 		}

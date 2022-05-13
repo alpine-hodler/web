@@ -5,8 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/withdrawals/coinbase-account",
+			"httpMethod": "POST",
 			"enumRoot": "AccountWithdrawal",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"
@@ -31,8 +32,9 @@
 		},
 		{
 			"path": "/withdrawals/crypto",
+			"httpMethod": "POST",
 			"enumRoot": "CryptoWithdrawal",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"
@@ -77,8 +79,9 @@
 		},
 		{
 			"path": "/withdrawals/payment-method",
+			"httpMethod": "POST",
 			"enumRoot": "PaymentMethodWithdrawal",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"

@@ -32,7 +32,8 @@
 				"required": [
 					"path",
 					"enumRoot",
-					"description"
+					"description",
+					"httpMethod"
 				],
 				"properties": {
 					"path": {
@@ -43,9 +44,46 @@
 						"type": "string",
 						"description": "The root of the endpoint enum"
 					},
+					"slice": {
+						"type": "boolean",
+						"description": "The return valu is a slice or not"
+					},
+					"returnType": {
+						"type": "string",
+						"description": "A custom return type that is not the underlying go struct / type created as the 'model'."
+					},
+					"httpMethod": {
+						"type": "string",
+						"description": "The HTTP method indended to be used for the endpoint."
+					},
 					"description": {
 						"type": "string",
 						"description": "description from the api"
+					},
+					"body": {
+						"type": "array",
+						"description": "Fields to generate golang packages to store and access data from iex api requests",
+						"items": {
+							"type": "object",
+							"required": [
+								"identifier",
+								"goType"
+							],
+							"properties": {
+								"identifier": {
+									"type": "string",
+									"description": "identifier of the column from the source data api"
+								},
+								"goType": {
+									"type": "string",
+									"description": "go type"
+								},
+								"required": {
+									"type": "boolean",
+									"description": "if the field is required"
+								}
+							}
+						}
 					},
 					"queryParams": {
 						"type": "array",

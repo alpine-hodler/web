@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/ticker",
+			"httpMethod": "GET",
 			"enumRoot": "ProductTicker",
 			"description": "Gets snapshot information about the last trade (tick), best bid/ask and 24h volume."
 		}

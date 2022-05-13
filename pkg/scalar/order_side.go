@@ -7,3 +7,10 @@ const (
 	OrderSideBuy  = "buy"
 	OrderSideSell = "sell"
 )
+
+func (orderSide *OrderSide) String() (str string) {
+	if orderSide != nil {
+		str = string(*orderSide)
+	}
+	return
+}

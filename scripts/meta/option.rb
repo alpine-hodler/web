@@ -22,7 +22,19 @@ module Option
   def self.setters(schema)
     schema.dup.map do |scheme|
       scheme.endpoints.dup.map { |ep| scheme.option_setters(ep) }
-    end.join('')
+    end.flatten.compact.sort_by { |r| r[:name] }.map { |r| r[:setter] }.join("\n")
+	end
+
+	def self.body_setters(schema)
+		schema.dup.map do |scheme|
+			 scheme.endpoints.dup.map { |ep| scheme.option_body_setter(ep) }
+		 end.flatten.compact.sort_by { |r| r[:name] }.map { |r| r[:setter] }.join("\n")
+	 end
+
+	def self.query_param_setters(schema)
+   schema.dup.map do |scheme|
+      scheme.endpoints.dup.map { |ep| scheme.option_query_params_setter(ep) }
+    end.flatten.compact.sort_by { |r| r[:name] }.map { |r| r[:setter] }.join("\n")
   end
 
   def self.write(schema)
@@ -37,8 +49,10 @@ module Option
           f.write(Option::MSG)
           f.write(structs(api_schema))
           f.write(setters(api_schema))
+					f.write(body_setters(api_schema))
+					f.write(query_param_setters(api_schema))
         end
-        `/go/bin/goimports -w options.go`
+        `/go/bin/goimports -w #{OPTIONS_FILENAME}`
       end
     end
   end

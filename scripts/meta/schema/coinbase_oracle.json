@@ -5,8 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/oracle",
-			"enumRoot": "Oracle",
-			"description": "Get cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart contract."
+			"httpMethod": "GET",
+			"enumRoot": "SignedPrices",
+			"description": "SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart contract."
 		}
 	],
 	"modelFields": [

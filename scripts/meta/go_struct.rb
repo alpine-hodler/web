@@ -18,9 +18,9 @@ module GoStruct
 
   def options_struct(endpoint)
     literals = []
-    return literals unless endpoint.query_params?
+    return literals unless endpoint.params?
 
-    endpoint.query_params.each do |field|
+    endpoint.all_params.each do |field|
       literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"
       literal += "#{field.go_protofield_name} #{field.ptr_go_type}"
       literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"

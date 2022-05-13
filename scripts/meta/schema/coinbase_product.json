@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/products",
+			"httpMethod": "GET",
 			"enumRoot": "Products",
+			"slice": true,
 			"description": "Gets a list of available currency pairs for trading.",
 			"queryParams": [
 				{
@@ -16,6 +18,7 @@
 		},
 		{
 			"path": "/products/{product_id}",
+			"httpMethod": "GET",
 			"enumRoot": "Product",
 			"description": "Get information on a single product."
 		}

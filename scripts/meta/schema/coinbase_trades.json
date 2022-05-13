@@ -1,0 +1,52 @@
+{
+	"api": "coinbase",
+	"model": "trade",
+	"modelDescription": "Trade is the list the latest trades for a product.",
+	"endpoints": [
+		{
+			"path": "/products/{product_id}/trades",
+			"httpMethod": "GET",
+			"enumRoot": "Trades",
+			"slice": true,
+			"description": "Gets a list the latest trades for a product.",
+			"queryParams": [
+				{
+					"identifier": "limit",
+					"goType": "int32"
+				},
+				{
+					"identifier": "before",
+					"goType": "int32"
+				},
+				{
+					"identifier": "after",
+					"goType": "int32"
+				}
+			]
+		}
+	],
+	"modelFields": [
+		{
+			"identifier": "trade_id",
+			"goType": "int32"
+		},
+		{
+			"identifier": "side",
+			"goType": "scalar.OrderSide"
+		},
+		{
+			"identifier": "size",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "price",
+			"goType": "float64",
+			"unmarshaller": "UnmarshalFloatString"
+		},
+		{
+			"identifier": "time",
+			"goType": "time.Time"
+		}
+	]
+}

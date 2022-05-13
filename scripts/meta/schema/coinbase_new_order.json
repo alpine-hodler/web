@@ -5,8 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/orders",
+			"httpMethod": "POST",
 			"enumRoot": "NewOrder",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"

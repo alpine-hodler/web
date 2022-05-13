@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/book",
+			"httpMethod": "GET",
 			"enumRoot": "Book",
 			"description": "Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.",
 			"queryParams": [

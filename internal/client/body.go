@@ -41,38 +41,6 @@ func (body *Body) jsonBytes() []byte {
 	return buf
 }
 
-// SetBool adds a bool value to the body, if it exists in memory.
-func (body *Body) SetBool(key string, val *bool) *Body {
-	if val != nil {
-		body.data[key] = *val
-	}
-	return body
-}
-
-// SetFloat adds a string value to the body, if it exists in memory.
-func (body *Body) SetFloat(key string, val *float64) *Body {
-	if val != nil {
-		body.data[key] = *val
-	}
-	return body
-}
-
-// SetInt adds a string value to the body, if it exists in memory.
-func (body *Body) SetInt(key string, val *int) *Body {
-	if val != nil {
-		body.data[key] = *val
-	}
-	return body
-}
-
-// SetString adds a string value to the body, if it exists in memory.
-func (body *Body) SetString(key string, val *string) *Body {
-	if val != nil {
-		body.data[key] = *val
-	}
-	return body
-}
-
 // Bytes will return the byte stream for the body
 func (body *Body) Bytes() (bytes []byte) {
 	if body.t != BODY_TYPE_NULL {

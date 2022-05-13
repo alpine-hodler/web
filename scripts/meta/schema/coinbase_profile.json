@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/profiles",
+			"httpMethod": "GET",
 			"enumRoot": "Profiles",
+			"slice": true,
 			"description": "Gets a list of all of the current user's profiles.",
 			"queryParams": [
 				{

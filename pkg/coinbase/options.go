@@ -3,6 +3,7 @@ package coinbase
 import (
 	"time"
 
+	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/pkg/scalar"
 )
 
@@ -54,8 +55,8 @@ type CandlesOptions struct {
 	Start       *time.Time          `json:"start" bson:"start"`
 }
 
-// ConversionsOptions are options for API requests.
-type ConversionsOptions struct {
+// ConvertCurrencyOptions are options for API requests.
+type ConvertCurrencyOptions struct {
 	Amount    float64 `json:"amount" bson:"amount"`
 	From      string  `json:"from" bson:"from"`
 	Nonce     *string `json:"nonce" bson:"nonce"`
@@ -63,13 +64,13 @@ type ConversionsOptions struct {
 	To        string  `json:"to" bson:"to"`
 }
 
-// ConversionOptions are options for API requests.
-type ConversionOptions struct {
+// CurrencyConversionOptions are options for API requests.
+type CurrencyConversionOptions struct {
 	ProfileId *string `json:"profile_id" bson:"profile_id"`
 }
 
-// AccountDepositOptions are options for API requests.
-type AccountDepositOptions struct {
+// CoinbaseAccountDepositOptions are options for API requests.
+type CoinbaseAccountDepositOptions struct {
 	Amount            float64 `json:"amount" bson:"amount"`
 	CoinbaseAccountId string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
 	Currency          string  `json:"currency" bson:"currency"`
@@ -126,6 +127,12 @@ type OrdersOptions struct {
 	Status    []string   `json:"status" bson:"status"`
 }
 
+// CancelOpenOrdersOptions are options for API requests.
+type CancelOpenOrdersOptions struct {
+	ProductId *string `json:"product_id" bson:"product_id"`
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
+}
+
 // ProductsOptions are options for API requests.
 type ProductsOptions struct {
 	Type *string `json:"type" bson:"type"`
@@ -134,6 +141,13 @@ type ProductsOptions struct {
 // ProfilesOptions are options for API requests.
 type ProfilesOptions struct {
 	Active *bool `json:"active" bson:"active"`
+}
+
+// TradesOptions are options for API requests.
+type TradesOptions struct {
+	After  *int32 `json:"after" bson:"after"`
+	Before *int32 `json:"before" bson:"before"`
+	Limit  *int32 `json:"limit" bson:"limit"`
 }
 
 // AccountWithdrawalOptions are options for API requests.
@@ -249,9 +263,45 @@ func (opts *AccountTransfersOptions) SetType(typ string) *AccountTransfersOption
 	return opts
 }
 
+// SetProfileId sets the ProfileId field on AccountWithdrawalOptions.
+func (opts *AccountWithdrawalOptions) SetProfileId(profileId string) *AccountWithdrawalOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetAmount sets the Amount field on AccountWithdrawalOptions.
+func (opts *AccountWithdrawalOptions) SetAmount(amount float64) *AccountWithdrawalOptions {
+	opts.Amount = amount
+	return opts
+}
+
+// SetCoinbaseAccountId sets the CoinbaseAccountId field on AccountWithdrawalOptions.
+func (opts *AccountWithdrawalOptions) SetCoinbaseAccountId(coinbaseAccountId string) *AccountWithdrawalOptions {
+	opts.CoinbaseAccountId = coinbaseAccountId
+	return opts
+}
+
+// SetCurrency sets the Currency field on AccountWithdrawalOptions.
+func (opts *AccountWithdrawalOptions) SetCurrency(currency string) *AccountWithdrawalOptions {
+	opts.Currency = currency
+	return opts
+}
+
 // SetLevel sets the Level field on BookOptions.
 func (opts *BookOptions) SetLevel(level int32) *BookOptions {
 	opts.Level = &level
+	return opts
+}
+
+// SetProfileId sets the ProfileId field on CancelOpenOrdersOptions.
+func (opts *CancelOpenOrdersOptions) SetProfileId(profileId string) *CancelOpenOrdersOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetProductId sets the ProductId field on CancelOpenOrdersOptions.
+func (opts *CancelOpenOrdersOptions) SetProductId(productId string) *CancelOpenOrdersOptions {
+	opts.ProductId = &productId
 	return opts
 }
 
@@ -273,87 +323,117 @@ func (opts *CandlesOptions) SetEnd(end time.Time) *CandlesOptions {
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on ConversionsOptions.
-func (opts *ConversionsOptions) SetProfileId(profileId string) *ConversionsOptions {
+// SetProfileId sets the ProfileId field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetProfileId(profileId string) *CoinbaseAccountDepositOptions {
 	opts.ProfileId = &profileId
 	return opts
 }
 
-// SetFrom sets the From field on ConversionsOptions.
-func (opts *ConversionsOptions) SetFrom(from string) *ConversionsOptions {
-	opts.From = from
-	return opts
-}
-
-// SetTo sets the To field on ConversionsOptions.
-func (opts *ConversionsOptions) SetTo(to string) *ConversionsOptions {
-	opts.To = to
-	return opts
-}
-
-// SetAmount sets the Amount field on ConversionsOptions.
-func (opts *ConversionsOptions) SetAmount(amount float64) *ConversionsOptions {
+// SetAmount sets the Amount field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetAmount(amount float64) *CoinbaseAccountDepositOptions {
 	opts.Amount = amount
 	return opts
 }
 
-// SetNonce sets the Nonce field on ConversionsOptions.
-func (opts *ConversionsOptions) SetNonce(nonce string) *ConversionsOptions {
-	opts.Nonce = &nonce
-	return opts
-}
-
-// SetProfileId sets the ProfileId field on ConversionOptions.
-func (opts *ConversionOptions) SetProfileId(profileId string) *ConversionOptions {
-	opts.ProfileId = &profileId
-	return opts
-}
-
-// SetProfileId sets the ProfileId field on AccountDepositOptions.
-func (opts *AccountDepositOptions) SetProfileId(profileId string) *AccountDepositOptions {
-	opts.ProfileId = &profileId
-	return opts
-}
-
-// SetAmount sets the Amount field on AccountDepositOptions.
-func (opts *AccountDepositOptions) SetAmount(amount float64) *AccountDepositOptions {
-	opts.Amount = amount
-	return opts
-}
-
-// SetCoinbaseAccountId sets the CoinbaseAccountId field on AccountDepositOptions.
-func (opts *AccountDepositOptions) SetCoinbaseAccountId(coinbaseAccountId string) *AccountDepositOptions {
+// SetCoinbaseAccountId sets the CoinbaseAccountId field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetCoinbaseAccountId(coinbaseAccountId string) *CoinbaseAccountDepositOptions {
 	opts.CoinbaseAccountId = coinbaseAccountId
 	return opts
 }
 
-// SetCurrency sets the Currency field on AccountDepositOptions.
-func (opts *AccountDepositOptions) SetCurrency(currency string) *AccountDepositOptions {
+// SetCurrency sets the Currency field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetCurrency(currency string) *CoinbaseAccountDepositOptions {
 	opts.Currency = currency
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetProfileId(profileId string) *PaymentMethodDepositOptions {
+// SetProfileId sets the ProfileId field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetProfileId(profileId string) *ConvertCurrencyOptions {
 	opts.ProfileId = &profileId
 	return opts
 }
 
-// SetAmount sets the Amount field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetAmount(amount float64) *PaymentMethodDepositOptions {
+// SetFrom sets the From field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetFrom(from string) *ConvertCurrencyOptions {
+	opts.From = from
+	return opts
+}
+
+// SetTo sets the To field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetTo(to string) *ConvertCurrencyOptions {
+	opts.To = to
+	return opts
+}
+
+// SetAmount sets the Amount field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetAmount(amount float64) *ConvertCurrencyOptions {
 	opts.Amount = amount
 	return opts
 }
 
-// SetPaymentMethodId sets the PaymentMethodId field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetPaymentMethodId(paymentMethodId string) *PaymentMethodDepositOptions {
-	opts.PaymentMethodId = paymentMethodId
+// SetNonce sets the Nonce field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetNonce(nonce string) *ConvertCurrencyOptions {
+	opts.Nonce = &nonce
 	return opts
 }
 
-// SetCurrency sets the Currency field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetCurrency(currency string) *PaymentMethodDepositOptions {
+// SetProfileId sets the ProfileId field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetProfileId(profileId string) *CryptoWithdrawalOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetAmount sets the Amount field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetAmount(amount float64) *CryptoWithdrawalOptions {
+	opts.Amount = amount
+	return opts
+}
+
+// SetCryptoAddress sets the CryptoAddress field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetCryptoAddress(cryptoAddress string) *CryptoWithdrawalOptions {
+	opts.CryptoAddress = cryptoAddress
+	return opts
+}
+
+// SetCurrency sets the Currency field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetCurrency(currency string) *CryptoWithdrawalOptions {
 	opts.Currency = currency
+	return opts
+}
+
+// SetDestinationTag sets the DestinationTag field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetDestinationTag(destinationTag string) *CryptoWithdrawalOptions {
+	opts.DestinationTag = &destinationTag
+	return opts
+}
+
+// SetNoDestinationTag sets the NoDestinationTag field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetNoDestinationTag(noDestinationTag bool) *CryptoWithdrawalOptions {
+	opts.NoDestinationTag = &noDestinationTag
+	return opts
+}
+
+// SetTwoFactorCode sets the TwoFactorCode field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetTwoFactorCode(twoFactorCode string) *CryptoWithdrawalOptions {
+	opts.TwoFactorCode = &twoFactorCode
+	return opts
+}
+
+// SetNonce sets the Nonce field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetNonce(nonce int) *CryptoWithdrawalOptions {
+	opts.Nonce = &nonce
+	return opts
+}
+
+// SetFee sets the Fee field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetFee(fee float64) *CryptoWithdrawalOptions {
+	opts.Fee = &fee
+	return opts
+}
+
+// SetProfileId sets the ProfileId field on CurrencyConversionOptions.
+func (opts *CurrencyConversionOptions) SetProfileId(profileId string) *CurrencyConversionOptions {
+	opts.ProfileId = &profileId
 	return opts
 }
 
@@ -537,93 +617,27 @@ func (opts *OrdersOptions) SetStatus(status []string) *OrdersOptions {
 	return opts
 }
 
-// SetType sets the Type field on ProductsOptions.
-func (opts *ProductsOptions) SetType(typ string) *ProductsOptions {
-	opts.Type = &typ
-	return opts
-}
-
-// SetActive sets the Active field on ProfilesOptions.
-func (opts *ProfilesOptions) SetActive(active bool) *ProfilesOptions {
-	opts.Active = &active
-	return opts
-}
-
-// SetProfileId sets the ProfileId field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetProfileId(profileId string) *AccountWithdrawalOptions {
+// SetProfileId sets the ProfileId field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetProfileId(profileId string) *PaymentMethodDepositOptions {
 	opts.ProfileId = &profileId
 	return opts
 }
 
-// SetAmount sets the Amount field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetAmount(amount float64) *AccountWithdrawalOptions {
+// SetAmount sets the Amount field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetAmount(amount float64) *PaymentMethodDepositOptions {
 	opts.Amount = amount
 	return opts
 }
 
-// SetCoinbaseAccountId sets the CoinbaseAccountId field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetCoinbaseAccountId(coinbaseAccountId string) *AccountWithdrawalOptions {
-	opts.CoinbaseAccountId = coinbaseAccountId
+// SetPaymentMethodId sets the PaymentMethodId field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetPaymentMethodId(paymentMethodId string) *PaymentMethodDepositOptions {
+	opts.PaymentMethodId = paymentMethodId
 	return opts
 }
 
-// SetCurrency sets the Currency field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetCurrency(currency string) *AccountWithdrawalOptions {
+// SetCurrency sets the Currency field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetCurrency(currency string) *PaymentMethodDepositOptions {
 	opts.Currency = currency
-	return opts
-}
-
-// SetProfileId sets the ProfileId field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetProfileId(profileId string) *CryptoWithdrawalOptions {
-	opts.ProfileId = &profileId
-	return opts
-}
-
-// SetAmount sets the Amount field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetAmount(amount float64) *CryptoWithdrawalOptions {
-	opts.Amount = amount
-	return opts
-}
-
-// SetCryptoAddress sets the CryptoAddress field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetCryptoAddress(cryptoAddress string) *CryptoWithdrawalOptions {
-	opts.CryptoAddress = cryptoAddress
-	return opts
-}
-
-// SetCurrency sets the Currency field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetCurrency(currency string) *CryptoWithdrawalOptions {
-	opts.Currency = currency
-	return opts
-}
-
-// SetDestinationTag sets the DestinationTag field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetDestinationTag(destinationTag string) *CryptoWithdrawalOptions {
-	opts.DestinationTag = &destinationTag
-	return opts
-}
-
-// SetNoDestinationTag sets the NoDestinationTag field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetNoDestinationTag(noDestinationTag bool) *CryptoWithdrawalOptions {
-	opts.NoDestinationTag = &noDestinationTag
-	return opts
-}
-
-// SetTwoFactorCode sets the TwoFactorCode field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetTwoFactorCode(twoFactorCode string) *CryptoWithdrawalOptions {
-	opts.TwoFactorCode = &twoFactorCode
-	return opts
-}
-
-// SetNonce sets the Nonce field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetNonce(nonce int) *CryptoWithdrawalOptions {
-	opts.Nonce = &nonce
-	return opts
-}
-
-// SetFee sets the Fee field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetFee(fee float64) *CryptoWithdrawalOptions {
-	opts.Fee = &fee
 	return opts
 }
 
@@ -651,6 +665,36 @@ func (opts *PaymentMethodWithdrawalOptions) SetCurrency(currency string) *Paymen
 	return opts
 }
 
+// SetType sets the Type field on ProductsOptions.
+func (opts *ProductsOptions) SetType(typ string) *ProductsOptions {
+	opts.Type = &typ
+	return opts
+}
+
+// SetActive sets the Active field on ProfilesOptions.
+func (opts *ProfilesOptions) SetActive(active bool) *ProfilesOptions {
+	opts.Active = &active
+	return opts
+}
+
+// SetLimit sets the Limit field on TradesOptions.
+func (opts *TradesOptions) SetLimit(limit int32) *TradesOptions {
+	opts.Limit = &limit
+	return opts
+}
+
+// SetBefore sets the Before field on TradesOptions.
+func (opts *TradesOptions) SetBefore(before int32) *TradesOptions {
+	opts.Before = &before
+	return opts
+}
+
+// SetAfter sets the After field on TradesOptions.
+func (opts *TradesOptions) SetAfter(after int32) *TradesOptions {
+	opts.After = &after
+	return opts
+}
+
 // SetCurrency sets the Currency field on WithdrawalFeeEstimateOptions.
 func (opts *WithdrawalFeeEstimateOptions) SetCurrency(currency string) *WithdrawalFeeEstimateOptions {
 	opts.Currency = &currency
@@ -661,4 +705,210 @@ func (opts *WithdrawalFeeEstimateOptions) SetCurrency(currency string) *Withdraw
 func (opts *WithdrawalFeeEstimateOptions) SetCryptoAddress(cryptoAddress string) *WithdrawalFeeEstimateOptions {
 	opts.CryptoAddress = &cryptoAddress
 	return opts
+}
+
+func (opts *AccountWithdrawalOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountId).
+		SetBodyString("currency", &opts.Currency)
+}
+
+func (opts *CoinbaseAccountDepositOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountId).
+		SetBodyString("currency", &opts.Currency)
+}
+
+func (opts *ConvertCurrencyOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyString("from", &opts.From).
+		SetBodyString("to", &opts.To).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("nonce", opts.Nonce)
+}
+
+func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("crypto_address", &opts.CryptoAddress).
+		SetBodyString("currency", &opts.Currency).
+		SetBodyString("destination_tag", opts.DestinationTag).
+		SetBodyBool("no_destination_tag", opts.NoDestinationTag).
+		SetBodyString("two_factor_code", opts.TwoFactorCode).
+		SetBodyInt("nonce", opts.Nonce).
+		SetBodyFloat("fee", opts.Fee)
+}
+
+func (opts *NewOrderOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetStringer("type", opts.Type).
+		SetStringer("side", &opts.Side).
+		SetStringer("stp", opts.Stp).
+		SetStringer("stop", opts.Stop).
+		SetBodyFloat("stop_price", opts.StopPrice).
+		SetBodyFloat("price", opts.Price).
+		SetBodyFloat("size", opts.Size).
+		SetBodyFloat("funds", opts.Funds).
+		SetBodyString("product_id", &opts.ProductId).
+		SetStringer("time_in_force", opts.TimeInForce).
+		SetStringer("cancel_after", opts.CancelAfter).
+		SetBodyBool("post_only", opts.PostOnly).
+		SetBodyString("client_oid", opts.ClientOid)
+}
+
+func (opts *PaymentMethodDepositOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("payment_method_id", &opts.PaymentMethodId).
+		SetBodyString("currency", &opts.Currency)
+}
+
+func (opts *PaymentMethodWithdrawalOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetBodyFloat("amount", &opts.Amount).
+		SetBodyString("payment_method_id", &opts.PaymentMethodId).
+		SetBodyString("currency", &opts.Currency)
+}
+
+func (opts *AccountHoldsOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("before", opts.Before).
+		SetQueryParamString("after", opts.After).
+		SetQueryParamInt("limit", opts.Limit)
+}
+
+func (opts *AccountLedgerOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("start_date", opts.StartDate).
+		SetQueryParamString("end_date", opts.EndDate).
+		SetQueryParamString("before", opts.Before).
+		SetQueryParamString("after", opts.After).
+		SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamInt("limit", opts.Limit)
+}
+
+func (opts *AccountTransfersOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("before", opts.Before).
+		SetQueryParamString("after", opts.After).
+		SetQueryParamInt("limit", opts.Limit).
+		SetQueryParamString("type", opts.Type)
+}
+
+func (opts *BookOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamInt32("level", opts.Level)
+}
+
+func (opts *CancelOpenOrdersOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamString("product_id", opts.ProductId)
+}
+
+func (opts *CandlesOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamTime("start", opts.Start).
+		SetQueryParamTime("end", opts.End)
+}
+
+func (opts *CurrencyConversionOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("profile_id", opts.ProfileId)
+}
+
+func (opts *FillsOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("order_id", opts.OrderId).
+		SetQueryParamString("product_id", opts.ProductId).
+		SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamInt("limit", opts.Limit).
+		SetQueryParamInt("before", opts.Before).
+		SetQueryParamInt("after", opts.After)
+}
+
+func (opts *OrdersOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamString("product_id", opts.ProductId).
+		SetQueryParamString("sortedBy", opts.SortedBy).
+		SetQueryParamString("sorting", opts.Sorting).
+		SetQueryParamTime("start_date", opts.StartDate).
+		SetQueryParamTime("end_date", opts.EndDate).
+		SetQueryParamString("before", opts.Before).
+		SetQueryParamString("after", opts.After).
+		SetQueryParamInt("limit", &opts.Limit).
+		SetQueryParamStrings("status", opts.Status)
+}
+
+func (opts *ProductsOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("type", opts.Type)
+}
+
+func (opts *ProfilesOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamBool("active", opts.Active)
+}
+
+func (opts *TradesOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamInt32("limit", opts.Limit).
+		SetQueryParamInt32("before", opts.Before).
+		SetQueryParamInt32("after", opts.After)
+}
+
+func (opts *WithdrawalFeeEstimateOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("currency", opts.Currency).
+		SetQueryParamString("crypto_address", opts.CryptoAddress)
 }

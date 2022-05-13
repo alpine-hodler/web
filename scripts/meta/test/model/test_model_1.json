@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/some/{path_id}",
+			"httpMethod": "GET",
 			"enumRoot": "SomeData",
 			"queryParams": [
 				{

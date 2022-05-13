@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/candles",
+			"httpMethod": "GET",
 			"enumRoot": "Candles",
 			"description": "Get the historic rates for a product",
 			"queryParams": [

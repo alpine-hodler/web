@@ -143,6 +143,13 @@ func (m _json) UnmarshalInt64(name string, v *int64) error {
 	return nil
 }
 
+func (m _json) UnmarshalInt32(name string, v *int32) error {
+	if val := m[name]; val != nil {
+		*v = int32(val.(float64))
+	}
+	return nil
+}
+
 func (m _json) UnmarshalInt(name string, v *int) error {
 	if val := m[name]; val != nil {
 		*v = int(val.(float64))

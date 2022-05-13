@@ -12,6 +12,7 @@ require_relative 'unmarshaller'
 require_relative 'go_struct'
 require_relative 'option'
 require_relative 'setters'
+require_relative 'go_http'
 
 # Scheme is the class encapsulation of a single json file in the meta/schema
 # directory
@@ -28,13 +29,15 @@ class Scheme
     :fields,
     :endpoints,
     :go_model_variable_name,
-		:non_struct
+		:non_struct,
+		:package
 
   include Comment
   include Unmarshaller
 	include Option
 	include GoStruct
 	include Setters
+	include GoHTTP
 
   def initialize(filename)
     file = File.read(filename)
@@ -42,6 +45,7 @@ class Scheme
     validate(hash)
 
     @api = hash[:api]
+		@package = "pacakge #{api}"
     @description = hash[:modelDescription]
     @filename = filename
     @model = hash[:model].to_s

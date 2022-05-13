@@ -5,11 +5,14 @@
 	"endpoints": [
 		{
 			"path": "/currencies",
+			"httpMethod": "GET",
 			"enumRoot": "Currencies",
+			"slice": true,
 			"description": "Gets a list of all known currencies.  Note: Not all currencies may be currently in use for trading."
 		},
 		{
 			"path": "/currencies/{currency_id}",
+			"httpMethod": "GET",
 			"enumRoot": "Currency",
 			"description": "Gets a single currency by id."
 		}

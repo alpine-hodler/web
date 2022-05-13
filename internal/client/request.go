@@ -6,8 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/alpine-hodler/sdk/internal/log"
+	"github.com/alpine-hodler/sdk/tools"
 )
 
 type assignmentCallback func(interface{}, *Request) error
@@ -31,6 +35,19 @@ type ErrorMessage struct {
 	Message    string `json:"message"`
 	Status     string `json:"status"`
 	StatusCode string `json:"status_code"`
+}
+
+// options is an interface for setting query parameters on a request.
+type queryParamsOptions interface {
+	SetQueryParams(*Request)
+}
+
+type bodyOptions interface {
+	SetBody(*Request)
+}
+
+type stringer interface {
+	String() string
 }
 
 func (req *Request) EndpointArgs() EndpointArgs { return req.endpointArgs }
@@ -127,8 +144,52 @@ func (req *Request) PathParam(key, value string) *Request {
 }
 
 // SetBody sets a body object on the request
-func (req *Request) Body(body *Body) *Request {
-	req.body = *body
+func (req *Request) SetBody(bodyType BodyType, opts interface{}) *Request {
+	if opts != nil {
+		b := NewBody(bodyType)
+		req.body = *b
+		opts.(bodyOptions).SetBody(req)
+	}
+	return req
+}
+
+// TODO
+func (req *Request) SetBodyBool(key string, val *bool) *Request {
+	if val != nil {
+		req.body.data[key] = *val
+	}
+	return req
+}
+
+// TODO
+func (req *Request) SetBodyFloat(key string, val *float64) *Request {
+	if val != nil {
+		req.body.data[key] = *val
+	}
+	return req
+}
+
+// TODO
+func (req *Request) SetBodyInt(key string, val *int) *Request {
+	if val != nil {
+		req.body.data[key] = *val
+	}
+	return req
+}
+
+// TODO
+func (req *Request) SetBodyString(key string, val *string) *Request {
+	if val != nil {
+		req.body.data[key] = *val
+	}
+	return req
+}
+
+// TODO
+func (req *Request) SetStringer(key string, val stringer) *Request {
+	if val != nil {
+		req.body.data[key] = val.String()
+	}
 	return req
 }
 
@@ -139,5 +200,87 @@ func (req *Request) QueryParam(key string, value *string) *Request {
 		}
 		return
 	}()}
+	return req
+}
+
+// SetQueryParamBool will set a query param from a bool value.
+func (req *Request) SetQueryParamBool(key string, value *bool) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if value != nil {
+			boolStr := strconv.FormatBool(*value)
+			i = &boolStr
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParamInt32 will set a query param from an int32 value.
+func (req *Request) SetQueryParamInt32(key string, value *int32) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if value != nil {
+			i = tools.Int32PtrStringPtr(value)
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParamInt will set a query param from an int value.
+func (req *Request) SetQueryParamInt(key string, value *int) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if value != nil {
+			i = tools.IntPtrStringPtr(value)
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParamString will set a query param from a string value.
+func (req *Request) SetQueryParamString(key string, value *string) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if value != nil {
+			i = value
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParamStrings will set potentially many query param from a string slice.
+func (req *Request) SetQueryParamStrings(key string, values []string) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if values != nil {
+			slice := []string{}
+			for _, v := range values {
+				slice = append(slice, v)
+			}
+			tmp := strings.Join(slice, ", ")
+			i = &tmp
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParamTime will set a query param from a time.Time value.
+func (req *Request) SetQueryParamTime(key string, value *time.Time) *Request {
+	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
+		if value != nil {
+			tmp := value.String()
+			i = &tmp
+		}
+		return
+	}()}
+	return req
+}
+
+// SetQueryParams will take an opts interface and if it isn't nil, it will type cast it as an Options interface{} and
+// attemp to set query parameters on the request.
+func (req *Request) SetQueryParams(opts interface{}) *Request {
+	if opts != nil {
+		opts.(queryParamsOptions).SetQueryParams(req)
+	}
 	return req
 }

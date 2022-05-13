@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/deposits/coinbase-account",
-			"enumRoot": "AccountDeposit",
+			"httpMethod": "POST",
+			"enumRoot": "CoinbaseAccountDeposit",
 			"description": "Deposits funds from a www.coinbase.com wallet to the specified profile_id.",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"
@@ -31,9 +32,10 @@
 		},
 		{
 			"path": "/deposits/payment-method",
+			"httpMethod": "POST",
 			"enumRoot": "PaymentMethodDeposit",
 			"description": "Deposits funds from a linked external payment method to the specified profile_id.",
-			"queryParams": [
+			"body": [
 				{
 					"identifier": "profile_id",
 					"goType": "string"

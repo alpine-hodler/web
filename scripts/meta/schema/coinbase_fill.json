@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/fills",
+			"httpMethod": "GET",
 			"enumRoot": "Fills",
+			"slice": true,
 			"queryParams": [
 				{
 					"identifier": "order_id",

@@ -40,6 +40,10 @@ class Field
     @required = hash[:required]
   end
 
+	def go_slice?
+		@go_type.include?('[]')
+	end
+
   def go_struct?
     return false if GO_TYPES.include?(hash[:goType])
     return false if go_type.include?('scalar')

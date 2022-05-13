@@ -14,6 +14,16 @@ class PathPart
     set_go_arg
   end
 
+	def param_go_var
+		return '' unless path_param?
+
+		name.dup.gsub('}', '').gsub('{', '').to_pascal
+	end
+
+	def param_name
+		name.dup.gsub('}', '').gsub('{', '')
+	end
+
   def path_param?
     return true if name.include?('{') && name.include?('}')
 

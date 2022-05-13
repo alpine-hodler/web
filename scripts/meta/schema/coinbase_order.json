@@ -5,7 +5,9 @@
 	"endpoints": [
 		{
 			"path": "/orders",
+			"httpMethod": "GET",
 			"enumRoot": "Orders",
+			"slice": true,
 			"queryParams": [
 				{
 					"identifier": "profile_id",
@@ -54,8 +56,33 @@
 		},
 		{
 			"path": "/orders/{order_id}",
+			"httpMethod": "GET",
 			"enumRoot": "Order",
 			"description": "Get a single order by id."
+		},
+		{
+			"path": "/orders/{order_id}",
+			"httpMethod": "DELETE",
+			"enumRoot": "CancelOrder",
+			"returnType": "string",
+			"description": "CancelOrder will cancel a single open order by order id."
+		},
+		{
+			"path": "/orders",
+			"httpMethod": "DELETE",
+			"enumRoot": "CancelOpenOrders",
+			"returnType": "[]*string",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "product_id",
+					"goType": "string"
+				}
+			],
+			"description": "CancelOpenOrders will try with best effort to cancel all open orders. This may require you to make the request multiple times until all of the open orders are deleted."
 		}
 	],
 	"modelFields": [

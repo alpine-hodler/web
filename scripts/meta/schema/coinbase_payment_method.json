@@ -5,8 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/payment-methods",
-			"enumRoot": "PaymentMethod",
-			"description": "Gets a list of the user's linked payment methods."
+			"httpMethod": "GET",
+			"enumRoot": "PaymentMethods",
+			"slice": true,
+			"description": "PaymentMethods returns a list of the user's linked payment methods."
 		}
 	],
 	"modelFields": [

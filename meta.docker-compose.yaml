@@ -18,6 +18,8 @@ services:
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/go_http.rb:/usr/src/meta/go_http.rb
+      - ./scripts/meta/go_client.rb:/usr/src/meta/go_client.rb
       - ./scripts/meta/unmarshaller.rb:/usr/src/meta/unmarshaller.rb
       - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
       - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb
@@ -41,6 +43,8 @@ services:
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
       - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/go_http.rb:/usr/src/meta/go_http.rb
+      - ./scripts/meta/go_client.rb:/usr/src/meta/go_client.rb
       - ./scripts/meta/unmarshaller.rb:/usr/src/meta/unmarshaller.rb
       - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
       - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb

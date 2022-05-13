@@ -5,8 +5,17 @@ require_relative 'scheme'
 require_relative 'model'
 require_relative 'endpoint_store'
 require_relative 'option'
+require_relative 'go_client'
 
+CLIENT_ALIAS = 'c'
+CLIENT_FILENAME = 'http.go'
+CLIENT_PKG = 'client'
+CLIENT_STRUCT_NAME = 'C'
+GEN_MSG = "\n// * This is a generated file, do not edit\n"
+OPTIONS_ALIAS = 'opts'
+OPTIONS_FILENAME = 'options.go'
 PARENT_DIR = File.expand_path('..', Dir.pwd)
+RETURL_ALIAS = 'm'
 
 def generate_models
   schema = []
@@ -16,23 +25,14 @@ def generate_models
 
     scheme = Scheme.new(filename)
     endpoint_store.add(scheme) unless scheme.model_only
-    # scheme.write_protomodel
-    # scheme.write_model
-    # scheme.write_option
-
-    # TODO: fully deprecate support for graphql in the sdk.  We keep the functionality around for now in case we want to
-    # TODO use it to generate files in a graphql aux repo.
-    # scheme.write_graph_schema
-    # scheme.update_gqlgen
     schema << scheme
   end
 
-  # Model.write_protomodel_accessors(schema)
-	Model::write(schema)
-	Option::write(schema)
+  Model.write(schema)
+  Option.write(schema)
+  GoClient.write(schema)
 
   endpoint_store.write_sdk
-  # endpoint_store.write_graphql_inputs
 end
 
 generate_models

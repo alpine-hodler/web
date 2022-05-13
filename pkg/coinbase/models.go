@@ -21,7 +21,7 @@ type Account struct {
 	TradingEnabled bool    `json:"trading_enabled" bson:"trading_enabled"`
 }
 
-// CoinbaseHold represents the hold on an account that belong to the same profile as the API key. Holds are placed on an
+// AccountHold represents the hold on an account that belong to the same profile as the API key. Holds are placed on an
 // account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an
 // order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.
 type AccountHold struct {
@@ -472,6 +472,15 @@ type Ticker struct {
 	Time      time.Time `json:"time" bson:"time"`
 	TradeId   int       `json:"trade_id" bson:"trade_id"`
 	Type      string    `json:"type" bson:"type"`
+}
+
+// Trade is the list the latest trades for a product.
+type Trade struct {
+	Price   float64          `json:"price" bson:"price"`
+	Side    scalar.OrderSide `json:"side" bson:"side"`
+	Size    float64          `json:"size" bson:"size"`
+	Time    time.Time        `json:"time" bson:"time"`
+	TradeId int32            `json:"trade_id" bson:"trade_id"`
 }
 
 // UkDepositInformation information regarding a wallet's deposits.
@@ -1643,6 +1652,30 @@ func (ticker *Ticker) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(sideJsonTag, &ticker.Side)
 	data.UnmarshalString(typeJsonTag, &ticker.Type)
 	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &ticker.Time)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a Trade model
+func (trade *Trade) UnmarshalJSON(d []byte) error {
+	const (
+		tradeIdJsonTag = "trade_id"
+		sideJsonTag    = "side"
+		sizeJsonTag    = "size"
+		priceJsonTag   = "price"
+		timeJsonTag    = "time"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalFloatString(priceJsonTag, &trade.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &trade.Size)
+	data.UnmarshalInt32(tradeIdJsonTag, &trade.TradeId)
+	data.UnmarshalOrderSide(sideJsonTag, &trade.Side)
+	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &trade.Time)
 	if err != nil {
 		return err
 	}

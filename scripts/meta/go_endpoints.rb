@@ -37,7 +37,7 @@ module GoEndpoints
   def path_functions(endpoints)
     endpoints.dup.map do |endpoint|
       var = '_'
-      var = 'args' if endpoint.part_paths? || endpoint.query_params?
+      var = 'args' if endpoint.path_parts? || endpoint.query_params?
 
       sig = "func #{endpoint.enum_root}Path(#{var} client.EndpointArgs) "
       inner_logic = ''
