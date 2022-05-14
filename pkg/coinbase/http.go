@@ -167,6 +167,16 @@ func (c *C) CreateProfileTransfer(opts *CreateProfileTransferOptions) error {
 		Fetch().NoAssignment().JoinMessages()
 }
 
+// CreateReport generates a report. Reports are either for past account history or past fills on either all accounts or
+// one product's account.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postreports
+func (c *C) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ error) {
+	return m, c.Post(createReportPostAuthority).
+		SetBody(client.BodyTypeJSON, opts).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // CryptoWithdrawal funds from the specified profile_id to an external crypto address. This endpoint requires the
 // "transfer" permission. API key must belong to default profile.
 //

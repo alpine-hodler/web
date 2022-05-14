@@ -28,6 +28,7 @@ const (
 	createOrderPostAuthority
 	createProfilePostAuthority
 	createProfileTransferPostAuthority
+	createReportPostAuthority
 	cryptoWithdrawalPostAuthority
 	currenciesPostAuthority
 	currencyConversionPostAuthority
@@ -173,6 +174,12 @@ func getCreateProfilePostAuthority(builder tools.URIBuilder) string {
 // "transfer" permission.
 func getCreateProfileTransferPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/profiles", "transfer")
+}
+
+// CreateReport generates a report. Reports are either for past account history or past fills on either all accounts or
+// one product's account.
+func getCreateReportPostAuthority(builder tools.URIBuilder) string {
+	return path.Join("/reports")
 }
 
 // CryptoWithdrawal funds from the specified profile_id to an external crypto address. This endpoint requires the
@@ -377,6 +384,7 @@ func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 		createOrderPostAuthority:             getCreateOrderPostAuthority,
 		createProfilePostAuthority:           getCreateProfilePostAuthority,
 		createProfileTransferPostAuthority:   getCreateProfileTransferPostAuthority,
+		createReportPostAuthority:            getCreateReportPostAuthority,
 		cryptoWithdrawalPostAuthority:        getCryptoWithdrawalPostAuthority,
 		currenciesPostAuthority:              getCurrenciesPostAuthority,
 		currencyPostAuthority:                getCurrencyPostAuthority,

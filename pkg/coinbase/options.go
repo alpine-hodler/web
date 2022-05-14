@@ -55,6 +55,50 @@ type CandlesOptions struct {
 	Start       *time.Time          `json:"start" bson:"start"`
 }
 
+// CreateOrderOptions are options for API requests.
+type CreateOrderOptions struct {
+	CancelAfter *scalar.CancelAfter `json:"cancel_after" bson:"cancel_after"`
+	ClientOid   *string             `json:"client_oid" bson:"client_oid"`
+	Funds       *float64            `json:"funds" bson:"funds"`
+	PostOnly    *bool               `json:"post_only" bson:"post_only"`
+	Price       *float64            `json:"price" bson:"price"`
+	ProductId   string              `json:"product_id" bson:"product_id"`
+	ProfileId   *string             `json:"profile_id" bson:"profile_id"`
+	Side        scalar.OrderSide    `json:"side" bson:"side"`
+	Size        *float64            `json:"size" bson:"size"`
+	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
+	StopPrice   *float64            `json:"stop_price" bson:"stop_price"`
+	Stp         *scalar.OrderSTP    `json:"stp" bson:"stp"`
+	TimeInForce *scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type        *scalar.OrderType   `json:"type" bson:"type"`
+}
+
+// CreateReportOptions are options for API requests.
+type CreateReportOptions struct {
+	// Account - required for account-type reports
+	AccountId *string `json:"account_id" bson:"account_id"`
+
+	// Email to send generated report to
+	Email *string `json:"email" bson:"email"`
+
+	// End date for items to be included in report
+	EndDate *string `json:"end_date" bson:"end_date"`
+
+	// Portfolio - Which portfolio to generate the report for
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
+
+	// Product - required for fills-type reports
+	ProductId *string `json:"product_id" bson:"product_id"`
+
+	// Start date for items to be included in report.
+	StartDate *string `json:"start_date" bson:"start_date"`
+
+	// required for 1099k-transaction-history-type reports
+	Year   *string           `json:"year" bson:"year"`
+	Format *scalar.Format    `json:"format" bson:"format"`
+	Type   scalar.ReportType `json:"type" bson:"type"`
+}
+
 // ConvertCurrencyOptions are options for API requests.
 type ConvertCurrencyOptions struct {
 	Amount    float64 `json:"amount" bson:"amount"`
@@ -93,24 +137,6 @@ type FillsOptions struct {
 	OrderId   *string `json:"order_id" bson:"order_id"`
 	ProductId *string `json:"product_id" bson:"product_id"`
 	ProfileId *string `json:"profile_id" bson:"profile_id"`
-}
-
-// CreateOrderOptions are options for API requests.
-type CreateOrderOptions struct {
-	CancelAfter *scalar.CancelAfter `json:"cancel_after" bson:"cancel_after"`
-	ClientOid   *string             `json:"client_oid" bson:"client_oid"`
-	Funds       *float64            `json:"funds" bson:"funds"`
-	PostOnly    *bool               `json:"post_only" bson:"post_only"`
-	Price       *float64            `json:"price" bson:"price"`
-	ProductId   string              `json:"product_id" bson:"product_id"`
-	ProfileId   *string             `json:"profile_id" bson:"profile_id"`
-	Side        scalar.OrderSide    `json:"side" bson:"side"`
-	Size        *float64            `json:"size" bson:"size"`
-	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
-	StopPrice   *float64            `json:"stop_price" bson:"stop_price"`
-	Stp         *scalar.OrderSTP    `json:"stp" bson:"stp"`
-	TimeInForce *scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type        *scalar.OrderType   `json:"type" bson:"type"`
 }
 
 // OrdersOptions are options for API requests.
@@ -540,6 +566,60 @@ func (opts *CreateProfileTransferOptions) SetAmount(amount string) *CreateProfil
 	return opts
 }
 
+// SetStartDate sets the StartDate field on CreateReportOptions.
+func (opts *CreateReportOptions) SetStartDate(startDate string) *CreateReportOptions {
+	opts.StartDate = &startDate
+	return opts
+}
+
+// SetEndDate sets the EndDate field on CreateReportOptions.
+func (opts *CreateReportOptions) SetEndDate(endDate string) *CreateReportOptions {
+	opts.EndDate = &endDate
+	return opts
+}
+
+// SetType sets the Type field on CreateReportOptions.
+func (opts *CreateReportOptions) SetType(typ scalar.ReportType) *CreateReportOptions {
+	opts.Type = typ
+	return opts
+}
+
+// SetYear sets the Year field on CreateReportOptions.
+func (opts *CreateReportOptions) SetYear(year string) *CreateReportOptions {
+	opts.Year = &year
+	return opts
+}
+
+// SetFormat sets the Format field on CreateReportOptions.
+func (opts *CreateReportOptions) SetFormat(format scalar.Format) *CreateReportOptions {
+	opts.Format = &format
+	return opts
+}
+
+// SetProductId sets the ProductId field on CreateReportOptions.
+func (opts *CreateReportOptions) SetProductId(productId string) *CreateReportOptions {
+	opts.ProductId = &productId
+	return opts
+}
+
+// SetAccountId sets the AccountId field on CreateReportOptions.
+func (opts *CreateReportOptions) SetAccountId(accountId string) *CreateReportOptions {
+	opts.AccountId = &accountId
+	return opts
+}
+
+// SetEmail sets the Email field on CreateReportOptions.
+func (opts *CreateReportOptions) SetEmail(email string) *CreateReportOptions {
+	opts.Email = &email
+	return opts
+}
+
+// SetProfileId sets the ProfileId field on CreateReportOptions.
+func (opts *CreateReportOptions) SetProfileId(profileId string) *CreateReportOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
 // SetProfileId sets the ProfileId field on CryptoWithdrawalOptions.
 func (opts *CryptoWithdrawalOptions) SetProfileId(profileId string) *CryptoWithdrawalOptions {
 	opts.ProfileId = &profileId
@@ -912,6 +992,21 @@ func (opts *CreateProfileTransferOptions) SetBody(req *client.Request) {
 		SetBodyString("to", opts.To).
 		SetBodyString("currency", opts.Currency).
 		SetBodyString("amount", opts.Amount)
+}
+
+func (opts *CreateReportOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("start_date", opts.StartDate).
+		SetBodyString("end_date", opts.EndDate).
+		SetStringer("type", &opts.Type).
+		SetBodyString("year", opts.Year).
+		SetStringer("format", opts.Format).
+		SetBodyString("product_id", opts.ProductId).
+		SetBodyString("account_id", opts.AccountId).
+		SetBodyString("email", opts.Email).
+		SetBodyString("profile_id", opts.ProfileId)
 }
 
 func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {

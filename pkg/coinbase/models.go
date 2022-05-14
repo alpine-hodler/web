@@ -115,6 +115,40 @@ type Book struct {
 // `[timestamp, price_low, price_high, price_open, price_close]`
 type Candles [][]float64
 
+// CreateOrder is the server's response for placing a new order.
+type CreateOrder struct {
+	CreatedAt     time.Time          `json:"created_at" bson:"created_at"`
+	DoneAt        time.Time          `json:"done_at" bson:"done_at"`
+	DoneReason    string             `json:"done_reason" bson:"done_reason"`
+	ExpireTime    time.Time          `json:"expire_time" bson:"expire_time"`
+	FillFees      float64            `json:"fill_fees" bson:"fill_fees"`
+	FilledSize    float64            `json:"filled_size" bson:"filled_size"`
+	FundingAmount float64            `json:"funding_amount" bson:"funding_amount"`
+	Funds         float64            `json:"funds" bson:"funds"`
+	Id            string             `json:"id" bson:"id"`
+	PostOnly      bool               `json:"post_only" bson:"post_only"`
+	Price         float64            `json:"price" bson:"price"`
+	ProductId     string             `json:"product_id" bson:"product_id"`
+	ProfileId     string             `json:"profile_id" bson:"profile_id"`
+	RejectReason  string             `json:"reject_reason" bson:"reject_reason"`
+	Settled       bool               `json:"settled" bson:"settled"`
+	Side          scalar.OrderSide   `json:"side" bson:"side"`
+	Size          float64            `json:"size" bson:"size"`
+	SpecificFunds float64            `json:"specific_funds" bson:"specific_funds"`
+	Status        string             `json:"status" bson:"status"`
+	Stop          scalar.OrderStop   `json:"stop" bson:"stop"`
+	StopPrice     float64            `json:"stop_price" bson:"stop_price"`
+	TimeInForce   scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type          scalar.OrderType   `json:"type" bson:"type"`
+}
+
+// CreateReport represents information for a report created through the client.
+type CreateReport struct {
+	Id     string            `json:"id" bson:"id"`
+	Status scalar.Status     `json:"status" bson:"status"`
+	Type   scalar.ReportType `json:"type" bson:"type"`
+}
+
 // CryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
 type CryptoAccount struct {
 	Id           string `json:"id" bson:"id"`
@@ -240,33 +274,6 @@ type Flags struct{}
 type Limits struct {
 	Name string `json:"name" bson:"name"`
 	Type string `json:"type" bson:"type"`
-}
-
-// CreateOrder is the server's response for placing a new order.
-type CreateOrder struct {
-	CreatedAt     time.Time          `json:"created_at" bson:"created_at"`
-	DoneAt        time.Time          `json:"done_at" bson:"done_at"`
-	DoneReason    string             `json:"done_reason" bson:"done_reason"`
-	ExpireTime    time.Time          `json:"expire_time" bson:"expire_time"`
-	FillFees      float64            `json:"fill_fees" bson:"fill_fees"`
-	FilledSize    float64            `json:"filled_size" bson:"filled_size"`
-	FundingAmount float64            `json:"funding_amount" bson:"funding_amount"`
-	Funds         float64            `json:"funds" bson:"funds"`
-	Id            string             `json:"id" bson:"id"`
-	PostOnly      bool               `json:"post_only" bson:"post_only"`
-	Price         float64            `json:"price" bson:"price"`
-	ProductId     string             `json:"product_id" bson:"product_id"`
-	ProfileId     string             `json:"profile_id" bson:"profile_id"`
-	RejectReason  string             `json:"reject_reason" bson:"reject_reason"`
-	Settled       bool               `json:"settled" bson:"settled"`
-	Side          scalar.OrderSide   `json:"side" bson:"side"`
-	Size          float64            `json:"size" bson:"size"`
-	SpecificFunds float64            `json:"specific_funds" bson:"specific_funds"`
-	Status        string             `json:"status" bson:"status"`
-	Stop          scalar.OrderStop   `json:"stop" bson:"stop"`
-	StopPrice     float64            `json:"stop_price" bson:"stop_price"`
-	TimeInForce   scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type          scalar.OrderType   `json:"type" bson:"type"`
 }
 
 // Oracle is cryptographically signed price-info ready to be posted on-chain using Compound's Open Oracle smart
@@ -867,6 +874,89 @@ func (book *Book) UnmarshalJSON(d []byte) error {
 	return nil
 }
 
+// UnmarshalJSON will deserialize bytes into a CreateOrder model
+func (createOrder *CreateOrder) UnmarshalJSON(d []byte) error {
+	const (
+		idJsonTag            = "id"
+		priceJsonTag         = "price"
+		sizeJsonTag          = "size"
+		productIdJsonTag     = "product_id"
+		profileIdJsonTag     = "profile_id"
+		sideJsonTag          = "side"
+		fundsJsonTag         = "funds"
+		specificFundsJsonTag = "specific_funds"
+		typeJsonTag          = "type"
+		timeInForceJsonTag   = "time_in_force"
+		expireTimeJsonTag    = "expire_time"
+		postOnlyJsonTag      = "post_only"
+		createdAtJsonTag     = "created_at"
+		doneAtJsonTag        = "done_at"
+		doneReasonJsonTag    = "done_reason"
+		rejectReasonJsonTag  = "reject_reason"
+		fillFeesJsonTag      = "fill_fees"
+		filledSizeJsonTag    = "filled_size"
+		statusJsonTag        = "status"
+		settledJsonTag       = "settled"
+		stopJsonTag          = "stop"
+		stopPriceJsonTag     = "stop_price"
+		fundingAmountJsonTag = "funding_amount"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalBool(postOnlyJsonTag, &createOrder.PostOnly)
+	data.UnmarshalBool(settledJsonTag, &createOrder.Settled)
+	data.UnmarshalFloatString(fillFeesJsonTag, &createOrder.FillFees)
+	data.UnmarshalFloatString(filledSizeJsonTag, &createOrder.FilledSize)
+	data.UnmarshalFloatString(fundingAmountJsonTag, &createOrder.FundingAmount)
+	data.UnmarshalFloatString(fundsJsonTag, &createOrder.Funds)
+	data.UnmarshalFloatString(priceJsonTag, &createOrder.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &createOrder.Size)
+	data.UnmarshalFloatString(specificFundsJsonTag, &createOrder.SpecificFunds)
+	data.UnmarshalFloatString(stopPriceJsonTag, &createOrder.StopPrice)
+	data.UnmarshalOrderSide(sideJsonTag, &createOrder.Side)
+	data.UnmarshalOrderStop(stopJsonTag, &createOrder.Stop)
+	data.UnmarshalOrderType(typeJsonTag, &createOrder.Type)
+	data.UnmarshalString(doneReasonJsonTag, &createOrder.DoneReason)
+	data.UnmarshalString(idJsonTag, &createOrder.Id)
+	data.UnmarshalString(productIdJsonTag, &createOrder.ProductId)
+	data.UnmarshalString(profileIdJsonTag, &createOrder.ProfileId)
+	data.UnmarshalString(rejectReasonJsonTag, &createOrder.RejectReason)
+	data.UnmarshalString(statusJsonTag, &createOrder.Status)
+	data.UnmarshalTimeInForce(timeInForceJsonTag, &createOrder.TimeInForce)
+	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &createOrder.CreatedAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, doneAtJsonTag, &createOrder.DoneAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, expireTimeJsonTag, &createOrder.ExpireTime)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a CreateReport model
+func (createReport *CreateReport) UnmarshalJSON(d []byte) error {
+	const (
+		idJsonTag     = "id"
+		typeJsonTag   = "type"
+		statusJsonTag = "status"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalReportType(typeJsonTag, &createReport.Type)
+	data.UnmarshalStatus(statusJsonTag, &createReport.Status)
+	data.UnmarshalString(idJsonTag, &createReport.Id)
+	return nil
+}
+
 // UnmarshalJSON will deserialize bytes into a CryptoAccount model
 func (cryptoAccount *CryptoAccount) UnmarshalJSON(d []byte) error {
 	const (
@@ -1167,72 +1257,6 @@ func (limits *Limits) UnmarshalJSON(d []byte) error {
 	}
 	data.UnmarshalString(nameJsonTag, &limits.Name)
 	data.UnmarshalString(typeJsonTag, &limits.Type)
-	return nil
-}
-
-// UnmarshalJSON will deserialize bytes into a CreateOrder model
-func (createOrder *CreateOrder) UnmarshalJSON(d []byte) error {
-	const (
-		idJsonTag            = "id"
-		priceJsonTag         = "price"
-		sizeJsonTag          = "size"
-		productIdJsonTag     = "product_id"
-		profileIdJsonTag     = "profile_id"
-		sideJsonTag          = "side"
-		fundsJsonTag         = "funds"
-		specificFundsJsonTag = "specific_funds"
-		typeJsonTag          = "type"
-		timeInForceJsonTag   = "time_in_force"
-		expireTimeJsonTag    = "expire_time"
-		postOnlyJsonTag      = "post_only"
-		createdAtJsonTag     = "created_at"
-		doneAtJsonTag        = "done_at"
-		doneReasonJsonTag    = "done_reason"
-		rejectReasonJsonTag  = "reject_reason"
-		fillFeesJsonTag      = "fill_fees"
-		filledSizeJsonTag    = "filled_size"
-		statusJsonTag        = "status"
-		settledJsonTag       = "settled"
-		stopJsonTag          = "stop"
-		stopPriceJsonTag     = "stop_price"
-		fundingAmountJsonTag = "funding_amount"
-	)
-	data, err := serial.NewJSONTransform(d)
-	if err != nil {
-		return err
-	}
-	data.UnmarshalBool(postOnlyJsonTag, &createOrder.PostOnly)
-	data.UnmarshalBool(settledJsonTag, &createOrder.Settled)
-	data.UnmarshalFloatString(fillFeesJsonTag, &createOrder.FillFees)
-	data.UnmarshalFloatString(filledSizeJsonTag, &createOrder.FilledSize)
-	data.UnmarshalFloatString(fundingAmountJsonTag, &createOrder.FundingAmount)
-	data.UnmarshalFloatString(fundsJsonTag, &createOrder.Funds)
-	data.UnmarshalFloatString(priceJsonTag, &createOrder.Price)
-	data.UnmarshalFloatString(sizeJsonTag, &createOrder.Size)
-	data.UnmarshalFloatString(specificFundsJsonTag, &createOrder.SpecificFunds)
-	data.UnmarshalFloatString(stopPriceJsonTag, &createOrder.StopPrice)
-	data.UnmarshalOrderSide(sideJsonTag, &createOrder.Side)
-	data.UnmarshalOrderStop(stopJsonTag, &createOrder.Stop)
-	data.UnmarshalOrderType(typeJsonTag, &createOrder.Type)
-	data.UnmarshalString(doneReasonJsonTag, &createOrder.DoneReason)
-	data.UnmarshalString(idJsonTag, &createOrder.Id)
-	data.UnmarshalString(productIdJsonTag, &createOrder.ProductId)
-	data.UnmarshalString(profileIdJsonTag, &createOrder.ProfileId)
-	data.UnmarshalString(rejectReasonJsonTag, &createOrder.RejectReason)
-	data.UnmarshalString(statusJsonTag, &createOrder.Status)
-	data.UnmarshalTimeInForce(timeInForceJsonTag, &createOrder.TimeInForce)
-	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &createOrder.CreatedAt)
-	if err != nil {
-		return err
-	}
-	err = data.UnmarshalTime(time.RFC3339Nano, doneAtJsonTag, &createOrder.DoneAt)
-	if err != nil {
-		return err
-	}
-	err = data.UnmarshalTime(time.RFC3339Nano, expireTimeJsonTag, &createOrder.ExpireTime)
-	if err != nil {
-		return err
-	}
 	return nil
 }
 

@@ -214,6 +214,17 @@ func TestSimpleIntegrations(t *testing.T) {
 			SetAmount("1"))
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should POST client.CreateReport", func() (err error) {
+		profile1 := findProfileByName(t, client, profileName)
+		_, err = client.CreateReport(new(CreateReportOptions).
+			SetType(scalar.ReportTypeFills).
+			SetFormat(scalar.FormatPDF).
+			SetStartDate("2020-02-25T03:11:42.164Z").
+			SetProfileId(profile1.Id).
+			SetProductId(productID).
+			SetEndDate("2020-03-26T02:11:42.164Z"))
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should POST client.PaymentMethodDeposit", func() (err error) {
 		makeAccountDeposit(t, client, currency, 1)
 		makeCryptoWithdrawal(t, client, currency, 1)
