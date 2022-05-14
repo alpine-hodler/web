@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/candles",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductcandles",
 			"httpMethod": "GET",
 			"enumRoot": "Candles",
-			"description": "Get the historic rates for a product",
+			"description": "Candles will return historic rates for a product",
 			"queryParams": [
 				{
 					"identifier": "granularity",

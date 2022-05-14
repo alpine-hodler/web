@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/deposits/coinbase-account",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount",
 			"httpMethod": "POST",
 			"enumRoot": "CoinbaseAccountDeposit",
-			"description": "Deposits funds from a www.coinbase.com wallet to the specified profile_id.",
+			"description": "CoinbaseAccountDeposit funds from a www.coinbase.com wallet to the specified profile_id.",
 			"body": [
 				{
 					"identifier": "profile_id",
@@ -32,9 +33,10 @@
 		},
 		{
 			"path": "/deposits/payment-method",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositpaymentmethod",
 			"httpMethod": "POST",
 			"enumRoot": "PaymentMethodDeposit",
-			"description": "Deposits funds from a linked external payment method to the specified profile_id.",
+			"description": "PaymentMethodDeposit will fund from a linked external payment method to the specified profile_id.",
 			"body": [
 				{
 					"identifier": "profile_id",

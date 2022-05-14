@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/profiles/{profile_id}/deactivate",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofiledeactivate",
 			"httpMethod": "PUT",
 			"enumRoot": "DeleteProfile",
 			"returnType": "none",
@@ -22,6 +23,7 @@
 		},
 		{
 			"path": "/profiles/{profile_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofile",
 			"httpMethod": "GET",
 			"enumRoot": "Profile",
 			"description": "Profile returns information for a single profile. Use this endpoint when you know the profile_id.  This endpoint requires the \"view\" permission and is accessible by any profile's API key.",
@@ -34,6 +36,7 @@
 		},
 		{
 			"path": "/profiles/{profile_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofile",
 			"httpMethod": "PUT",
 			"enumRoot": "RenameProfile",
 			"description": "RenameProfile will rename a profile. Names 'default' and 'margin' are reserved.",
@@ -50,10 +53,11 @@
 		},
 		{
 			"path": "/profiles",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofiles",
 			"httpMethod": "GET",
 			"enumRoot": "Profiles",
 			"slice": true,
-			"description": "Gets a list of all of the current user's profiles.",
+			"description": "Profiles returns a list of all of the current user's profiles.",
 			"queryParams": [
 				{
 					"identifier": "active",
@@ -63,6 +67,7 @@
 		},
 		{
 			"path": "/profiles",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofile",
 			"httpMethod": "POST",
 			"enumRoot": "CreateProfile",
 			"description": "CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of profiles.",
@@ -75,6 +80,7 @@
 		},
 		{
 			"path": "/profiles/transfer",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofiletransfer",
 			"httpMethod": "POST",
 			"enumRoot": "CreateProfileTransfer",
 			"returnType": "none",

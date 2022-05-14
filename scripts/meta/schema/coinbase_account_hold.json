@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/accounts/{account_id}/holds",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountholds",
 			"httpMethod": "GET",
 			"enumRoot": "AccountHolds",
 			"slice": true,

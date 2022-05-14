@@ -5,10 +5,11 @@
 	"endpoints": [
 		{
 			"path": "/products",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducts",
 			"httpMethod": "GET",
 			"enumRoot": "Products",
 			"slice": true,
-			"description": "Gets a list of available currency pairs for trading.",
+			"description": "Products will return a list of available currency pairs for trading.",
 			"queryParams": [
 				{
 					"identifier": "type",
@@ -18,9 +19,10 @@
 		},
 		{
 			"path": "/products/{product_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproduct",
 			"httpMethod": "GET",
 			"enumRoot": "Product",
-			"description": "Get information on a single product."
+			"description": "Product will return information on a single product."
 		}
 	],
 	"modelFields": [

@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "async_ticker.go",
         "client.go",
-        "const.go",
         "http.go",
         "models.go",
         "options.go",
@@ -31,7 +30,6 @@ go_test(
     timeout = "short",
     srcs = [
         "async_ticker_test.go",
-        "helpers_test.go",
         "integration_test.go",
     ],
     data = glob([".simple-test.env"]),

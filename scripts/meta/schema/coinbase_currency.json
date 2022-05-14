@@ -5,16 +5,18 @@
 	"endpoints": [
 		{
 			"path": "/currencies",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrencies",
 			"httpMethod": "GET",
 			"enumRoot": "Currencies",
 			"slice": true,
-			"description": "Gets a list of all known currencies.  Note: Not all currencies may be currently in use for trading."
+			"description": "Currencies returns a list of all known currencies.  Note: Not all currencies may be currently in use for trading."
 		},
 		{
 			"path": "/currencies/{currency_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrency",
 			"httpMethod": "GET",
 			"enumRoot": "Currency",
-			"description": "Gets a single currency by id."
+			"description": "Currency returns a single currency by id."
 		}
 	],
 	"modelFields": [

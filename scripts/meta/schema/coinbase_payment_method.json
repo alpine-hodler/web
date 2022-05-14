@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/payment-methods",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getpaymentmethods",
 			"httpMethod": "GET",
 			"enumRoot": "PaymentMethods",
 			"slice": true,

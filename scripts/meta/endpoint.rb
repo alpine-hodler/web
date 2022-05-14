@@ -23,7 +23,8 @@ class Endpoint
     :slice,
     :body,
     :return_type,
-    :http_method
+    :http_method,
+		:documentation
 
   def initialize(api, hash)
     return if hash.nil?
@@ -36,6 +37,7 @@ class Endpoint
     @slice = hash[:slice]
     @return_type = hash[:returnType]
     @http_method = hash[:httpMethod]
+		@documentation = hash[:documentation]
 
     gql_base = "#{api}_#{enum_root.to_snake}_options"
     @graphql_model_name = gql_base.to_pascal

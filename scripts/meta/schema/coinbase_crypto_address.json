@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/coinbase-accounts/{account_id}/addresses",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postcoinbaseaccountaddresses",
 			"httpMethod": "POST",
 			"enumRoot": "GenerateCryptoAddress",
 			"description": "GenerateCryptoAddress will create a one-time crypto address for depositing crypto, using a wallet account id.  This endpoint requires the \"transfer\" permission. API key must belong to default profile."

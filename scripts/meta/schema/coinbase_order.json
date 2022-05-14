@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/orders",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorders",
 			"httpMethod": "GET",
 			"enumRoot": "Orders",
 			"slice": true,
@@ -52,16 +53,18 @@
 					"required": true
 				}
 			],
-			"description": "List your current open orders. Only open or un-settled orders are returned by default. As soon as an order is no longer open and settled, it will no longer appear in the default request. Open orders may change state between the request and the response depending on market conditions."
+			"description": "Orders will return your current open orders. Only open or un-settled orders are returned by default. As soon as an order is no longer open and settled, it will no longer appear in the default request. Open orders may change state between the request and the response depending on market conditions."
 		},
 		{
 			"path": "/orders/{order_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorder",
 			"httpMethod": "GET",
 			"enumRoot": "Order",
-			"description": "Get a single order by id."
+			"description": "Order returns a single order by id."
 		},
 		{
 			"path": "/orders/{order_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorder",
 			"httpMethod": "DELETE",
 			"enumRoot": "CancelOrder",
 			"returnType": "string",
@@ -69,6 +72,7 @@
 		},
 		{
 			"path": "/orders",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorders",
 			"httpMethod": "DELETE",
 			"enumRoot": "CancelOpenOrders",
 			"returnType": "[]*string",

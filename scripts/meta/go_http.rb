@@ -99,7 +99,7 @@ module GoHTTP
 
     receiver_alias = "(#{CLIENT_ALIAS} *#{CLIENT_STRUCT_NAME})"
     endpoints.dup.map do |endpoint|
-      r = "\n" + format_go_comment(endpoint.description)
+      r = "\n" + format_go_comment_with_source(endpoint.description, endpoint.documentation)
       r += "\nfunc"
       r += receiver_alias
       r += ' ' + endpoint.enum_root.to_pascal

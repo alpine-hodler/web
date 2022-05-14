@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/fills",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfills",
 			"httpMethod": "GET",
 			"enumRoot": "Fills",
 			"slice": true,
@@ -34,7 +35,7 @@
 					"goType": "int"
 				}
 			],
-			"description": "Get a list of fills. A fill is a partial or complete match on a specific order."
+			"description": "Fills returns a list of fills. A fill is a partial or complete match on a specific order."
 		}
 	],
 	"modelFields": [

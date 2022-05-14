@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/fees",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees",
 			"httpMethod": "GET",
 			"enumRoot": "Fees",
-			"description": "Get fees rates and 30 days trailing volume."
+			"description": "Fees returns fees rates and 30 days trailing volume."
 		}
 	],
 	"modelFields": [

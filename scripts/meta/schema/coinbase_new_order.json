@@ -1,12 +1,13 @@
 {
 	"api": "coinbase",
-	"model": "new_order",
-	"modelDescription": "NewOrder is the server's response for placing a new order.",
+	"model": "create_order",
+	"modelDescription": "CreateOrder is the server's response for placing a new order.",
 	"endpoints": [
 		{
 			"path": "/orders",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postorders",
 			"httpMethod": "POST",
-			"enumRoot": "NewOrder",
+			"enumRoot": "CreateOrder",
 			"body": [
 				{
 					"identifier": "profile_id",
@@ -70,7 +71,7 @@
 					"goType": "string"
 				}
 			],
-			"description": "Create an order. You can place two types of orders: limit and market. Orders can only be placed if your account has sufficient funds. Once an order is placed, your account funds will be put on hold for the duration of the order. How much and which funds are put on hold depends on the order type and parameters specified."
+			"description": "CreateOrder will create a new an order. You can place two types of orders: limit and market. Orders can only be placed if your account has sufficient funds. Once an order is placed, your account funds will be put on hold for the duration of the order. How much and which funds are put on hold depends on the order type and parameters specified."
 		}
 	],
 	"modelFields": [

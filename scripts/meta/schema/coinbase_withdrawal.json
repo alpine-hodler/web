@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/withdrawals/coinbase-account",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount",
 			"httpMethod": "POST",
 			"enumRoot": "AccountWithdrawal",
 			"body": [
@@ -28,10 +29,11 @@
 					"required": true
 				}
 			],
-			"description": "Withdraws funds from the specified profile_id to a www.coinbase.com wallet.  Withdraw funds to a coinbase account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts section for retrieving your Coinbase accounts.  This endpoint requires the \"transfer\" permission."
+			"description": "AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet.  Withdraw funds to a coinbase account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts section for retrieving your Coinbase accounts.  This endpoint requires the \"transfer\" permission."
 		},
 		{
 			"path": "/withdrawals/crypto",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcrypto",
 			"httpMethod": "POST",
 			"enumRoot": "CryptoWithdrawal",
 			"body": [
@@ -75,10 +77,11 @@
 					"goType": "float64"
 				}
 			],
-			"description": "Withdraws funds from the specified profile_id to an external crypto address.  This endpoint requires the \"transfer\" permission. API key must belong to default profile."
+			"description": "CryptoWithdrawal funds from the specified profile_id to an external crypto address.  This endpoint requires the \"transfer\" permission. API key must belong to default profile."
 		},
 		{
 			"path": "/withdrawals/payment-method",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawpaymentmethod",
 			"httpMethod": "POST",
 			"enumRoot": "PaymentMethodWithdrawal",
 			"body": [
@@ -102,7 +105,7 @@
 					"required": true
 				}
 			],
-			"description": "Withdraws funds from the specified profile_id to a linked external payment method.  This endpoint requires the \"transfer\" permission. API key is restricted to the default profile."
+			"description": "PaymentMethodWithdrawal will fund from the specified profile_id to a linked external payment method.  This endpoint requires the \"transfer\" permission. API key is restricted to the default profile."
 		}
 	],
 	"modelFields": [

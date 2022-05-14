@@ -5,10 +5,11 @@
 	"endpoints": [
 		{
 			"path": "/coinbase-accounts",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbaseaccounts",
 			"httpMethod": "GET",
 			"enumRoot": "Wallets",
 			"slice": true,
-			"description": "Gets all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling on www.coinbase.com)"
+			"description": "Wallets will return all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling on www.coinbase.com)"
 		}
 	],
 	"modelFields": [

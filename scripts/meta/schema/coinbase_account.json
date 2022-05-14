@@ -5,16 +5,18 @@
 	"endpoints": [
 		{
 			"path": "/accounts",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts",
 			"httpMethod": "GET",
 			"enumRoot": "Accounts",
 			"slice": true,
-			"description": "Get a list of trading accounts from the profile of the API key."
+			"description": "Accounts will return a list of trading accounts from the profile of the API key."
 		},
 		{
 			"path": "/accounts/{account_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccount",
 			"httpMethod": "GET",
 			"enumRoot": "Account",
-			"description": "Information for a single account. Use this endpoint when you know the account_id. API key must belong to the same profile as the account."
+			"description": "Account will return data for a single account. Use this endpoint when you know the account_id. API key must belong to the same profile as the account."
 		}
 	],
 	"modelFields": [

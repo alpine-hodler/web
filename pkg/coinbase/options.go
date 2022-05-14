@@ -95,8 +95,8 @@ type FillsOptions struct {
 	ProfileId *string `json:"profile_id" bson:"profile_id"`
 }
 
-// NewOrderOptions are options for API requests.
-type NewOrderOptions struct {
+// CreateOrderOptions are options for API requests.
+type CreateOrderOptions struct {
 	CancelAfter *scalar.CancelAfter `json:"cancel_after" bson:"cancel_after"`
 	ClientOid   *string             `json:"client_oid" bson:"client_oid"`
 	Funds       *float64            `json:"funds" bson:"funds"`
@@ -407,6 +407,90 @@ func (opts *ConvertCurrencyOptions) SetNonce(nonce string) *ConvertCurrencyOptio
 	return opts
 }
 
+// SetProfileId sets the ProfileId field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetProfileId(profileId string) *CreateOrderOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetType sets the Type field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetType(typ scalar.OrderType) *CreateOrderOptions {
+	opts.Type = &typ
+	return opts
+}
+
+// SetSide sets the Side field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetSide(side scalar.OrderSide) *CreateOrderOptions {
+	opts.Side = side
+	return opts
+}
+
+// SetStp sets the Stp field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetStp(stp scalar.OrderSTP) *CreateOrderOptions {
+	opts.Stp = &stp
+	return opts
+}
+
+// SetStop sets the Stop field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetStop(stop scalar.OrderStop) *CreateOrderOptions {
+	opts.Stop = &stop
+	return opts
+}
+
+// SetStopPrice sets the StopPrice field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetStopPrice(stopPrice float64) *CreateOrderOptions {
+	opts.StopPrice = &stopPrice
+	return opts
+}
+
+// SetPrice sets the Price field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetPrice(price float64) *CreateOrderOptions {
+	opts.Price = &price
+	return opts
+}
+
+// SetSize sets the Size field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetSize(size float64) *CreateOrderOptions {
+	opts.Size = &size
+	return opts
+}
+
+// SetFunds sets the Funds field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetFunds(funds float64) *CreateOrderOptions {
+	opts.Funds = &funds
+	return opts
+}
+
+// SetProductId sets the ProductId field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetProductId(productId string) *CreateOrderOptions {
+	opts.ProductId = productId
+	return opts
+}
+
+// SetTimeInForce sets the TimeInForce field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetTimeInForce(timeInForce scalar.TimeInForce) *CreateOrderOptions {
+	opts.TimeInForce = &timeInForce
+	return opts
+}
+
+// SetCancelAfter sets the CancelAfter field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetCancelAfter(cancelAfter scalar.CancelAfter) *CreateOrderOptions {
+	opts.CancelAfter = &cancelAfter
+	return opts
+}
+
+// SetPostOnly sets the PostOnly field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetPostOnly(postOnly bool) *CreateOrderOptions {
+	opts.PostOnly = &postOnly
+	return opts
+}
+
+// SetClientOid sets the ClientOid field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetClientOid(clientOid string) *CreateOrderOptions {
+	opts.ClientOid = &clientOid
+	return opts
+}
+
 // SetName sets the Name field on CreateProfileOptions.
 func (opts *CreateProfileOptions) SetName(name string) *CreateProfileOptions {
 	opts.Name = &name
@@ -542,90 +626,6 @@ func (opts *FillsOptions) SetBefore(before int) *FillsOptions {
 // SetAfter sets the After field on FillsOptions.
 func (opts *FillsOptions) SetAfter(after int) *FillsOptions {
 	opts.After = &after
-	return opts
-}
-
-// SetProfileId sets the ProfileId field on NewOrderOptions.
-func (opts *NewOrderOptions) SetProfileId(profileId string) *NewOrderOptions {
-	opts.ProfileId = &profileId
-	return opts
-}
-
-// SetType sets the Type field on NewOrderOptions.
-func (opts *NewOrderOptions) SetType(typ scalar.OrderType) *NewOrderOptions {
-	opts.Type = &typ
-	return opts
-}
-
-// SetSide sets the Side field on NewOrderOptions.
-func (opts *NewOrderOptions) SetSide(side scalar.OrderSide) *NewOrderOptions {
-	opts.Side = side
-	return opts
-}
-
-// SetStp sets the Stp field on NewOrderOptions.
-func (opts *NewOrderOptions) SetStp(stp scalar.OrderSTP) *NewOrderOptions {
-	opts.Stp = &stp
-	return opts
-}
-
-// SetStop sets the Stop field on NewOrderOptions.
-func (opts *NewOrderOptions) SetStop(stop scalar.OrderStop) *NewOrderOptions {
-	opts.Stop = &stop
-	return opts
-}
-
-// SetStopPrice sets the StopPrice field on NewOrderOptions.
-func (opts *NewOrderOptions) SetStopPrice(stopPrice float64) *NewOrderOptions {
-	opts.StopPrice = &stopPrice
-	return opts
-}
-
-// SetPrice sets the Price field on NewOrderOptions.
-func (opts *NewOrderOptions) SetPrice(price float64) *NewOrderOptions {
-	opts.Price = &price
-	return opts
-}
-
-// SetSize sets the Size field on NewOrderOptions.
-func (opts *NewOrderOptions) SetSize(size float64) *NewOrderOptions {
-	opts.Size = &size
-	return opts
-}
-
-// SetFunds sets the Funds field on NewOrderOptions.
-func (opts *NewOrderOptions) SetFunds(funds float64) *NewOrderOptions {
-	opts.Funds = &funds
-	return opts
-}
-
-// SetProductId sets the ProductId field on NewOrderOptions.
-func (opts *NewOrderOptions) SetProductId(productId string) *NewOrderOptions {
-	opts.ProductId = productId
-	return opts
-}
-
-// SetTimeInForce sets the TimeInForce field on NewOrderOptions.
-func (opts *NewOrderOptions) SetTimeInForce(timeInForce scalar.TimeInForce) *NewOrderOptions {
-	opts.TimeInForce = &timeInForce
-	return opts
-}
-
-// SetCancelAfter sets the CancelAfter field on NewOrderOptions.
-func (opts *NewOrderOptions) SetCancelAfter(cancelAfter scalar.CancelAfter) *NewOrderOptions {
-	opts.CancelAfter = &cancelAfter
-	return opts
-}
-
-// SetPostOnly sets the PostOnly field on NewOrderOptions.
-func (opts *NewOrderOptions) SetPostOnly(postOnly bool) *NewOrderOptions {
-	opts.PostOnly = &postOnly
-	return opts
-}
-
-// SetClientOid sets the ClientOid field on NewOrderOptions.
-func (opts *NewOrderOptions) SetClientOid(clientOid string) *NewOrderOptions {
-	opts.ClientOid = &clientOid
 	return opts
 }
 
@@ -828,6 +828,26 @@ func (opts *ConvertCurrencyOptions) SetBody(req *client.Request) {
 		SetBodyString("nonce", opts.Nonce)
 }
 
+func (opts *CreateOrderOptions) SetBody(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetBodyString("profile_id", opts.ProfileId).
+		SetStringer("type", opts.Type).
+		SetStringer("side", &opts.Side).
+		SetStringer("stp", opts.Stp).
+		SetStringer("stop", opts.Stop).
+		SetBodyFloat("stop_price", opts.StopPrice).
+		SetBodyFloat("price", opts.Price).
+		SetBodyFloat("size", opts.Size).
+		SetBodyFloat("funds", opts.Funds).
+		SetBodyString("product_id", &opts.ProductId).
+		SetStringer("time_in_force", opts.TimeInForce).
+		SetStringer("cancel_after", opts.CancelAfter).
+		SetBodyBool("post_only", opts.PostOnly).
+		SetBodyString("client_oid", opts.ClientOid)
+}
+
 func (opts *CreateProfileOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
@@ -858,26 +878,6 @@ func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {
 		SetBodyString("two_factor_code", opts.TwoFactorCode).
 		SetBodyInt("nonce", opts.Nonce).
 		SetBodyFloat("fee", opts.Fee)
-}
-
-func (opts *NewOrderOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
-	}
-	req.SetBodyString("profile_id", opts.ProfileId).
-		SetStringer("type", opts.Type).
-		SetStringer("side", &opts.Side).
-		SetStringer("stp", opts.Stp).
-		SetStringer("stop", opts.Stop).
-		SetBodyFloat("stop_price", opts.StopPrice).
-		SetBodyFloat("price", opts.Price).
-		SetBodyFloat("size", opts.Size).
-		SetBodyFloat("funds", opts.Funds).
-		SetBodyString("product_id", &opts.ProductId).
-		SetStringer("time_in_force", opts.TimeInForce).
-		SetStringer("cancel_after", opts.CancelAfter).
-		SetBodyBool("post_only", opts.PostOnly).
-		SetBodyString("client_oid", opts.ClientOid)
 }
 
 func (opts *PaymentMethodDepositOptions) SetBody(req *client.Request) {

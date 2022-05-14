@@ -239,8 +239,8 @@ type Limits struct {
 	Type string `json:"type" bson:"type"`
 }
 
-// NewOrder is the server's response for placing a new order.
-type NewOrder struct {
+// CreateOrder is the server's response for placing a new order.
+type CreateOrder struct {
 	CreatedAt     time.Time          `json:"created_at" bson:"created_at"`
 	DoneAt        time.Time          `json:"done_at" bson:"done_at"`
 	DoneReason    string             `json:"done_reason" bson:"done_reason"`
@@ -1108,8 +1108,8 @@ func (limits *Limits) UnmarshalJSON(d []byte) error {
 	return nil
 }
 
-// UnmarshalJSON will deserialize bytes into a NewOrder model
-func (newOrder *NewOrder) UnmarshalJSON(d []byte) error {
+// UnmarshalJSON will deserialize bytes into a CreateOrder model
+func (createOrder *CreateOrder) UnmarshalJSON(d []byte) error {
 	const (
 		idJsonTag            = "id"
 		priceJsonTag         = "price"
@@ -1139,35 +1139,35 @@ func (newOrder *NewOrder) UnmarshalJSON(d []byte) error {
 	if err != nil {
 		return err
 	}
-	data.UnmarshalBool(postOnlyJsonTag, &newOrder.PostOnly)
-	data.UnmarshalBool(settledJsonTag, &newOrder.Settled)
-	data.UnmarshalFloatString(fillFeesJsonTag, &newOrder.FillFees)
-	data.UnmarshalFloatString(filledSizeJsonTag, &newOrder.FilledSize)
-	data.UnmarshalFloatString(fundingAmountJsonTag, &newOrder.FundingAmount)
-	data.UnmarshalFloatString(fundsJsonTag, &newOrder.Funds)
-	data.UnmarshalFloatString(priceJsonTag, &newOrder.Price)
-	data.UnmarshalFloatString(sizeJsonTag, &newOrder.Size)
-	data.UnmarshalFloatString(specificFundsJsonTag, &newOrder.SpecificFunds)
-	data.UnmarshalFloatString(stopPriceJsonTag, &newOrder.StopPrice)
-	data.UnmarshalOrderSide(sideJsonTag, &newOrder.Side)
-	data.UnmarshalOrderStop(stopJsonTag, &newOrder.Stop)
-	data.UnmarshalOrderType(typeJsonTag, &newOrder.Type)
-	data.UnmarshalString(doneReasonJsonTag, &newOrder.DoneReason)
-	data.UnmarshalString(idJsonTag, &newOrder.Id)
-	data.UnmarshalString(productIdJsonTag, &newOrder.ProductId)
-	data.UnmarshalString(profileIdJsonTag, &newOrder.ProfileId)
-	data.UnmarshalString(rejectReasonJsonTag, &newOrder.RejectReason)
-	data.UnmarshalString(statusJsonTag, &newOrder.Status)
-	data.UnmarshalTimeInForce(timeInForceJsonTag, &newOrder.TimeInForce)
-	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &newOrder.CreatedAt)
+	data.UnmarshalBool(postOnlyJsonTag, &createOrder.PostOnly)
+	data.UnmarshalBool(settledJsonTag, &createOrder.Settled)
+	data.UnmarshalFloatString(fillFeesJsonTag, &createOrder.FillFees)
+	data.UnmarshalFloatString(filledSizeJsonTag, &createOrder.FilledSize)
+	data.UnmarshalFloatString(fundingAmountJsonTag, &createOrder.FundingAmount)
+	data.UnmarshalFloatString(fundsJsonTag, &createOrder.Funds)
+	data.UnmarshalFloatString(priceJsonTag, &createOrder.Price)
+	data.UnmarshalFloatString(sizeJsonTag, &createOrder.Size)
+	data.UnmarshalFloatString(specificFundsJsonTag, &createOrder.SpecificFunds)
+	data.UnmarshalFloatString(stopPriceJsonTag, &createOrder.StopPrice)
+	data.UnmarshalOrderSide(sideJsonTag, &createOrder.Side)
+	data.UnmarshalOrderStop(stopJsonTag, &createOrder.Stop)
+	data.UnmarshalOrderType(typeJsonTag, &createOrder.Type)
+	data.UnmarshalString(doneReasonJsonTag, &createOrder.DoneReason)
+	data.UnmarshalString(idJsonTag, &createOrder.Id)
+	data.UnmarshalString(productIdJsonTag, &createOrder.ProductId)
+	data.UnmarshalString(profileIdJsonTag, &createOrder.ProfileId)
+	data.UnmarshalString(rejectReasonJsonTag, &createOrder.RejectReason)
+	data.UnmarshalString(statusJsonTag, &createOrder.Status)
+	data.UnmarshalTimeInForce(timeInForceJsonTag, &createOrder.TimeInForce)
+	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &createOrder.CreatedAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(time.RFC3339Nano, doneAtJsonTag, &newOrder.DoneAt)
+	err = data.UnmarshalTime(time.RFC3339Nano, doneAtJsonTag, &createOrder.DoneAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(time.RFC3339Nano, expireTimeJsonTag, &newOrder.ExpireTime)
+	err = data.UnmarshalTime(time.RFC3339Nano, expireTimeJsonTag, &createOrder.ExpireTime)
 	if err != nil {
 		return err
 	}

@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/conversions",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postconversion",
 			"httpMethod": "POST",
 			"enumRoot": "ConvertCurrency",
 			"description": "ConvertCurrency converts funds from from currency to to currency. Funds are converted on the from account in the profile_id profile.  This endpoint requires the \"trade\" permission.  A successful conversion will be assigned a conversion id. The corresponding ledger entries for a conversion will reference this conversion id",
@@ -36,6 +37,7 @@
 		},
 		{
 			"path": "/conversions/{conversion_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getconversion",
 			"httpMethod": "GET",
 			"enumRoot": "CurrencyConversion",
 			"description": "CurrencyConversion returns the currency conversion by conversion id (i.e. USD -> USDC).",

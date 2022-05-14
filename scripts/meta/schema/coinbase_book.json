@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/book",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductbook",
 			"httpMethod": "GET",
 			"enumRoot": "Book",
-			"description": "Get a list of open orders for a product. The amount of detail shown can be customized with the level parameter.",
+			"description": "Book will return a list of open orders for a product. The amount of detail shown can be customized with the level parameter.",
 			"queryParams": [
 				{
 					"identifier": "level",

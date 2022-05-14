@@ -5,10 +5,11 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/trades",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades",
 			"httpMethod": "GET",
 			"enumRoot": "Trades",
 			"slice": true,
-			"description": "Gets a list the latest trades for a product.",
+			"description": "Trades retruns a list the latest trades for a product.",
 			"queryParams": [
 				{
 					"identifier": "limit",

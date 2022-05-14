@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/oracle",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbasepriceoracle",
 			"httpMethod": "GET",
 			"enumRoot": "SignedPrices",
 			"description": "SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart contract."

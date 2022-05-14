@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/withdrawals/fee-estimate",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getwithdrawfeeestimate",
 			"httpMethod": "GET",
 			"enumRoot": "WithdrawalFeeEstimate",
 			"queryParams": [
@@ -17,7 +18,7 @@
 					"goType": "string"
 				}
 			],
-			"description": "Gets the fee estimate for the crypto withdrawal to crypto address"
+			"description": "WithdrawalFeeEstimate will return the fee estimate for the crypto withdrawal to crypto address"
 		}
 	],
 	"modelFields": [

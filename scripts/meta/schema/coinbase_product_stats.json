@@ -5,9 +5,10 @@
 	"endpoints": [
 		{
 			"path": "/products/{product_id}/stats",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductstats",
 			"httpMethod": "GET",
 			"enumRoot": "ProductStats",
-			"description": "Gets 30day and 24hour stats for a product."
+			"description": "ProductStats will return 30day and 24hour stats for a product."
 		}
 	],
 	"modelFields": [

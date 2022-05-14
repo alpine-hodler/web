@@ -5,6 +5,7 @@
 	"endpoints": [
 		{
 			"path": "/accounts/{account_id}/transfers",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers",
 			"httpMethod": "GET",
 			"enumRoot": "AccountTransfers",
 			"slice": true,
@@ -30,6 +31,7 @@
 		},
 		{
 			"path": "/transfers",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers",
 			"httpMethod": "GET",
 			"slice": true,
 			"enumRoot": "Transfers",
@@ -37,6 +39,7 @@
 		},
 		{
 			"path": "/transfers/{transfer_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer",
 			"httpMethod": "GET",
 			"enumRoot": "AccountTransfer",
 			"description": "AccountTransfer returns information on a single transfer."
