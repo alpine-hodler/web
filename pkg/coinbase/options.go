@@ -138,6 +138,12 @@ type ProductsOptions struct {
 	Type *string `json:"type" bson:"type"`
 }
 
+// DeleteProfileOptions are options for API requests.
+type DeleteProfileOptions struct {
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	To        *string `json:"to" bson:"to"`
+}
+
 // ProfileOptions are options for API requests.
 type ProfileOptions struct {
 	Active *bool `json:"active" bson:"active"`
@@ -488,6 +494,18 @@ func (opts *CryptoWithdrawalOptions) SetFee(fee float64) *CryptoWithdrawalOption
 // SetProfileId sets the ProfileId field on CurrencyConversionOptions.
 func (opts *CurrencyConversionOptions) SetProfileId(profileId string) *CurrencyConversionOptions {
 	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetProfileId sets the ProfileId field on DeleteProfileOptions.
+func (opts *DeleteProfileOptions) SetProfileId(profileId string) *DeleteProfileOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetTo sets the To field on DeleteProfileOptions.
+func (opts *DeleteProfileOptions) SetTo(to string) *DeleteProfileOptions {
+	opts.To = &to
 	return opts
 }
 
@@ -941,6 +959,14 @@ func (opts *CurrencyConversionOptions) SetQueryParams(req *client.Request) {
 		return
 	}
 	req.SetQueryParamString("profile_id", opts.ProfileId)
+}
+
+func (opts *DeleteProfileOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamString("to", opts.To)
 }
 
 func (opts *FillsOptions) SetQueryParams(req *client.Request) {

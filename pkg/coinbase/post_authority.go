@@ -31,6 +31,7 @@ const (
 	currenciesPostAuthority
 	currencyConversionPostAuthority
 	currencyPostAuthority
+	deleteProfilePostAuthority
 	feesPostAuthority
 	fillsPostAuthority
 	generateCryptoAddressPostAuthority
@@ -252,6 +253,16 @@ func getProductTickerPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/products", builder.Get(tools.URIBuilderComponentPath, "product_id"), "ticker")
 }
 
+// DeleteProfile deletes the profile specified by profile_id and transfers all funds to the profile specified by to.
+// Fails if there are any open orders on the profile to be deleted.
+func getDeleteProfilePostAuthority(builder tools.URIBuilder) (p string) {
+	p = path.Join("/profiles", builder.Get(tools.URIBuilderComponentPath, "profile_id"), "deactivate")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(builder.QueryPath().String())
+	return sb.String()
+}
+
 // Profile returns information for a single profile. Use this endpoint when you know the profile_id. This endpoint
 // requires the "view" permission and is accessible by any profile's API key.
 func getProfilePostAuthority(builder tools.URIBuilder) (p string) {
@@ -368,6 +379,7 @@ func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 		productPostAuthority:                 getProductPostAuthority,
 		productStatsPostAuthority:            getProductStatsPostAuthority,
 		productTickerPostAuthority:           getProductTickerPostAuthority,
+		deleteProfilePostAuthority:           getDeleteProfilePostAuthority,
 		profilePostAuthority:                 getProfilePostAuthority,
 		renameProfilePostAuthority:           getRenameProfilePostAuthority,
 		profilesPostAuthority:                getProfilesPostAuthority,

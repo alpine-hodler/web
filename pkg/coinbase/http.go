@@ -154,6 +154,15 @@ func (c *C) CurrencyConversion(conversionId string, opts *CurrencyConversionOpti
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// DeleteProfile deletes the profile specified by profile_id and transfers all funds to the profile specified by to.
+// Fails if there are any open orders on the profile to be deleted.
+func (c *C) DeleteProfile(profileId string, opts *DeleteProfileOptions) error {
+	return c.Put(deleteProfilePostAuthority).
+		SetPathParam("profile_id", profileId).
+		SetQueryParams(opts).
+		Fetch().NoAssignment().JoinMessages()
+}
+
 // Get fees rates and 30 days trailing volume.
 func (c *C) Fees() (m *Fees, _ error) {
 	return m, c.Get(feesPostAuthority).
