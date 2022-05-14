@@ -33,12 +33,17 @@
 					"path",
 					"enumRoot",
 					"description",
-					"httpMethod"
+					"httpMethod",
+					"documentation"
 				],
 				"properties": {
 					"path": {
 						"type": "string",
 						"description": "a url endpiont associated with the model"
+					},
+					"documentation": {
+						"type": "string",
+						"description": "the api documentation url"
 					},
 					"enumRoot": {
 						"type": "string",
