@@ -26,7 +26,7 @@ services:
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
-      - ./scripts/meta/go_endpoints.rb:/usr/src/meta/go_endpoints.rb
+      - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
     depends_on:
       - goimports
   test_generate:
@@ -52,6 +52,6 @@ services:
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/test:/usr/src/meta/test
-      - ./scripts/meta/go_endpoints.rb:/usr/src/meta/go_endpoints.rb
+      - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
     depends_on:
       - goimports

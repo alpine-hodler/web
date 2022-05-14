@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'go_endpoints'
+require_relative 'go_post_authority'
 
 # EndpointStore holds endpoint data by api
 class EndpointStore
-  include GoEndpoints
+  include GoPostAuthority
 
   def initialize
     tree = proc { Hash.new { |hash, key| hash[key] = [] } }

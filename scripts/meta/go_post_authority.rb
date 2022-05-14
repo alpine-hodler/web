@@ -4,9 +4,9 @@ require_relative 'comment'
 require 'string_inflection'
 using StringInflection
 
-# GoEndpoints is responsible for methods that generate the endpoint.go code in
+# GoPostAuthority is responsible for methods that generate the endpoint.go code in
 # sdk packages
-module GoEndpoints
+module GoPostAuthority
   MSG = "\n// * This is a generated file, do not edit"
 
   def self.endpoint_consts(endpoints)
@@ -63,12 +63,12 @@ module GoEndpoints
     all.each do |api, endpoints|
       Dir.chdir(PARENT_DIR + "/#{api}") do
         File.open(POST_AUTHORITY_FILENAME, 'w') do |f|
-          f.write(GoEndpoints.pkg_name(api))
+          f.write(GoPostAuthority.pkg_name(api))
           f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
 					f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
           f.write(MSG)
           f.write("\ntype #{POST_AUTHORITY_TYPE_ALIAS}  uint8;")
-          f.write(GoEndpoints.endpoint_consts(endpoints))
+          f.write(GoPostAuthority.endpoint_consts(endpoints))
           f.write(path_functions(endpoints))
           f.write(get_function(endpoints))
         end
