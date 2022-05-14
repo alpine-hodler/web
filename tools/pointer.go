@@ -14,12 +14,28 @@ func IntPtrStringPtr(i *int) *string {
 	return nil
 }
 
+func IntPtrString(i *int) string {
+	var str string
+	if i != nil {
+		str = strconv.Itoa(*i)
+	}
+	return str
+}
+
 func Int32PtrStringPtr(i *int32) *string {
 	if i != nil {
 		str := strconv.Itoa(int(*i))
 		return &str
 	}
 	return nil
+}
+
+func Int32PtrString(i *int32) string {
+	var str string
+	if i != nil {
+		str = strconv.Itoa(int(*i))
+	}
+	return str
 }
 
 func FloatPtrStringPtr(f *float64) *string {

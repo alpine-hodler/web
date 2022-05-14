@@ -135,6 +135,16 @@ func TestSimpleIntegrations(t *testing.T) {
 		_, err = client.AccountTransfer(transfer.Id)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.RenameProfile", func() (err error) {
+		// TODO: Fix {Message:Invalid scope Status:403 Forbidden StatusCode:Forbidden}
+
+		// original := "Simple Test"
+		// updated := "Simple Test 2: Electric Boogaloo"
+		// profile := findProfileByName(t, client, original)
+		// _, err = client.RenameProfile(profile.Id, new(RenameProfileOptions).SetName(updated).SetProfileId(updated))
+
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.SignedPrices", func() (err error) {
 		_, err = client.SignedPrices()
 		return

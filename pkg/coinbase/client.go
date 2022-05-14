@@ -101,7 +101,7 @@ func (coinbaseClient *C) generateSig(secret, message string) (string, error) {
 
 // generageMsg makes the message to be signed
 func (coinbaseClient *C) generageMsg(creq client.Request, timestamp string) string {
-	return fmt.Sprintf("%s%s%s%s", timestamp, creq.MethodStr(), creq.EndpointPath(), string(creq.GetBody().Bytes()))
+	return fmt.Sprintf("%s%s%s%s", timestamp, creq.MethodStr(), creq.URIPostAuthority(), string(creq.GetBody().Bytes()))
 }
 
 // setHeaders sets the headers for a coinbase api request, in particular:
@@ -135,7 +135,7 @@ func (coinbaseClient *C) setHeaders(hreq *http.Request, creq client.Request) (e 
 // request makes an http request to the coinbase api, given a method and an endpoint.
 func (coinbaseClient *C) Do(creq client.Request) (*http.Response, error) {
 	// TODO make data-compatible for non-get requests
-	uri := coinbaseClient.url + creq.EndpointPath()
+	uri := coinbaseClient.url + creq.URIPostAuthority()
 
 	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
 

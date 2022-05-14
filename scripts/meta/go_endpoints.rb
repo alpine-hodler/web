@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
 require_relative 'comment'
+require 'string_inflection'
+using StringInflection
 
 # GoEndpoints is responsible for methods that generate the endpoint.go code in
 # sdk packages
 module GoEndpoints
-  ENDPOINT_TYPE = "\ntype endpoint uint8;"
   MSG = "\n// * This is a generated file, do not edit"
-  GET_MSG = 'Get takes an endpoint const and endpoint arguments to parse the URL endpoint path.'
 
   def self.endpoint_consts(endpoints)
-    consts = ['_ endpoint = iota'] | endpoints.dup.map { |ep| ep.go_const }.sort
+    consts = ["_ #{POST_AUTHORITY_TYPE_ALIAS} = iota"] | endpoints.dup.map { |ep| ep.go_const }.sort
     "const(#{consts.join(';')})"
   end
 
   def get_function(endpoints)
-    mappings = endpoints.dup.map { |ep| "#{ep.go_const}: #{ep.enum_root}Path," }
-    comment = Comment.u_format_go_comment(GET_MSG)
-    rec = "\n#{comment}\nfunc (ep endpoint)"
-    sig = 'Path(args client.EndpointArgs) string'
+    mappings = endpoints.dup.map { |ep| "#{ep.go_const}: get#{ep.enum_root.to_pascal}PostAuthority," }
+    comment = Comment.u_format_go_comment("Get takes an #{POST_AUTHORITY_TYPE_ALIAS} const and #{POST_AUTHORITY_TYPE_ALIAS} arguments to parse the URL #{POST_AUTHORITY_TYPE_ALIAS} path.")
+    rec = "\n#{comment}\nfunc (#{POST_AUTHORITY_ALIAS} #{POST_AUTHORITY_TYPE_ALIAS})"
+    sig = "PostAuthority(#{URI_BUILDER_ALIAS} #{TOOLS_PKG}.URIBuilder) string"
 
-    map = 'map[endpoint]func(args client.EndpointArgs) string'
+    map = "map[#{POST_AUTHORITY_TYPE_ALIAS}]func(#{URI_BUILDER_ALIAS} #{TOOLS_PKG}.URIBuilder) string"
     wrapper = "#{map}{\n#{mappings.join("\n")}\n}"
 
-    "#{rec} #{sig} {return #{wrapper}[ep](args)};"
+    "#{rec} #{sig} {return #{wrapper}[#{POST_AUTHORITY_ALIAS}](#{URI_BUILDER_ALIAS})};"
   end
 
   def self.pkg_name(api)
@@ -37,16 +37,16 @@ module GoEndpoints
   def path_functions(endpoints)
     endpoints.dup.map do |endpoint|
       var = '_'
-      var = 'args' if endpoint.path_parts? || endpoint.query_params?
+      var = URI_BUILDER_ALIAS if endpoint.path_parts? || endpoint.query_params?
 
-      sig = "func #{endpoint.enum_root}Path(#{var} client.EndpointArgs) "
+      sig = "func get#{endpoint.enum_root.to_pascal}PostAuthority(#{var} #{TOOLS_PKG}.URIBuilder) "
       inner_logic = ''
       if endpoint.query_params?
         sig += '(p string)'
         inner_logic = 	"p = #{join_paths(endpoint)};"
         inner_logic += 'var sb strings.Builder;'
         inner_logic += 'sb.WriteString(p);'
-        inner_logic += 'sb.WriteString(args.QueryPath().String());'
+        inner_logic += "sb.WriteString(#{URI_BUILDER_ALIAS}.QueryPath().String());"
         inner_logic += 'return sb.String();'
       else
         sig += 'string'
@@ -62,11 +62,12 @@ module GoEndpoints
   def write_sdk
     all.each do |api, endpoints|
       Dir.chdir(PARENT_DIR + "/#{api}") do
-        File.open('endpoint.go', 'w') do |f|
+        File.open(POST_AUTHORITY_FILENAME, 'w') do |f|
           f.write(GoEndpoints.pkg_name(api))
           f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
+					f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
           f.write(MSG)
-          f.write(ENDPOINT_TYPE)
+          f.write("\ntype #{POST_AUTHORITY_TYPE_ALIAS}  uint8;")
           f.write(GoEndpoints.endpoint_consts(endpoints))
           f.write(path_functions(endpoints))
           f.write(get_function(endpoints))
@@ -75,7 +76,7 @@ module GoEndpoints
         # In addition to fixing imports, goimports also formats your code in the
         # same style as gofmt so it can be used as a replacement for your editor's
         # gofmt-on-save hook.
-        `/go/bin/goimports -w endpoint.go`
+        `/go/bin/goimports -w #{POST_AUTHORITY_FILENAME}`
       end
     end
   end

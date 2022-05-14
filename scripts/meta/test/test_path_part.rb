@@ -13,7 +13,7 @@ describe PathPart do
       _(@path_part1.go_var).must_equal('testPathPart')
       _(@path_part1.go_arg).must_equal('"test_path_part"')
 
-      _(@path_part2.go_arg).must_equal('*args["path_param"].PathParam')
+      _(@path_part2.go_arg).must_equal("builder.Get(tools.URIBuilderComponentPath, \"path_param\")")
     end
   end
 

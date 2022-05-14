@@ -16,6 +16,22 @@
 			]
 		},
 		{
+			"path": "/profiles/{profile_id}",
+			"httpMethod": "PUT",
+			"enumRoot": "RenameProfile",
+			"description": "RenameProfile will rename a profile. Names 'default' and 'margin' are reserved.",
+			"queryParams": [
+				{
+					"identifier": "profile_id",
+					"goType": "string"
+				},
+				{
+					"identifier": "name",
+					"goType": "string"
+				}
+			]
+		},
+		{
 			"path": "/profiles",
 			"httpMethod": "GET",
 			"enumRoot": "Profiles",

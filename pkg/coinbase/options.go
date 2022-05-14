@@ -143,6 +143,12 @@ type ProfileOptions struct {
 	Active *bool `json:"active" bson:"active"`
 }
 
+// RenameProfileOptions are options for API requests.
+type RenameProfileOptions struct {
+	Name      *string `json:"name" bson:"name"`
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
+}
+
 // ProfilesOptions are options for API requests.
 type ProfilesOptions struct {
 	Active *bool `json:"active" bson:"active"`
@@ -731,6 +737,18 @@ func (opts *ProfilesOptions) SetActive(active bool) *ProfilesOptions {
 	return opts
 }
 
+// SetProfileId sets the ProfileId field on RenameProfileOptions.
+func (opts *RenameProfileOptions) SetProfileId(profileId string) *RenameProfileOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetName sets the Name field on RenameProfileOptions.
+func (opts *RenameProfileOptions) SetName(name string) *RenameProfileOptions {
+	opts.Name = &name
+	return opts
+}
+
 // SetLimit sets the Limit field on TradesOptions.
 func (opts *TradesOptions) SetLimit(limit int32) *TradesOptions {
 	opts.Limit = &limit
@@ -972,6 +990,14 @@ func (opts *ProfilesOptions) SetQueryParams(req *client.Request) {
 		return
 	}
 	req.SetQueryParamBool("active", opts.Active)
+}
+
+func (opts *RenameProfileOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamString("name", opts.Name)
 }
 
 func (opts *TradesOptions) SetQueryParams(req *client.Request) {

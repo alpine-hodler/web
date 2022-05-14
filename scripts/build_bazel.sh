@@ -2,6 +2,7 @@
 
 # the mod cache can cause some goofy warnings if its not cleaned before we build
 go clean -modcache
+go mod tidy
 
 bazel clean
 bazel run //:gazelle

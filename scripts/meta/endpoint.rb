@@ -31,7 +31,7 @@ class Endpoint
     @hash = hash
     @path = hash[:path]
     @enum_root = hash[:enumRoot].to_camel
-    @go_const = "#{enum_root.to_camel}Endpoint"
+    @go_const = "#{enum_root.to_camel}PostAuthority"
     @description = hash[:description] || ''
     @slice = hash[:slice]
     @return_type = hash[:returnType]

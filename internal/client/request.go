@@ -21,10 +21,10 @@ type Request struct {
 	body               Body
 	client             string
 	connector          Connector
-	endpoint           Endpoint
-	endpointArgs       EndpointArgs
 	errors             *Errors
 	method             Method
+	uriBuilderAccesor  tools.URIBuilderAccessor
+	uriBuilder         tools.URIBuilder
 
 	// slug is an 8 character randomly generated identifiery for the body, to be
 	// used to identify request info in logging.
@@ -50,20 +50,19 @@ type stringer interface {
 	String() string
 }
 
-func (req *Request) EndpointArgs() EndpointArgs { return req.endpointArgs }
-func (req *Request) EndpointPath() string       { return req.endpoint.Path(req.endpointArgs) }
-func (req *Request) Endpoint() Endpoint         { return req.endpoint }
-func (req *Request) GetBody() *Body             { return &req.body }
-func (req *Request) Method() Method             { return req.method }
-func (req *Request) MethodStr() string          { return req.method.String() }
+func (req *Request) URIBuilder() tools.URIBuilder                 { return req.uriBuilder }
+func (req *Request) URIBuilderAccessor() tools.URIBuilderAccessor { return req.uriBuilderAccesor }
+func (req *Request) GetBody() *Body                               { return &req.body }
+func (req *Request) Method() Method                               { return req.method }
+func (req *Request) MethodStr() string                            { return req.method.String() }
 
-func New(conn Connector, method Method, endpoint Endpoint) *Request {
+func New(conn Connector, method Method, accessor tools.URIBuilderAccessor) *Request {
 	req := new(Request)
 	req.connector = conn
-	req.endpoint = endpoint
 	req.errors = new(Errors)
 	req.method = method
-	req.endpointArgs = make(EndpointArgs)
+	req.uriBuilder = make(tools.URIBuilder)
+	req.uriBuilderAccesor = accessor
 	return req
 }
 
@@ -138,8 +137,9 @@ func (req *Request) Fetch() *Assigner {
 	return assigner
 }
 
-func (req *Request) PathParam(key, value string) *Request {
-	req.endpointArgs[key] = &EndpointArg{PathParam: &value}
+// AddPathParam will add a path parameter to the tools.URIBuilder.
+func (req *Request) SetPathParam(key, value string) *Request {
+	req.uriBuilder.Add(tools.URIBuilderComponentPath, key, value)
 	return req
 }
 
@@ -193,86 +193,56 @@ func (req *Request) SetStringer(key string, val stringer) *Request {
 	return req
 }
 
-func (req *Request) QueryParam(key string, value *string) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			i = value
-		}
-		return
-	}()}
-	return req
-}
-
 // SetQueryParamBool will set a query param from a bool value.
 func (req *Request) SetQueryParamBool(key string, value *bool) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			boolStr := strconv.FormatBool(*value)
-			i = &boolStr
-		}
-		return
-	}()}
+	if value != nil {
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, strconv.FormatBool(*value))
+	}
 	return req
 }
 
 // SetQueryParamInt32 will set a query param from an int32 value.
 func (req *Request) SetQueryParamInt32(key string, value *int32) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			i = tools.Int32PtrStringPtr(value)
-		}
-		return
-	}()}
+	if value != nil {
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, tools.Int32PtrString(value))
+	}
 	return req
 }
 
 // SetQueryParamInt will set a query param from an int value.
 func (req *Request) SetQueryParamInt(key string, value *int) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			i = tools.IntPtrStringPtr(value)
-		}
-		return
-	}()}
+	if value != nil {
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, tools.IntPtrString(value))
+	}
 	return req
 }
 
 // SetQueryParamString will set a query param from a string value.
 func (req *Request) SetQueryParamString(key string, value *string) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			i = value
-		}
-		return
-	}()}
+	if value != nil {
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, *value)
+	}
 	return req
 }
 
 // SetQueryParamStrings will set potentially many query param from a string slice.
 func (req *Request) SetQueryParamStrings(key string, values []string) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if values != nil {
-			slice := []string{}
-			for _, v := range values {
-				slice = append(slice, v)
-			}
-			tmp := strings.Join(slice, ", ")
-			i = &tmp
+	if values != nil {
+		// TODO: Add this logic to the tools package
+		slice := []string{}
+		for _, v := range values {
+			slice = append(slice, v)
 		}
-		return
-	}()}
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, strings.Join(slice, ", "))
+	}
 	return req
 }
 
 // SetQueryParamTime will set a query param from a time.Time value.
 func (req *Request) SetQueryParamTime(key string, value *time.Time) *Request {
-	req.endpointArgs[key] = &EndpointArg{QueryParam: func() (i *string) {
-		if value != nil {
-			tmp := value.String()
-			i = &tmp
-		}
-		return
-	}()}
+	if value != nil {
+		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, value.String())
+	}
 	return req
 }
 
@@ -283,4 +253,9 @@ func (req *Request) SetQueryParams(opts interface{}) *Request {
 		opts.(queryParamsOptions).SetQueryParams(req)
 	}
 	return req
+}
+
+// URIPostAuthority will return everything after the authorithy portion of the URI
+func (req *Request) URIPostAuthority() string {
+	return req.uriBuilderAccesor.PostAuthority(req.uriBuilder)
 }

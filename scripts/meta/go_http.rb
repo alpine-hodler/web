@@ -11,7 +11,8 @@ module GoHTTP
     {
       'GET' => 'Get',
       'POST' => 'Post',
-      'DELETE' => 'Delete'
+      'DELETE' => 'Delete',
+			'PUT' => 'Put'
     }[endpoint.http_method]
   end
 
@@ -58,7 +59,7 @@ module GoHTTP
 
   def path_call endpoint
     # PathParam("account_id", accountId).
-    fns = endpoint.path_params.dup.map { |part| "PathParam(\"#{part.param_name}\", #{part.param_go_var.to_camel})" }
+    fns = endpoint.path_params.dup.map { |part| "SetPathParam(\"#{part.param_name}\", #{part.param_go_var.to_camel})" }
     return nil if fns.empty?
     return fns[0] if fns.length == 1
 

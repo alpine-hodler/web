@@ -34,7 +34,8 @@ class PathPart
 
   def set_go_arg
     @go_arg = if path_param?
-                "*args[\"#{name.dup.gsub!('{', '').gsub('}', '')}\"].PathParam"
+								n = name.dup.gsub!('{', '').gsub('}', '')
+                "#{URI_BUILDER_ALIAS}.Get(#{TOOLS_PKG}.URIBuilderComponentPath, \"#{n}\")"
               else
                 "\"#{name}\""
               end

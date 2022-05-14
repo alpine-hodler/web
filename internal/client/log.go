@@ -12,7 +12,7 @@ func Logf(level log.Level, req *Request, msg string, args ...interface{}) {
 }
 
 func LogHTTPRequest(req *Request) {
-	Logf(log.DEBUG, req, "/%s %v", req.MethodStr(), req.EndpointPath())
+	Logf(log.DEBUG, req, "/%s %v", req.MethodStr(), req.URIPostAuthority())
 }
 
 func LogResponseStatus(req *Request, res *http.Response) {
