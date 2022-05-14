@@ -116,6 +116,11 @@ func TestSimpleIntegrations(t *testing.T) {
 		_, err = client.Account(findAccountID(t, client, currency))
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.ExchangeLimits", func() (err error) {
+		profile := findProfileByName(t, client, profileName)
+		_, err = client.ExchangeLimits(profile.Id)
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.Product", func() (err error) {
 		products, err := client.Products(nil)
 		require.NotEmpty(t, products)

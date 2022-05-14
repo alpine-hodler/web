@@ -227,6 +227,15 @@ type CurrencyDetails struct {
 	Type                  string   `json:"type" bson:"type"`
 }
 
+// CurrencyTransferLimit encapsulates ACH data for a currency via Max/Remaining amounts.
+type CurrencyTransferLimit struct {
+	Max       float64 `json:"max" bson:"max"`
+	Remaining float64 `json:"remaining" bson:"remaining"`
+}
+
+// CurrencyTransferLimits encapsulates ACH data for many currencies.
+type CurrencyTransferLimits map[string]CurrencyTransferLimit
+
 // Deposit is the response for deposited funds from a www.coinbase.com wallet to the specified profile_id.
 type Deposit struct {
 	Amount   float64 `json:"amount" bson:"amount"`
@@ -235,6 +244,12 @@ type Deposit struct {
 	Id       string  `json:"id" bson:"id"`
 	PayoutAt string  `json:"payout_at" bson:"payout_at"`
 	Subtotal float64 `json:"subtotal" bson:"subtotal"`
+}
+
+// ExchangeLimits represents exchange limit information for a single user.
+type ExchangeLimits struct {
+	LimitCurrency  string         `json:"limit_currency" bson:"limit_currency"`
+	TransferLimits TransferLimits `json:"transfer_limits" bson:"transfer_limits"`
 }
 
 // Fees are fees rates and 30 days trailing volume.
@@ -521,6 +536,22 @@ type Trade struct {
 	Size    float64          `json:"size" bson:"size"`
 	Time    time.Time        `json:"time" bson:"time"`
 	TradeId int32            `json:"trade_id" bson:"trade_id"`
+}
+
+// TODO
+type TransferLimits struct {
+	Ach                   CurrencyTransferLimits `json:"ach" bson:"ach"`
+	AchNoBalance          CurrencyTransferLimits `json:"ach_no_balance" bson:"ach_no_balance"`
+	Buy                   CurrencyTransferLimits `json:"buy" bson:"buy"`
+	CreditDebitCard       CurrencyTransferLimits `json:"credit_debit_card" bson:"credit_debit_card"`
+	ExchangeWithdraw      CurrencyTransferLimits `json:"exchange_withdraw" bson:"exchange_withdraw"`
+	IdealDeposit          CurrencyTransferLimits `json:"ideal_deposit" bson:"ideal_deposit"`
+	InstanceAchWithdrawal CurrencyTransferLimits `json:"instance_ach_withdrawal" bson:"instance_ach_withdrawal"`
+	PaypalBuy             CurrencyTransferLimits `json:"paypal_buy" bson:"paypal_buy"`
+	PaypalWithdrawal      CurrencyTransferLimits `json:"paypal_withdrawal" bson:"paypal_withdrawal"`
+	Secure3dBuy           CurrencyTransferLimits `json:"secure3d_buy" bson:"secure3d_buy"`
+	Sell                  CurrencyTransferLimits `json:"sell" bson:"sell"`
+	SofortDeposit         CurrencyTransferLimits `json:"sofort_deposit" bson:"sofort_deposit"`
 }
 
 // UkDepositInformation information regarding a wallet's deposits.
@@ -1153,6 +1184,21 @@ func (currencyDetails *CurrencyDetails) UnmarshalJSON(d []byte) error {
 	return nil
 }
 
+// UnmarshalJSON will deserialize bytes into a CurrencyTransferLimit model
+func (currencyTransferLimit *CurrencyTransferLimit) UnmarshalJSON(d []byte) error {
+	const (
+		maxJsonTag       = "max"
+		remainingJsonTag = "remaining"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalFloat(maxJsonTag, &currencyTransferLimit.Max)
+	data.UnmarshalFloat(remainingJsonTag, &currencyTransferLimit.Remaining)
+	return nil
+}
+
 // UnmarshalJSON will deserialize bytes into a Deposit model
 func (deposit *Deposit) UnmarshalJSON(d []byte) error {
 	const (
@@ -1173,6 +1219,24 @@ func (deposit *Deposit) UnmarshalJSON(d []byte) error {
 	data.UnmarshalString(currencyJsonTag, &deposit.Currency)
 	data.UnmarshalString(idJsonTag, &deposit.Id)
 	data.UnmarshalString(payoutAtJsonTag, &deposit.PayoutAt)
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a ExchangeLimits model
+func (exchangeLimits *ExchangeLimits) UnmarshalJSON(d []byte) error {
+	const (
+		limitCurrencyJsonTag  = "limit_currency"
+		transferLimitsJsonTag = "transfer_limits"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalString(limitCurrencyJsonTag, &exchangeLimits.LimitCurrency)
+	exchangeLimits.TransferLimits = TransferLimits{}
+	if err := data.UnmarshalStruct(transferLimitsJsonTag, &exchangeLimits.TransferLimits); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1844,6 +1908,77 @@ func (trade *Trade) UnmarshalJSON(d []byte) error {
 	data.UnmarshalOrderSide(sideJsonTag, &trade.Side)
 	err = data.UnmarshalTime(time.RFC3339Nano, timeJsonTag, &trade.Time)
 	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a TransferLimits model
+func (transferLimits *TransferLimits) UnmarshalJSON(d []byte) error {
+	const (
+		buyJsonTag                   = "buy"
+		sellJsonTag                  = "sell"
+		exchangeWithdrawJsonTag      = "exchange_withdraw"
+		achJsonTag                   = "ach"
+		achNoBalanceJsonTag          = "ach_no_balance"
+		creditDebitCardJsonTag       = "credit_debit_card"
+		secure3dBuyJsonTag           = "secure3d_buy"
+		paypalBuyJsonTag             = "paypal_buy"
+		paypalWithdrawalJsonTag      = "paypal_withdrawal"
+		idealDepositJsonTag          = "ideal_deposit"
+		sofortDepositJsonTag         = "sofort_deposit"
+		instanceAchWithdrawalJsonTag = "instance_ach_withdrawal"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	transferLimits.Ach = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(achJsonTag, &transferLimits.Ach); err != nil {
+		return err
+	}
+	transferLimits.AchNoBalance = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(achNoBalanceJsonTag, &transferLimits.AchNoBalance); err != nil {
+		return err
+	}
+	transferLimits.Buy = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(buyJsonTag, &transferLimits.Buy); err != nil {
+		return err
+	}
+	transferLimits.CreditDebitCard = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(creditDebitCardJsonTag, &transferLimits.CreditDebitCard); err != nil {
+		return err
+	}
+	transferLimits.ExchangeWithdraw = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(exchangeWithdrawJsonTag, &transferLimits.ExchangeWithdraw); err != nil {
+		return err
+	}
+	transferLimits.IdealDeposit = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(idealDepositJsonTag, &transferLimits.IdealDeposit); err != nil {
+		return err
+	}
+	transferLimits.InstanceAchWithdrawal = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(instanceAchWithdrawalJsonTag, &transferLimits.InstanceAchWithdrawal); err != nil {
+		return err
+	}
+	transferLimits.PaypalBuy = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(paypalBuyJsonTag, &transferLimits.PaypalBuy); err != nil {
+		return err
+	}
+	transferLimits.PaypalWithdrawal = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(paypalWithdrawalJsonTag, &transferLimits.PaypalWithdrawal); err != nil {
+		return err
+	}
+	transferLimits.Secure3dBuy = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(secure3dBuyJsonTag, &transferLimits.Secure3dBuy); err != nil {
+		return err
+	}
+	transferLimits.Sell = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(sellJsonTag, &transferLimits.Sell); err != nil {
+		return err
+	}
+	transferLimits.SofortDeposit = CurrencyTransferLimits{}
+	if err := data.UnmarshalStruct(sofortDepositJsonTag, &transferLimits.SofortDeposit); err != nil {
 		return err
 	}
 	return nil

@@ -34,6 +34,7 @@ const (
 	currencyConversionPostAuthority
 	currencyPostAuthority
 	deleteProfilePostAuthority
+	exchangeLimitsPostAuthority
 	feesPostAuthority
 	fillsPostAuthority
 	generateCryptoAddressPostAuthority
@@ -218,6 +219,11 @@ func getDeleteProfilePostAuthority(builder tools.URIBuilder) (p string) {
 	return sb.String()
 }
 
+// ExchangeLimits returns exchange limits information for a single user.
+func getExchangeLimitsPostAuthority(builder tools.URIBuilder) string {
+	return path.Join("/users", builder.Get(tools.URIBuilderComponentPath, "user_id"), "exchange-limits")
+}
+
 // Fees returns fees rates and 30 days trailing volume.
 func getFeesPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/fees")
@@ -396,6 +402,7 @@ func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 		currencyPostAuthority:                getCurrencyPostAuthority,
 		currencyConversionPostAuthority:      getCurrencyConversionPostAuthority,
 		deleteProfilePostAuthority:           getDeleteProfilePostAuthority,
+		exchangeLimitsPostAuthority:          getExchangeLimitsPostAuthority,
 		feesPostAuthority:                    getFeesPostAuthority,
 		fillsPostAuthority:                   getFillsPostAuthority,
 		generateCryptoAddressPostAuthority:   getGenerateCryptoAddressPostAuthority,

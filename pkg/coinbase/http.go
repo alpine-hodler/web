@@ -225,6 +225,15 @@ func (c *C) DeleteProfile(profileId string, opts *DeleteProfileOptions) error {
 		Fetch().NoAssignment().JoinMessages()
 }
 
+// ExchangeLimits returns exchange limits information for a single user.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getuserexchangelimits
+func (c *C) ExchangeLimits(userId string) (m *ExchangeLimits, _ error) {
+	return m, c.Get(exchangeLimitsPostAuthority).
+		SetPathParam("user_id", userId).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // Fees returns fees rates and 30 days trailing volume.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees
