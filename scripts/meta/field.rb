@@ -40,9 +40,16 @@ class Field
     @required = hash[:required]
   end
 
-	def go_slice?
-		@go_type.include?('[]')
-	end
+  def custom_type?
+    return true if !datetime_layout.nil? && datetime_layout != 'time.RFC3339Nano'
+    return true unless deserializer.nil?
+
+    false
+  end
+
+  def go_slice?
+    @go_type.include?('[]')
+  end
 
   def go_struct?
     return false if GO_TYPES.include?(hash[:goType])
@@ -54,7 +61,7 @@ class Field
   def go_protofield_name
     return go_field_name unless go_struct?
 
-    "#{go_field_name}"
+    go_field_name.to_s
   end
 
   def go_variable_name

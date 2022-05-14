@@ -6,3 +6,8 @@ package scalar
 
 // BidAsk is a slice of bytes that represents the bids or asks for a given product.
 type BidAsk []byte
+
+func (ba BidAsk) UnmarshalJSON(b []byte) error {
+	ba = BidAsk(b)
+	return nil
+}
