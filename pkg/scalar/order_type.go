@@ -3,8 +3,8 @@ package scalar
 type OrderType string
 
 const (
-	OrderTypeMarket = "market"
-	OrderTypeLimit  = "limit"
+	OrderTypeMarket OrderType = "market"
+	OrderTypeLimit  OrderType = "limit"
 )
 
 // String converts a pointer reference to OrderType to a string

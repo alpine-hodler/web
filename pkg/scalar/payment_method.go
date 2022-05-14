@@ -9,38 +9,38 @@ type PaymentMethod string
 
 const (
 	// PaymentMethodACHBankAccount is the PM for a regular US bank account
-	PaymentMethodACHBankAccount = "ach_bank_account"
+	PaymentMethodACHBankAccount PaymentMethod = "ach_bank_account"
 
 	// PaymentMethodBankWire is the PM for a bank wire (US only)
-	PaymentMethodBankWire = "bank_wire"
+	PaymentMethodBankWire PaymentMethod = "bank_wire"
 
 	// PaymentMethodCreditCard is the PM for a credit card (can’t be used for buying/selling)
-	PaymentMethodCreditCard = "credit_card"
+	PaymentMethodCreditCard PaymentMethod = "credit_card"
 
 	// PaymentMethodCreditCard is the PM for cryptocurrency transactions
-	PaymentMethodCrypto = "crypto"
+	PaymentMethodCrypto PaymentMethod = "crypto"
 
 	// PaymentMethodEFTBankAccount is the PM for a Canadian EFT bank account
-	PaymentMethodEFTBankAccount = "eft_bank_account"
+	PaymentMethodEFTBankAccount PaymentMethod = "eft_bank_account"
 
-	PaymentMethodFedwire = "fedwire"
+	PaymentMethodFedwire PaymentMethod = "fedwire"
 
 	// PaymentMethodFiatAccount	is the PM for a fiat nominated Coinbase account
-	PaymentMethodFiatAccount = "fiat_account"
+	PaymentMethodFiatAccount PaymentMethod = "fiat_account"
 
 	// PaymentMethodInterac	is the PM for an Interac Online for Canadian bank accounts
-	PaymentMethodInterac = "interac"
+	PaymentMethodInterac PaymentMethod = "interac"
 
-	PaymentMethodIntraBankAccount = "intra_bank_account"
+	PaymentMethodIntraBankAccount PaymentMethod = "intra_bank_account"
 
 	// PaymentMethodSEPABankAccount is the PM for a European SEPA bank account
-	PaymentMethodSEPABankAccount = "sepa_bank_account"
+	PaymentMethodSEPABankAccount PaymentMethod = "sepa_bank_account"
 
 	// PaymentMethodSecure3D is the PM for a Secure3D verified payment card
-	PaymentMethodSecure3D = "secure3d_card"
+	PaymentMethodSecure3D PaymentMethod = "secure3d_card"
 
-	PaymentMethodSWIFTBankAccount = "swift_bank_account"
+	PaymentMethodSWIFTBankAccount PaymentMethod = "swift_bank_account"
 
 	// PaymentMethodiDealBankAccount is the PM for a iDeal bank account (Europe)
-	PaymentMethodiDealBankAccount = "ideal_bank_account"
+	PaymentMethodiDealBankAccount PaymentMethod = "ideal_bank_account"
 )

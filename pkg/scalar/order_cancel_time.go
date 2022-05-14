@@ -4,7 +4,7 @@ package scalar
 type OrderCancelTime string
 
 const (
-	OrderCancelTimeMin  = "min"
-	OrderCancelTimeHour = "hour"
-	OrderCancelTimeDay  = "day"
+	OrderCancelTimeMin  OrderCancelTime = "min"
+	OrderCancelTimeHour OrderCancelTime = "hour"
+	OrderCancelTimeDay  OrderCancelTime = "day"
 )

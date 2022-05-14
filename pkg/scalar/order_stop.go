@@ -4,8 +4,8 @@ package scalar
 type OrderStop string
 
 const (
-	OrderStopLoss  = "loss"
-	OrderStopEntry = "entry"
+	OrderStopLoss  OrderStop = "loss"
+	OrderStopEntry OrderStop = "entry"
 )
 
 func (orderStop *OrderStop) String() (str string) {

@@ -4,8 +4,8 @@ package scalar
 type OrderSide string
 
 const (
-	OrderSideBuy  = "buy"
-	OrderSideSell = "sell"
+	OrderSideBuy  OrderSide = "buy"
+	OrderSideSell OrderSide = "sell"
 )
 
 func (orderSide *OrderSide) String() (str string) {

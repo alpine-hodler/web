@@ -3,6 +3,6 @@ package scalar
 type TransferMethod string
 
 const (
-	TransferMethodDeposit  = "deposit"
-	TransferMethodWithdraw = "withdraw"
+	TransferMethodDeposit  TransferMethod = "deposit"
+	TransferMethodWithdraw TransferMethod = "withdraw"
 )

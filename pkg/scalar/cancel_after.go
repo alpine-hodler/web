@@ -5,9 +5,9 @@ package scalar
 type CancelAfter string
 
 const (
-	CancelAfterMin  = "min"
-	CancelAfterHour = "hour"
-	CancelAfterDay  = "day"
+	CancelAfterMin  CancelAfter = "min"
+	CancelAfterHour CancelAfter = "hour"
+	CancelAfterDay  CancelAfter = "day"
 )
 
 func (cancelAfter *CancelAfter) String() (str string) {
