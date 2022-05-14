@@ -92,6 +92,7 @@ module Unmarshaller
 
   def unmarshaller
     return '' unless non_struct.nil?
+		return '' if fields.empty?
 
     fn = [constantize_json_go_tags, SERIAL_DECLARATION, deserializers]
 

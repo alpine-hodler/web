@@ -355,6 +355,15 @@ func (c *C) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Prof
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// Reports returns a list of past fills/account reports.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreports
+func (c *C) Reports(opts *ReportsOptions) (m []*Reports, _ error) {
+	return m, c.Get(reportsPostAuthority).
+		SetQueryParams(opts).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart
 // contract.
 //

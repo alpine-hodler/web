@@ -233,6 +233,9 @@ type Fill struct {
 	UserId    string  `json:"user_id" bson:"user_id"`
 }
 
+// TODO
+type Flags struct{}
+
 // Limits defines limits for a payment method
 type Limits struct {
 	Name string `json:"name" bson:"name"`
@@ -430,6 +433,36 @@ type RecurringOptions struct {
 	Period string `json:"period" bson:"period"`
 }
 
+// Reports represents a list of past fills/account reports.
+type Reports struct {
+	CreatedAt time.Time         `json:"created_at" bson:"created_at"`
+	ExpiresAt time.Time         `json:"expires_at" bson:"expires_at"`
+	FileCount string            `json:"file_count" bson:"file_count"`
+	FileUrl   string            `json:"file_url" bson:"file_url"`
+	Id        string            `json:"id" bson:"id"`
+	Params    ReportsParams     `json:"params" bson:"params"`
+	Status    scalar.Status     `json:"status" bson:"status"`
+	Type      scalar.ReportType `json:"type" bson:"type"`
+	UpdatedAt time.Time         `json:"updated_at" bson:"updated_at"`
+	UserId    string            `json:"user_id" bson:"user_id"`
+}
+
+// TODO
+type ReportsParams struct {
+	AccountId    string        `json:"account_id" bson:"account_id"`
+	Email        string        `json:"email" bson:"email"`
+	EndDate      time.Time     `json:"end_date" bson:"end_date"`
+	Format       scalar.Format `json:"format" bson:"format"`
+	NewYorkState bool          `json:"new_york_state" bson:"new_york_state"`
+	ProductId    string        `json:"product_id" bson:"product_id"`
+	ProfileId    string        `json:"profile_id" bson:"profile_id"`
+	StartDate    time.Time     `json:"start_date" bson:"start_date"`
+	User         User          `json:"user" bson:"user"`
+}
+
+// TODO
+type Role struct{}
+
 // SepaDepositInformation information regarding a wallet's deposits. A SEPA credit transfer is a single transfer of
 // Euros from one person or organisation to another. For example, this could be to pay the deposit for a holiday rental
 // or to settle an invoice. A SEPA direct debit is a recurring payment, for example to pay monthly rent or for a service
@@ -493,6 +526,35 @@ type UkDepositInformation struct {
 	BankName       string      `json:"bank_name" bson:"bank_name"`
 	Reference      string      `json:"reference" bson:"reference"`
 }
+
+// TODO
+type User struct {
+	ActiveAt                  time.Time       `json:"active_at" bson:"active_at"`
+	CbDataFromCache           bool            `json:"cb_data_from_cache" bson:"cb_data_from_cache"`
+	CreatedAt                 time.Time       `json:"created_at" bson:"created_at"`
+	Details                   UserDetails     `json:"details" bson:"details"`
+	Flags                     Flags           `json:"flags" bson:"flags"`
+	FulfillsNewRequirements   bool            `json:"fulfills_new_requirements" bson:"fulfills_new_requirements"`
+	HasClawbackPaymentPending bool            `json:"has_clawback_payment_pending" bson:"has_clawback_payment_pending"`
+	HasDefault                bool            `json:"has_default" bson:"has_default"`
+	HasRestrictedAssets       bool            `json:"has_restricted_assets" bson:"has_restricted_assets"`
+	Id                        string          `json:"id" bson:"id"`
+	IsBanned                  bool            `json:"is_banned" bson:"is_banned"`
+	LegalName                 string          `json:"legal_name" bson:"legal_name"`
+	Name                      string          `json:"name" bson:"name"`
+	Preferences               UserPreferences `json:"preferences" bson:"preferences"`
+	Roles                     []*Role         `json:"roles" bson:"roles"`
+	StateCode                 string          `json:"state_code" bson:"state_code"`
+	TermsAccepted             time.Time       `json:"terms_accepted" bson:"terms_accepted"`
+	TwoFactorMethod           string          `json:"two_factor_method" bson:"two_factor_method"`
+	UserType                  string          `json:"user_type" bson:"user_type"`
+}
+
+// TODO
+type UserDetails struct{}
+
+// TODO
+type UserPreferences struct{}
 
 // Wallet represents a user's available Coinbase wallet (These are the wallets/accounts that are used for buying and
 // selling on www.coinbase.com)
@@ -1566,6 +1628,87 @@ func (recurringOptions *RecurringOptions) UnmarshalJSON(d []byte) error {
 	return nil
 }
 
+// UnmarshalJSON will deserialize bytes into a Reports model
+func (reports *Reports) UnmarshalJSON(d []byte) error {
+	const (
+		idJsonTag        = "id"
+		typeJsonTag      = "type"
+		createdAtJsonTag = "created_at"
+		updatedAtJsonTag = "updated_at"
+		expiresAtJsonTag = "expires_at"
+		statusJsonTag    = "status"
+		userIdJsonTag    = "user_id"
+		fileUrlJsonTag   = "file_url"
+		paramsJsonTag    = "params"
+		fileCountJsonTag = "file_count"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalReportType(typeJsonTag, &reports.Type)
+	data.UnmarshalStatus(statusJsonTag, &reports.Status)
+	data.UnmarshalString(fileCountJsonTag, &reports.FileCount)
+	data.UnmarshalString(fileUrlJsonTag, &reports.FileUrl)
+	data.UnmarshalString(idJsonTag, &reports.Id)
+	data.UnmarshalString(userIdJsonTag, &reports.UserId)
+	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &reports.CreatedAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, expiresAtJsonTag, &reports.ExpiresAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, updatedAtJsonTag, &reports.UpdatedAt)
+	if err != nil {
+		return err
+	}
+	reports.Params = ReportsParams{}
+	if err := data.UnmarshalStruct(paramsJsonTag, &reports.Params); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a ReportsParams model
+func (reportsParams *ReportsParams) UnmarshalJSON(d []byte) error {
+	const (
+		startDateJsonTag    = "start_date"
+		endDateJsonTag      = "end_date"
+		formatJsonTag       = "format"
+		productIdJsonTag    = "product_id"
+		accountIdJsonTag    = "account_id"
+		profileIdJsonTag    = "profile_id"
+		emailJsonTag        = "email"
+		userJsonTag         = "user"
+		newYorkStateJsonTag = "new_york_state"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalBool(newYorkStateJsonTag, &reportsParams.NewYorkState)
+	data.UnmarshalFormat(formatJsonTag, &reportsParams.Format)
+	data.UnmarshalString(accountIdJsonTag, &reportsParams.AccountId)
+	data.UnmarshalString(emailJsonTag, &reportsParams.Email)
+	data.UnmarshalString(productIdJsonTag, &reportsParams.ProductId)
+	data.UnmarshalString(profileIdJsonTag, &reportsParams.ProfileId)
+	err = data.UnmarshalTime(time.RFC3339Nano, endDateJsonTag, &reportsParams.EndDate)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, startDateJsonTag, &reportsParams.StartDate)
+	if err != nil {
+		return err
+	}
+	reportsParams.User = User{}
+	if err := data.UnmarshalStruct(userJsonTag, &reportsParams.User); err != nil {
+		return err
+	}
+	return nil
+}
+
 // UnmarshalJSON will deserialize bytes into a SepaDepositInformation model
 func (sepaDepositInformation *SepaDepositInformation) UnmarshalJSON(d []byte) error {
 	const (
@@ -1705,6 +1848,82 @@ func (ukDepositInformation *UkDepositInformation) UnmarshalJSON(d []byte) error 
 	data.UnmarshalString(referenceJsonTag, &ukDepositInformation.Reference)
 	ukDepositInformation.BankCountry = BankCountry{}
 	if err := data.UnmarshalStruct(bankCountryJsonTag, &ukDepositInformation.BankCountry); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a User model
+func (user *User) UnmarshalJSON(d []byte) error {
+	const (
+		idJsonTag                        = "id"
+		createdAtJsonTag                 = "created_at"
+		activeAtJsonTag                  = "active_at"
+		nameJsonTag                      = "name"
+		rolesJsonTag                     = "roles"
+		isBannedJsonTag                  = "is_banned"
+		userTypeJsonTag                  = "user_type"
+		fulfillsNewRequirementsJsonTag   = "fulfills_new_requirements"
+		flagsJsonTag                     = "flags"
+		detailsJsonTag                   = "details"
+		preferencesJsonTag               = "preferences"
+		hasDefaultJsonTag                = "has_default"
+		stateCodeJsonTag                 = "state_code"
+		cbDataFromCacheJsonTag           = "cb_data_from_cache"
+		twoFactorMethodJsonTag           = "two_factor_method"
+		legalNameJsonTag                 = "legal_name"
+		termsAcceptedJsonTag             = "terms_accepted"
+		hasClawbackPaymentPendingJsonTag = "has_clawback_payment_pending"
+		hasRestrictedAssetsJsonTag       = "has_restricted_assets"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalBool(cbDataFromCacheJsonTag, &user.CbDataFromCache)
+	data.UnmarshalBool(fulfillsNewRequirementsJsonTag, &user.FulfillsNewRequirements)
+	data.UnmarshalBool(hasClawbackPaymentPendingJsonTag, &user.HasClawbackPaymentPending)
+	data.UnmarshalBool(hasDefaultJsonTag, &user.HasDefault)
+	data.UnmarshalBool(hasRestrictedAssetsJsonTag, &user.HasRestrictedAssets)
+	data.UnmarshalBool(isBannedJsonTag, &user.IsBanned)
+	data.UnmarshalString(idJsonTag, &user.Id)
+	data.UnmarshalString(legalNameJsonTag, &user.LegalName)
+	data.UnmarshalString(nameJsonTag, &user.Name)
+	data.UnmarshalString(stateCodeJsonTag, &user.StateCode)
+	data.UnmarshalString(twoFactorMethodJsonTag, &user.TwoFactorMethod)
+	data.UnmarshalString(userTypeJsonTag, &user.UserType)
+	err = data.UnmarshalTime(time.RFC3339Nano, activeAtJsonTag, &user.ActiveAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, createdAtJsonTag, &user.CreatedAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(time.RFC3339Nano, termsAcceptedJsonTag, &user.TermsAccepted)
+	if err != nil {
+		return err
+	}
+	if v := data.Value(rolesJsonTag); v != nil {
+		for _, item := range data.Value(rolesJsonTag).([]interface{}) {
+			bytes, _ := json.Marshal(item)
+			obj := Role{}
+			if err := json.Unmarshal(bytes, &obj); err != nil {
+				return err
+			}
+			user.Roles = append(user.Roles, &obj)
+		}
+	}
+	user.Details = UserDetails{}
+	if err := data.UnmarshalStruct(detailsJsonTag, &user.Details); err != nil {
+		return err
+	}
+	user.Flags = Flags{}
+	if err := data.UnmarshalStruct(flagsJsonTag, &user.Flags); err != nil {
+		return err
+	}
+	user.Preferences = UserPreferences{}
+	if err := data.UnmarshalStruct(preferencesJsonTag, &user.Preferences); err != nil {
 		return err
 	}
 	return nil

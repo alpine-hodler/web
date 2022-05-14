@@ -48,6 +48,7 @@ const (
 	profilePostAuthority
 	profilesPostAuthority
 	renameProfilePostAuthority
+	reportsPostAuthority
 	signedPricesPostAuthority
 	tradesPostAuthority
 	transfersPostAuthority
@@ -313,6 +314,15 @@ func getRenameProfilePostAuthority(builder tools.URIBuilder) (p string) {
 	return sb.String()
 }
 
+// Reports returns a list of past fills/account reports.
+func getReportsPostAuthority(builder tools.URIBuilder) (p string) {
+	p = path.Join("/reports")
+	var sb strings.Builder
+	sb.WriteString(p)
+	sb.WriteString(builder.QueryPath().String())
+	return sb.String()
+}
+
 // SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart
 // contract.
 func getSignedPricesPostAuthority(builder tools.URIBuilder) string {
@@ -387,6 +397,7 @@ func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 		profilePostAuthority:                 getProfilePostAuthority,
 		profilesPostAuthority:                getProfilesPostAuthority,
 		renameProfilePostAuthority:           getRenameProfilePostAuthority,
+		reportsPostAuthority:                 getReportsPostAuthority,
 		signedPricesPostAuthority:            getSignedPricesPostAuthority,
 		tradesPostAuthority:                  getTradesPostAuthority,
 		transfersPostAuthority:               getTransfersPostAuthority,

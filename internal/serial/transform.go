@@ -15,6 +15,7 @@ type Transform interface {
 	UnmarshalEntryType(name string, v *scalar.EntryType) error
 	UnmarshalFloatString(name string, v *float64) error
 	UnmarshalFloat(name string, v *float64) error
+	UnmarshalFormat(name string, v *scalar.Format) error
 	UnmarshalInt64(name string, v *int64) error
 	UnmarshalInt32(name string, v *int32) error
 	UnmarshalInt(name string, v *int) error
@@ -27,6 +28,7 @@ type Transform interface {
 	UnmarshalOrderTimeInForce(name string, v *scalar.TimeInForce) error
 	UnmarshalOrderType(name string, v *scalar.OrderType) error
 	UnmarshalPaymentMethod(name string, v *scalar.PaymentMethod) error
+	UnmarshalReportType(name string, v *scalar.ReportType) error
 	UnmarshalStringSlice(name string, v *[]string) error
 	UnmarshalString(name string, v *string) error
 	UnmarshalStructSlice(name string, v _jsonStructSlice, template interface{}) error

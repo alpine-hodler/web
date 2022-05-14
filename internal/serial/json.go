@@ -59,6 +59,20 @@ func (m _json) UnmarshalEntryType(name string, v *scalar.EntryType) error {
 	return nil
 }
 
+func (m _json) UnmarshalFormat(name string, v *scalar.Format) error {
+	if val := m[name]; val != nil {
+		*v = scalar.Format(val.(string))
+	}
+	return nil
+}
+
+func (m _json) UnmarshalReportType(name string, v *scalar.ReportType) error {
+	if val := m[name]; val != nil {
+		*v = scalar.ReportType(val.(string))
+	}
+	return nil
+}
+
 func (m _json) UnmarshalStatus(name string, v *scalar.Status) error {
 	if val := m[name]; val != nil {
 		*v = scalar.Status(val.(string))

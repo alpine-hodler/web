@@ -1,0 +1,7 @@
+{
+	"api": "coinbase",
+	"model": "role",
+	"modelDescription": "TODO",
+	"modelOnly": true,
+	"modelFields": []
+}

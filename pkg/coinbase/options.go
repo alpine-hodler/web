@@ -173,6 +173,25 @@ type CreateProfileTransferOptions struct {
 	To       *string `json:"to" bson:"to"`
 }
 
+// ReportsOptions are options for API requests.
+type ReportsOptions struct {
+	// Filter results after a specific date
+	After *time.Time `json:"after" bson:"after"`
+
+	// Filter results by a specific profile_id
+	PortfolioId *string `json:"portfolio_id" bson:"portfolio_id"`
+
+	// Filter results by type of report (fills or account) - otc_fills: real string is otc-fills -
+	// type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real string is tax-invoice
+	Type *scalar.ReportType `json:"type" bson:"type"`
+
+	// Ignore expired results
+	IgnoredExpired *bool `json:"ignored_expired" bson:"ignored_expired"`
+
+	// Limit results to a specific number
+	Limit *int `json:"limit" bson:"limit"`
+}
+
 // TradesOptions are options for API requests.
 type TradesOptions struct {
 	After  *int32 `json:"after" bson:"after"`
@@ -767,6 +786,36 @@ func (opts *RenameProfileOptions) SetName(name string) *RenameProfileOptions {
 	return opts
 }
 
+// SetPortfolioId sets the PortfolioId field on ReportsOptions.
+func (opts *ReportsOptions) SetPortfolioId(portfolioId string) *ReportsOptions {
+	opts.PortfolioId = &portfolioId
+	return opts
+}
+
+// SetAfter sets the After field on ReportsOptions.
+func (opts *ReportsOptions) SetAfter(after time.Time) *ReportsOptions {
+	opts.After = &after
+	return opts
+}
+
+// SetLimit sets the Limit field on ReportsOptions.
+func (opts *ReportsOptions) SetLimit(limit int) *ReportsOptions {
+	opts.Limit = &limit
+	return opts
+}
+
+// SetType sets the Type field on ReportsOptions.
+func (opts *ReportsOptions) SetType(typ scalar.ReportType) *ReportsOptions {
+	opts.Type = &typ
+	return opts
+}
+
+// SetIgnoredExpired sets the IgnoredExpired field on ReportsOptions.
+func (opts *ReportsOptions) SetIgnoredExpired(ignoredExpired bool) *ReportsOptions {
+	opts.IgnoredExpired = &ignoredExpired
+	return opts
+}
+
 // SetLimit sets the Limit field on TradesOptions.
 func (opts *TradesOptions) SetLimit(limit int32) *TradesOptions {
 	opts.Limit = &limit
@@ -1024,6 +1073,16 @@ func (opts *RenameProfileOptions) SetQueryParams(req *client.Request) {
 	}
 	req.SetQueryParamString("profile_id", opts.ProfileId).
 		SetQueryParamString("name", opts.Name)
+}
+
+func (opts *ReportsOptions) SetQueryParams(req *client.Request) {
+	if opts == nil {
+		return
+	}
+	req.SetQueryParamString("portfolio_id", opts.PortfolioId).
+		SetQueryParamTime("after", opts.After).
+		SetQueryParamInt("limit", opts.Limit).
+		SetQueryParamBool("ignored_expired", opts.IgnoredExpired)
 }
 
 func (opts *TradesOptions) SetQueryParams(req *client.Request) {
