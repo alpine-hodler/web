@@ -49,6 +49,7 @@ const (
 	profilePostAuthority
 	profilesPostAuthority
 	renameProfilePostAuthority
+	reportPostAuthority
 	reportsPostAuthority
 	signedPricesPostAuthority
 	tradesPostAuthority
@@ -321,6 +322,11 @@ func getRenameProfilePostAuthority(builder tools.URIBuilder) (p string) {
 	return sb.String()
 }
 
+// Report will return a specific report by report_id.
+func getReportPostAuthority(builder tools.URIBuilder) string {
+	return path.Join("/reports", builder.Get(tools.URIBuilderComponentPath, "report_id"))
+}
+
 // Reports returns a list of past fills/account reports.
 func getReportsPostAuthority(builder tools.URIBuilder) (p string) {
 	p = path.Join("/reports")
@@ -405,6 +411,7 @@ func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 		profilePostAuthority:                 getProfilePostAuthority,
 		profilesPostAuthority:                getProfilesPostAuthority,
 		renameProfilePostAuthority:           getRenameProfilePostAuthority,
+		reportPostAuthority:                  getReportPostAuthority,
 		reportsPostAuthority:                 getReportsPostAuthority,
 		signedPricesPostAuthority:            getSignedPricesPostAuthority,
 		tradesPostAuthority:                  getTradesPostAuthority,

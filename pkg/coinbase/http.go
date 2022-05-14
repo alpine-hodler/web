@@ -365,6 +365,15 @@ func (c *C) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Prof
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// Report will return a specific report by report_id.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport
+func (c *C) Report(reportId string) (m *Reports, _ error) {
+	return m, c.Get(reportPostAuthority).
+		SetPathParam("report_id", reportId).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // Reports returns a list of past fills/account reports.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreports

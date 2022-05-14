@@ -139,6 +139,11 @@ func TestSimpleIntegrations(t *testing.T) {
 		_, err = client.Reports(nil)
 		return
 	})
+	makeSimpleRequestAssertion(t, "Should GET client.Report", func() (err error) {
+		reports, err := client.Reports(nil)
+		_, err = client.Report(reports[0].Id)
+		return
+	})
 	makeSimpleRequestAssertion(t, "Should GET client.RenameProfile", func() (err error) {
 		// TODO: Fix {Message:Invalid scope Status:403 Forbidden StatusCode:Forbidden}
 

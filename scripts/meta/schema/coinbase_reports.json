@@ -37,6 +37,13 @@
 					"description": "Ignore expired results"
 				}
 			]
+		},
+		{
+			"path": "/reports/{report_id}",
+			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport",
+			"httpMethod": "GET",
+			"enumRoot": "Report",
+			"description": "Report will return a specific report by report_id."
 		}
 	],
 	"modelFields": [
