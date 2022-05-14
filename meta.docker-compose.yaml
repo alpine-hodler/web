@@ -12,7 +12,7 @@ services:
     volumes:
       - ./pkg/coinbase:/usr/src/coinbase
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
-      - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
+      - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
@@ -37,7 +37,7 @@ services:
     volumes:
       - ./pkg/coinbase:/usr/src/coinbase
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
-      - ./scripts/meta/endpoint_store.rb:/usr/src/meta/endpoint_store.rb
+      - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb

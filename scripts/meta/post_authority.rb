@@ -2,8 +2,8 @@
 
 require_relative 'go_post_authority'
 
-# EndpointStore holds endpoint data by api
-class EndpointStore
+# PostAuthority holds endpoint data by api
+class PostAuthority
   include GoPostAuthority
 
   def initialize

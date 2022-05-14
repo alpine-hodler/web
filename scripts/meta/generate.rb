@@ -3,7 +3,7 @@
 
 require_relative 'scheme'
 require_relative 'model'
-require_relative 'endpoint_store'
+require_relative 'post_authority'
 require_relative 'option'
 require_relative 'go_client'
 require_relative 'path_part'
@@ -25,12 +25,12 @@ TOOLS_PKG = 'tools'
 
 def generate_models
   schema = []
-  endpoint_store = EndpointStore.new
+  post_authority = PostAuthority.new
   Dir.glob("#{File.dirname(__FILE__)}/schema/*.json").map do |filename|
     next if filename.include?('/schema.json')
 
     scheme = Scheme.new(filename)
-    endpoint_store.add(scheme) unless scheme.model_only
+    post_authority.add(scheme) unless scheme.model_only
     schema << scheme
   end
 
@@ -38,7 +38,7 @@ def generate_models
   Option.write(schema)
   GoClient.write(schema)
 
-  endpoint_store.write_sdk
+  post_authority.write_sdk
 end
 
 generate_models

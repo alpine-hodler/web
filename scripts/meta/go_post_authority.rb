@@ -61,6 +61,7 @@ module GoPostAuthority
 
   def write_sdk
     all.each do |api, endpoints|
+			endpoints = endpoints.sort_by { |ep| ep.enum_root }
       Dir.chdir(PARENT_DIR + "/#{api}") do
         File.open(POST_AUTHORITY_FILENAME, 'w') do |f|
           f.write(GoPostAuthority.pkg_name(api))
