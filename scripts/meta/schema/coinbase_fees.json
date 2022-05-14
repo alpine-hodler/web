@@ -14,18 +14,15 @@
 	"modelFields": [
 		{
 			"identifier": "taker_fee_rate",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "maker_fee_rate",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "usd_volume",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		}
 	]
 }

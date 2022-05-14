@@ -30,8 +30,7 @@
 		},
 		{
 			"identifier": "min_size",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "status",
@@ -43,8 +42,7 @@
 		},
 		{
 			"identifier": "max_precision",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "convertible_to",

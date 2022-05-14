@@ -30,23 +30,19 @@
 		},
 		{
 			"identifier": "price",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "last_size",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_bid",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_ask",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		}
 	]
 }

@@ -6,33 +6,27 @@
 	"modelFields": [
 		{
 			"identifier": "open_price",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "open_size",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_bid_price",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_bid_size",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_ask_price",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "best_ask_size",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "auction_state",

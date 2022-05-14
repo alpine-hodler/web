@@ -76,8 +76,7 @@
 		},
 		{
 			"identifier": "amount",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "user_nonce",

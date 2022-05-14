@@ -45,8 +45,7 @@
 		},
 		{
 			"identifier": "amount",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "created_at",
@@ -54,8 +53,7 @@
 		},
 		{
 			"identifier": "balance",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "type",

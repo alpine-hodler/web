@@ -6,8 +6,7 @@
 	"modelFields": [
 		{
 			"identifier": "amount",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "currency",

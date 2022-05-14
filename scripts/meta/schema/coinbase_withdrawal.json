@@ -115,8 +115,7 @@
 		},
 		{
 			"identifier": "amount",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "currency",
@@ -128,13 +127,11 @@
 		},
 		{
 			"identifier": "fee",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		},
 		{
 			"identifier": "subtotal",
-			"goType": "float64",
-			"unmarshaller": "UnmarshalFloatString"
+			"goType": "string"
 		}
 	]
 }
