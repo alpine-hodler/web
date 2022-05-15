@@ -19,7 +19,7 @@ There are multiple ways to setup a coinbase environment.
 
 ### Default Connector
 
-If your machine already has environment variables for `CB_PRO_URL`, `CB_PRO_ACCESS_PASSPHRASE`, `CB_PRO_ACCESS_KEY`, and `CB_PRO_SECRET`, then you can simply use the `DefaultConnector`
+If your machine already has environment variables for `CB_PRO_URL`, `CB_PRO_ACCESS_PASSPHRASE`, `CB_PRO_ACCESS_KEY`, and `CB_PRO_SECRET`, then you can simply use the `DefaultConnector`.
 
 ```go
 client := coinbase.NewClient(coinbase.DefaultConnector)
