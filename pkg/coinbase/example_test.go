@@ -49,7 +49,7 @@ func TestExamples(t *testing.T) {
 	findAccountID := func(t *testing.T, client *coinbase.C, currency string) (accountID string) {
 		account := findAccount(t, client, currency)
 		require.NotEmpty(t, account)
-		return account.Id
+		return account.ID
 	}
 
 	findWalletID := func(t *testing.T, client *coinbase.C, currency string) (walletID string) {
@@ -58,7 +58,7 @@ func TestExamples(t *testing.T) {
 		require.NotEmpty(t, wallets)
 		for _, wallet := range wallets {
 			if wallet.Currency == currency {
-				walletID = wallet.Id
+				walletID = wallet.ID
 				break
 			}
 		}
@@ -69,7 +69,7 @@ func TestExamples(t *testing.T) {
 	findProfileID := func(t *testing.T, client *coinbase.C, currency string) string {
 		account := findAccount(t, client, currency)
 		require.NotEmpty(t, account)
-		return account.ProfileId
+		return account.ProfileID
 	}
 
 	findCurrencyID := func(t *testing.T, client *coinbase.C, currency string) string {
@@ -77,8 +77,8 @@ func TestExamples(t *testing.T) {
 		require.NoError(t, err)
 		require.NotEmpty(t, currencies)
 		for _, item := range currencies {
-			if item.Id == currency {
-				return item.Id
+			if item.ID == currency {
+				return item.ID
 			}
 		}
 		return ""
@@ -117,13 +117,13 @@ func TestExamples(t *testing.T) {
 	someAccountID = findAccountID(t, client, "BTC")
 	someCurrencyID = findCurrencyID(t, client, "USD")
 	somePaymentMethod = "Chase:****4442"
-	somePaymentMethodID = findPaymentMethod(t, client, somePaymentMethod).Id
+	somePaymentMethodID = findPaymentMethod(t, client, somePaymentMethod).ID
 	someProfileID = findProfileID(t, client, "BTC")
-	someReportID = randomReport(t, client).Id
+	someReportID = randomReport(t, client).ID
 	someUSDProfileID = findProfileID(t, client, "USD")
 	someUSDCWalletID = findWalletID(t, client, "USDC")
 	someUSDWalletID = findWalletID(t, client, "USD")
-	someUserID = findProfileByName(t, client, "default").UserId
+	someUserID = findProfileByName(t, client, "default").UserID
 
 	// Run Examples
 	t.Run("C.Account", func(t *testing.T) { ExampleC_Account() })
@@ -186,14 +186,14 @@ func ExampleC_AccountHolds() {
 
 	// Create an order that probably will never get filled.
 	order, err := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0). // Very unlikely!
 		SetSize(1.0).
 		SetPrice(1.0))
@@ -213,7 +213,7 @@ func ExampleC_AccountHolds() {
 	fmt.Printf("holds: %+v\n", holds)
 
 	// Since this order will never be filled, we might as well cancel it.
-	if _, err := client.CancelOrder(order.Id); err != nil {
+	if _, err := client.CancelOrder(order.ID); err != nil {
 		log.Fatalf("Error canceling order: %v", err)
 	}
 }
@@ -226,7 +226,7 @@ func ExampleC_AccountLedger() {
 		SetBefore(1652574195).
 		SetAfter(1526365354).
 		SetLimit(1).
-		SetProfileId(someProfileID))
+		SetProfileID(someProfileID))
 	if err != nil {
 		log.Fatalf("Error fetching ledger: %v", err)
 	}
@@ -238,7 +238,7 @@ func ExampleC_AccountTransfers() {
 
 	// Make an account deposit to look up.
 	_, err := client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1.0).
 		SetCurrency("USD"))
 	if err != nil {
@@ -258,7 +258,7 @@ func ExampleC_AccountTransfers() {
 
 	// Withdraw because we don't want to get too greedy :)
 	_, err = client.CoinbaseAccountWithdrawal(new(coinbase.CoinbaseAccountWithdrawalOptions).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1.0).
 		SetCurrency("USD"))
 	if err != nil {
@@ -289,14 +289,14 @@ func ExampleC_CancelOpenOrders() {
 
 	// Create an order that probably will never get filled.
 	_, err := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0). // Very unlikely!
 		SetSize(1.0).
 		SetPrice(1.0))
@@ -306,8 +306,8 @@ func ExampleC_CancelOpenOrders() {
 
 	// Cancel the order by simply cancelling all BTC-USD orders for some profile ID.
 	_, err = client.CancelOpenOrders(new(coinbase.CancelOpenOrdersOptions).
-		SetProductId("BTC-USD").
-		SetProfileId(someProfileID))
+		SetProductID("BTC-USD").
+		SetProfileID(someProfileID))
 	if err != nil {
 		log.Fatalf("Error canceling open orders: %v", err)
 	}
@@ -318,14 +318,14 @@ func ExampleC_CancelOrder() {
 
 	// Create an order that probably will never get filled.
 	order, err := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0). // Very unlikely!
 		SetSize(1.0).
 		SetPrice(1.0))
@@ -334,7 +334,7 @@ func ExampleC_CancelOrder() {
 	}
 
 	// Cancel the order by using the order's ID.
-	_, err = client.CancelOrder(order.Id)
+	_, err = client.CancelOrder(order.ID)
 	if err != nil {
 		log.Fatalf("Error canceling order: %v", err)
 	}
@@ -361,8 +361,8 @@ func ExampleC_CoinbaseAccountDeposit() {
 
 	// Make the deposit.
 	_, err := client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 	if err != nil {
@@ -371,8 +371,8 @@ func ExampleC_CoinbaseAccountDeposit() {
 
 	// Withdraw the deposit.
 	client.CoinbaseAccountWithdrawal(new(coinbase.CoinbaseAccountWithdrawalOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 }
@@ -382,15 +382,15 @@ func ExampleC_CoinbaseAccountWithdrawal() {
 
 	// Make the deposit.
 	client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 
 	// Withdraw the deposit.
 	_, err := client.CoinbaseAccountWithdrawal(new(coinbase.CoinbaseAccountWithdrawalOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 	if err != nil {
@@ -403,8 +403,8 @@ func ExampleC_ConvertCurrency() {
 
 	// Make a deposit to convert into BTC.
 	client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 
@@ -413,15 +413,15 @@ func ExampleC_ConvertCurrency() {
 		SetAmount(1).
 		SetFrom("USD").
 		SetTo("USDC").
-		SetProfileId(someProfileID))
+		SetProfileID(someProfileID))
 	if err != nil {
 		log.Fatalf("Error converting currency: %v", err)
 	}
 
 	// Withdraw the USDC we just converted.
 	client.CoinbaseAccountWithdrawal(new(coinbase.CoinbaseAccountWithdrawalOptions).
-		SetProfileId(someProfileID).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetProfileID(someProfileID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USDC"))
 }
@@ -429,14 +429,14 @@ func ExampleC_ConvertCurrency() {
 func ExampleC_CreateOrder() {
 	client := coinbase.NewClient(coinbase.DefaultConnector)
 	order, err := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0).
 		SetSize(1.0).
 		SetPrice(1.0))
@@ -445,7 +445,7 @@ func ExampleC_CreateOrder() {
 	}
 
 	// Cancel the order since it will almost definitely never get filled.
-	client.CancelOrder(order.Id)
+	client.CancelOrder(order.ID)
 }
 
 func ExampleC_CreateProfile() {
@@ -464,8 +464,8 @@ func ExampleC_CreateReport() {
 	_, err := client.CreateReport(new(coinbase.CreateReportOptions).
 		SetType(scalar.ReportTypeFills).
 		SetFormat(scalar.FormatPDF).
-		SetProfileId(someProfileID).
-		SetProductId("BTC-USD").
+		SetProfileID(someProfileID).
+		SetProductID("BTC-USD").
 		SetStartDate(startTimestamp).
 		SetEndDate(endTimestamp))
 	if err != nil {
@@ -478,7 +478,7 @@ func ExampleC_CryptoWithdrawal() {
 
 	// Post one 1 USDC into the target wallet.
 	client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetCoinbaseAccountId(someUSDCWalletID).
+		SetCoinbaseAccountID(someUSDCWalletID).
 		SetAmount(1).
 		SetCurrency("USDC"))
 
@@ -541,8 +541,8 @@ func ExampleC_Fills() {
 		SetAfter(1526365354).
 		SetBefore(1652574195).
 		SetLimit(1).
-		SetProductId("BTC-USD").
-		SetProfileId(someProfileID))
+		SetProductID("BTC-USD").
+		SetProfileID(someProfileID))
 	if err != nil {
 		log.Fatalf("Error fetching fills: %v", err)
 	}
@@ -563,27 +563,27 @@ func ExampleC_Order() {
 
 	// Create an order that probably will never get filled.
 	unfillableOrder, _ := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0).
 		SetSize(1.0).
 		SetPrice(1.0))
 
 	// Lookup the order.
-	order, err := client.Order(unfillableOrder.Id)
+	order, err := client.Order(unfillableOrder.ID)
 	if err != nil {
 		log.Fatalf("Error fetching order: %v", order)
 	}
 	fmt.Printf("order: %+v\n", order)
 
 	// Cancel the order since it will almost definitely never get filled.
-	client.CancelOrder(order.Id)
+	client.CancelOrder(order.ID)
 }
 
 func ExampleC_Orders() {
@@ -591,14 +591,14 @@ func ExampleC_Orders() {
 
 	// Create an order that probably will never get filled.
 	unfillableOrder, _ := client.CreateOrder(new(coinbase.CreateOrderOptions).
-		SetProfileId(someProfileID).
+		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
 		SetStp(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
-		SetProductId("BTC-USD").
+		SetProductID("BTC-USD").
 		SetStopPrice(1.0).
 		SetSize(1.0).
 		SetPrice(1.0))
@@ -613,15 +613,15 @@ func ExampleC_Orders() {
 		SetStartDate(startTimestamp).
 		SetEndDate(endTimestamp).
 		SetLimit(1).
-		SetProductId("BTC-USD").
-		SetProfileId(someProfileID))
+		SetProductID("BTC-USD").
+		SetProfileID(someProfileID))
 	if err != nil {
 		log.Fatalf("Error fetching order: %v", err)
 	}
 	fmt.Printf("order: %+v\n", order)
 
 	// Cancel the order since it will almost definitely never get filled.
-	client.CancelOrder(unfillableOrder.Id)
+	client.CancelOrder(unfillableOrder.ID)
 }
 
 func ExampleC_PaymentMethodDeposit() {
@@ -631,8 +631,8 @@ func ExampleC_PaymentMethodDeposit() {
 	// _, err := client.PaymentMethodDeposit(new(coinbase.PaymentMethodDepositOptions).
 	// 	SetAmount(100).
 	// 	SetCurrency("USD").
-	// 	SetPaymentMethodId(somePaymentMethodID).
-	// 	SetProfileId(someUSDProfileID))
+	// 	SetPaymentMethodID(somePaymentMethodID).
+	// 	SetProfileID(someUSDProfileID))
 	// if err != nil {
 	// 	log.Fatalf("Error depositing from payment method: %v", err)
 	// }
@@ -726,7 +726,7 @@ func ExampleC_Reports() {
 		SetAfter(afterTimestamp).
 		SetIgnoredExpired(true).
 		SetLimit(1).
-		SetPortfolioId(someProfileID).
+		SetPortfolioID(someProfileID).
 		SetType(scalar.ReportTypeAcccount))
 	if err != nil {
 		log.Fatalf("Error fetching reports: %v", err)
@@ -760,7 +760,7 @@ func ExampleC_Transfer() {
 
 	// Make a deposit.
 	deposit, err := client.CoinbaseAccountDeposit(new(coinbase.CoinbaseAccountDepositOptions).
-		SetCoinbaseAccountId(someUSDWalletID).
+		SetCoinbaseAccountID(someUSDWalletID).
 		SetAmount(1).
 		SetCurrency("USD"))
 	if err != nil {
@@ -768,7 +768,7 @@ func ExampleC_Transfer() {
 	}
 
 	// Lookup the deposit.
-	transfer, err := client.Transfer(deposit.Id)
+	transfer, err := client.Transfer(deposit.ID)
 	if err != nil {
 		log.Fatalf("Error fetching transfer: %v", err)
 	}

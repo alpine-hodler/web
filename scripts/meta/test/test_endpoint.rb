@@ -36,8 +36,6 @@ describe Endpoint do
       _(@endpoint1.enum_root).must_equal('someEnumRoot')
       _(@endpoint1.go_const).must_equal('someEnumRootPostAuthority')
       _(@endpoint1.description).must_equal('some description')
-      _(@endpoint1.graphql_model_name).must_equal('TestApiSomeEnumRootOptions')
-      _(@endpoint1.graphql_query_param_filename).must_equal('test_api_some_enum_root_options.graphqls')
 
       _(@endpoint1.path_parts.length).must_equal(2)
       _(@endpoint1.path_parts[0].go_arg).must_equal('"/some"')

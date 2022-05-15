@@ -35,7 +35,7 @@ type AccountLedgerOptions struct {
 
 	// StartDate will filter results by minimum posted date.
 	StartDate *string `json:"start_date" bson:"start_date"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 }
 
 // BookOptions are options for API requests.
@@ -73,8 +73,8 @@ type CreateOrderOptions struct {
 	Funds       *float64            `json:"funds" bson:"funds"`
 	PostOnly    *bool               `json:"post_only" bson:"post_only"`
 	Price       *float64            `json:"price" bson:"price"`
-	ProductId   string              `json:"product_id" bson:"product_id"`
-	ProfileId   *string             `json:"profile_id" bson:"profile_id"`
+	ProductID   string              `json:"product_id" bson:"product_id"`
+	ProfileID   *string             `json:"profile_id" bson:"profile_id"`
 	Side        scalar.OrderSide    `json:"side" bson:"side"`
 	Size        *float64            `json:"size" bson:"size"`
 	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
@@ -87,7 +87,7 @@ type CreateOrderOptions struct {
 // CreateReportOptions are options for API requests.
 type CreateReportOptions struct {
 	// Account - required for account-type reports
-	AccountId *string `json:"account_id" bson:"account_id"`
+	AccountID *string `json:"account_id" bson:"account_id"`
 
 	// Email to send generated report to
 	Email *string `json:"email" bson:"email"`
@@ -96,10 +96,10 @@ type CreateReportOptions struct {
 	EndDate *string `json:"end_date" bson:"end_date"`
 
 	// Portfolio - Which portfolio to generate the report for
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 
 	// Product - required for fills-type reports
-	ProductId *string `json:"product_id" bson:"product_id"`
+	ProductID *string `json:"product_id" bson:"product_id"`
 
 	// Start date for items to be included in report.
 	StartDate *string `json:"start_date" bson:"start_date"`
@@ -115,29 +115,29 @@ type ConvertCurrencyOptions struct {
 	Amount    float64 `json:"amount" bson:"amount"`
 	From      string  `json:"from" bson:"from"`
 	Nonce     *string `json:"nonce" bson:"nonce"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 	To        string  `json:"to" bson:"to"`
 }
 
 // CurrencyConversionOptions are options for API requests.
 type CurrencyConversionOptions struct {
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 }
 
 // CoinbaseAccountDepositOptions are options for API requests.
 type CoinbaseAccountDepositOptions struct {
 	Amount            float64 `json:"amount" bson:"amount"`
-	CoinbaseAccountId string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
+	CoinbaseAccountID string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
 	Currency          string  `json:"currency" bson:"currency"`
-	ProfileId         *string `json:"profile_id" bson:"profile_id"`
+	ProfileID         *string `json:"profile_id" bson:"profile_id"`
 }
 
 // PaymentMethodDepositOptions are options for API requests.
 type PaymentMethodDepositOptions struct {
 	Amount          float64 `json:"amount" bson:"amount"`
 	Currency        string  `json:"currency" bson:"currency"`
-	PaymentMethodId string  `json:"payment_method_id" bson:"payment_method_id"`
-	ProfileId       *string `json:"profile_id" bson:"profile_id"`
+	PaymentMethodID string  `json:"payment_method_id" bson:"payment_method_id"`
+	ProfileID       *string `json:"profile_id" bson:"profile_id"`
 }
 
 // FillsOptions are options for API requests.
@@ -145,9 +145,9 @@ type FillsOptions struct {
 	After     *int    `json:"after" bson:"after"`
 	Before    *int    `json:"before" bson:"before"`
 	Limit     *int    `json:"limit" bson:"limit"`
-	OrderId   *string `json:"order_id" bson:"order_id"`
-	ProductId *string `json:"product_id" bson:"product_id"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	OrderID   *string `json:"order_id" bson:"order_id"`
+	ProductID *string `json:"product_id" bson:"product_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 }
 
 // OrdersOptions are options for API requests.
@@ -156,8 +156,8 @@ type OrdersOptions struct {
 	Before    *string  `json:"before" bson:"before"`
 	EndDate   *string  `json:"end_date" bson:"end_date"`
 	Limit     int      `json:"limit" bson:"limit"`
-	ProductId *string  `json:"product_id" bson:"product_id"`
-	ProfileId *string  `json:"profile_id" bson:"profile_id"`
+	ProductID *string  `json:"product_id" bson:"product_id"`
+	ProfileID *string  `json:"profile_id" bson:"profile_id"`
 	SortedBy  *string  `json:"sortedBy" bson:"sortedBy"`
 	Sorting   *string  `json:"sorting" bson:"sorting"`
 	StartDate *string  `json:"start_date" bson:"start_date"`
@@ -166,8 +166,8 @@ type OrdersOptions struct {
 
 // CancelOpenOrdersOptions are options for API requests.
 type CancelOpenOrdersOptions struct {
-	ProductId *string `json:"product_id" bson:"product_id"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProductID *string `json:"product_id" bson:"product_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 }
 
 // ProductsOptions are options for API requests.
@@ -177,7 +177,7 @@ type ProductsOptions struct {
 
 // DeleteProfileOptions are options for API requests.
 type DeleteProfileOptions struct {
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 	To        *string `json:"to" bson:"to"`
 }
 
@@ -189,7 +189,7 @@ type ProfileOptions struct {
 // RenameProfileOptions are options for API requests.
 type RenameProfileOptions struct {
 	Name      *string `json:"name" bson:"name"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `json:"profile_id" bson:"profile_id"`
 }
 
 // ProfilesOptions are options for API requests.
@@ -216,7 +216,7 @@ type ReportsOptions struct {
 	After *string `json:"after" bson:"after"`
 
 	// Filter results by a specific profile_id
-	PortfolioId *string `json:"portfolio_id" bson:"portfolio_id"`
+	PortfolioID *string `json:"portfolio_id" bson:"portfolio_id"`
 
 	// Filter results by type of report (fills or account) - otc_fills: real string is otc-fills -
 	// type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real string is tax-invoice
@@ -252,9 +252,9 @@ type AccountTransfersOptions struct {
 // CoinbaseAccountWithdrawalOptions are options for API requests.
 type CoinbaseAccountWithdrawalOptions struct {
 	Amount            float64 `json:"amount" bson:"amount"`
-	CoinbaseAccountId string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
+	CoinbaseAccountID string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
 	Currency          string  `json:"currency" bson:"currency"`
-	ProfileId         *string `json:"profile_id" bson:"profile_id"`
+	ProfileID         *string `json:"profile_id" bson:"profile_id"`
 }
 
 // CryptoWithdrawalOptions are options for API requests.
@@ -266,7 +266,7 @@ type CryptoWithdrawalOptions struct {
 	Fee              *float64 `json:"fee" bson:"fee"`
 	NoDestinationTag *bool    `json:"no_destination_tag" bson:"no_destination_tag"`
 	Nonce            *int     `json:"nonce" bson:"nonce"`
-	ProfileId        *string  `json:"profile_id" bson:"profile_id"`
+	ProfileID        *string  `json:"profile_id" bson:"profile_id"`
 	TwoFactorCode    *string  `json:"two_factor_code" bson:"two_factor_code"`
 }
 
@@ -274,8 +274,8 @@ type CryptoWithdrawalOptions struct {
 type PaymentMethodWithdrawalOptions struct {
 	Amount          float64 `json:"amount" bson:"amount"`
 	Currency        string  `json:"currency" bson:"currency"`
-	PaymentMethodId string  `json:"payment_method_id" bson:"payment_method_id"`
-	ProfileId       *string `json:"profile_id" bson:"profile_id"`
+	PaymentMethodID string  `json:"payment_method_id" bson:"payment_method_id"`
+	ProfileID       *string `json:"profile_id" bson:"profile_id"`
 }
 
 // WithdrawalFeeEstimateOptions are options for API requests.
@@ -286,84 +286,84 @@ type WithdrawalFeeEstimateOptions struct {
 
 // SetBefore sets the Before field on AccountHoldsOptions. Before is used for pagination and sets start cursor to
 // `before` date.
-func (opts *AccountHoldsOptions) SetBefore(before string) *AccountHoldsOptions {
-	opts.Before = &before
+func (opts *AccountHoldsOptions) SetBefore(Before string) *AccountHoldsOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on AccountHoldsOptions. After is used for pagination and sets end cursor to `after`
 // date.
-func (opts *AccountHoldsOptions) SetAfter(after string) *AccountHoldsOptions {
-	opts.After = &after
+func (opts *AccountHoldsOptions) SetAfter(After string) *AccountHoldsOptions {
+	opts.After = &After
 	return opts
 }
 
 // SetLimit sets the Limit field on AccountHoldsOptions. Limit puts a limit on number of results to return.
-func (opts *AccountHoldsOptions) SetLimit(limit int) *AccountHoldsOptions {
-	opts.Limit = &limit
+func (opts *AccountHoldsOptions) SetLimit(Limit int) *AccountHoldsOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetStartDate sets the StartDate field on AccountLedgerOptions. StartDate will filter results by minimum posted date.
-func (opts *AccountLedgerOptions) SetStartDate(startDate string) *AccountLedgerOptions {
-	opts.StartDate = &startDate
+func (opts *AccountLedgerOptions) SetStartDate(StartDate string) *AccountLedgerOptions {
+	opts.StartDate = &StartDate
 	return opts
 }
 
 // SetEndDate sets the EndDate field on AccountLedgerOptions. EndDate will filter results by maximum posted date.
-func (opts *AccountLedgerOptions) SetEndDate(endDate string) *AccountLedgerOptions {
-	opts.EndDate = &endDate
+func (opts *AccountLedgerOptions) SetEndDate(EndDate string) *AccountLedgerOptions {
+	opts.EndDate = &EndDate
 	return opts
 }
 
 // SetBefore sets the Before field on AccountLedgerOptions. Before is used for pagination. Sets start cursor to `before`
 // date.
-func (opts *AccountLedgerOptions) SetBefore(before int) *AccountLedgerOptions {
-	opts.Before = &before
+func (opts *AccountLedgerOptions) SetBefore(Before int) *AccountLedgerOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on AccountLedgerOptions. After is used for pagination. Sets end cursor to `after` date.
-func (opts *AccountLedgerOptions) SetAfter(after int) *AccountLedgerOptions {
-	opts.After = &after
+func (opts *AccountLedgerOptions) SetAfter(After int) *AccountLedgerOptions {
+	opts.After = &After
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on AccountLedgerOptions.
-func (opts *AccountLedgerOptions) SetProfileId(profileId string) *AccountLedgerOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on AccountLedgerOptions.
+func (opts *AccountLedgerOptions) SetProfileID(ProfileID string) *AccountLedgerOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetLimit sets the Limit field on AccountLedgerOptions. Limit puts a limit on number of results to return.
-func (opts *AccountLedgerOptions) SetLimit(limit int) *AccountLedgerOptions {
-	opts.Limit = &limit
+func (opts *AccountLedgerOptions) SetLimit(Limit int) *AccountLedgerOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetBefore sets the Before field on AccountTransfersOptions. Before is used for pagination. Sets start cursor to
 // `before` date.
-func (opts *AccountTransfersOptions) SetBefore(before string) *AccountTransfersOptions {
-	opts.Before = &before
+func (opts *AccountTransfersOptions) SetBefore(Before string) *AccountTransfersOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on AccountTransfersOptions. After is used for pagination. Sets end cursor to `after`
 // date.
-func (opts *AccountTransfersOptions) SetAfter(after string) *AccountTransfersOptions {
-	opts.After = &after
+func (opts *AccountTransfersOptions) SetAfter(After string) *AccountTransfersOptions {
+	opts.After = &After
 	return opts
 }
 
 // SetLimit sets the Limit field on AccountTransfersOptions. Limit puts a limit on number of results to return.
-func (opts *AccountTransfersOptions) SetLimit(limit int) *AccountTransfersOptions {
-	opts.Limit = &limit
+func (opts *AccountTransfersOptions) SetLimit(Limit int) *AccountTransfersOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetType sets the Type field on AccountTransfersOptions.
-func (opts *AccountTransfersOptions) SetType(typ scalar.TransferMethod) *AccountTransfersOptions {
-	opts.Type = &typ
+func (opts *AccountTransfersOptions) SetType(Type scalar.TransferMethod) *AccountTransfersOptions {
+	opts.Type = &Type
 	return opts
 }
 
@@ -376,594 +376,594 @@ func (opts *AccountTransfersOptions) SetType(typ scalar.TransferMethod) *Account
 // completion. Level 1 and Level 2 are recommended for polling. For the most up-to-date data, consider using the
 // websocket stream. Level 3 is only recommended for users wishing to maintain a full real-time order book using the
 // websocket stream. Abuse of Level 3 via polling will cause your access to be limited or blocked.
-func (opts *BookOptions) SetLevel(level int32) *BookOptions {
-	opts.Level = &level
+func (opts *BookOptions) SetLevel(Level int32) *BookOptions {
+	opts.Level = &Level
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CancelOpenOrdersOptions.
-func (opts *CancelOpenOrdersOptions) SetProfileId(profileId string) *CancelOpenOrdersOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CancelOpenOrdersOptions.
+func (opts *CancelOpenOrdersOptions) SetProfileID(ProfileID string) *CancelOpenOrdersOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
-// SetProductId sets the ProductId field on CancelOpenOrdersOptions.
-func (opts *CancelOpenOrdersOptions) SetProductId(productId string) *CancelOpenOrdersOptions {
-	opts.ProductId = &productId
+// SetProductID sets the ProductID field on CancelOpenOrdersOptions.
+func (opts *CancelOpenOrdersOptions) SetProductID(ProductID string) *CancelOpenOrdersOptions {
+	opts.ProductID = &ProductID
 	return opts
 }
 
 // SetGranularity sets the Granularity field on CandlesOptions. Granularity is one of the following values: {60, 300,
 // 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices
 // representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively.
-func (opts *CandlesOptions) SetGranularity(granularity scalar.Granularity) *CandlesOptions {
-	opts.Granularity = &granularity
+func (opts *CandlesOptions) SetGranularity(Granularity scalar.Granularity) *CandlesOptions {
+	opts.Granularity = &Granularity
 	return opts
 }
 
 // SetStart sets the Start field on CandlesOptions. Start is a timestamp for starting range of aggregations.
-func (opts *CandlesOptions) SetStart(start string) *CandlesOptions {
-	opts.Start = &start
+func (opts *CandlesOptions) SetStart(Start string) *CandlesOptions {
+	opts.Start = &Start
 	return opts
 }
 
 // SetEnd sets the End field on CandlesOptions. End is a timestamp for ending range of aggregations.
-func (opts *CandlesOptions) SetEnd(end string) *CandlesOptions {
-	opts.End = &end
+func (opts *CandlesOptions) SetEnd(End string) *CandlesOptions {
+	opts.End = &End
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CoinbaseAccountDepositOptions.
-func (opts *CoinbaseAccountDepositOptions) SetProfileId(profileId string) *CoinbaseAccountDepositOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetProfileID(ProfileID string) *CoinbaseAccountDepositOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetAmount sets the Amount field on CoinbaseAccountDepositOptions.
-func (opts *CoinbaseAccountDepositOptions) SetAmount(amount float64) *CoinbaseAccountDepositOptions {
-	opts.Amount = amount
+func (opts *CoinbaseAccountDepositOptions) SetAmount(Amount float64) *CoinbaseAccountDepositOptions {
+	opts.Amount = Amount
 	return opts
 }
 
-// SetCoinbaseAccountId sets the CoinbaseAccountId field on CoinbaseAccountDepositOptions.
-func (opts *CoinbaseAccountDepositOptions) SetCoinbaseAccountId(coinbaseAccountId string) *CoinbaseAccountDepositOptions {
-	opts.CoinbaseAccountId = coinbaseAccountId
+// SetCoinbaseAccountID sets the CoinbaseAccountID field on CoinbaseAccountDepositOptions.
+func (opts *CoinbaseAccountDepositOptions) SetCoinbaseAccountID(CoinbaseAccountID string) *CoinbaseAccountDepositOptions {
+	opts.CoinbaseAccountID = CoinbaseAccountID
 	return opts
 }
 
 // SetCurrency sets the Currency field on CoinbaseAccountDepositOptions.
-func (opts *CoinbaseAccountDepositOptions) SetCurrency(currency string) *CoinbaseAccountDepositOptions {
-	opts.Currency = currency
+func (opts *CoinbaseAccountDepositOptions) SetCurrency(Currency string) *CoinbaseAccountDepositOptions {
+	opts.Currency = Currency
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CoinbaseAccountWithdrawalOptions.
-func (opts *CoinbaseAccountWithdrawalOptions) SetProfileId(profileId string) *CoinbaseAccountWithdrawalOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetProfileID(ProfileID string) *CoinbaseAccountWithdrawalOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetAmount sets the Amount field on CoinbaseAccountWithdrawalOptions.
-func (opts *CoinbaseAccountWithdrawalOptions) SetAmount(amount float64) *CoinbaseAccountWithdrawalOptions {
-	opts.Amount = amount
+func (opts *CoinbaseAccountWithdrawalOptions) SetAmount(Amount float64) *CoinbaseAccountWithdrawalOptions {
+	opts.Amount = Amount
 	return opts
 }
 
-// SetCoinbaseAccountId sets the CoinbaseAccountId field on CoinbaseAccountWithdrawalOptions.
-func (opts *CoinbaseAccountWithdrawalOptions) SetCoinbaseAccountId(coinbaseAccountId string) *CoinbaseAccountWithdrawalOptions {
-	opts.CoinbaseAccountId = coinbaseAccountId
+// SetCoinbaseAccountID sets the CoinbaseAccountID field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetCoinbaseAccountID(CoinbaseAccountID string) *CoinbaseAccountWithdrawalOptions {
+	opts.CoinbaseAccountID = CoinbaseAccountID
 	return opts
 }
 
 // SetCurrency sets the Currency field on CoinbaseAccountWithdrawalOptions.
-func (opts *CoinbaseAccountWithdrawalOptions) SetCurrency(currency string) *CoinbaseAccountWithdrawalOptions {
-	opts.Currency = currency
+func (opts *CoinbaseAccountWithdrawalOptions) SetCurrency(Currency string) *CoinbaseAccountWithdrawalOptions {
+	opts.Currency = Currency
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on ConvertCurrencyOptions.
-func (opts *ConvertCurrencyOptions) SetProfileId(profileId string) *ConvertCurrencyOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on ConvertCurrencyOptions.
+func (opts *ConvertCurrencyOptions) SetProfileID(ProfileID string) *ConvertCurrencyOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetFrom sets the From field on ConvertCurrencyOptions.
-func (opts *ConvertCurrencyOptions) SetFrom(from string) *ConvertCurrencyOptions {
-	opts.From = from
+func (opts *ConvertCurrencyOptions) SetFrom(From string) *ConvertCurrencyOptions {
+	opts.From = From
 	return opts
 }
 
 // SetTo sets the To field on ConvertCurrencyOptions.
-func (opts *ConvertCurrencyOptions) SetTo(to string) *ConvertCurrencyOptions {
-	opts.To = to
+func (opts *ConvertCurrencyOptions) SetTo(To string) *ConvertCurrencyOptions {
+	opts.To = To
 	return opts
 }
 
 // SetAmount sets the Amount field on ConvertCurrencyOptions.
-func (opts *ConvertCurrencyOptions) SetAmount(amount float64) *ConvertCurrencyOptions {
-	opts.Amount = amount
+func (opts *ConvertCurrencyOptions) SetAmount(Amount float64) *ConvertCurrencyOptions {
+	opts.Amount = Amount
 	return opts
 }
 
 // SetNonce sets the Nonce field on ConvertCurrencyOptions.
-func (opts *ConvertCurrencyOptions) SetNonce(nonce string) *ConvertCurrencyOptions {
-	opts.Nonce = &nonce
+func (opts *ConvertCurrencyOptions) SetNonce(Nonce string) *ConvertCurrencyOptions {
+	opts.Nonce = &Nonce
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetProfileId(profileId string) *CreateOrderOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetProfileID(ProfileID string) *CreateOrderOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetType sets the Type field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetType(typ scalar.OrderType) *CreateOrderOptions {
-	opts.Type = &typ
+func (opts *CreateOrderOptions) SetType(Type scalar.OrderType) *CreateOrderOptions {
+	opts.Type = &Type
 	return opts
 }
 
 // SetSide sets the Side field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetSide(side scalar.OrderSide) *CreateOrderOptions {
-	opts.Side = side
+func (opts *CreateOrderOptions) SetSide(Side scalar.OrderSide) *CreateOrderOptions {
+	opts.Side = Side
 	return opts
 }
 
 // SetStp sets the Stp field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetStp(stp scalar.OrderSTP) *CreateOrderOptions {
-	opts.Stp = &stp
+func (opts *CreateOrderOptions) SetStp(Stp scalar.OrderSTP) *CreateOrderOptions {
+	opts.Stp = &Stp
 	return opts
 }
 
 // SetStop sets the Stop field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetStop(stop scalar.OrderStop) *CreateOrderOptions {
-	opts.Stop = &stop
+func (opts *CreateOrderOptions) SetStop(Stop scalar.OrderStop) *CreateOrderOptions {
+	opts.Stop = &Stop
 	return opts
 }
 
 // SetStopPrice sets the StopPrice field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetStopPrice(stopPrice float64) *CreateOrderOptions {
-	opts.StopPrice = &stopPrice
+func (opts *CreateOrderOptions) SetStopPrice(StopPrice float64) *CreateOrderOptions {
+	opts.StopPrice = &StopPrice
 	return opts
 }
 
 // SetPrice sets the Price field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetPrice(price float64) *CreateOrderOptions {
-	opts.Price = &price
+func (opts *CreateOrderOptions) SetPrice(Price float64) *CreateOrderOptions {
+	opts.Price = &Price
 	return opts
 }
 
 // SetSize sets the Size field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetSize(size float64) *CreateOrderOptions {
-	opts.Size = &size
+func (opts *CreateOrderOptions) SetSize(Size float64) *CreateOrderOptions {
+	opts.Size = &Size
 	return opts
 }
 
 // SetFunds sets the Funds field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetFunds(funds float64) *CreateOrderOptions {
-	opts.Funds = &funds
+func (opts *CreateOrderOptions) SetFunds(Funds float64) *CreateOrderOptions {
+	opts.Funds = &Funds
 	return opts
 }
 
-// SetProductId sets the ProductId field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetProductId(productId string) *CreateOrderOptions {
-	opts.ProductId = productId
+// SetProductID sets the ProductID field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetProductID(ProductID string) *CreateOrderOptions {
+	opts.ProductID = ProductID
 	return opts
 }
 
 // SetTimeInForce sets the TimeInForce field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetTimeInForce(timeInForce scalar.TimeInForce) *CreateOrderOptions {
-	opts.TimeInForce = &timeInForce
+func (opts *CreateOrderOptions) SetTimeInForce(TimeInForce scalar.TimeInForce) *CreateOrderOptions {
+	opts.TimeInForce = &TimeInForce
 	return opts
 }
 
 // SetCancelAfter sets the CancelAfter field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetCancelAfter(cancelAfter scalar.CancelAfter) *CreateOrderOptions {
-	opts.CancelAfter = &cancelAfter
+func (opts *CreateOrderOptions) SetCancelAfter(CancelAfter scalar.CancelAfter) *CreateOrderOptions {
+	opts.CancelAfter = &CancelAfter
 	return opts
 }
 
 // SetPostOnly sets the PostOnly field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetPostOnly(postOnly bool) *CreateOrderOptions {
-	opts.PostOnly = &postOnly
+func (opts *CreateOrderOptions) SetPostOnly(PostOnly bool) *CreateOrderOptions {
+	opts.PostOnly = &PostOnly
 	return opts
 }
 
 // SetClientOid sets the ClientOid field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetClientOid(clientOid string) *CreateOrderOptions {
-	opts.ClientOid = &clientOid
+func (opts *CreateOrderOptions) SetClientOid(ClientOid string) *CreateOrderOptions {
+	opts.ClientOid = &ClientOid
 	return opts
 }
 
 // SetName sets the Name field on CreateProfileOptions.
-func (opts *CreateProfileOptions) SetName(name string) *CreateProfileOptions {
-	opts.Name = &name
+func (opts *CreateProfileOptions) SetName(Name string) *CreateProfileOptions {
+	opts.Name = &Name
 	return opts
 }
 
 // SetFrom sets the From field on CreateProfileTransferOptions.
-func (opts *CreateProfileTransferOptions) SetFrom(from string) *CreateProfileTransferOptions {
-	opts.From = &from
+func (opts *CreateProfileTransferOptions) SetFrom(From string) *CreateProfileTransferOptions {
+	opts.From = &From
 	return opts
 }
 
 // SetTo sets the To field on CreateProfileTransferOptions.
-func (opts *CreateProfileTransferOptions) SetTo(to string) *CreateProfileTransferOptions {
-	opts.To = &to
+func (opts *CreateProfileTransferOptions) SetTo(To string) *CreateProfileTransferOptions {
+	opts.To = &To
 	return opts
 }
 
 // SetCurrency sets the Currency field on CreateProfileTransferOptions.
-func (opts *CreateProfileTransferOptions) SetCurrency(currency string) *CreateProfileTransferOptions {
-	opts.Currency = &currency
+func (opts *CreateProfileTransferOptions) SetCurrency(Currency string) *CreateProfileTransferOptions {
+	opts.Currency = &Currency
 	return opts
 }
 
 // SetAmount sets the Amount field on CreateProfileTransferOptions.
-func (opts *CreateProfileTransferOptions) SetAmount(amount string) *CreateProfileTransferOptions {
-	opts.Amount = &amount
+func (opts *CreateProfileTransferOptions) SetAmount(Amount string) *CreateProfileTransferOptions {
+	opts.Amount = &Amount
 	return opts
 }
 
 // SetStartDate sets the StartDate field on CreateReportOptions. Start date for items to be included in report.
-func (opts *CreateReportOptions) SetStartDate(startDate string) *CreateReportOptions {
-	opts.StartDate = &startDate
+func (opts *CreateReportOptions) SetStartDate(StartDate string) *CreateReportOptions {
+	opts.StartDate = &StartDate
 	return opts
 }
 
 // SetEndDate sets the EndDate field on CreateReportOptions. End date for items to be included in report
-func (opts *CreateReportOptions) SetEndDate(endDate string) *CreateReportOptions {
-	opts.EndDate = &endDate
+func (opts *CreateReportOptions) SetEndDate(EndDate string) *CreateReportOptions {
+	opts.EndDate = &EndDate
 	return opts
 }
 
 // SetType sets the Type field on CreateReportOptions.
-func (opts *CreateReportOptions) SetType(typ scalar.ReportType) *CreateReportOptions {
-	opts.Type = typ
+func (opts *CreateReportOptions) SetType(Type scalar.ReportType) *CreateReportOptions {
+	opts.Type = Type
 	return opts
 }
 
 // SetYear sets the Year field on CreateReportOptions. required for 1099k-transaction-history-type reports
-func (opts *CreateReportOptions) SetYear(year string) *CreateReportOptions {
-	opts.Year = &year
+func (opts *CreateReportOptions) SetYear(Year string) *CreateReportOptions {
+	opts.Year = &Year
 	return opts
 }
 
 // SetFormat sets the Format field on CreateReportOptions.
-func (opts *CreateReportOptions) SetFormat(format scalar.Format) *CreateReportOptions {
-	opts.Format = &format
+func (opts *CreateReportOptions) SetFormat(Format scalar.Format) *CreateReportOptions {
+	opts.Format = &Format
 	return opts
 }
 
-// SetProductId sets the ProductId field on CreateReportOptions. Product - required for fills-type reports
-func (opts *CreateReportOptions) SetProductId(productId string) *CreateReportOptions {
-	opts.ProductId = &productId
+// SetProductID sets the ProductID field on CreateReportOptions. Product - required for fills-type reports
+func (opts *CreateReportOptions) SetProductID(ProductID string) *CreateReportOptions {
+	opts.ProductID = &ProductID
 	return opts
 }
 
-// SetAccountId sets the AccountId field on CreateReportOptions. Account - required for account-type reports
-func (opts *CreateReportOptions) SetAccountId(accountId string) *CreateReportOptions {
-	opts.AccountId = &accountId
+// SetAccountID sets the AccountID field on CreateReportOptions. Account - required for account-type reports
+func (opts *CreateReportOptions) SetAccountID(AccountID string) *CreateReportOptions {
+	opts.AccountID = &AccountID
 	return opts
 }
 
 // SetEmail sets the Email field on CreateReportOptions. Email to send generated report to
-func (opts *CreateReportOptions) SetEmail(email string) *CreateReportOptions {
-	opts.Email = &email
+func (opts *CreateReportOptions) SetEmail(Email string) *CreateReportOptions {
+	opts.Email = &Email
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CreateReportOptions. Portfolio - Which portfolio to generate the report for
-func (opts *CreateReportOptions) SetProfileId(profileId string) *CreateReportOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CreateReportOptions. Portfolio - Which portfolio to generate the report for
+func (opts *CreateReportOptions) SetProfileID(ProfileID string) *CreateReportOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetProfileId(profileId string) *CryptoWithdrawalOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CryptoWithdrawalOptions.
+func (opts *CryptoWithdrawalOptions) SetProfileID(ProfileID string) *CryptoWithdrawalOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetAmount sets the Amount field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetAmount(amount float64) *CryptoWithdrawalOptions {
-	opts.Amount = amount
+func (opts *CryptoWithdrawalOptions) SetAmount(Amount float64) *CryptoWithdrawalOptions {
+	opts.Amount = Amount
 	return opts
 }
 
 // SetCryptoAddress sets the CryptoAddress field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetCryptoAddress(cryptoAddress string) *CryptoWithdrawalOptions {
-	opts.CryptoAddress = cryptoAddress
+func (opts *CryptoWithdrawalOptions) SetCryptoAddress(CryptoAddress string) *CryptoWithdrawalOptions {
+	opts.CryptoAddress = CryptoAddress
 	return opts
 }
 
 // SetCurrency sets the Currency field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetCurrency(currency string) *CryptoWithdrawalOptions {
-	opts.Currency = currency
+func (opts *CryptoWithdrawalOptions) SetCurrency(Currency string) *CryptoWithdrawalOptions {
+	opts.Currency = Currency
 	return opts
 }
 
 // SetDestinationTag sets the DestinationTag field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetDestinationTag(destinationTag string) *CryptoWithdrawalOptions {
-	opts.DestinationTag = &destinationTag
+func (opts *CryptoWithdrawalOptions) SetDestinationTag(DestinationTag string) *CryptoWithdrawalOptions {
+	opts.DestinationTag = &DestinationTag
 	return opts
 }
 
 // SetNoDestinationTag sets the NoDestinationTag field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetNoDestinationTag(noDestinationTag bool) *CryptoWithdrawalOptions {
-	opts.NoDestinationTag = &noDestinationTag
+func (opts *CryptoWithdrawalOptions) SetNoDestinationTag(NoDestinationTag bool) *CryptoWithdrawalOptions {
+	opts.NoDestinationTag = &NoDestinationTag
 	return opts
 }
 
 // SetTwoFactorCode sets the TwoFactorCode field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetTwoFactorCode(twoFactorCode string) *CryptoWithdrawalOptions {
-	opts.TwoFactorCode = &twoFactorCode
+func (opts *CryptoWithdrawalOptions) SetTwoFactorCode(TwoFactorCode string) *CryptoWithdrawalOptions {
+	opts.TwoFactorCode = &TwoFactorCode
 	return opts
 }
 
 // SetNonce sets the Nonce field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetNonce(nonce int) *CryptoWithdrawalOptions {
-	opts.Nonce = &nonce
+func (opts *CryptoWithdrawalOptions) SetNonce(Nonce int) *CryptoWithdrawalOptions {
+	opts.Nonce = &Nonce
 	return opts
 }
 
 // SetFee sets the Fee field on CryptoWithdrawalOptions.
-func (opts *CryptoWithdrawalOptions) SetFee(fee float64) *CryptoWithdrawalOptions {
-	opts.Fee = &fee
+func (opts *CryptoWithdrawalOptions) SetFee(Fee float64) *CryptoWithdrawalOptions {
+	opts.Fee = &Fee
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CurrencyConversionOptions.
-func (opts *CurrencyConversionOptions) SetProfileId(profileId string) *CurrencyConversionOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on CurrencyConversionOptions.
+func (opts *CurrencyConversionOptions) SetProfileID(ProfileID string) *CurrencyConversionOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on DeleteProfileOptions.
-func (opts *DeleteProfileOptions) SetProfileId(profileId string) *DeleteProfileOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on DeleteProfileOptions.
+func (opts *DeleteProfileOptions) SetProfileID(ProfileID string) *DeleteProfileOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetTo sets the To field on DeleteProfileOptions.
-func (opts *DeleteProfileOptions) SetTo(to string) *DeleteProfileOptions {
-	opts.To = &to
+func (opts *DeleteProfileOptions) SetTo(To string) *DeleteProfileOptions {
+	opts.To = &To
 	return opts
 }
 
-// SetOrderId sets the OrderId field on FillsOptions.
-func (opts *FillsOptions) SetOrderId(orderId string) *FillsOptions {
-	opts.OrderId = &orderId
+// SetOrderID sets the OrderID field on FillsOptions.
+func (opts *FillsOptions) SetOrderID(OrderID string) *FillsOptions {
+	opts.OrderID = &OrderID
 	return opts
 }
 
-// SetProductId sets the ProductId field on FillsOptions.
-func (opts *FillsOptions) SetProductId(productId string) *FillsOptions {
-	opts.ProductId = &productId
+// SetProductID sets the ProductID field on FillsOptions.
+func (opts *FillsOptions) SetProductID(ProductID string) *FillsOptions {
+	opts.ProductID = &ProductID
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on FillsOptions.
-func (opts *FillsOptions) SetProfileId(profileId string) *FillsOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on FillsOptions.
+func (opts *FillsOptions) SetProfileID(ProfileID string) *FillsOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetLimit sets the Limit field on FillsOptions.
-func (opts *FillsOptions) SetLimit(limit int) *FillsOptions {
-	opts.Limit = &limit
+func (opts *FillsOptions) SetLimit(Limit int) *FillsOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetBefore sets the Before field on FillsOptions.
-func (opts *FillsOptions) SetBefore(before int) *FillsOptions {
-	opts.Before = &before
+func (opts *FillsOptions) SetBefore(Before int) *FillsOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on FillsOptions.
-func (opts *FillsOptions) SetAfter(after int) *FillsOptions {
-	opts.After = &after
+func (opts *FillsOptions) SetAfter(After int) *FillsOptions {
+	opts.After = &After
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on OrdersOptions.
-func (opts *OrdersOptions) SetProfileId(profileId string) *OrdersOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on OrdersOptions.
+func (opts *OrdersOptions) SetProfileID(ProfileID string) *OrdersOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
-// SetProductId sets the ProductId field on OrdersOptions.
-func (opts *OrdersOptions) SetProductId(productId string) *OrdersOptions {
-	opts.ProductId = &productId
+// SetProductID sets the ProductID field on OrdersOptions.
+func (opts *OrdersOptions) SetProductID(ProductID string) *OrdersOptions {
+	opts.ProductID = &ProductID
 	return opts
 }
 
 // SetSortedBy sets the SortedBy field on OrdersOptions.
-func (opts *OrdersOptions) SetSortedBy(sortedBy string) *OrdersOptions {
-	opts.SortedBy = &sortedBy
+func (opts *OrdersOptions) SetSortedBy(SortedBy string) *OrdersOptions {
+	opts.SortedBy = &SortedBy
 	return opts
 }
 
 // SetSorting sets the Sorting field on OrdersOptions.
-func (opts *OrdersOptions) SetSorting(sorting string) *OrdersOptions {
-	opts.Sorting = &sorting
+func (opts *OrdersOptions) SetSorting(Sorting string) *OrdersOptions {
+	opts.Sorting = &Sorting
 	return opts
 }
 
 // SetStartDate sets the StartDate field on OrdersOptions.
-func (opts *OrdersOptions) SetStartDate(startDate string) *OrdersOptions {
-	opts.StartDate = &startDate
+func (opts *OrdersOptions) SetStartDate(StartDate string) *OrdersOptions {
+	opts.StartDate = &StartDate
 	return opts
 }
 
 // SetEndDate sets the EndDate field on OrdersOptions.
-func (opts *OrdersOptions) SetEndDate(endDate string) *OrdersOptions {
-	opts.EndDate = &endDate
+func (opts *OrdersOptions) SetEndDate(EndDate string) *OrdersOptions {
+	opts.EndDate = &EndDate
 	return opts
 }
 
 // SetBefore sets the Before field on OrdersOptions.
-func (opts *OrdersOptions) SetBefore(before string) *OrdersOptions {
-	opts.Before = &before
+func (opts *OrdersOptions) SetBefore(Before string) *OrdersOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on OrdersOptions.
-func (opts *OrdersOptions) SetAfter(after string) *OrdersOptions {
-	opts.After = &after
+func (opts *OrdersOptions) SetAfter(After string) *OrdersOptions {
+	opts.After = &After
 	return opts
 }
 
 // SetLimit sets the Limit field on OrdersOptions.
-func (opts *OrdersOptions) SetLimit(limit int) *OrdersOptions {
-	opts.Limit = limit
+func (opts *OrdersOptions) SetLimit(Limit int) *OrdersOptions {
+	opts.Limit = Limit
 	return opts
 }
 
 // SetStatus sets the Status field on OrdersOptions.
-func (opts *OrdersOptions) SetStatus(status []string) *OrdersOptions {
-	opts.Status = status
+func (opts *OrdersOptions) SetStatus(Status []string) *OrdersOptions {
+	opts.Status = Status
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetProfileId(profileId string) *PaymentMethodDepositOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetProfileID(ProfileID string) *PaymentMethodDepositOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetAmount sets the Amount field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetAmount(amount float64) *PaymentMethodDepositOptions {
-	opts.Amount = amount
+func (opts *PaymentMethodDepositOptions) SetAmount(Amount float64) *PaymentMethodDepositOptions {
+	opts.Amount = Amount
 	return opts
 }
 
-// SetPaymentMethodId sets the PaymentMethodId field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetPaymentMethodId(paymentMethodId string) *PaymentMethodDepositOptions {
-	opts.PaymentMethodId = paymentMethodId
+// SetPaymentMethodID sets the PaymentMethodID field on PaymentMethodDepositOptions.
+func (opts *PaymentMethodDepositOptions) SetPaymentMethodID(PaymentMethodID string) *PaymentMethodDepositOptions {
+	opts.PaymentMethodID = PaymentMethodID
 	return opts
 }
 
 // SetCurrency sets the Currency field on PaymentMethodDepositOptions.
-func (opts *PaymentMethodDepositOptions) SetCurrency(currency string) *PaymentMethodDepositOptions {
-	opts.Currency = currency
+func (opts *PaymentMethodDepositOptions) SetCurrency(Currency string) *PaymentMethodDepositOptions {
+	opts.Currency = Currency
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on PaymentMethodWithdrawalOptions.
-func (opts *PaymentMethodWithdrawalOptions) SetProfileId(profileId string) *PaymentMethodWithdrawalOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on PaymentMethodWithdrawalOptions.
+func (opts *PaymentMethodWithdrawalOptions) SetProfileID(ProfileID string) *PaymentMethodWithdrawalOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetAmount sets the Amount field on PaymentMethodWithdrawalOptions.
-func (opts *PaymentMethodWithdrawalOptions) SetAmount(amount float64) *PaymentMethodWithdrawalOptions {
-	opts.Amount = amount
+func (opts *PaymentMethodWithdrawalOptions) SetAmount(Amount float64) *PaymentMethodWithdrawalOptions {
+	opts.Amount = Amount
 	return opts
 }
 
-// SetPaymentMethodId sets the PaymentMethodId field on PaymentMethodWithdrawalOptions.
-func (opts *PaymentMethodWithdrawalOptions) SetPaymentMethodId(paymentMethodId string) *PaymentMethodWithdrawalOptions {
-	opts.PaymentMethodId = paymentMethodId
+// SetPaymentMethodID sets the PaymentMethodID field on PaymentMethodWithdrawalOptions.
+func (opts *PaymentMethodWithdrawalOptions) SetPaymentMethodID(PaymentMethodID string) *PaymentMethodWithdrawalOptions {
+	opts.PaymentMethodID = PaymentMethodID
 	return opts
 }
 
 // SetCurrency sets the Currency field on PaymentMethodWithdrawalOptions.
-func (opts *PaymentMethodWithdrawalOptions) SetCurrency(currency string) *PaymentMethodWithdrawalOptions {
-	opts.Currency = currency
+func (opts *PaymentMethodWithdrawalOptions) SetCurrency(Currency string) *PaymentMethodWithdrawalOptions {
+	opts.Currency = Currency
 	return opts
 }
 
 // SetType sets the Type field on ProductsOptions.
-func (opts *ProductsOptions) SetType(typ string) *ProductsOptions {
-	opts.Type = &typ
+func (opts *ProductsOptions) SetType(Type string) *ProductsOptions {
+	opts.Type = &Type
 	return opts
 }
 
 // SetActive sets the Active field on ProfileOptions.
-func (opts *ProfileOptions) SetActive(active bool) *ProfileOptions {
-	opts.Active = &active
+func (opts *ProfileOptions) SetActive(Active bool) *ProfileOptions {
+	opts.Active = &Active
 	return opts
 }
 
 // SetActive sets the Active field on ProfilesOptions.
-func (opts *ProfilesOptions) SetActive(active bool) *ProfilesOptions {
-	opts.Active = &active
+func (opts *ProfilesOptions) SetActive(Active bool) *ProfilesOptions {
+	opts.Active = &Active
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on RenameProfileOptions.
-func (opts *RenameProfileOptions) SetProfileId(profileId string) *RenameProfileOptions {
-	opts.ProfileId = &profileId
+// SetProfileID sets the ProfileID field on RenameProfileOptions.
+func (opts *RenameProfileOptions) SetProfileID(ProfileID string) *RenameProfileOptions {
+	opts.ProfileID = &ProfileID
 	return opts
 }
 
 // SetName sets the Name field on RenameProfileOptions.
-func (opts *RenameProfileOptions) SetName(name string) *RenameProfileOptions {
-	opts.Name = &name
+func (opts *RenameProfileOptions) SetName(Name string) *RenameProfileOptions {
+	opts.Name = &Name
 	return opts
 }
 
-// SetPortfolioId sets the PortfolioId field on ReportsOptions. Filter results by a specific profile_id
-func (opts *ReportsOptions) SetPortfolioId(portfolioId string) *ReportsOptions {
-	opts.PortfolioId = &portfolioId
+// SetPortfolioID sets the PortfolioID field on ReportsOptions. Filter results by a specific profile_id
+func (opts *ReportsOptions) SetPortfolioID(PortfolioID string) *ReportsOptions {
+	opts.PortfolioID = &PortfolioID
 	return opts
 }
 
 // SetAfter sets the After field on ReportsOptions. Filter results after a specific date
-func (opts *ReportsOptions) SetAfter(after string) *ReportsOptions {
-	opts.After = &after
+func (opts *ReportsOptions) SetAfter(After string) *ReportsOptions {
+	opts.After = &After
 	return opts
 }
 
 // SetLimit sets the Limit field on ReportsOptions. Limit results to a specific number
-func (opts *ReportsOptions) SetLimit(limit int) *ReportsOptions {
-	opts.Limit = &limit
+func (opts *ReportsOptions) SetLimit(Limit int) *ReportsOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetType sets the Type field on ReportsOptions. Filter results by type of report (fills or account) - otc_fills: real
 // string is otc-fills - type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real
 // string is tax-invoice
-func (opts *ReportsOptions) SetType(typ scalar.ReportType) *ReportsOptions {
-	opts.Type = &typ
+func (opts *ReportsOptions) SetType(Type scalar.ReportType) *ReportsOptions {
+	opts.Type = &Type
 	return opts
 }
 
 // SetIgnoredExpired sets the IgnoredExpired field on ReportsOptions. Ignore expired results
-func (opts *ReportsOptions) SetIgnoredExpired(ignoredExpired bool) *ReportsOptions {
-	opts.IgnoredExpired = &ignoredExpired
+func (opts *ReportsOptions) SetIgnoredExpired(IgnoredExpired bool) *ReportsOptions {
+	opts.IgnoredExpired = &IgnoredExpired
 	return opts
 }
 
 // SetLimit sets the Limit field on TradesOptions.
-func (opts *TradesOptions) SetLimit(limit int32) *TradesOptions {
-	opts.Limit = &limit
+func (opts *TradesOptions) SetLimit(Limit int32) *TradesOptions {
+	opts.Limit = &Limit
 	return opts
 }
 
 // SetBefore sets the Before field on TradesOptions.
-func (opts *TradesOptions) SetBefore(before int32) *TradesOptions {
-	opts.Before = &before
+func (opts *TradesOptions) SetBefore(Before int32) *TradesOptions {
+	opts.Before = &Before
 	return opts
 }
 
 // SetAfter sets the After field on TradesOptions.
-func (opts *TradesOptions) SetAfter(after int32) *TradesOptions {
-	opts.After = &after
+func (opts *TradesOptions) SetAfter(After int32) *TradesOptions {
+	opts.After = &After
 	return opts
 }
 
 // SetCurrency sets the Currency field on WithdrawalFeeEstimateOptions.
-func (opts *WithdrawalFeeEstimateOptions) SetCurrency(currency string) *WithdrawalFeeEstimateOptions {
-	opts.Currency = &currency
+func (opts *WithdrawalFeeEstimateOptions) SetCurrency(Currency string) *WithdrawalFeeEstimateOptions {
+	opts.Currency = &Currency
 	return opts
 }
 
 // SetCryptoAddress sets the CryptoAddress field on WithdrawalFeeEstimateOptions.
-func (opts *WithdrawalFeeEstimateOptions) SetCryptoAddress(cryptoAddress string) *WithdrawalFeeEstimateOptions {
-	opts.CryptoAddress = &cryptoAddress
+func (opts *WithdrawalFeeEstimateOptions) SetCryptoAddress(CryptoAddress string) *WithdrawalFeeEstimateOptions {
+	opts.CryptoAddress = &CryptoAddress
 	return opts
 }
 
@@ -971,9 +971,9 @@ func (opts *CoinbaseAccountDepositOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountId).
+		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountID).
 		SetBodyString("currency", &opts.Currency)
 }
 
@@ -981,9 +981,9 @@ func (opts *CoinbaseAccountWithdrawalOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountId).
+		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountID).
 		SetBodyString("currency", &opts.Currency)
 }
 
@@ -991,7 +991,7 @@ func (opts *ConvertCurrencyOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyString("from", &opts.From).
 		SetBodyString("to", &opts.To).
 		SetBodyFloat("amount", &opts.Amount).
@@ -1002,7 +1002,7 @@ func (opts *CreateOrderOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetStringer("type", opts.Type).
 		SetStringer("side", &opts.Side).
 		SetStringer("stp", opts.Stp).
@@ -1011,7 +1011,7 @@ func (opts *CreateOrderOptions) SetBody(req *client.Request) {
 		SetBodyFloat("price", opts.Price).
 		SetBodyFloat("size", opts.Size).
 		SetBodyFloat("funds", opts.Funds).
-		SetBodyString("product_id", &opts.ProductId).
+		SetBodyString("product_id", &opts.ProductID).
 		SetStringer("time_in_force", opts.TimeInForce).
 		SetStringer("cancel_after", opts.CancelAfter).
 		SetBodyBool("post_only", opts.PostOnly).
@@ -1044,17 +1044,17 @@ func (opts *CreateReportOptions) SetBody(req *client.Request) {
 		SetStringer("type", &opts.Type).
 		SetBodyString("year", opts.Year).
 		SetStringer("format", opts.Format).
-		SetBodyString("product_id", opts.ProductId).
-		SetBodyString("account_id", opts.AccountId).
+		SetBodyString("product_id", opts.ProductID).
+		SetBodyString("account_id", opts.AccountID).
 		SetBodyString("email", opts.Email).
-		SetBodyString("profile_id", opts.ProfileId)
+		SetBodyString("profile_id", opts.ProfileID)
 }
 
 func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyFloat("amount", &opts.Amount).
 		SetBodyString("crypto_address", &opts.CryptoAddress).
 		SetBodyString("currency", &opts.Currency).
@@ -1069,9 +1069,9 @@ func (opts *PaymentMethodDepositOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("payment_method_id", &opts.PaymentMethodId).
+		SetBodyString("payment_method_id", &opts.PaymentMethodID).
 		SetBodyString("currency", &opts.Currency)
 }
 
@@ -1079,9 +1079,9 @@ func (opts *PaymentMethodWithdrawalOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetBodyString("profile_id", opts.ProfileId).
+	req.SetBodyString("profile_id", opts.ProfileID).
 		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("payment_method_id", &opts.PaymentMethodId).
+		SetBodyString("payment_method_id", &opts.PaymentMethodID).
 		SetBodyString("currency", &opts.Currency)
 }
 
@@ -1102,7 +1102,7 @@ func (opts *AccountLedgerOptions) SetQueryParams(req *client.Request) {
 		SetQueryParamString("end_date", opts.EndDate).
 		SetQueryParamInt("before", opts.Before).
 		SetQueryParamInt("after", opts.After).
-		SetQueryParamString("profile_id", opts.ProfileId).
+		SetQueryParamString("profile_id", opts.ProfileID).
 		SetQueryParamInt("limit", opts.Limit)
 }
 
@@ -1126,8 +1126,8 @@ func (opts *CancelOpenOrdersOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileId).
-		SetQueryParamString("product_id", opts.ProductId)
+	req.SetQueryParamString("profile_id", opts.ProfileID).
+		SetQueryParamString("product_id", opts.ProductID)
 }
 
 func (opts *CandlesOptions) SetQueryParams(req *client.Request) {
@@ -1142,14 +1142,14 @@ func (opts *CurrencyConversionOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileId)
+	req.SetQueryParamString("profile_id", opts.ProfileID)
 }
 
 func (opts *DeleteProfileOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileId).
+	req.SetQueryParamString("profile_id", opts.ProfileID).
 		SetQueryParamString("to", opts.To)
 }
 
@@ -1157,9 +1157,9 @@ func (opts *FillsOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("order_id", opts.OrderId).
-		SetQueryParamString("product_id", opts.ProductId).
-		SetQueryParamString("profile_id", opts.ProfileId).
+	req.SetQueryParamString("order_id", opts.OrderID).
+		SetQueryParamString("product_id", opts.ProductID).
+		SetQueryParamString("profile_id", opts.ProfileID).
 		SetQueryParamInt("limit", opts.Limit).
 		SetQueryParamInt("before", opts.Before).
 		SetQueryParamInt("after", opts.After)
@@ -1169,8 +1169,8 @@ func (opts *OrdersOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileId).
-		SetQueryParamString("product_id", opts.ProductId).
+	req.SetQueryParamString("profile_id", opts.ProfileID).
+		SetQueryParamString("product_id", opts.ProductID).
 		SetQueryParamString("sortedBy", opts.SortedBy).
 		SetQueryParamString("sorting", opts.Sorting).
 		SetQueryParamString("start_date", opts.StartDate).
@@ -1206,7 +1206,7 @@ func (opts *RenameProfileOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileId).
+	req.SetQueryParamString("profile_id", opts.ProfileID).
 		SetQueryParamString("name", opts.Name)
 }
 
@@ -1214,7 +1214,7 @@ func (opts *ReportsOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("portfolio_id", opts.PortfolioId).
+	req.SetQueryParamString("portfolio_id", opts.PortfolioID).
 		SetQueryParamString("after", opts.After).
 		SetQueryParamInt("limit", opts.Limit).
 		SetQueryParamBool("ignored_expired", opts.IgnoredExpired)

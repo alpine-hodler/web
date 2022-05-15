@@ -15,8 +15,8 @@ type Account struct {
 	Balance        string `json:"balance" bson:"balance"`
 	Currency       string `json:"currency" bson:"currency"`
 	Hold           string `json:"hold" bson:"hold"`
-	Id             string `json:"id" bson:"id"`
-	ProfileId      string `json:"profile_id" bson:"profile_id"`
+	ID             string `json:"id" bson:"id"`
+	ProfileID      string `json:"profile_id" bson:"profile_id"`
 	TradingEnabled bool   `json:"trading_enabled" bson:"trading_enabled"`
 }
 
@@ -25,7 +25,7 @@ type Account struct {
 // order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed.
 type AccountHold struct {
 	CreatedAt time.Time `json:"created_at" bson:"created_at"`
-	Id        string    `json:"id" bson:"id"`
+	ID        string    `json:"id" bson:"id"`
 	Ref       string    `json:"ref" bson:"ref"`
 	Type      string    `json:"type" bson:"type"`
 	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
@@ -38,22 +38,22 @@ type AccountLedger struct {
 	Balance   string               `json:"balance" bson:"balance"`
 	CreatedAt time.Time            `json:"created_at" bson:"created_at"`
 	Details   AccountLedgerDetails `json:"details" bson:"details"`
-	Id        string               `json:"id" bson:"id"`
+	ID        string               `json:"id" bson:"id"`
 	Type      scalar.EntryType     `json:"type" bson:"type"`
 }
 
 // AccountLedgerDetails are the details for account history.
 type AccountLedgerDetails struct {
-	OrderId   string `json:"order_id" bson:"order_id"`
-	ProductId string `json:"product_id" bson:"product_id"`
-	TradeId   string `json:"trade_id" bson:"trade_id"`
+	OrderID   string `json:"order_id" bson:"order_id"`
+	ProductID string `json:"product_id" bson:"product_id"`
+	TradeID   string `json:"trade_id" bson:"trade_id"`
 }
 
 // AccountTransferDetails are the details for an account transfer.
 type AccountTransferDetails struct {
-	CoinbaseAccountId       string `json:"coinbase_account_id" bson:"coinbase_account_id"`
-	CoinbasePaymentMethodId string `json:"coinbase_payment_method_id" bson:"coinbase_payment_method_id"`
-	CoinbaseTransactionId   string `json:"coinbase_transaction_id" bson:"coinbase_transaction_id"`
+	CoinbaseAccountID       string `json:"coinbase_account_id" bson:"coinbase_account_id"`
+	CoinbasePaymentMethodID string `json:"coinbase_payment_method_id" bson:"coinbase_payment_method_id"`
+	CoinbaseTransactionID   string `json:"coinbase_transaction_id" bson:"coinbase_transaction_id"`
 }
 
 // Auction is an object of data concerning a book request.
@@ -111,11 +111,11 @@ type CreateOrder struct {
 	FilledSize    string             `json:"filled_size" bson:"filled_size"`
 	FundingAmount string             `json:"funding_amount" bson:"funding_amount"`
 	Funds         string             `json:"funds" bson:"funds"`
-	Id            string             `json:"id" bson:"id"`
+	ID            string             `json:"id" bson:"id"`
 	PostOnly      bool               `json:"post_only" bson:"post_only"`
 	Price         string             `json:"price" bson:"price"`
-	ProductId     string             `json:"product_id" bson:"product_id"`
-	ProfileId     string             `json:"profile_id" bson:"profile_id"`
+	ProductID     string             `json:"product_id" bson:"product_id"`
+	ProfileID     string             `json:"profile_id" bson:"profile_id"`
 	RejectReason  string             `json:"reject_reason" bson:"reject_reason"`
 	Settled       bool               `json:"settled" bson:"settled"`
 	Side          scalar.OrderSide   `json:"side" bson:"side"`
@@ -130,14 +130,14 @@ type CreateOrder struct {
 
 // CreateReport represents information for a report created through the client.
 type CreateReport struct {
-	Id     string            `json:"id" bson:"id"`
+	ID     string            `json:"id" bson:"id"`
 	Status scalar.Status     `json:"status" bson:"status"`
 	Type   scalar.ReportType `json:"type" bson:"type"`
 }
 
 // CryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
 type CryptoAccount struct {
-	Id           string `json:"id" bson:"id"`
+	ID           string `json:"id" bson:"id"`
 	Resource     string `json:"resource" bson:"resource"`
 	ResourcePath string `json:"resource_path" bson:"resource_path"`
 }
@@ -150,7 +150,7 @@ type CryptoAddress struct {
 	CreateAt       time.Time               `json:"create_at" bson:"create_at"`
 	DepositUri     string                  `json:"deposit_uri" bson:"deposit_uri"`
 	DestinationTag string                  `json:"destination_tag" bson:"destination_tag"`
-	Id             string                  `json:"id" bson:"id"`
+	ID             string                  `json:"id" bson:"id"`
 	LegacyAddress  string                  `json:"legacy_address" bson:"legacy_address"`
 	Name           string                  `json:"name" bson:"name"`
 	Network        string                  `json:"network" bson:"network"`
@@ -178,7 +178,7 @@ type CryptoAddressWarning struct {
 type Currency struct {
 	ConvertibleTo []string        `json:"convertible_to" bson:"convertible_to"`
 	Details       CurrencyDetails `json:"details" bson:"details"`
-	Id            string          `json:"id" bson:"id"`
+	ID            string          `json:"id" bson:"id"`
 	MaxPrecision  string          `json:"max_precision" bson:"max_precision"`
 	Message       string          `json:"message" bson:"message"`
 	MinSize       string          `json:"min_size" bson:"min_size"`
@@ -191,10 +191,10 @@ type Currency struct {
 type CurrencyConversion struct {
 	Amount        string `json:"amount" bson:"amount"`
 	From          string `json:"from" bson:"from"`
-	FromAccountId string `json:"from_account_id" bson:"from_account_id"`
-	Id            string `json:"id" bson:"id"`
+	FromAccountID string `json:"from_account_id" bson:"from_account_id"`
+	ID            string `json:"id" bson:"id"`
 	To            string `json:"to" bson:"to"`
-	ToAccountId   string `json:"to_account_id" bson:"to_account_id"`
+	ToAccountID   string `json:"to_account_id" bson:"to_account_id"`
 }
 
 // CurrencyDetails are the details for a currency that coinbase knows about
@@ -227,7 +227,7 @@ type Deposit struct {
 	Amount   string `json:"amount" bson:"amount"`
 	Currency string `json:"currency" bson:"currency"`
 	Fee      string `json:"fee" bson:"fee"`
-	Id       string `json:"id" bson:"id"`
+	ID       string `json:"id" bson:"id"`
 	PayoutAt string `json:"payout_at" bson:"payout_at"`
 	Subtotal string `json:"subtotal" bson:"subtotal"`
 }
@@ -245,9 +245,9 @@ type Fees struct {
 	UsdVolume    string `json:"usd_volume" bson:"usd_volume"`
 }
 
-// FiatAccount references a FIAT account thata CoinbasePaymentMethod belongs to
-type FiatAccount struct {
-	Id           string `json:"id" bson:"id"`
+// FIATAccount references a FIAT account thata CoinbasePaymentMethod belongs to
+type FIATAccount struct {
+	ID           string `json:"id" bson:"id"`
 	Resource     string `json:"resource" bson:"resource"`
 	ResourcePath string `json:"resource_path" bson:"resource_path"`
 }
@@ -256,16 +256,16 @@ type FiatAccount struct {
 type Fill struct {
 	Fee       string `json:"fee" bson:"fee"`
 	Liquidity string `json:"liquidity" bson:"liquidity"`
-	OrderId   string `json:"order_id" bson:"order_id"`
+	OrderID   string `json:"order_id" bson:"order_id"`
 	Price     string `json:"price" bson:"price"`
-	ProductId string `json:"product_id" bson:"product_id"`
-	ProfileId string `json:"profile_id" bson:"profile_id"`
+	ProductID string `json:"product_id" bson:"product_id"`
+	ProfileID string `json:"profile_id" bson:"profile_id"`
 	Settled   bool   `json:"settled" bson:"settled"`
 	Side      string `json:"side" bson:"side"`
 	Size      string `json:"size" bson:"size"`
-	TradeId   int    `json:"trade_id" bson:"trade_id"`
+	TradeID   int    `json:"trade_id" bson:"trade_id"`
 	UsdVolume string `json:"usd_volume" bson:"usd_volume"`
-	UserId    string `json:"user_id" bson:"user_id"`
+	UserID    string `json:"user_id" bson:"user_id"`
 }
 
 // TODO
@@ -311,10 +311,10 @@ type Order struct {
 	FilledSize     string             `json:"filled_size" bson:"filled_size"`
 	FundingAmount  string             `json:"funding_amount" bson:"funding_amount"`
 	Funds          string             `json:"funds" bson:"funds"`
-	Id             string             `json:"id" bson:"id"`
+	ID             string             `json:"id" bson:"id"`
 	PostOnly       bool               `json:"post_only" bson:"post_only"`
 	Price          string             `json:"price" bson:"price"`
-	ProductId      string             `json:"product_id" bson:"product_id"`
+	ProductID      string             `json:"product_id" bson:"product_id"`
 	RejectReason   string             `json:"reject_reason" bson:"reject_reason"`
 	Settled        bool               `json:"settled" bson:"settled"`
 	Side           scalar.OrderSide   `json:"side" bson:"side"`
@@ -338,10 +338,10 @@ type PaymentMethod struct {
 	CreateAt           time.Time           `json:"create_at" bson:"create_at"`
 	CryptoAccount      CryptoAccount       `json:"crypto_account" bson:"crypto_account"`
 	Currency           string              `json:"currency" bson:"currency"`
-	FiatAccount        FiatAccount         `json:"fiat_account" bson:"fiat_account"`
+	FIATAccount        FIATAccount         `json:"fiat_account" bson:"fiat_account"`
 	HoldBusinessDays   int                 `json:"hold_business_days" bson:"hold_business_days"`
 	HoldDays           int                 `json:"hold_days" bson:"hold_days"`
-	Id                 string              `json:"id" bson:"id"`
+	ID                 string              `json:"id" bson:"id"`
 	InstantBuy         bool                `json:"instant_buy" bson:"instant_buy"`
 	InstantSale        bool                `json:"instant_sale" bson:"instant_sale"`
 	Limits             Limits              `json:"limits" bson:"limits"`
@@ -375,7 +375,7 @@ type PickerData struct {
 	PaypalEmail           string  `json:"paypal_email" bson:"paypal_email"`
 	PaypalOwner           string  `json:"paypal_owner" bson:"paypal_owner"`
 	RoutingNumber         string  `json:"routing_number" bson:"routing_number"`
-	Swift                 string  `json:"swift" bson:"swift"`
+	SWIFT                 string  `json:"swift" bson:"swift"`
 	Symbol                string  `json:"symbol" bson:"symbol"`
 }
 
@@ -389,7 +389,7 @@ type Product struct {
 	CancelOnly            bool          `json:"cancel_only" bson:"cancel_only"`
 	DisplayName           string        `json:"display_name" bson:"display_name"`
 	FxStablecoin          bool          `json:"fx_stablecoin" bson:"fx_stablecoin"`
-	Id                    string        `json:"id" bson:"id"`
+	ID                    string        `json:"id" bson:"id"`
 	LimitOnly             bool          `json:"limit_only" bson:"limit_only"`
 	MarginEnabled         bool          `json:"margin_enabled" bson:"margin_enabled"`
 	MaxMarketFunds        string        `json:"max_market_funds" bson:"max_market_funds"`
@@ -420,7 +420,7 @@ type ProductTicker struct {
 	Price   string    `json:"price" bson:"price"`
 	Size    string    `json:"size" bson:"size"`
 	Time    time.Time `json:"time" bson:"time"`
-	TradeId int       `json:"trade_id" bson:"trade_id"`
+	TradeID int       `json:"trade_id" bson:"trade_id"`
 	Volume  string    `json:"volume" bson:"volume"`
 }
 
@@ -429,10 +429,10 @@ type Profile struct {
 	Active    bool      `json:"active" bson:"active"`
 	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 	HasMargin bool      `json:"has_margin" bson:"has_margin"`
-	Id        string    `json:"id" bson:"id"`
+	ID        string    `json:"id" bson:"id"`
 	IsDefault bool      `json:"is_default" bson:"is_default"`
 	Name      string    `json:"name" bson:"name"`
-	UserId    string    `json:"user_id" bson:"user_id"`
+	UserID    string    `json:"user_id" bson:"user_id"`
 }
 
 // RecurringOptions ??
@@ -447,23 +447,23 @@ type Report struct {
 	ExpiresAt time.Time         `json:"expires_at" bson:"expires_at"`
 	FileCount string            `json:"file_count" bson:"file_count"`
 	FileUrl   string            `json:"file_url" bson:"file_url"`
-	Id        string            `json:"id" bson:"id"`
+	ID        string            `json:"id" bson:"id"`
 	Params    ReportsParams     `json:"params" bson:"params"`
 	Status    scalar.Status     `json:"status" bson:"status"`
 	Type      scalar.ReportType `json:"type" bson:"type"`
 	UpdatedAt time.Time         `json:"updated_at" bson:"updated_at"`
-	UserId    string            `json:"user_id" bson:"user_id"`
+	UserID    string            `json:"user_id" bson:"user_id"`
 }
 
 // TODO
 type ReportsParams struct {
-	AccountId    string        `json:"account_id" bson:"account_id"`
+	AccountID    string        `json:"account_id" bson:"account_id"`
 	Email        string        `json:"email" bson:"email"`
 	EndDate      time.Time     `json:"end_date" bson:"end_date"`
 	Format       scalar.Format `json:"format" bson:"format"`
 	NewYorkState bool          `json:"new_york_state" bson:"new_york_state"`
-	ProductId    string        `json:"product_id" bson:"product_id"`
-	ProfileId    string        `json:"profile_id" bson:"profile_id"`
+	ProductID    string        `json:"product_id" bson:"product_id"`
+	ProfileID    string        `json:"profile_id" bson:"profile_id"`
 	StartDate    time.Time     `json:"start_date" bson:"start_date"`
 	User         User          `json:"user" bson:"user"`
 }
@@ -471,11 +471,11 @@ type ReportsParams struct {
 // TODO
 type Role struct{}
 
-// SepaDepositInformation information regarding a wallet's deposits. A SEPA credit transfer is a single transfer of
+// SEPADepositInformation information regarding a wallet's deposits. A SEPA credit transfer is a single transfer of
 // Euros from one person or organisation to another. For example, this could be to pay the deposit for a holiday rental
 // or to settle an invoice. A SEPA direct debit is a recurring payment, for example to pay monthly rent or for a service
 // like a mobile phone contract.
-type SepaDepositInformation struct {
+type SEPADepositInformation struct {
 	AccountAddress string      `json:"account_address" bson:"account_address"`
 	AccountName    string      `json:"account_name" bson:"account_name"`
 	BankAddress    string      `json:"bank_address" bson:"bank_address"`
@@ -483,14 +483,14 @@ type SepaDepositInformation struct {
 	BankName       string      `json:"bank_name" bson:"bank_name"`
 	Iban           string      `json:"iban" bson:"iban"`
 	Reference      string      `json:"reference" bson:"reference"`
-	Swift          string      `json:"swift" bson:"swift"`
+	SWIFT          string      `json:"swift" bson:"swift"`
 }
 
-// SwiftDepositInformation information regarding a wallet's deposits. SWIFT stands for Society for Worldwide Interbank
+// SWIFTDepositInformation information regarding a wallet's deposits. SWIFT stands for Society for Worldwide Interbank
 // Financial Telecommunications. Basically, it's a computer network that connects over 900 banks around the world – and
 // enables them to transfer money. ING is part of this network. There is no fee for accepting deposits into your account
 // with ING.
-type SwiftDepositInformation struct {
+type SWIFTDepositInformation struct {
 	AccountAddress string      `json:"account_address" bson:"account_address"`
 	AccountName    string      `json:"account_name" bson:"account_name"`
 	AccountNumber  string      `json:"account_number" bson:"account_number"`
@@ -507,11 +507,11 @@ type Ticker struct {
 	BestBid   string    `json:"best_bid" bson:"best_bid"`
 	LastSize  string    `json:"last_size" bson:"last_size"`
 	Price     string    `json:"price" bson:"price"`
-	ProductId string    `json:"product_id" bson:"product_id"`
+	ProductID string    `json:"product_id" bson:"product_id"`
 	Sequence  int       `json:"sequence" bson:"sequence"`
 	Side      string    `json:"side" bson:"side"`
 	Time      time.Time `json:"time" bson:"time"`
-	TradeId   int       `json:"trade_id" bson:"trade_id"`
+	TradeID   int       `json:"trade_id" bson:"trade_id"`
 	Type      string    `json:"type" bson:"type"`
 }
 
@@ -521,7 +521,7 @@ type Trade struct {
 	Side    scalar.OrderSide `json:"side" bson:"side"`
 	Size    string           `json:"size" bson:"size"`
 	Time    time.Time        `json:"time" bson:"time"`
-	TradeId int32            `json:"trade_id" bson:"trade_id"`
+	TradeID int32            `json:"trade_id" bson:"trade_id"`
 }
 
 // Transfer will lists past withdrawals and deposits for an account.
@@ -531,7 +531,7 @@ type Transfer struct {
 	CompletedAt time.Time              `json:"completed_at" bson:"completed_at"`
 	CreatedAt   time.Time              `json:"created_at" bson:"created_at"`
 	Details     AccountTransferDetails `json:"details" bson:"details"`
-	Id          string                 `json:"id" bson:"id"`
+	ID          string                 `json:"id" bson:"id"`
 	ProcessedAt time.Time              `json:"processed_at" bson:"processed_at"`
 	Type        string                 `json:"type" bson:"type"`
 	UserNonce   string                 `json:"user_nonce" bson:"user_nonce"`
@@ -539,13 +539,13 @@ type Transfer struct {
 
 // TODO
 type TransferLimits struct {
-	Ach                   CurrencyTransferLimits `json:"ach" bson:"ach"`
-	AchNoBalance          CurrencyTransferLimits `json:"ach_no_balance" bson:"ach_no_balance"`
+	ACH                   CurrencyTransferLimits `json:"ach" bson:"ach"`
+	ACHNoBalance          CurrencyTransferLimits `json:"ach_no_balance" bson:"ach_no_balance"`
 	Buy                   CurrencyTransferLimits `json:"buy" bson:"buy"`
 	CreditDebitCard       CurrencyTransferLimits `json:"credit_debit_card" bson:"credit_debit_card"`
 	ExchangeWithdraw      CurrencyTransferLimits `json:"exchange_withdraw" bson:"exchange_withdraw"`
 	IdealDeposit          CurrencyTransferLimits `json:"ideal_deposit" bson:"ideal_deposit"`
-	InstanceAchWithdrawal CurrencyTransferLimits `json:"instance_ach_withdrawal" bson:"instance_ach_withdrawal"`
+	InstanceACHWithdrawal CurrencyTransferLimits `json:"instance_ach_withdrawal" bson:"instance_ach_withdrawal"`
 	PaypalBuy             CurrencyTransferLimits `json:"paypal_buy" bson:"paypal_buy"`
 	PaypalWithdrawal      CurrencyTransferLimits `json:"paypal_withdrawal" bson:"paypal_withdrawal"`
 	Secure3dBuy           CurrencyTransferLimits `json:"secure3d_buy" bson:"secure3d_buy"`
@@ -553,8 +553,8 @@ type TransferLimits struct {
 	SofortDeposit         CurrencyTransferLimits `json:"sofort_deposit" bson:"sofort_deposit"`
 }
 
-// UkDepositInformation information regarding a wallet's deposits.
-type UkDepositInformation struct {
+// UKDepositInformation information regarding a wallet's deposits.
+type UKDepositInformation struct {
 	AccountAddress string      `json:"account_address" bson:"account_address"`
 	AccountName    string      `json:"account_name" bson:"account_name"`
 	AccountNumber  string      `json:"account_number" bson:"account_number"`
@@ -575,7 +575,7 @@ type User struct {
 	HasClawbackPaymentPending bool            `json:"has_clawback_payment_pending" bson:"has_clawback_payment_pending"`
 	HasDefault                bool            `json:"has_default" bson:"has_default"`
 	HasRestrictedAssets       bool            `json:"has_restricted_assets" bson:"has_restricted_assets"`
-	Id                        string          `json:"id" bson:"id"`
+	ID                        string          `json:"id" bson:"id"`
 	IsBanned                  bool            `json:"is_banned" bson:"is_banned"`
 	LegalName                 string          `json:"legal_name" bson:"legal_name"`
 	Name                      string          `json:"name" bson:"name"`
@@ -604,14 +604,14 @@ type Wallet struct {
 	DestinationTagRegex     string                  `json:"destination_tag_regex" bson:"destination_tag_regex"`
 	HoldBalance             string                  `json:"hold_balance" bson:"hold_balance"`
 	HoldCurrency            string                  `json:"hold_currency" bson:"hold_currency"`
-	Id                      string                  `json:"id" bson:"id"`
+	ID                      string                  `json:"id" bson:"id"`
 	Name                    string                  `json:"name" bson:"name"`
 	Primary                 bool                    `json:"primary" bson:"primary"`
 	Ready                   bool                    `json:"ready" bson:"ready"`
-	SepaDepositInformation  SepaDepositInformation  `json:"sepa_deposit_information" bson:"sepa_deposit_information"`
-	SwiftDepositInformation SwiftDepositInformation `json:"swift_deposit_information" bson:"swift_deposit_information"`
+	SEPADepositInformation  SEPADepositInformation  `json:"sepa_deposit_information" bson:"sepa_deposit_information"`
+	SWIFTDepositInformation SWIFTDepositInformation `json:"swift_deposit_information" bson:"swift_deposit_information"`
 	Type                    string                  `json:"type" bson:"type"`
-	UkDepositInformation    UkDepositInformation    `json:"uk_deposit_information" bson:"uk_deposit_information"`
+	UKDepositInformation    UKDepositInformation    `json:"uk_deposit_information" bson:"uk_deposit_information"`
 	WireDepositInformation  WireDepositInformation  `json:"wire_deposit_information" bson:"wire_deposit_information"`
 }
 
@@ -632,7 +632,7 @@ type Withdrawal struct {
 	Amount   string `json:"amount" bson:"amount"`
 	Currency string `json:"currency" bson:"currency"`
 	Fee      string `json:"fee" bson:"fee"`
-	Id       string `json:"id" bson:"id"`
+	ID       string `json:"id" bson:"id"`
 	PayoutAt string `json:"payout_at" bson:"payout_at"`
 	Subtotal string `json:"subtotal" bson:"subtotal"`
 }
@@ -643,24 +643,24 @@ type WithdrawalFeeEstimate struct {
 }
 
 // UnmarshalJSON will deserialize bytes into a Oracle model
-func (oracle *Oracle) UnmarshalJSON(d []byte) error {
+func (Oracle *Oracle) UnmarshalJSON(d []byte) error {
 	const (
-		timestampJsonTag  = "timestamp"
-		messagesJsonTag   = "messages"
-		signaturesJsonTag = "signatures"
-		pricesJsonTag     = "prices"
+		timestampJSONTag  = "timestamp"
+		messagesJSONTag   = "messages"
+		signaturesJSONTag = "signatures"
+		pricesJSONTag     = "prices"
 	)
 	data, err := serial.NewJSONTransform(d)
 	if err != nil {
 		return err
 	}
-	data.UnmarshalStringSlice(messagesJsonTag, &oracle.Messages)
-	data.UnmarshalStringSlice(signaturesJsonTag, &oracle.Signatures)
-	oracle.Prices = OraclePrices{}
-	if err := data.UnmarshalStruct(pricesJsonTag, &oracle.Prices); err != nil {
+	Oracle.Prices = OraclePrices{}
+	if err := data.UnmarshalStruct(pricesJSONTag, &Oracle.Prices); err != nil {
 		return err
 	}
-	err = data.UnmarshalUnixString(timestampJsonTag, &oracle.Timestamp)
+	data.UnmarshalStringSlice(messagesJSONTag, &Oracle.Messages)
+	data.UnmarshalStringSlice(signaturesJSONTag, &Oracle.Signatures)
+	err = data.UnmarshalUnixString(timestampJSONTag, &Oracle.Timestamp)
 	if err != nil {
 		return err
 	}
@@ -668,44 +668,44 @@ func (oracle *Oracle) UnmarshalJSON(d []byte) error {
 }
 
 // UnmarshalJSON will deserialize bytes into a Transfer model
-func (transfer *Transfer) UnmarshalJSON(d []byte) error {
+func (Transfer *Transfer) UnmarshalJSON(d []byte) error {
 	const (
-		idJsonTag          = "id"
-		typeJsonTag        = "type"
-		createdAtJsonTag   = "created_at"
-		completedAtJsonTag = "completed_at"
-		canceledAtJsonTag  = "canceled_at"
-		processedAtJsonTag = "processed_at"
-		amountJsonTag      = "amount"
-		userNonceJsonTag   = "user_nonce"
-		detailsJsonTag     = "details"
+		IDJSONTag          = "id"
+		typeJSONTag        = "type"
+		createdAtJSONTag   = "created_at"
+		completedAtJSONTag = "completed_at"
+		canceledAtJSONTag  = "canceled_at"
+		processedAtJSONTag = "processed_at"
+		amountJSONTag      = "amount"
+		userNonceJSONTag   = "user_nonce"
+		detailsJSONTag     = "details"
 	)
 	data, err := serial.NewJSONTransform(d)
 	if err != nil {
 		return err
 	}
-	data.UnmarshalString(amountJsonTag, &transfer.Amount)
-	data.UnmarshalString(idJsonTag, &transfer.Id)
-	data.UnmarshalString(typeJsonTag, &transfer.Type)
-	data.UnmarshalString(userNonceJsonTag, &transfer.UserNonce)
-	err = data.UnmarshalTime(coinbaseTimeLayout1, canceledAtJsonTag, &transfer.CanceledAt)
+	Transfer.Details = AccountTransferDetails{}
+	if err := data.UnmarshalStruct(detailsJSONTag, &Transfer.Details); err != nil {
+		return err
+	}
+	data.UnmarshalString(IDJSONTag, &Transfer.ID)
+	data.UnmarshalString(amountJSONTag, &Transfer.Amount)
+	data.UnmarshalString(typeJSONTag, &Transfer.Type)
+	data.UnmarshalString(userNonceJSONTag, &Transfer.UserNonce)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, canceledAtJSONTag, &Transfer.CanceledAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, completedAtJsonTag, &transfer.CompletedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, completedAtJSONTag, &Transfer.CompletedAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, createdAtJsonTag, &transfer.CreatedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, createdAtJSONTag, &Transfer.CreatedAt)
 	if err != nil {
 		return err
 	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, processedAtJsonTag, &transfer.ProcessedAt)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, processedAtJSONTag, &Transfer.ProcessedAt)
 	if err != nil {
-		return err
-	}
-	transfer.Details = AccountTransferDetails{}
-	if err := data.UnmarshalStruct(detailsJsonTag, &transfer.Details); err != nil {
 		return err
 	}
 	return nil

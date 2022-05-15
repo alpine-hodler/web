@@ -103,7 +103,7 @@
 		},
 		{
 			"identifier": "fiat_account",
-			"goType": "FiatAccount"
+			"goType": "FIATAccount"
 		},
 		{
 			"identifier": "crypto_account",

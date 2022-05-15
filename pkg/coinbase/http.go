@@ -9,7 +9,7 @@ import "github.com/alpine-hodler/sdk/internal/client"
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccount
 func (c *C) Account(accountId string) (m *Account, _ error) {
-	return m, c.Get(accountPostAuthority).
+	return m, c.Get(AccountPostAuthority).
 		SetPathParam("account_id", accountId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -20,7 +20,7 @@ func (c *C) Account(accountId string) (m *Account, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountholds
 func (c *C) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []*AccountHold, _ error) {
-	return m, c.Get(accountHoldsPostAuthority).
+	return m, c.Get(AccountHoldsPostAuthority).
 		SetPathParam("account_id", accountId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -31,7 +31,7 @@ func (c *C) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []*Acco
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountledger
 func (c *C) AccountLedger(accountId string, opts *AccountLedgerOptions) (m []*AccountLedger, _ error) {
-	return m, c.Get(accountLedgerPostAuthority).
+	return m, c.Get(AccountLedgerPostAuthority).
 		SetPathParam("account_id", accountId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -41,7 +41,7 @@ func (c *C) AccountLedger(accountId string, opts *AccountLedgerOptions) (m []*Ac
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers
 func (c *C) AccountTransfers(accountId string, opts *AccountTransfersOptions) (m []*Transfer, _ error) {
-	return m, c.Get(accountTransfersPostAuthority).
+	return m, c.Get(AccountTransfersPostAuthority).
 		SetPathParam("account_id", accountId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -51,7 +51,7 @@ func (c *C) AccountTransfers(accountId string, opts *AccountTransfersOptions) (m
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts
 func (c *C) Accounts() (m []*Account, _ error) {
-	return m, c.Get(accountsPostAuthority).
+	return m, c.Get(AccountsPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -60,7 +60,7 @@ func (c *C) Accounts() (m []*Account, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductbook
 func (c *C) Book(productId string, opts *BookOptions) (m *Book, _ error) {
-	return m, c.Get(bookPostAuthority).
+	return m, c.Get(BookPostAuthority).
 		SetPathParam("product_id", productId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -71,7 +71,7 @@ func (c *C) Book(productId string, opts *BookOptions) (m *Book, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorders
 func (c *C) CancelOpenOrders(opts *CancelOpenOrdersOptions) (m []*string, _ error) {
-	return m, c.Delete(cancelOpenOrdersPostAuthority).
+	return m, c.Delete(CancelOpenOrdersPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -80,7 +80,7 @@ func (c *C) CancelOpenOrders(opts *CancelOpenOrdersOptions) (m []*string, _ erro
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorder
 func (c *C) CancelOrder(orderId string) (m string, _ error) {
-	return m, c.Delete(cancelOrderPostAuthority).
+	return m, c.Delete(CancelOrderPostAuthority).
 		SetPathParam("order_id", orderId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -89,7 +89,7 @@ func (c *C) CancelOrder(orderId string) (m string, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductcandles
 func (c *C) Candles(productId string, opts *CandlesOptions) (m *Candles, _ error) {
-	return m, c.Get(candlesPostAuthority).
+	return m, c.Get(CandlesPostAuthority).
 		SetPathParam("product_id", productId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -99,7 +99,7 @@ func (c *C) Candles(productId string, opts *CandlesOptions) (m *Candles, _ error
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount
 func (c *C) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m *Deposit, _ error) {
-	return m, c.Post(coinbaseAccountDepositPostAuthority).
+	return m, c.Post(CoinbaseAccountDepositPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -111,7 +111,7 @@ func (c *C) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m *Depo
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
 func (c *C) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOptions) (m *Withdrawal, _ error) {
-	return m, c.Post(coinbaseAccountWithdrawalPostAuthority).
+	return m, c.Post(CoinbaseAccountWithdrawalPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -122,7 +122,7 @@ func (c *C) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOptions) (m
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postconversion
 func (c *C) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConversion, _ error) {
-	return m, c.Post(convertCurrencyPostAuthority).
+	return m, c.Post(ConvertCurrencyPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -133,7 +133,7 @@ func (c *C) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConversion
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postorders
 func (c *C) CreateOrder(opts *CreateOrderOptions) (m *CreateOrder, _ error) {
-	return m, c.Post(createOrderPostAuthority).
+	return m, c.Post(CreateOrderPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -143,7 +143,7 @@ func (c *C) CreateOrder(opts *CreateOrderOptions) (m *CreateOrder, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofile
 func (c *C) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error) {
-	return m, c.Post(createProfilePostAuthority).
+	return m, c.Post(CreateProfilePostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -153,7 +153,7 @@ func (c *C) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofiletransfer
 func (c *C) CreateProfileTransfer(opts *CreateProfileTransferOptions) error {
-	return c.Post(createProfileTransferPostAuthority).
+	return c.Post(CreateProfileTransferPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().NoAssignment().JoinMessages()
 }
@@ -163,7 +163,7 @@ func (c *C) CreateProfileTransfer(opts *CreateProfileTransferOptions) error {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postreports
 func (c *C) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ error) {
-	return m, c.Post(createReportPostAuthority).
+	return m, c.Post(CreateReportPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -173,7 +173,7 @@ func (c *C) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcrypto
 func (c *C) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal, _ error) {
-	return m, c.Post(cryptoWithdrawalPostAuthority).
+	return m, c.Post(CryptoWithdrawalPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -182,7 +182,7 @@ func (c *C) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal, _ er
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrencies
 func (c *C) Currencies() (m []*Currency, _ error) {
-	return m, c.Get(currenciesPostAuthority).
+	return m, c.Get(CurrenciesPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -190,7 +190,7 @@ func (c *C) Currencies() (m []*Currency, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrency
 func (c *C) Currency(currencyId string) (m *Currency, _ error) {
-	return m, c.Get(currencyPostAuthority).
+	return m, c.Get(CurrencyPostAuthority).
 		SetPathParam("currency_id", currencyId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -199,7 +199,7 @@ func (c *C) Currency(currencyId string) (m *Currency, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getconversion
 func (c *C) CurrencyConversion(conversionId string, opts *CurrencyConversionOptions) (m *CurrencyConversion, _ error) {
-	return m, c.Get(currencyConversionPostAuthority).
+	return m, c.Get(CurrencyConversionPostAuthority).
 		SetPathParam("conversion_id", conversionId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -210,7 +210,7 @@ func (c *C) CurrencyConversion(conversionId string, opts *CurrencyConversionOpti
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofiledeactivate
 func (c *C) DeleteProfile(profileId string, opts *DeleteProfileOptions) error {
-	return c.Put(deleteProfilePostAuthority).
+	return c.Put(DeleteProfilePostAuthority).
 		SetPathParam("profile_id", profileId).
 		SetQueryParams(opts).
 		Fetch().NoAssignment().JoinMessages()
@@ -220,7 +220,7 @@ func (c *C) DeleteProfile(profileId string, opts *DeleteProfileOptions) error {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getuserexchangelimits
 func (c *C) ExchangeLimits(userId string) (m *ExchangeLimits, _ error) {
-	return m, c.Get(exchangeLimitsPostAuthority).
+	return m, c.Get(ExchangeLimitsPostAuthority).
 		SetPathParam("user_id", userId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -229,7 +229,7 @@ func (c *C) ExchangeLimits(userId string) (m *ExchangeLimits, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees
 func (c *C) Fees() (m *Fees, _ error) {
-	return m, c.Get(feesPostAuthority).
+	return m, c.Get(FeesPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -237,7 +237,7 @@ func (c *C) Fees() (m *Fees, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfills
 func (c *C) Fills(opts *FillsOptions) (m []*Fill, _ error) {
-	return m, c.Get(fillsPostAuthority).
+	return m, c.Get(FillsPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -247,7 +247,7 @@ func (c *C) Fills(opts *FillsOptions) (m []*Fill, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postcoinbaseaccountaddresses
 func (c *C) GenerateCryptoAddress(accountId string) (m *CryptoAddress, _ error) {
-	return m, c.Post(generateCryptoAddressPostAuthority).
+	return m, c.Post(GenerateCryptoAddressPostAuthority).
 		SetPathParam("account_id", accountId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -256,7 +256,7 @@ func (c *C) GenerateCryptoAddress(accountId string) (m *CryptoAddress, _ error) 
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorder
 func (c *C) Order(orderId string) (m *Order, _ error) {
-	return m, c.Get(orderPostAuthority).
+	return m, c.Get(OrderPostAuthority).
 		SetPathParam("order_id", orderId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -267,7 +267,7 @@ func (c *C) Order(orderId string) (m *Order, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorders
 func (c *C) Orders(opts *OrdersOptions) (m []*Order, _ error) {
-	return m, c.Get(ordersPostAuthority).
+	return m, c.Get(OrdersPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -276,7 +276,7 @@ func (c *C) Orders(opts *OrdersOptions) (m []*Order, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositpaymentmethod
 func (c *C) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Deposit, _ error) {
-	return m, c.Post(paymentMethodDepositPostAuthority).
+	return m, c.Post(PaymentMethodDepositPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -286,7 +286,7 @@ func (c *C) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Deposit,
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawpaymentmethod
 func (c *C) PaymentMethodWithdrawal(opts *PaymentMethodWithdrawalOptions) (m *Withdrawal, _ error) {
-	return m, c.Post(paymentMethodWithdrawalPostAuthority).
+	return m, c.Post(PaymentMethodWithdrawalPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -295,7 +295,7 @@ func (c *C) PaymentMethodWithdrawal(opts *PaymentMethodWithdrawalOptions) (m *Wi
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getpaymentmethods
 func (c *C) PaymentMethods() (m []*PaymentMethod, _ error) {
-	return m, c.Get(paymentMethodsPostAuthority).
+	return m, c.Get(PaymentMethodsPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -303,7 +303,7 @@ func (c *C) PaymentMethods() (m []*PaymentMethod, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproduct
 func (c *C) Product(productId string) (m *Product, _ error) {
-	return m, c.Get(productPostAuthority).
+	return m, c.Get(ProductPostAuthority).
 		SetPathParam("product_id", productId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -312,7 +312,7 @@ func (c *C) Product(productId string) (m *Product, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductstats
 func (c *C) ProductStats(productId string) (m *ProductStats, _ error) {
-	return m, c.Get(productStatsPostAuthority).
+	return m, c.Get(ProductStatsPostAuthority).
 		SetPathParam("product_id", productId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -321,7 +321,7 @@ func (c *C) ProductStats(productId string) (m *ProductStats, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductticker
 func (c *C) ProductTicker(productId string) (m *ProductTicker, _ error) {
-	return m, c.Get(productTickerPostAuthority).
+	return m, c.Get(ProductTickerPostAuthority).
 		SetPathParam("product_id", productId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -330,7 +330,7 @@ func (c *C) ProductTicker(productId string) (m *ProductTicker, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducts
 func (c *C) Products(opts *ProductsOptions) (m []*Product, _ error) {
-	return m, c.Get(productsPostAuthority).
+	return m, c.Get(ProductsPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -340,7 +340,7 @@ func (c *C) Products(opts *ProductsOptions) (m []*Product, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofile
 func (c *C) Profile(profileId string, opts *ProfileOptions) (m *Profile, _ error) {
-	return m, c.Get(profilePostAuthority).
+	return m, c.Get(ProfilePostAuthority).
 		SetPathParam("profile_id", profileId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -350,7 +350,7 @@ func (c *C) Profile(profileId string, opts *ProfileOptions) (m *Profile, _ error
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofiles
 func (c *C) Profiles(opts *ProfilesOptions) (m []*Profile, _ error) {
-	return m, c.Get(profilesPostAuthority).
+	return m, c.Get(ProfilesPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -359,7 +359,7 @@ func (c *C) Profiles(opts *ProfilesOptions) (m []*Profile, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofile
 func (c *C) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Profile, _ error) {
-	return m, c.Put(renameProfilePostAuthority).
+	return m, c.Put(RenameProfilePostAuthority).
 		SetPathParam("profile_id", profileId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -369,7 +369,7 @@ func (c *C) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Prof
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport
 func (c *C) Report(reportId string) (m *Report, _ error) {
-	return m, c.Get(reportPostAuthority).
+	return m, c.Get(ReportPostAuthority).
 		SetPathParam("report_id", reportId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -378,7 +378,7 @@ func (c *C) Report(reportId string) (m *Report, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreports
 func (c *C) Reports(opts *ReportsOptions) (m []*Report, _ error) {
-	return m, c.Get(reportsPostAuthority).
+	return m, c.Get(ReportsPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -388,7 +388,7 @@ func (c *C) Reports(opts *ReportsOptions) (m []*Report, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbasepriceoracle
 func (c *C) SignedPrices() (m *Oracle, _ error) {
-	return m, c.Get(signedPricesPostAuthority).
+	return m, c.Get(SignedPricesPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -396,7 +396,7 @@ func (c *C) SignedPrices() (m *Oracle, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades
 func (c *C) Trades(productId string, opts *TradesOptions) (m []*Trade, _ error) {
-	return m, c.Get(tradesPostAuthority).
+	return m, c.Get(TradesPostAuthority).
 		SetPathParam("product_id", productId).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -406,7 +406,7 @@ func (c *C) Trades(productId string, opts *TradesOptions) (m []*Trade, _ error) 
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer
 func (c *C) Transfer(transferId string) (m *Transfer, _ error) {
-	return m, c.Get(transferPostAuthority).
+	return m, c.Get(TransferPostAuthority).
 		SetPathParam("transfer_id", transferId).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -415,7 +415,7 @@ func (c *C) Transfer(transferId string) (m *Transfer, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers
 func (c *C) Transfers() (m []*Transfer, _ error) {
-	return m, c.Get(transfersPostAuthority).
+	return m, c.Get(TransfersPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -424,7 +424,7 @@ func (c *C) Transfers() (m []*Transfer, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbaseaccounts
 func (c *C) Wallets() (m []*Wallet, _ error) {
-	return m, c.Get(walletsPostAuthority).
+	return m, c.Get(WalletsPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -432,7 +432,7 @@ func (c *C) Wallets() (m []*Wallet, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getwithdrawfeeestimate
 func (c *C) WithdrawalFeeEstimate(opts *WithdrawalFeeEstimateOptions) (m *WithdrawalFeeEstimate, _ error) {
-	return m, c.Get(withdrawalFeeEstimatePostAuthority).
+	return m, c.Get(WithdrawalFeeEstimatePostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
 }

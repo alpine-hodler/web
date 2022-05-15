@@ -25,8 +25,8 @@ const (
 
 	PaymentMethodFedwire PaymentMethod = "fedwire"
 
-	// PaymentMethodFiatAccount	is the PM for a fiat nominated Coinbase account
-	PaymentMethodFiatAccount PaymentMethod = "fiat_account"
+	// PaymentMethodFIATAccount	is the PM for a fiat nominated Coinbase account
+	PaymentMethodFIATAccount PaymentMethod = "fiat_account"
 
 	// PaymentMethodInterac	is the PM for an Interac Online for Canadian bank accounts
 	PaymentMethodInterac PaymentMethod = "interac"

@@ -23,12 +23,12 @@ describe Field do
       _(@field1.go_type).must_equal('string')
       _(@field1.datetime_layout).must_equal('time.RFC3339Nano')
       _(@field1.deserializer).must_equal('UnmarshalFloatString')
-      _(@field1.go_field_name).must_equal('Id')
-      _(@field1.go_field_tag).must_equal('idJsonTag')
+      _(@field1.go_field_name).must_equal('ID')
+      _(@field1.go_field_tag).must_equal('IDJSONTag')
       _(@field1.description).must_equal('')
 
       _(@field2.datetime_layout).must_equal('iso8601')
-      _(@field2.go_field_tag).must_equal('someDatetimeJsonTag')
+      _(@field2.go_field_tag).must_equal('someDatetimeJSONTag')
       _(@field2.description).must_equal('some description')
     end
   end

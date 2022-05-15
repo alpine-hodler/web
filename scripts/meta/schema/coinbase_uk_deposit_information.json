@@ -1,7 +1,7 @@
 {
 	"api": "coinbase",
 	"model": "uk_deposit_information",
-	"modelDescription": "UkDepositInformation information regarding a wallet's deposits.",
+	"modelDescription": "UKDepositInformation information regarding a wallet's deposits.",
 	"modelOnly": true,
 	"modelFields": [
 		{

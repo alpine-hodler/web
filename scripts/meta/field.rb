@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'string_inflection'
-using StringInflection
+require_relative 'inflector'
 
 # Field holds state concerning endpoints given by the meta/schema json files.  It encapsulates methods for manupilating
 # this data for various use cases in go, such as structs, functions, closures, etc.
@@ -16,6 +15,8 @@ class Field
     :description,
     :hash,
     :required
+
+  include Inflector
 
   GO_TYPES = %w(
     string
@@ -34,8 +35,8 @@ class Field
     @deserializer = hash[:unmarshaller]
     @identifier = hash[:identifier]
     @go_type = hash[:goType]
-    @go_field_name = hash[:identifier].to_pascal
-    @go_field_tag = "#{hash[:identifier]}_json_tag".to_camel
+    @go_field_name = inflector.camelize_upper(hash[:identifier])
+    @go_field_tag = inflector.camelize_lower("#{hash[:identifier]}_json_tag")
     @description = hash[:description] || ''
     @required = hash[:required]
   end
@@ -65,7 +66,7 @@ class Field
   end
 
   def go_variable_name
-    name = @go_field_name.to_camel
+    name = inflector.camelize_lower(@go_field_name)
 
     # `type` is a go keyword, the convention will be to replace it with `typ`.
     return 'typ' if name == 'type'

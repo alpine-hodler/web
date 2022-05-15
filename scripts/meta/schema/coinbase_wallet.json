@@ -55,15 +55,15 @@
 		},
 		{
 			"identifier": "swift_deposit_information",
-			"goType": "SwiftDepositInformation"
+			"goType": "SWIFTDepositInformation"
 		},
 		{
 			"identifier": "sepa_deposit_information",
-			"goType": "SepaDepositInformation"
+			"goType": "SEPADepositInformation"
 		},
 		{
 			"identifier": "uk_deposit_information",
-			"goType": "UkDepositInformation"
+			"goType": "UKDepositInformation"
 		},
 		{
 			"identifier": "destination_tag_name",

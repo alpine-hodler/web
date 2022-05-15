@@ -2,8 +2,6 @@
 
 require 'json'
 require 'json-schema'
-require 'string_inflection'
-using StringInflection
 
 require_relative 'comment'
 require_relative 'field'
@@ -13,6 +11,7 @@ require_relative 'go_struct'
 require_relative 'option'
 require_relative 'setters'
 require_relative 'go_http'
+require_relative 'inflector'
 
 # Scheme is the class encapsulation of a single json file in the meta/schema
 # directory
@@ -38,6 +37,7 @@ class Scheme
   include GoStruct
   include Setters
   include GoHTTP
+	include Inflector
 
   def initialize(filename)
     file = File.read(filename)
@@ -51,11 +51,10 @@ class Scheme
     @model = hash[:model].to_s
     @model_only = hash[:modelOnly] || false
     @non_struct = hash[:nonStruct]
-
     @go_comment = format_go_comment(@description)
     @go_model_filename = "#{@model}.go"
-    @go_model_name = @model.to_pascal
-    @go_model_variable_name = @go_model_name.to_camel
+    @go_model_name = inflector.camelize_upper(@model)
+    @go_model_variable_name = inflector.camelize_lower(@go_model_name)
 
     @fields = hash[:modelFields].map { |field| Field.new(field) }
     @endpoints = (hash[:endpoints] || []).map { |ep| Endpoint.new(api, ep) }

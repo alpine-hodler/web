@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    dry-inflector (0.2.1)
     json (2.6.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -14,6 +15,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dry-inflector (~> 0.2.1)
   json (~> 2.6)
   json-schema (~> 2.8)
   minitest (~> 5.15)

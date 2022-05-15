@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'string_inflection'
-using StringInflection
-
 require_relative 'path_part'
 require_relative 'field'
+require_relative 'inflector'
 
 # Endpoint holds state concerning endpoints given by the mete/schema json files
 class Endpoint
@@ -16,34 +14,30 @@ class Endpoint
     :path_parts,
     :description,
     :query_params,
-    :graphql_model_name,
     :go_model_name,
-    :graphql_query_param_filename,
     :go_query_param_filename,
     :slice,
     :body,
     :return_type,
     :http_method,
-		:documentation
+    :documentation
+
+  include Inflector
 
   def initialize(api, hash)
     return if hash.nil?
 
     @hash = hash
     @path = hash[:path]
-    @enum_root = hash[:enumRoot].to_camel
-    @go_const = "#{enum_root.to_camel}PostAuthority"
+    @enum_root = inflector.camelize_lower(hash[:enumRoot])
+    @go_const = "#{inflector.camelize_lower(enum_root)}PostAuthority"
     @description = hash[:description] || ''
     @slice = hash[:slice]
     @return_type = hash[:returnType]
     @http_method = hash[:httpMethod]
-		@documentation = hash[:documentation]
-
-    gql_base = "#{api}_#{enum_root.to_snake}_options"
-    @graphql_model_name = gql_base.to_pascal
-    @go_model_name = enum_root.to_snake.to_s.to_pascal
-    @graphql_query_param_filename = "#{gql_base}.graphqls"
-    @go_query_param_filename = "#{api}_#{enum_root.to_snake}.go"
+    @documentation = hash[:documentation]
+    @go_model_name = inflector.camelize_upper(enum_root)
+    @go_query_param_filename = "#{api}_#{hash[:enum_roof]}.go"
 
     set_path_parts
     set_query_params
@@ -76,9 +70,9 @@ class Endpoint
     !@query_params.empty?
   end
 
-	def no_assignment?
-		@return_type == "none"
-	end
+  def no_assignment?
+    @return_type == 'none'
+  end
 
   private
 

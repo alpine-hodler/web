@@ -1,7 +1,7 @@
 {
 	"api": "coinbase",
 	"model": "fiat_account",
-	"modelDescription": "FiatAccount references a FIAT account thata CoinbasePaymentMethod belongs to",
+	"modelDescription": "FIATAccount references a FIAT account thata CoinbasePaymentMethod belongs to",
 	"modelOnly": true,
 	"modelFields": [
 		{
