@@ -1,7 +1,7 @@
 {
 	"api": "coinbase",
-	"model": "account_transfer",
-	"modelDescription": "AccountTransfer will lists past withdrawals and deposits for an account.",
+	"model": "transfer",
+	"modelDescription": "Transfer will lists past withdrawals and deposits for an account.",
 	"endpoints": [
 		{
 			"path": "/accounts/{account_id}/transfers",
@@ -12,19 +12,22 @@
 			"queryParams": [
 				{
 					"identifier": "before",
-					"goType": "string"
+					"goType": "string",
+					"description": "Before is used for pagination. Sets start cursor to `before` date."
 				},
 				{
 					"identifier": "after",
-					"goType": "string"
+					"goType": "string",
+					"description": "After is used for pagination. Sets end cursor to `after` date."
 				},
 				{
 					"identifier": "limit",
-					"goType": "int"
+					"goType": "int",
+					"description": "Limit puts a limit on number of results to return."
 				},
 				{
 					"identifier": "type",
-					"goType": "string"
+					"goType": "scalar.TransferMethod"
 				}
 			],
 			"description": "AccountTransfers returns past withdrawals and deposits for an account."
@@ -41,7 +44,7 @@
 			"path": "/transfers/{transfer_id}",
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer",
 			"httpMethod": "GET",
-			"enumRoot": "AccountTransfer",
+			"enumRoot": "Transfer",
 			"description": "AccountTransfer returns information on a single transfer."
 		}
 	],

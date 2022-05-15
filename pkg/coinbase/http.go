@@ -37,34 +37,13 @@ func (c *C) AccountLedger(accountId string, opts *AccountLedgerOptions) (m []*Ac
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// AccountTransfer returns information on a single transfer.
-//
-// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer
-func (c *C) AccountTransfer(transferId string) (m *AccountTransfer, _ error) {
-	return m, c.Get(accountTransferPostAuthority).
-		SetPathParam("transfer_id", transferId).
-		Fetch().Assign(&m).JoinMessages()
-}
-
 // AccountTransfers returns past withdrawals and deposits for an account.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers
-func (c *C) AccountTransfers(accountId string, opts *AccountTransfersOptions) (m []*AccountTransfer, _ error) {
+func (c *C) AccountTransfers(accountId string, opts *AccountTransfersOptions) (m []*Transfer, _ error) {
 	return m, c.Get(accountTransfersPostAuthority).
 		SetPathParam("account_id", accountId).
 		SetQueryParams(opts).
-		Fetch().Assign(&m).JoinMessages()
-}
-
-// AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet. Withdraw funds to a coinbase
-// account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your
-// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts
-// section for retrieving your Coinbase accounts. This endpoint requires the "transfer" permission.
-//
-// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
-func (c *C) AccountWithdrawal(opts *AccountWithdrawalOptions) (m *Withdrawal, _ error) {
-	return m, c.Post(accountWithdrawalPostAuthority).
-		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
 
@@ -106,7 +85,7 @@ func (c *C) CancelOrder(orderId string) (m string, _ error) {
 		Fetch().Assign(&m).JoinMessages()
 }
 
-// Candles will return historic rates for a product
+// Candles will return historic rates for a product.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductcandles
 func (c *C) Candles(productId string, opts *CandlesOptions) (m *Candles, _ error) {
@@ -121,6 +100,18 @@ func (c *C) Candles(productId string, opts *CandlesOptions) (m *Candles, _ error
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount
 func (c *C) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m *Deposit, _ error) {
 	return m, c.Post(coinbaseAccountDepositPostAuthority).
+		SetBody(client.BodyTypeJSON, opts).
+		Fetch().Assign(&m).JoinMessages()
+}
+
+// AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet. Withdraw funds to a coinbase
+// account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your
+// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts
+// section for retrieving your Coinbase accounts. This endpoint requires the "transfer" permission.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
+func (c *C) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOptions) (m *Withdrawal, _ error) {
+	return m, c.Post(coinbaseAccountWithdrawalPostAuthority).
 		SetBody(client.BodyTypeJSON, opts).
 		Fetch().Assign(&m).JoinMessages()
 }
@@ -377,7 +368,7 @@ func (c *C) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Prof
 // Report will return a specific report by report_id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport
-func (c *C) Report(reportId string) (m *Reports, _ error) {
+func (c *C) Report(reportId string) (m *Report, _ error) {
 	return m, c.Get(reportPostAuthority).
 		SetPathParam("report_id", reportId).
 		Fetch().Assign(&m).JoinMessages()
@@ -386,7 +377,7 @@ func (c *C) Report(reportId string) (m *Reports, _ error) {
 // Reports returns a list of past fills/account reports.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreports
-func (c *C) Reports(opts *ReportsOptions) (m []*Reports, _ error) {
+func (c *C) Reports(opts *ReportsOptions) (m []*Report, _ error) {
 	return m, c.Get(reportsPostAuthority).
 		SetQueryParams(opts).
 		Fetch().Assign(&m).JoinMessages()
@@ -411,10 +402,19 @@ func (c *C) Trades(productId string, opts *TradesOptions) (m []*Trade, _ error) 
 		Fetch().Assign(&m).JoinMessages()
 }
 
+// AccountTransfer returns information on a single transfer.
+//
+// source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer
+func (c *C) Transfer(transferId string) (m *Transfer, _ error) {
+	return m, c.Get(transferPostAuthority).
+		SetPathParam("transfer_id", transferId).
+		Fetch().Assign(&m).JoinMessages()
+}
+
 // Transfers is a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers
-func (c *C) Transfers() (m []*AccountTransfer, _ error) {
+func (c *C) Transfers() (m []*Transfer, _ error) {
 	return m, c.Get(transfersPostAuthority).
 		Fetch().Assign(&m).JoinMessages()
 }

@@ -12,15 +12,18 @@
 			"queryParams": [
 				{
 					"identifier": "before",
-					"goType": "string"
+					"goType": "string",
+					"description": "Before is used for pagination and sets start cursor to `before` date."
 				},
 				{
 					"identifier": "after",
-					"goType": "string"
+					"goType": "string",
+					"description": "After is used for pagination and sets end cursor to `after` date."
 				},
 				{
 					"identifier": "limit",
-					"goType": "int"
+					"goType": "int",
+					"description": "Limit puts a limit on number of results to return."
 				}
 			],
 			"description": "AccountHolds will return the holds of an account that belong to the same profile as the API key. Holds are placed on an account for any active orders or pending withdraw requests. As an order is filled, the hold amount is updated. If an order is canceled, any remaining hold is removed. For withdrawals, the hold is removed after it is completed."

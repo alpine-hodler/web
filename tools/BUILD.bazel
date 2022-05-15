@@ -4,6 +4,7 @@ go_library(
     name = "tools",
     srcs = [
         "pointer.go",
+        "quiet.go",
         "uri_builder.go",
     ],
     importpath = "github.com/alpine-hodler/sdk/tools",

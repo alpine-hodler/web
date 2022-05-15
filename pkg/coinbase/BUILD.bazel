@@ -30,7 +30,7 @@ go_test(
     timeout = "short",
     srcs = [
         "async_ticker_test.go",
-        "integration_test.go",
+        "example_test.go",
     ],
     data = glob([".simple-test.env"]),
     embed = [":coinbase"],
@@ -38,6 +38,7 @@ go_test(
         "//internal/env",
         "//pkg/scalar",
         "//pkg/websocket",
+        "//tools",
         "@com_github_stretchr_testify//require",
     ],
 )

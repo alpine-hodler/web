@@ -7,7 +7,7 @@
 			"path": "/withdrawals/coinbase-account",
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount",
 			"httpMethod": "POST",
-			"enumRoot": "AccountWithdrawal",
+			"enumRoot": "CoinbaseAccountWithdrawal",
 			"body": [
 				{
 					"identifier": "profile_id",

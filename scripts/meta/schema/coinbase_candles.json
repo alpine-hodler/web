@@ -8,19 +8,22 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductcandles",
 			"httpMethod": "GET",
 			"enumRoot": "Candles",
-			"description": "Candles will return historic rates for a product",
+			"description": "Candles will return historic rates for a product.",
 			"queryParams": [
 				{
 					"identifier": "granularity",
-					"goType": "scalar.Granularity"
+					"goType": "scalar.Granularity",
+					"description": "Granularity is one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively."
 				},
 				{
 					"identifier": "start",
-					"goType": "time.Time"
+					"goType": "string",
+					"description": "Start is a timestamp for starting range of aggregations."
 				},
 				{
 					"identifier": "end",
-					"goType": "time.Time"
+					"goType": "string",
+					"description": "End is a timestamp for ending range of aggregations."
 				}
 			]
 		}

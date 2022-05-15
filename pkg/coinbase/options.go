@@ -1,8 +1,6 @@
 package coinbase
 
 import (
-	"time"
-
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/pkg/scalar"
 )
@@ -11,27 +9,33 @@ import (
 
 // AccountHoldsOptions are options for API requests.
 type AccountHoldsOptions struct {
-	After  *string `json:"after" bson:"after"`
+	// After is used for pagination and sets end cursor to `after` date.
+	After *string `json:"after" bson:"after"`
+
+	// Before is used for pagination and sets start cursor to `before` date.
 	Before *string `json:"before" bson:"before"`
-	Limit  *int    `json:"limit" bson:"limit"`
+
+	// Limit puts a limit on number of results to return.
+	Limit *int `json:"limit" bson:"limit"`
 }
 
 // AccountLedgerOptions are options for API requests.
 type AccountLedgerOptions struct {
-	After     *string `json:"after" bson:"after"`
-	Before    *string `json:"before" bson:"before"`
-	EndDate   *string `json:"end_date" bson:"end_date"`
-	Limit     *int    `json:"limit" bson:"limit"`
-	ProfileId *string `json:"profile_id" bson:"profile_id"`
-	StartDate *string `json:"start_date" bson:"start_date"`
-}
+	// After is used for pagination. Sets end cursor to `after` date.
+	After *int `json:"after" bson:"after"`
 
-// AccountTransfersOptions are options for API requests.
-type AccountTransfersOptions struct {
-	After  *string `json:"after" bson:"after"`
-	Before *string `json:"before" bson:"before"`
-	Limit  *int    `json:"limit" bson:"limit"`
-	Type   *string `json:"type" bson:"type"`
+	// Before is used for pagination. Sets start cursor to `before` date.
+	Before *int `json:"before" bson:"before"`
+
+	// EndDate will filter results by maximum posted date.
+	EndDate *string `json:"end_date" bson:"end_date"`
+
+	// Limit puts a limit on number of results to return.
+	Limit *int `json:"limit" bson:"limit"`
+
+	// StartDate will filter results by minimum posted date.
+	StartDate *string `json:"start_date" bson:"start_date"`
+	ProfileId *string `json:"profile_id" bson:"profile_id"`
 }
 
 // BookOptions are options for API requests.
@@ -50,9 +54,16 @@ type BookOptions struct {
 
 // CandlesOptions are options for API requests.
 type CandlesOptions struct {
-	End         *time.Time          `json:"end" bson:"end"`
+	// End is a timestamp for ending range of aggregations.
+	End *string `json:"end" bson:"end"`
+
+	// Granularity is one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be
+	// rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six
+	// hours, and one day, respectively.
 	Granularity *scalar.Granularity `json:"granularity" bson:"granularity"`
-	Start       *time.Time          `json:"start" bson:"start"`
+
+	// Start is a timestamp for starting range of aggregations.
+	Start *string `json:"start" bson:"start"`
 }
 
 // CreateOrderOptions are options for API requests.
@@ -141,16 +152,16 @@ type FillsOptions struct {
 
 // OrdersOptions are options for API requests.
 type OrdersOptions struct {
-	After     *string    `json:"after" bson:"after"`
-	Before    *string    `json:"before" bson:"before"`
-	EndDate   *time.Time `json:"end_date" bson:"end_date"`
-	Limit     int        `json:"limit" bson:"limit"`
-	ProductId *string    `json:"product_id" bson:"product_id"`
-	ProfileId *string    `json:"profile_id" bson:"profile_id"`
-	SortedBy  *string    `json:"sortedBy" bson:"sortedBy"`
-	Sorting   *string    `json:"sorting" bson:"sorting"`
-	StartDate *time.Time `json:"start_date" bson:"start_date"`
-	Status    []string   `json:"status" bson:"status"`
+	After     *string  `json:"after" bson:"after"`
+	Before    *string  `json:"before" bson:"before"`
+	EndDate   *string  `json:"end_date" bson:"end_date"`
+	Limit     int      `json:"limit" bson:"limit"`
+	ProductId *string  `json:"product_id" bson:"product_id"`
+	ProfileId *string  `json:"profile_id" bson:"profile_id"`
+	SortedBy  *string  `json:"sortedBy" bson:"sortedBy"`
+	Sorting   *string  `json:"sorting" bson:"sorting"`
+	StartDate *string  `json:"start_date" bson:"start_date"`
+	Status    []string `json:"status" bson:"status"`
 }
 
 // CancelOpenOrdersOptions are options for API requests.
@@ -202,7 +213,7 @@ type CreateProfileTransferOptions struct {
 // ReportsOptions are options for API requests.
 type ReportsOptions struct {
 	// Filter results after a specific date
-	After *time.Time `json:"after" bson:"after"`
+	After *string `json:"after" bson:"after"`
 
 	// Filter results by a specific profile_id
 	PortfolioId *string `json:"portfolio_id" bson:"portfolio_id"`
@@ -225,8 +236,21 @@ type TradesOptions struct {
 	Limit  *int32 `json:"limit" bson:"limit"`
 }
 
-// AccountWithdrawalOptions are options for API requests.
-type AccountWithdrawalOptions struct {
+// AccountTransfersOptions are options for API requests.
+type AccountTransfersOptions struct {
+	// After is used for pagination. Sets end cursor to `after` date.
+	After *string `json:"after" bson:"after"`
+
+	// Before is used for pagination. Sets start cursor to `before` date.
+	Before *string `json:"before" bson:"before"`
+
+	// Limit puts a limit on number of results to return.
+	Limit *int                   `json:"limit" bson:"limit"`
+	Type  *scalar.TransferMethod `json:"type" bson:"type"`
+}
+
+// CoinbaseAccountWithdrawalOptions are options for API requests.
+type CoinbaseAccountWithdrawalOptions struct {
 	Amount            float64 `json:"amount" bson:"amount"`
 	CoinbaseAccountId string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
 	Currency          string  `json:"currency" bson:"currency"`
@@ -260,44 +284,47 @@ type WithdrawalFeeEstimateOptions struct {
 	Currency      *string `json:"currency" bson:"currency"`
 }
 
-// SetBefore sets the Before field on AccountHoldsOptions.
+// SetBefore sets the Before field on AccountHoldsOptions. Before is used for pagination and sets start cursor to
+// `before` date.
 func (opts *AccountHoldsOptions) SetBefore(before string) *AccountHoldsOptions {
 	opts.Before = &before
 	return opts
 }
 
-// SetAfter sets the After field on AccountHoldsOptions.
+// SetAfter sets the After field on AccountHoldsOptions. After is used for pagination and sets end cursor to `after`
+// date.
 func (opts *AccountHoldsOptions) SetAfter(after string) *AccountHoldsOptions {
 	opts.After = &after
 	return opts
 }
 
-// SetLimit sets the Limit field on AccountHoldsOptions.
+// SetLimit sets the Limit field on AccountHoldsOptions. Limit puts a limit on number of results to return.
 func (opts *AccountHoldsOptions) SetLimit(limit int) *AccountHoldsOptions {
 	opts.Limit = &limit
 	return opts
 }
 
-// SetStartDate sets the StartDate field on AccountLedgerOptions.
+// SetStartDate sets the StartDate field on AccountLedgerOptions. StartDate will filter results by minimum posted date.
 func (opts *AccountLedgerOptions) SetStartDate(startDate string) *AccountLedgerOptions {
 	opts.StartDate = &startDate
 	return opts
 }
 
-// SetEndDate sets the EndDate field on AccountLedgerOptions.
+// SetEndDate sets the EndDate field on AccountLedgerOptions. EndDate will filter results by maximum posted date.
 func (opts *AccountLedgerOptions) SetEndDate(endDate string) *AccountLedgerOptions {
 	opts.EndDate = &endDate
 	return opts
 }
 
-// SetBefore sets the Before field on AccountLedgerOptions.
-func (opts *AccountLedgerOptions) SetBefore(before string) *AccountLedgerOptions {
+// SetBefore sets the Before field on AccountLedgerOptions. Before is used for pagination. Sets start cursor to `before`
+// date.
+func (opts *AccountLedgerOptions) SetBefore(before int) *AccountLedgerOptions {
 	opts.Before = &before
 	return opts
 }
 
-// SetAfter sets the After field on AccountLedgerOptions.
-func (opts *AccountLedgerOptions) SetAfter(after string) *AccountLedgerOptions {
+// SetAfter sets the After field on AccountLedgerOptions. After is used for pagination. Sets end cursor to `after` date.
+func (opts *AccountLedgerOptions) SetAfter(after int) *AccountLedgerOptions {
 	opts.After = &after
 	return opts
 }
@@ -308,61 +335,47 @@ func (opts *AccountLedgerOptions) SetProfileId(profileId string) *AccountLedgerO
 	return opts
 }
 
-// SetLimit sets the Limit field on AccountLedgerOptions.
+// SetLimit sets the Limit field on AccountLedgerOptions. Limit puts a limit on number of results to return.
 func (opts *AccountLedgerOptions) SetLimit(limit int) *AccountLedgerOptions {
 	opts.Limit = &limit
 	return opts
 }
 
-// SetBefore sets the Before field on AccountTransfersOptions.
+// SetBefore sets the Before field on AccountTransfersOptions. Before is used for pagination. Sets start cursor to
+// `before` date.
 func (opts *AccountTransfersOptions) SetBefore(before string) *AccountTransfersOptions {
 	opts.Before = &before
 	return opts
 }
 
-// SetAfter sets the After field on AccountTransfersOptions.
+// SetAfter sets the After field on AccountTransfersOptions. After is used for pagination. Sets end cursor to `after`
+// date.
 func (opts *AccountTransfersOptions) SetAfter(after string) *AccountTransfersOptions {
 	opts.After = &after
 	return opts
 }
 
-// SetLimit sets the Limit field on AccountTransfersOptions.
+// SetLimit sets the Limit field on AccountTransfersOptions. Limit puts a limit on number of results to return.
 func (opts *AccountTransfersOptions) SetLimit(limit int) *AccountTransfersOptions {
 	opts.Limit = &limit
 	return opts
 }
 
 // SetType sets the Type field on AccountTransfersOptions.
-func (opts *AccountTransfersOptions) SetType(typ string) *AccountTransfersOptions {
+func (opts *AccountTransfersOptions) SetType(typ scalar.TransferMethod) *AccountTransfersOptions {
 	opts.Type = &typ
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetProfileId(profileId string) *AccountWithdrawalOptions {
-	opts.ProfileId = &profileId
-	return opts
-}
-
-// SetAmount sets the Amount field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetAmount(amount float64) *AccountWithdrawalOptions {
-	opts.Amount = amount
-	return opts
-}
-
-// SetCoinbaseAccountId sets the CoinbaseAccountId field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetCoinbaseAccountId(coinbaseAccountId string) *AccountWithdrawalOptions {
-	opts.CoinbaseAccountId = coinbaseAccountId
-	return opts
-}
-
-// SetCurrency sets the Currency field on AccountWithdrawalOptions.
-func (opts *AccountWithdrawalOptions) SetCurrency(currency string) *AccountWithdrawalOptions {
-	opts.Currency = currency
-	return opts
-}
-
-// SetLevel sets the Level field on BookOptions.
+// SetLevel sets the Level field on BookOptions. Levels 1 and 2 are aggregated. The size field is the sum of the size of
+// the orders at that price, and num-orders is the count of orders at that price; size should not be multiplied by
+// num-orders. Level 3 is non-aggregated and returns the entire order book. While the book is in an auction, the L1, L2
+// and L3 book will also contain the most recent indicative quote disseminated during the auction, and auction_mode will
+// be set to true. These indicative quote messages are sent on an interval basis (approximately once a second) during
+// the collection phase of an auction and includes information about the tentative price and size affiliated with the
+// completion. Level 1 and Level 2 are recommended for polling. For the most up-to-date data, consider using the
+// websocket stream. Level 3 is only recommended for users wishing to maintain a full real-time order book using the
+// websocket stream. Abuse of Level 3 via polling will cause your access to be limited or blocked.
 func (opts *BookOptions) SetLevel(level int32) *BookOptions {
 	opts.Level = &level
 	return opts
@@ -380,20 +393,22 @@ func (opts *CancelOpenOrdersOptions) SetProductId(productId string) *CancelOpenO
 	return opts
 }
 
-// SetGranularity sets the Granularity field on CandlesOptions.
+// SetGranularity sets the Granularity field on CandlesOptions. Granularity is one of the following values: {60, 300,
+// 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices
+// representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively.
 func (opts *CandlesOptions) SetGranularity(granularity scalar.Granularity) *CandlesOptions {
 	opts.Granularity = &granularity
 	return opts
 }
 
-// SetStart sets the Start field on CandlesOptions.
-func (opts *CandlesOptions) SetStart(start time.Time) *CandlesOptions {
+// SetStart sets the Start field on CandlesOptions. Start is a timestamp for starting range of aggregations.
+func (opts *CandlesOptions) SetStart(start string) *CandlesOptions {
 	opts.Start = &start
 	return opts
 }
 
-// SetEnd sets the End field on CandlesOptions.
-func (opts *CandlesOptions) SetEnd(end time.Time) *CandlesOptions {
+// SetEnd sets the End field on CandlesOptions. End is a timestamp for ending range of aggregations.
+func (opts *CandlesOptions) SetEnd(end string) *CandlesOptions {
 	opts.End = &end
 	return opts
 }
@@ -418,6 +433,30 @@ func (opts *CoinbaseAccountDepositOptions) SetCoinbaseAccountId(coinbaseAccountI
 
 // SetCurrency sets the Currency field on CoinbaseAccountDepositOptions.
 func (opts *CoinbaseAccountDepositOptions) SetCurrency(currency string) *CoinbaseAccountDepositOptions {
+	opts.Currency = currency
+	return opts
+}
+
+// SetProfileId sets the ProfileId field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetProfileId(profileId string) *CoinbaseAccountWithdrawalOptions {
+	opts.ProfileId = &profileId
+	return opts
+}
+
+// SetAmount sets the Amount field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetAmount(amount float64) *CoinbaseAccountWithdrawalOptions {
+	opts.Amount = amount
+	return opts
+}
+
+// SetCoinbaseAccountId sets the CoinbaseAccountId field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetCoinbaseAccountId(coinbaseAccountId string) *CoinbaseAccountWithdrawalOptions {
+	opts.CoinbaseAccountId = coinbaseAccountId
+	return opts
+}
+
+// SetCurrency sets the Currency field on CoinbaseAccountWithdrawalOptions.
+func (opts *CoinbaseAccountWithdrawalOptions) SetCurrency(currency string) *CoinbaseAccountWithdrawalOptions {
 	opts.Currency = currency
 	return opts
 }
@@ -566,13 +605,13 @@ func (opts *CreateProfileTransferOptions) SetAmount(amount string) *CreateProfil
 	return opts
 }
 
-// SetStartDate sets the StartDate field on CreateReportOptions.
+// SetStartDate sets the StartDate field on CreateReportOptions. Start date for items to be included in report.
 func (opts *CreateReportOptions) SetStartDate(startDate string) *CreateReportOptions {
 	opts.StartDate = &startDate
 	return opts
 }
 
-// SetEndDate sets the EndDate field on CreateReportOptions.
+// SetEndDate sets the EndDate field on CreateReportOptions. End date for items to be included in report
 func (opts *CreateReportOptions) SetEndDate(endDate string) *CreateReportOptions {
 	opts.EndDate = &endDate
 	return opts
@@ -584,7 +623,7 @@ func (opts *CreateReportOptions) SetType(typ scalar.ReportType) *CreateReportOpt
 	return opts
 }
 
-// SetYear sets the Year field on CreateReportOptions.
+// SetYear sets the Year field on CreateReportOptions. required for 1099k-transaction-history-type reports
 func (opts *CreateReportOptions) SetYear(year string) *CreateReportOptions {
 	opts.Year = &year
 	return opts
@@ -596,25 +635,25 @@ func (opts *CreateReportOptions) SetFormat(format scalar.Format) *CreateReportOp
 	return opts
 }
 
-// SetProductId sets the ProductId field on CreateReportOptions.
+// SetProductId sets the ProductId field on CreateReportOptions. Product - required for fills-type reports
 func (opts *CreateReportOptions) SetProductId(productId string) *CreateReportOptions {
 	opts.ProductId = &productId
 	return opts
 }
 
-// SetAccountId sets the AccountId field on CreateReportOptions.
+// SetAccountId sets the AccountId field on CreateReportOptions. Account - required for account-type reports
 func (opts *CreateReportOptions) SetAccountId(accountId string) *CreateReportOptions {
 	opts.AccountId = &accountId
 	return opts
 }
 
-// SetEmail sets the Email field on CreateReportOptions.
+// SetEmail sets the Email field on CreateReportOptions. Email to send generated report to
 func (opts *CreateReportOptions) SetEmail(email string) *CreateReportOptions {
 	opts.Email = &email
 	return opts
 }
 
-// SetProfileId sets the ProfileId field on CreateReportOptions.
+// SetProfileId sets the ProfileId field on CreateReportOptions. Portfolio - Which portfolio to generate the report for
 func (opts *CreateReportOptions) SetProfileId(profileId string) *CreateReportOptions {
 	opts.ProfileId = &profileId
 	return opts
@@ -753,13 +792,13 @@ func (opts *OrdersOptions) SetSorting(sorting string) *OrdersOptions {
 }
 
 // SetStartDate sets the StartDate field on OrdersOptions.
-func (opts *OrdersOptions) SetStartDate(startDate time.Time) *OrdersOptions {
+func (opts *OrdersOptions) SetStartDate(startDate string) *OrdersOptions {
 	opts.StartDate = &startDate
 	return opts
 }
 
 // SetEndDate sets the EndDate field on OrdersOptions.
-func (opts *OrdersOptions) SetEndDate(endDate time.Time) *OrdersOptions {
+func (opts *OrdersOptions) SetEndDate(endDate string) *OrdersOptions {
 	opts.EndDate = &endDate
 	return opts
 }
@@ -866,31 +905,33 @@ func (opts *RenameProfileOptions) SetName(name string) *RenameProfileOptions {
 	return opts
 }
 
-// SetPortfolioId sets the PortfolioId field on ReportsOptions.
+// SetPortfolioId sets the PortfolioId field on ReportsOptions. Filter results by a specific profile_id
 func (opts *ReportsOptions) SetPortfolioId(portfolioId string) *ReportsOptions {
 	opts.PortfolioId = &portfolioId
 	return opts
 }
 
-// SetAfter sets the After field on ReportsOptions.
-func (opts *ReportsOptions) SetAfter(after time.Time) *ReportsOptions {
+// SetAfter sets the After field on ReportsOptions. Filter results after a specific date
+func (opts *ReportsOptions) SetAfter(after string) *ReportsOptions {
 	opts.After = &after
 	return opts
 }
 
-// SetLimit sets the Limit field on ReportsOptions.
+// SetLimit sets the Limit field on ReportsOptions. Limit results to a specific number
 func (opts *ReportsOptions) SetLimit(limit int) *ReportsOptions {
 	opts.Limit = &limit
 	return opts
 }
 
-// SetType sets the Type field on ReportsOptions.
+// SetType sets the Type field on ReportsOptions. Filter results by type of report (fills or account) - otc_fills: real
+// string is otc-fills - type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real
+// string is tax-invoice
 func (opts *ReportsOptions) SetType(typ scalar.ReportType) *ReportsOptions {
 	opts.Type = &typ
 	return opts
 }
 
-// SetIgnoredExpired sets the IgnoredExpired field on ReportsOptions.
+// SetIgnoredExpired sets the IgnoredExpired field on ReportsOptions. Ignore expired results
 func (opts *ReportsOptions) SetIgnoredExpired(ignoredExpired bool) *ReportsOptions {
 	opts.IgnoredExpired = &ignoredExpired
 	return opts
@@ -926,7 +967,7 @@ func (opts *WithdrawalFeeEstimateOptions) SetCryptoAddress(cryptoAddress string)
 	return opts
 }
 
-func (opts *AccountWithdrawalOptions) SetBody(req *client.Request) {
+func (opts *CoinbaseAccountDepositOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
@@ -936,7 +977,7 @@ func (opts *AccountWithdrawalOptions) SetBody(req *client.Request) {
 		SetBodyString("currency", &opts.Currency)
 }
 
-func (opts *CoinbaseAccountDepositOptions) SetBody(req *client.Request) {
+func (opts *CoinbaseAccountWithdrawalOptions) SetBody(req *client.Request) {
 	if opts == nil {
 		return
 	}
@@ -1059,8 +1100,8 @@ func (opts *AccountLedgerOptions) SetQueryParams(req *client.Request) {
 	}
 	req.SetQueryParamString("start_date", opts.StartDate).
 		SetQueryParamString("end_date", opts.EndDate).
-		SetQueryParamString("before", opts.Before).
-		SetQueryParamString("after", opts.After).
+		SetQueryParamInt("before", opts.Before).
+		SetQueryParamInt("after", opts.After).
 		SetQueryParamString("profile_id", opts.ProfileId).
 		SetQueryParamInt("limit", opts.Limit)
 }
@@ -1071,8 +1112,7 @@ func (opts *AccountTransfersOptions) SetQueryParams(req *client.Request) {
 	}
 	req.SetQueryParamString("before", opts.Before).
 		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", opts.Limit).
-		SetQueryParamString("type", opts.Type)
+		SetQueryParamInt("limit", opts.Limit)
 }
 
 func (opts *BookOptions) SetQueryParams(req *client.Request) {
@@ -1094,8 +1134,8 @@ func (opts *CandlesOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamTime("start", opts.Start).
-		SetQueryParamTime("end", opts.End)
+	req.SetQueryParamString("start", opts.Start).
+		SetQueryParamString("end", opts.End)
 }
 
 func (opts *CurrencyConversionOptions) SetQueryParams(req *client.Request) {
@@ -1133,8 +1173,8 @@ func (opts *OrdersOptions) SetQueryParams(req *client.Request) {
 		SetQueryParamString("product_id", opts.ProductId).
 		SetQueryParamString("sortedBy", opts.SortedBy).
 		SetQueryParamString("sorting", opts.Sorting).
-		SetQueryParamTime("start_date", opts.StartDate).
-		SetQueryParamTime("end_date", opts.EndDate).
+		SetQueryParamString("start_date", opts.StartDate).
+		SetQueryParamString("end_date", opts.EndDate).
 		SetQueryParamString("before", opts.Before).
 		SetQueryParamString("after", opts.After).
 		SetQueryParamInt("limit", &opts.Limit).
@@ -1175,7 +1215,7 @@ func (opts *ReportsOptions) SetQueryParams(req *client.Request) {
 		return
 	}
 	req.SetQueryParamString("portfolio_id", opts.PortfolioId).
-		SetQueryParamTime("after", opts.After).
+		SetQueryParamString("after", opts.After).
 		SetQueryParamInt("limit", opts.Limit).
 		SetQueryParamBool("ignored_expired", opts.IgnoredExpired)
 }

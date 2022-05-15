@@ -28,11 +28,11 @@
 				},
 				{
 					"identifier": "start_date",
-					"goType": "time.Time"
+					"goType": "string"
 				},
 				{
 					"identifier": "end_date",
-					"goType": "time.Time"
+					"goType": "string"
 				},
 				{
 					"identifier": "before",

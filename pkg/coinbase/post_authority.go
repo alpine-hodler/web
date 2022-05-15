@@ -15,15 +15,14 @@ const (
 	accountHoldsPostAuthority
 	accountLedgerPostAuthority
 	accountPostAuthority
-	accountTransferPostAuthority
 	accountTransfersPostAuthority
-	accountWithdrawalPostAuthority
 	accountsPostAuthority
 	bookPostAuthority
 	cancelOpenOrdersPostAuthority
 	cancelOrderPostAuthority
 	candlesPostAuthority
 	coinbaseAccountDepositPostAuthority
+	coinbaseAccountWithdrawalPostAuthority
 	convertCurrencyPostAuthority
 	createOrderPostAuthority
 	createProfilePostAuthority
@@ -54,6 +53,7 @@ const (
 	reportsPostAuthority
 	signedPricesPostAuthority
 	tradesPostAuthority
+	transferPostAuthority
 	transfersPostAuthority
 	walletsPostAuthority
 	withdrawalFeeEstimatePostAuthority
@@ -86,11 +86,6 @@ func getAccountLedgerPostAuthority(builder tools.URIBuilder) (p string) {
 	return sb.String()
 }
 
-// AccountTransfer returns information on a single transfer.
-func getAccountTransferPostAuthority(builder tools.URIBuilder) string {
-	return path.Join("/transfers", builder.Get(tools.URIBuilderComponentPath, "transfer_id"))
-}
-
 // AccountTransfers returns past withdrawals and deposits for an account.
 func getAccountTransfersPostAuthority(builder tools.URIBuilder) (p string) {
 	p = path.Join("/accounts", builder.Get(tools.URIBuilderComponentPath, "account_id"), "transfers")
@@ -98,14 +93,6 @@ func getAccountTransfersPostAuthority(builder tools.URIBuilder) (p string) {
 	sb.WriteString(p)
 	sb.WriteString(builder.QueryPath().String())
 	return sb.String()
-}
-
-// AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet. Withdraw funds to a coinbase
-// account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your
-// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts
-// section for retrieving your Coinbase accounts. This endpoint requires the "transfer" permission.
-func getAccountWithdrawalPostAuthority(builder tools.URIBuilder) string {
-	return path.Join("/withdrawals", "coinbase-account")
 }
 
 // Accounts will return a list of trading accounts from the profile of the API key.
@@ -138,7 +125,7 @@ func getCancelOrderPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/orders", builder.Get(tools.URIBuilderComponentPath, "order_id"))
 }
 
-// Candles will return historic rates for a product
+// Candles will return historic rates for a product.
 func getCandlesPostAuthority(builder tools.URIBuilder) (p string) {
 	p = path.Join("/products", builder.Get(tools.URIBuilderComponentPath, "product_id"), "candles")
 	var sb strings.Builder
@@ -150,6 +137,14 @@ func getCandlesPostAuthority(builder tools.URIBuilder) (p string) {
 // CoinbaseAccountDeposit funds from a www.coinbase.com wallet to the specified profile_id.
 func getCoinbaseAccountDepositPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/deposits", "coinbase-account")
+}
+
+// AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet. Withdraw funds to a coinbase
+// account. You can move funds between your Coinbase accounts and your Coinbase Exchange trading accounts within your
+// daily limits. Moving funds between Coinbase and Coinbase Exchange is instant and free. See the Coinbase Accounts
+// section for retrieving your Coinbase accounts. This endpoint requires the "transfer" permission.
+func getCoinbaseAccountWithdrawalPostAuthority(builder tools.URIBuilder) string {
+	return path.Join("/withdrawals", "coinbase-account")
 }
 
 // ConvertCurrency converts funds from from currency to to currency. Funds are converted on the from account in the
@@ -357,6 +352,11 @@ func getTradesPostAuthority(builder tools.URIBuilder) (p string) {
 	return sb.String()
 }
 
+// AccountTransfer returns information on a single transfer.
+func getTransferPostAuthority(builder tools.URIBuilder) string {
+	return path.Join("/transfers", builder.Get(tools.URIBuilderComponentPath, "transfer_id"))
+}
+
 // Transfers is a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
 func getTransfersPostAuthority(builder tools.URIBuilder) string {
 	return path.Join("/transfers")
@@ -380,50 +380,50 @@ func getWithdrawalFeeEstimatePostAuthority(builder tools.URIBuilder) (p string) 
 // Get takes an postAuthority const and postAuthority arguments to parse the URL postAuthority path.
 func (pa postAuthority) PostAuthority(builder tools.URIBuilder) string {
 	return map[postAuthority]func(builder tools.URIBuilder) string{
-		accountPostAuthority:                 getAccountPostAuthority,
-		accountHoldsPostAuthority:            getAccountHoldsPostAuthority,
-		accountLedgerPostAuthority:           getAccountLedgerPostAuthority,
-		accountTransferPostAuthority:         getAccountTransferPostAuthority,
-		accountTransfersPostAuthority:        getAccountTransfersPostAuthority,
-		accountWithdrawalPostAuthority:       getAccountWithdrawalPostAuthority,
-		accountsPostAuthority:                getAccountsPostAuthority,
-		bookPostAuthority:                    getBookPostAuthority,
-		cancelOpenOrdersPostAuthority:        getCancelOpenOrdersPostAuthority,
-		cancelOrderPostAuthority:             getCancelOrderPostAuthority,
-		candlesPostAuthority:                 getCandlesPostAuthority,
-		coinbaseAccountDepositPostAuthority:  getCoinbaseAccountDepositPostAuthority,
-		convertCurrencyPostAuthority:         getConvertCurrencyPostAuthority,
-		createOrderPostAuthority:             getCreateOrderPostAuthority,
-		createProfilePostAuthority:           getCreateProfilePostAuthority,
-		createProfileTransferPostAuthority:   getCreateProfileTransferPostAuthority,
-		createReportPostAuthority:            getCreateReportPostAuthority,
-		cryptoWithdrawalPostAuthority:        getCryptoWithdrawalPostAuthority,
-		currenciesPostAuthority:              getCurrenciesPostAuthority,
-		currencyPostAuthority:                getCurrencyPostAuthority,
-		currencyConversionPostAuthority:      getCurrencyConversionPostAuthority,
-		deleteProfilePostAuthority:           getDeleteProfilePostAuthority,
-		exchangeLimitsPostAuthority:          getExchangeLimitsPostAuthority,
-		feesPostAuthority:                    getFeesPostAuthority,
-		fillsPostAuthority:                   getFillsPostAuthority,
-		generateCryptoAddressPostAuthority:   getGenerateCryptoAddressPostAuthority,
-		orderPostAuthority:                   getOrderPostAuthority,
-		ordersPostAuthority:                  getOrdersPostAuthority,
-		paymentMethodDepositPostAuthority:    getPaymentMethodDepositPostAuthority,
-		paymentMethodWithdrawalPostAuthority: getPaymentMethodWithdrawalPostAuthority,
-		paymentMethodsPostAuthority:          getPaymentMethodsPostAuthority,
-		productPostAuthority:                 getProductPostAuthority,
-		productStatsPostAuthority:            getProductStatsPostAuthority,
-		productTickerPostAuthority:           getProductTickerPostAuthority,
-		productsPostAuthority:                getProductsPostAuthority,
-		profilePostAuthority:                 getProfilePostAuthority,
-		profilesPostAuthority:                getProfilesPostAuthority,
-		renameProfilePostAuthority:           getRenameProfilePostAuthority,
-		reportPostAuthority:                  getReportPostAuthority,
-		reportsPostAuthority:                 getReportsPostAuthority,
-		signedPricesPostAuthority:            getSignedPricesPostAuthority,
-		tradesPostAuthority:                  getTradesPostAuthority,
-		transfersPostAuthority:               getTransfersPostAuthority,
-		walletsPostAuthority:                 getWalletsPostAuthority,
-		withdrawalFeeEstimatePostAuthority:   getWithdrawalFeeEstimatePostAuthority,
+		accountPostAuthority:                   getAccountPostAuthority,
+		accountHoldsPostAuthority:              getAccountHoldsPostAuthority,
+		accountLedgerPostAuthority:             getAccountLedgerPostAuthority,
+		accountTransfersPostAuthority:          getAccountTransfersPostAuthority,
+		accountsPostAuthority:                  getAccountsPostAuthority,
+		bookPostAuthority:                      getBookPostAuthority,
+		cancelOpenOrdersPostAuthority:          getCancelOpenOrdersPostAuthority,
+		cancelOrderPostAuthority:               getCancelOrderPostAuthority,
+		candlesPostAuthority:                   getCandlesPostAuthority,
+		coinbaseAccountDepositPostAuthority:    getCoinbaseAccountDepositPostAuthority,
+		coinbaseAccountWithdrawalPostAuthority: getCoinbaseAccountWithdrawalPostAuthority,
+		convertCurrencyPostAuthority:           getConvertCurrencyPostAuthority,
+		createOrderPostAuthority:               getCreateOrderPostAuthority,
+		createProfilePostAuthority:             getCreateProfilePostAuthority,
+		createProfileTransferPostAuthority:     getCreateProfileTransferPostAuthority,
+		createReportPostAuthority:              getCreateReportPostAuthority,
+		cryptoWithdrawalPostAuthority:          getCryptoWithdrawalPostAuthority,
+		currenciesPostAuthority:                getCurrenciesPostAuthority,
+		currencyPostAuthority:                  getCurrencyPostAuthority,
+		currencyConversionPostAuthority:        getCurrencyConversionPostAuthority,
+		deleteProfilePostAuthority:             getDeleteProfilePostAuthority,
+		exchangeLimitsPostAuthority:            getExchangeLimitsPostAuthority,
+		feesPostAuthority:                      getFeesPostAuthority,
+		fillsPostAuthority:                     getFillsPostAuthority,
+		generateCryptoAddressPostAuthority:     getGenerateCryptoAddressPostAuthority,
+		orderPostAuthority:                     getOrderPostAuthority,
+		ordersPostAuthority:                    getOrdersPostAuthority,
+		paymentMethodDepositPostAuthority:      getPaymentMethodDepositPostAuthority,
+		paymentMethodWithdrawalPostAuthority:   getPaymentMethodWithdrawalPostAuthority,
+		paymentMethodsPostAuthority:            getPaymentMethodsPostAuthority,
+		productPostAuthority:                   getProductPostAuthority,
+		productStatsPostAuthority:              getProductStatsPostAuthority,
+		productTickerPostAuthority:             getProductTickerPostAuthority,
+		productsPostAuthority:                  getProductsPostAuthority,
+		profilePostAuthority:                   getProfilePostAuthority,
+		profilesPostAuthority:                  getProfilesPostAuthority,
+		renameProfilePostAuthority:             getRenameProfilePostAuthority,
+		reportPostAuthority:                    getReportPostAuthority,
+		reportsPostAuthority:                   getReportsPostAuthority,
+		signedPricesPostAuthority:              getSignedPricesPostAuthority,
+		tradesPostAuthority:                    getTradesPostAuthority,
+		transferPostAuthority:                  getTransferPostAuthority,
+		transfersPostAuthority:                 getTransfersPostAuthority,
+		walletsPostAuthority:                   getWalletsPostAuthority,
+		withdrawalFeeEstimatePostAuthority:     getWithdrawalFeeEstimatePostAuthority,
 	}[pa](builder)
 }

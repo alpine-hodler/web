@@ -1,7 +1,7 @@
 {
 	"api": "coinbase",
-	"model": "reports",
-	"modelDescription": "Reports represents a list of past fills/account reports.",
+	"model": "report",
+	"modelDescription": "Report represents a list of past fills/account reports.",
 	"endpoints": [
 		{
 			"path": "/reports",
@@ -18,7 +18,7 @@
 				},
 				{
 					"identifier": "after",
-					"goType": "time.Time",
+					"goType": "string",
 					"description": "Filter results after a specific date"
 				},
 				{

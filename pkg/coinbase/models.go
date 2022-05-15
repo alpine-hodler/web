@@ -49,19 +49,6 @@ type AccountLedgerDetails struct {
 	TradeId   string `json:"trade_id" bson:"trade_id"`
 }
 
-// AccountTransfer will lists past withdrawals and deposits for an account.
-type AccountTransfer struct {
-	Amount      string                 `json:"amount" bson:"amount"`
-	CanceledAt  time.Time              `json:"canceled_at" bson:"canceled_at"`
-	CompletedAt time.Time              `json:"completed_at" bson:"completed_at"`
-	CreatedAt   time.Time              `json:"created_at" bson:"created_at"`
-	Details     AccountTransferDetails `json:"details" bson:"details"`
-	Id          string                 `json:"id" bson:"id"`
-	ProcessedAt time.Time              `json:"processed_at" bson:"processed_at"`
-	Type        string                 `json:"type" bson:"type"`
-	UserNonce   string                 `json:"user_nonce" bson:"user_nonce"`
-}
-
 // AccountTransferDetails are the details for an account transfer.
 type AccountTransferDetails struct {
 	CoinbaseAccountId       string `json:"coinbase_account_id" bson:"coinbase_account_id"`
@@ -454,8 +441,8 @@ type RecurringOptions struct {
 	Period string `json:"period" bson:"period"`
 }
 
-// Reports represents a list of past fills/account reports.
-type Reports struct {
+// Report represents a list of past fills/account reports.
+type Report struct {
 	CreatedAt time.Time         `json:"created_at" bson:"created_at"`
 	ExpiresAt time.Time         `json:"expires_at" bson:"expires_at"`
 	FileCount string            `json:"file_count" bson:"file_count"`
@@ -535,6 +522,19 @@ type Trade struct {
 	Size    string           `json:"size" bson:"size"`
 	Time    time.Time        `json:"time" bson:"time"`
 	TradeId int32            `json:"trade_id" bson:"trade_id"`
+}
+
+// Transfer will lists past withdrawals and deposits for an account.
+type Transfer struct {
+	Amount      string                 `json:"amount" bson:"amount"`
+	CanceledAt  time.Time              `json:"canceled_at" bson:"canceled_at"`
+	CompletedAt time.Time              `json:"completed_at" bson:"completed_at"`
+	CreatedAt   time.Time              `json:"created_at" bson:"created_at"`
+	Details     AccountTransferDetails `json:"details" bson:"details"`
+	Id          string                 `json:"id" bson:"id"`
+	ProcessedAt time.Time              `json:"processed_at" bson:"processed_at"`
+	Type        string                 `json:"type" bson:"type"`
+	UserNonce   string                 `json:"user_nonce" bson:"user_nonce"`
 }
 
 // TODO
@@ -642,50 +642,6 @@ type WithdrawalFeeEstimate struct {
 	Fee float64 `json:"fee" bson:"fee"`
 }
 
-// UnmarshalJSON will deserialize bytes into a AccountTransfer model
-func (accountTransfer *AccountTransfer) UnmarshalJSON(d []byte) error {
-	const (
-		idJsonTag          = "id"
-		typeJsonTag        = "type"
-		createdAtJsonTag   = "created_at"
-		completedAtJsonTag = "completed_at"
-		canceledAtJsonTag  = "canceled_at"
-		processedAtJsonTag = "processed_at"
-		amountJsonTag      = "amount"
-		userNonceJsonTag   = "user_nonce"
-		detailsJsonTag     = "details"
-	)
-	data, err := serial.NewJSONTransform(d)
-	if err != nil {
-		return err
-	}
-	accountTransfer.Details = AccountTransferDetails{}
-	if err := data.UnmarshalStruct(detailsJsonTag, &accountTransfer.Details); err != nil {
-		return err
-	}
-	data.UnmarshalString(amountJsonTag, &accountTransfer.Amount)
-	data.UnmarshalString(idJsonTag, &accountTransfer.Id)
-	data.UnmarshalString(typeJsonTag, &accountTransfer.Type)
-	data.UnmarshalString(userNonceJsonTag, &accountTransfer.UserNonce)
-	err = data.UnmarshalTime(coinbaseTimeLayout1, canceledAtJsonTag, &accountTransfer.CanceledAt)
-	if err != nil {
-		return err
-	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, completedAtJsonTag, &accountTransfer.CompletedAt)
-	if err != nil {
-		return err
-	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, createdAtJsonTag, &accountTransfer.CreatedAt)
-	if err != nil {
-		return err
-	}
-	err = data.UnmarshalTime(coinbaseTimeLayout1, processedAtJsonTag, &accountTransfer.ProcessedAt)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 // UnmarshalJSON will deserialize bytes into a Oracle model
 func (oracle *Oracle) UnmarshalJSON(d []byte) error {
 	const (
@@ -706,6 +662,50 @@ func (oracle *Oracle) UnmarshalJSON(d []byte) error {
 	}
 	err = data.UnmarshalUnixString(timestampJsonTag, &oracle.Timestamp)
 	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnmarshalJSON will deserialize bytes into a Transfer model
+func (transfer *Transfer) UnmarshalJSON(d []byte) error {
+	const (
+		idJsonTag          = "id"
+		typeJsonTag        = "type"
+		createdAtJsonTag   = "created_at"
+		completedAtJsonTag = "completed_at"
+		canceledAtJsonTag  = "canceled_at"
+		processedAtJsonTag = "processed_at"
+		amountJsonTag      = "amount"
+		userNonceJsonTag   = "user_nonce"
+		detailsJsonTag     = "details"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalString(amountJsonTag, &transfer.Amount)
+	data.UnmarshalString(idJsonTag, &transfer.Id)
+	data.UnmarshalString(typeJsonTag, &transfer.Type)
+	data.UnmarshalString(userNonceJsonTag, &transfer.UserNonce)
+	err = data.UnmarshalTime(coinbaseTimeLayout1, canceledAtJsonTag, &transfer.CanceledAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(coinbaseTimeLayout1, completedAtJsonTag, &transfer.CompletedAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(coinbaseTimeLayout1, createdAtJsonTag, &transfer.CreatedAt)
+	if err != nil {
+		return err
+	}
+	err = data.UnmarshalTime(coinbaseTimeLayout1, processedAtJsonTag, &transfer.ProcessedAt)
+	if err != nil {
+		return err
+	}
+	transfer.Details = AccountTransferDetails{}
+	if err := data.UnmarshalStruct(detailsJsonTag, &transfer.Details); err != nil {
 		return err
 	}
 	return nil

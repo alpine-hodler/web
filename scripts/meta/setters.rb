@@ -49,6 +49,7 @@ module Setters
       r_sig = "#{r_name}(#{variable_name} #{sig_go_type})"
       r_ret = "*#{struct}"
       comment = "#{r_name} sets the #{field.go_protofield_name} field on #{struct}."
+			comment += "  #{field.description}" unless field.description.nil?
 
       logic = "#{OPTIONS_ALIAS}.#{field.go_protofield_name} = #{field.ptr_go_variable};"
       logic += "return #{OPTIONS_ALIAS}"
