@@ -1,9 +1,17 @@
 # Development
 
+- [Dependencies](#dependencies)
+	- [Bazel](#bazel)
+	- [Docker](#docker)
+	- [Go](#go)
+- [Build](#build)
+- [Setting up Auth .env file](#setting-up-auth-env-file)
+- [Extending the API](#extending-the-api)
+
 ## Dependencies
 To develop locally you need to install three dependencies:
 
-### Install Bazel
+### Bazel
 
 Bazel is an open-source build and test tool similar to Make, Maven, and Gradle. It uses a human-readable, high-level build language. Bazel supports projects in multiple languages and builds outputs for multiple platforms. Bazel supports large codebases across multiple repositories, and large numbers of users.
 
@@ -15,11 +23,11 @@ If you're on macOS, [you can install Bazel via Homebrew](https://docs.bazel.buil
 brew install bazel
 ```
 
-### Install Docker
+### Docker
 
 https://docs.docker.com/get-docker/
 
-### Install Go
+### Go
 
 https://go.dev/doc/install
 
