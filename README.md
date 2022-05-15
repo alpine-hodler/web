@@ -1,5 +1,5 @@
-[![docs](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk)
-[![go report](https://img.shields.io/static/v1?label=godoc&message=reference&color=green)](https://goreportcard.com/report/github.com/alpine-hodler/sdk)
+[![docs](https://img.shields.io/static/v1?label=doc&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk)
+[![go report](https://img.shields.io/static/v1?label=go+report&message=reference&color=green)](https://goreportcard.com/report/github.com/alpine-hodler/sdk)
 
 # SDK
 
