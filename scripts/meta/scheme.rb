@@ -42,7 +42,7 @@ class Scheme
   def initialize(filename)
     file = File.read(filename)
     hash = JSON.parse(file, symbolize_names: true)
-    validate(hash)
+    validate(hash, filename)
 
     @api = hash[:api]
     @package = "pacakge #{api}"
@@ -64,9 +64,9 @@ class Scheme
     fields.any?(&:custom_type?)
   end
 
-  def validate(hash)
+  def validate(hash, filename)
     schema = JSON.parse(File.read("#{File.dirname(__FILE__)}/schema/schema.json"))
     e = JSON::Validator.fully_validate(schema, hash)
-    raise "Schema Error: #{e}" unless e.empty?
+    raise "Schema Error for #{filename}: #{e}" unless e.empty?
   end
 end

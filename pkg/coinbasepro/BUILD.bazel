@@ -1,0 +1,69 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "coinbase",
+    srcs = [
+        "async_ticker.go",
+        "client.go",
+        "http.go",
+        "models.go",
+        "options.go",
+        "post_authority.go",
+        "websocket.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/coinbasepro",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//internal/env",
+        "//internal/log",
+        "//internal/serial",
+        "//pkg/scalar",
+        "//pkg/websocket",
+        "//tools",
+        "@org_golang_x_sync//errgroup",
+    ],
+)
+
+go_library(
+    name = "coinbasepro",
+    srcs = [
+        "async_ticker.go",
+        "client.go",
+        "http.go",
+        "models.go",
+        "options.go",
+        "post_authority.go",
+        "websocket.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/coinbasepro",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//internal/env",
+        "//internal/log",
+        "//internal/serial",
+        "//pkg/scalar",
+        "//pkg/websocket",
+        "//tools",
+        "@org_golang_x_sync//errgroup",
+    ],
+)
+
+go_test(
+    name = "coinbasepro_test",
+    timeout = "short",
+    srcs = [
+        "async_ticker_test.go",
+        "example_test.go",
+    ],
+    data = glob([".simple-test.env"]),
+    embed = [":coinbasepro"],
+    deps = [
+        "//internal/env",
+        "//pkg/scalar",
+        "//pkg/websocket",
+        "//tools",
+        "@com_github_stretchr_testify//require",
+    ],
+)

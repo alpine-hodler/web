@@ -26,12 +26,12 @@ TOOLS_PKG = 'tools'
 def generate_models
   schema = []
   post_authority = PostAuthority.new
-  Dir.glob("#{File.dirname(__FILE__)}/schema/*.json").map do |filename|
-    next if filename.include?('/schema.json')
-
-    scheme = Scheme.new(filename)
-    post_authority.add(scheme) unless scheme.model_only
-    schema << scheme
+  Dir.glob("#{File.dirname(__FILE__)}/schema/*").map do |dir|
+		Dir.glob("#{dir}/*.json").map do |filename|
+			scheme = Scheme.new(filename)
+			post_authority.add(scheme) unless scheme.model_only
+			schema << scheme
+		end
   end
 
   Model.write(schema)

@@ -42,7 +42,7 @@ make
 
 ## Packages
 
-- [Coinbase Cloud API](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbase/README.md)
+- [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro/README.md)
 
 ## Extending the API
 
