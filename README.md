@@ -4,7 +4,7 @@
 
 # SDK
 
-SDK is a library that wraps third-party API.
+This library wraps third-party API into simple go code.  See the Usages section for coverage.
 
 ## Usage
 - [Coinbase Cloud API](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbase/README.md)
