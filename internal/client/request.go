@@ -247,7 +247,7 @@ func (req *Request) SetQueryParamTime(key string, value *time.Time) *Request {
 }
 
 // SetQueryParams will take an opts interface and if it isn't nil, it will type cast it as an Options interface{} and
-// attemp to set query parameters on the request.
+// attempt to set query parameters on the request.
 func (req *Request) SetQueryParams(opts interface{}) *Request {
 	if opts != nil {
 		opts.(queryParamsOptions).SetQueryParams(req)
@@ -255,7 +255,7 @@ func (req *Request) SetQueryParams(opts interface{}) *Request {
 	return req
 }
 
-// URIPostAuthority will return everything after the authorithy portion of the URI
+// URIPostAuthority will return everything after the authority portion of the URI
 func (req *Request) URIPostAuthority() string {
 	return req.uriBuilderAccesor.PostAuthority(req.uriBuilder)
 }

@@ -19,7 +19,7 @@ func (msg *Message) isSub()   { msg.Type = "subscribe" }
 func (msg *Message) isUnsub() { msg.Type = "unsubscribe" }
 
 // Subscribe will use the websocket message to subscribe to a websocket
-// connections, returning that connection or any errors that occured attempting
+// connections, returning that connection or any errors that occurred attemptting
 // to make it.
 func (msg *Message) Subscribe(conn Connector) error {
 	msg.isSub()

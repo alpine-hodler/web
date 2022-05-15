@@ -40,7 +40,7 @@ type Transform interface {
 	Value(key string) interface{}
 }
 
-// NewJSONTransform will return a new json transfrom that will create a map of objects from a byte
+// NewJSONTransform will return a new json transform that will create a map of objects from a byte
 // stream of JSON to be deserialized.
 func NewJSONTransform(d []byte) (Transform, error) {
 	return make_jsonTransform(d)

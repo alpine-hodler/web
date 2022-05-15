@@ -31,7 +31,7 @@ func (errors Errors) Any() bool {
 	return len(errors.List) > 0
 }
 
-// Messages return all the messages assocaited with an Errors object as a slice of strings
+// Messages return all the messages associated with an Errors object as a slice of strings
 func (errors Errors) Messages() (messages []string) {
 	for _, clientError := range errors.List {
 		messages = append(messages, clientError.Message.Error())

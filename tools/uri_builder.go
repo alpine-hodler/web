@@ -23,7 +23,7 @@ const (
 
 type uriBuilderComponentMap map[string]string
 
-// URIBuilder maps componenets to their key/value input in a URI.
+// URIBuilder maps components to their key/value input in a URI.
 type URIBuilder map[URIBuilderComponent]uriBuilderComponentMap
 
 // URIBuilderAccessor is an interface to build sections of a URI.

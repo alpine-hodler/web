@@ -75,7 +75,7 @@ func SetCoinbaseProAccessKey(url string) error {
 	return os.Setenv(coinbaseProAccessKeyID, url)
 }
 
-// SetCoinbaseProSecret will set the CB_PRO_SECRET environemnt variable
+// SetCoinbaseProSecret will set the CB_PRO_SECRET environment variable
 func SetCoinbaseProSecret(url string) error {
 	return os.Setenv(coinbaseProSecretID, url)
 }

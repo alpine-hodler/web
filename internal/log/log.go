@@ -25,10 +25,10 @@ var (
 	infoLogger    *log.Logger
 	warningLogger *log.Logger
 
-	// supress will only be set true of there is some init() error that isn't worth terminating the runtmie over but also
+	// suppress will only be set true of there is some init() error that isn't worth terminating the runtmie over but also
 	// prevents us from using the logging functionality.  An example of this is when there is no $HOME environment
-	// variable, in which case we supress logging.
-	supress bool
+	// variable, in which case we suppress logging.
+	suppress bool
 
 	homeNotDefined = fmt.Errorf("$HOME is not defined")
 )
@@ -39,7 +39,7 @@ func init() {
 		if err != homeNotDefined {
 			// if home is not defined, then do not log.
 			// TODO: Check to see if this behavior is mac-specific.
-			supress = true
+			suppress = true
 			return
 		}
 		log.Fatal(err)
@@ -91,7 +91,7 @@ func getLogLevel() Level {
 
 // Debug logs debug data to the log file.
 func Debug(msg string, args ...interface{}) {
-	if supress {
+	if suppress {
 		return
 	}
 	if getLogLevel() >= DEBUG {
@@ -101,7 +101,7 @@ func Debug(msg string, args ...interface{}) {
 
 // Info logs informational data to the log file.
 func Info(msg string, args ...interface{}) {
-	if supress {
+	if suppress {
 		return
 	}
 	infoLogger.Println(fmt.Sprintf(msg, args...))
@@ -109,7 +109,7 @@ func Info(msg string, args ...interface{}) {
 
 // Warn logs warning data to the log file.
 func Warn(msg string, args ...interface{}) {
-	if supress {
+	if suppress {
 		return
 	}
 	warningLogger.Println(fmt.Sprintf(msg, args...))
@@ -117,7 +117,7 @@ func Warn(msg string, args ...interface{}) {
 
 // Logf will takes a level and data to log to that level.
 func Logf(level Level, msg string, args ...interface{}) {
-	if supress {
+	if suppress {
 		return
 	}
 	switch level {
