@@ -1,12 +1,19 @@
+[![coinbase](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk@v0.1.0-alpha/pkg/coinbase)
+
 # Coinbase API Wrapper
+This package wraps the HTTP endpoints defined by the [Coinbase Cloud API](https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts). To use the coinbase package can be installed with
+
+```
+go get github.com/alpine-hodlr/sdk/pkg/coinbase
+```
 
 ## Creating a Client
 
-There are multiple ways to setup a coinbase environtment.
+There are multiple ways to setup a coinbase environment.
 
 ### Default Connector
 
-If your machine already has environment variables set for `CB_PRO_URL`, `CB_PRO_ACCESS_PASSPHRASE`, `CB_PRO_ACCESS_KEY`, and `CB_PRO_SECRET`, then you can simply use the `DefaultConnector`
+If your machine already has environment variables for `CB_PRO_URL`, `CB_PRO_ACCESS_PASSPHRASE`, `CB_PRO_ACCESS_KEY`, and `CB_PRO_SECRET`, then you can simply use the `DefaultConnector`
 
 ```go
 client := coinbase.NewClient(coinbase.DefaultConnector)

@@ -8,16 +8,7 @@
 SDK is a library that wraps third-party API.
 
 ## Usage
-
-To use this package install the sdk that you want using `go get` or `go install`.
-
-Here is the comprehensive list of available API:
-
-```
-go get github.com/alpine-hodlr/sdk/pkg/coinbase
-```
-
-See the documentation examples on how to impliment the SDK.
+- [Coinbase Cloud API](https://github.com/alpine-hodler/sdk/edit/main/pkg/coinbase/README.md)
 
 ## Development
 
