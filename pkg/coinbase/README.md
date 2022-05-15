@@ -4,8 +4,8 @@
 
 - [Creating a Client](#creating-a-client)
   - [Default Connector](#default-connector)
-	- [Environment File](#environment-file)
-	- [Custom Connector](#custom-connector)
+  - [Environment File](#environment-file)
+  - [Custom Connector](#custom-connector)
 
 This package wraps the references defined by the [Coinbase Cloud API](https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts), and can be installed using
 
