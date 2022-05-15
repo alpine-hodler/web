@@ -54,7 +54,7 @@ CB_PRO_ACCESS_KEY=
 CB_PRO_SECRET=
 ```
 
-Note that `pkg/coinbase/.simple-test.env` is an ignored file and should not be commitable to the repository.
+Note that `pkg/coinbase/.simple-test.env` is an ignored file and should not be commitable to the repository.  The Coinbase Pro Sandbox can be accessed [here](https://public.sandbox.pro.coinbase.com/trade).
 
 ## Extending the API
 
