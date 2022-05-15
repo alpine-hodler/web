@@ -113,7 +113,6 @@ func (c *C) generageMsg(creq client.Request, timestamp string) string {
 // - c-ACCESS-TIMESTAMP A timestamp for your request.
 // - c-ACCESS-PASSPHRASE The passphrase you specified when creating the API key.
 func (c *C) setHeaders(hreq *http.Request, creq client.Request) (e error) {
-	// TODO depricate getting key/passphrase/secret with secret keeper
 	var (
 		timestamp = strconv.FormatInt(time.Now().Unix(), 10)
 		msg       = c.generageMsg(creq, timestamp)
@@ -128,7 +127,6 @@ func (c *C) setHeaders(hreq *http.Request, creq client.Request) (e error) {
 	hreq.Header.Add("cb-access-sign", sig)
 	hreq.Header.Add("cb-access-timestamp", timestamp)
 
-	// TODO wrap this in a logger
 	logMsg := `{Client:{Access:{Key:%s,Passphrase:%s,Timestamp:%s,Sign:%s}}}`
 	client.Logf(log.DEBUG, &creq, logMsg, c.key, c.passphrase, timestamp, sig)
 	return
@@ -136,7 +134,6 @@ func (c *C) setHeaders(hreq *http.Request, creq client.Request) (e error) {
 
 // request makes an http request to the coinbase api, given a method and an endpoint.
 func (c *C) Do(creq client.Request) (*http.Response, error) {
-	// TODO make data-compatible for non-get requests
 	uri := c.url + creq.URIPostAuthority()
 
 	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
