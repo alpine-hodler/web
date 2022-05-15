@@ -1,5 +1,6 @@
 [![docs](https://img.shields.io/static/v1?label=doc&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk)
-  <a href="https://goreportcard.com/report/github.com/alpine-hodler/sdk"><img src="https://goreportcard.com/badge/github.com/alpine-hodler/sdk"></a>
+[![coinbase](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk@v0.1.0-alpha/pkg/coinbase)
+<a href="https://goreportcard.com/report/github.com/alpine-hodler/sdk"><img src="https://goreportcard.com/badge/github.com/alpine-hodler/sdk"></a>
 
 
 # SDK
