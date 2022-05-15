@@ -27,7 +27,7 @@ client := coinbase.NewClient(coinbase.DefaultConnector)
 
 ### Environment File
 
-Define an environment file on your machine somewhere with the following environment variables defined:
+IF your machine doesn't already have environment variables for the above, you can define an environment file on your machine somewhere with the environment variables defined.
 
 ```.env
 CB_PRO_URL=
@@ -44,7 +44,7 @@ client := coinbase.NewClientEnv("/path/to/.env")
 
 ### Custom Connector
 
-If you want don't want to add the auth variables through the environment, you can add them with a custom connector.
+If you don't want to pass the auth variables through the environment, you can pass them inline with a custom connector.
 
 ```go
 client := coinbase.NewClient(func() *coinbase.Client {
