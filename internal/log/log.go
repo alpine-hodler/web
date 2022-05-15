@@ -47,7 +47,7 @@ func init() {
 
 	// TODO: (1) make the logPath OS-specific, right not it's specific to MacOS
 	// TODO: (2) make the path an optional env variable
-	// TODO: (3) see if we can use a bazel directory to log data when runing a build.  Bazel won't know what the $HOME
+	// TODO: (3) see if we can use a bazel directory to log data when running a build.  Bazel won't know what the $HOME
 	// TODO:     environment variable is
 	logDir := path.Join(home, "Library/Logs/AlpineHodler")
 	if _, err := os.Stat(logDir); os.IsNotExist(err) {
