@@ -27,7 +27,8 @@ module Setters
       'string' => 'SetQueryParamString',
       'time.Time' => 'SetQueryParamTime'
     }[field.go_type]
-    return nil if sig.nil?
+
+		sig = 'SetQueryParamStringer' if sig.nil?
 
     adr = field.required && !field.go_slice? ? '&' : ''
     sig + "(\"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"

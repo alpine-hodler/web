@@ -1,6 +1,6 @@
 [![docs](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk@v0.1.0-alpha/pkg/coinbase)
 
-# Coinbase API Wrapper
+# Coinbase Pro API Wrapper
 
 - [Creating a Client](#creating-a-client)
   - [Default Connector](#default-connector)
@@ -17,14 +17,14 @@ go get github.com/alpine-hodlr/sdk/pkg/coinbase
 
 ## Creating a Client
 
-There are multiple ways to setup a coinbase environment.
+There are multiple ways to setup a Coinbsae Pro environment.
 
 ### Default Connector
 
 If your machine already has environment variables for `CB_PRO_URL`, `CB_PRO_ACCESS_PASSPHRASE`, `CB_PRO_ACCESS_KEY`, and `CB_PRO_SECRET`, then you can simply use the `DefaultConnector`.
 
 ```go
-client := coinbase.NewClient(coinbase.DefaultConnector)
+client := coinbase.NewClient(coinbasepro.DefaultConnector)
 ```
 
 ### Environment File
@@ -38,10 +38,10 @@ CB_PRO_ACCESS_KEY=
 CB_PRO_SECRET=
 ```
 
-Then use the `NewClient` function to create a new Coinbase API client.
+Then use the `NewClient` function to create a new Coinbase Pro API client.
 
 ```go
-client := coinbase.NewClientEnv("/path/to/.env")
+client := coinbasepro.NewClientEnv("/path/to/.env")
 ```
 
 ### Custom Connector
@@ -61,7 +61,7 @@ client := coinbase.NewClient(func() *coinbase.Client {
 
 ## Development
 
-Note on developing in this package.
+Notes on developing in this package.
 
 ### Testing
 

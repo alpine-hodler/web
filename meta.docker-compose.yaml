@@ -11,6 +11,7 @@ services:
     command: [ruby, /usr/src/meta/generate.rb]
     volumes:
       - ./pkg/coinbasepro:/usr/src/coinbasepro
+      - ./pkg/twitter:/usr/src/twitter
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
       - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
@@ -37,6 +38,7 @@ services:
     command: [ruby, /usr/src/meta/test/test.rb]
     volumes:
       - ./pkg/coinbasepro:/usr/src/coinbasepro
+      - ./pkg/twitter:/usr/src/twitter
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
       - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb

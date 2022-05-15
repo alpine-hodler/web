@@ -31,12 +31,6 @@ type Request struct {
 	slug string
 }
 
-type ErrorMessage struct {
-	Message    string `json:"message"`
-	Status     string `json:"status"`
-	StatusCode string `json:"status_code"`
-}
-
 // options is an interface for setting query parameters on a request.
 type queryParamsOptions interface {
 	SetQueryParams(*Request)
@@ -234,6 +228,16 @@ func (req *Request) SetQueryParamStrings(key string, values []string) *Request {
 			slice = append(slice, v)
 		}
 		req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, strings.Join(slice, ", "))
+	}
+	return req
+}
+
+// SetQueryParamStringer will set typed query params with String receivers.
+func (req *Request) SetQueryParamStringer(key string, val stringer) *Request {
+	if val != nil {
+		if str := val.String(); len(str) > 0 {
+			req.uriBuilder.Add(tools.URIBuilderComponentQuery, key, str)
+		}
 	}
 	return req
 }

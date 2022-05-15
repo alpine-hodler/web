@@ -22,6 +22,8 @@ const (
 	KrakenURL
 	KrakenKey
 	KrakenSecret
+	TwitterAuth2BearerToken
+	TwitterURL
 )
 
 const (
@@ -30,6 +32,8 @@ const (
 	coinbaseProAccessPassphraseID = "CB_PRO_ACCESS_PASSPHRASE"
 	coinbaseProAccessKeyID        = "CB_PRO_ACCESS_KEY"
 	coinbaseProSecretID           = "CB_PRO_SECRET"
+	twitterAuth2BearerToken       = "TWITTER_AUTH2_BEARER_TOKEN"
+	twitterURL                    = "TWITTER_URL"
 )
 
 func Load(filepath string) {
@@ -47,6 +51,8 @@ func (variable Variable) String() string {
 		CoinbaseProAccessPassphrase: coinbaseProAccessPassphraseID,
 		CoinbaseProAccessKey:        coinbaseProAccessKeyID,
 		CoinbaseProSecret:           coinbaseProSecretID,
+		TwitterAuth2BearerToken:     twitterAuth2BearerToken,
+		TwitterURL:                  twitterURL,
 	}[variable]
 }
 
@@ -56,26 +62,36 @@ func (variable Variable) Get() string {
 }
 
 // SetAlpineHodlerLogLevel will set the ALPINE_HODLER_LOG_LEVEL environment variable
-func SetAlpineHodlerLogLevel(level string) error {
+var SetAlpineHodlerLogLevel = func(level string) error {
 	return os.Setenv(alpineHodlerLogLevel, level)
 }
 
 // SetCoinbaseProURL will set the CB_PRO_URL environment variable
-func SetCoinbaseProURL(url string) error {
+var SetCoinbaseProURL = func(url string) error {
 	return os.Setenv(coinbaseProURLID, url)
 }
 
 // SetCoinbaseProAccessPassphrase will set the CB_PRO_ACCESS_PASSPHRASE environment variable
-func SetCoinbaseProAccessPassphrase(url string) error {
+var SetCoinbaseProAccessPassphrase = func(url string) error {
 	return os.Setenv(coinbaseProAccessPassphraseID, url)
 }
 
 // SetCoinbaseProAccessKey will set the CB_PRO_ACCESS_KEY environment variable
-func SetCoinbaseProAccessKey(url string) error {
+var SetCoinbaseProAccessKey = func(url string) error {
 	return os.Setenv(coinbaseProAccessKeyID, url)
 }
 
 // SetCoinbaseProSecret will set the CB_PRO_SECRET environment variable
-func SetCoinbaseProSecret(url string) error {
+var SetCoinbaseProSecret = func(url string) error {
 	return os.Setenv(coinbaseProSecretID, url)
+}
+
+// SetTwitterAuth2BearerToken will set the TWITTER_AUTH2_BEARER_TOKEN environment variable
+var SetTwitterAuth2BearerToken = func(token string) error {
+	return os.Setenv(twitterAuth2BearerToken, token)
+}
+
+// SetTwitterURL will set the TWITTER_URL environment variable
+var SetTwitterURL = func(url string) error {
+	return os.Setenv(twitterURL, url)
 }

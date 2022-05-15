@@ -146,7 +146,7 @@ type CryptoAccount struct {
 type CryptoAddress struct {
 	Address        string                  `json:"address" bson:"address"`
 	AddressInfo    CryptoAddressInfo       `json:"address_info" bson:"address_info"`
-	CallbackUrl    string                  `json:"callback_url" bson:"callback_url"`
+	CallbackURL    string                  `json:"callback_url" bson:"callback_url"`
 	CreateAt       time.Time               `json:"create_at" bson:"create_at"`
 	DepositUri     string                  `json:"deposit_uri" bson:"deposit_uri"`
 	DestinationTag string                  `json:"destination_tag" bson:"destination_tag"`
@@ -170,7 +170,7 @@ type CryptoAddressInfo struct {
 // CryptoAddressWarning is a warning for generating a crypting address
 type CryptoAddressWarning struct {
 	Details  string `json:"details" bson:"details"`
-	ImageUrl string `json:"image_url" bson:"image_url"`
+	ImageURL string `json:"image_url" bson:"image_url"`
 	Title    string `json:"title" bson:"title"`
 }
 
@@ -368,7 +368,7 @@ type PickerData struct {
 	BranchName            string  `json:"branch_name" bson:"branch_name"`
 	CustomerName          string  `json:"customer_name" bson:"customer_name"`
 	Iban                  string  `json:"iban" bson:"iban"`
-	IconUrl               string  `json:"icon_url" bson:"icon_url"`
+	IconURL               string  `json:"icon_url" bson:"icon_url"`
 	InstitutionCode       string  `json:"institution_code" bson:"institution_code"`
 	InstitutionIdentifier string  `json:"institution_identifier" bson:"institution_identifier"`
 	InstitutionName       string  `json:"institution_name" bson:"institution_name"`
@@ -446,7 +446,7 @@ type Report struct {
 	CreatedAt time.Time         `json:"created_at" bson:"created_at"`
 	ExpiresAt time.Time         `json:"expires_at" bson:"expires_at"`
 	FileCount string            `json:"file_count" bson:"file_count"`
-	FileUrl   string            `json:"file_url" bson:"file_url"`
+	FileURL   string            `json:"file_url" bson:"file_url"`
 	ID        string            `json:"id" bson:"id"`
 	Params    ReportsParams     `json:"params" bson:"params"`
 	Status    scalar.Status     `json:"status" bson:"status"`

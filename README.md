@@ -8,6 +8,7 @@ This library wraps third-party API into simple go code.  See the Usages section 
 
 ## Usage
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro/README.md)
+- [Twitter API](https://github.com/alpine-hodler/sdk/blob/main/pkg/twitter/README.md) (WIP)
 
 ## Development
 

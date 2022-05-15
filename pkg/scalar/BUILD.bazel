@@ -5,6 +5,7 @@ go_library(
     srcs = [
         "bid_ask.go",
         "cancel_after.go",
+        "compliance_job.go",
         "entry_type.go",
         "format.go",
         "granularity.go",

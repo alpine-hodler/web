@@ -1,5 +1,7 @@
 package scalar
 
+import "strconv"
+
 // Granularity is the level of granularity needed for examining historical data.
 type Granularity uint8
 
@@ -27,6 +29,13 @@ func (granularity Granularity) Int() (i int) {
 		i = 21600
 	case Seoncds86400:
 		i = 86400
+	}
+	return
+}
+
+func (granularity *Granularity) String() (str string) {
+	if granularity != nil {
+		str = strconv.Itoa(granularity.Int())
 	}
 	return
 }

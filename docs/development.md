@@ -42,7 +42,8 @@ make
 
 ## Packages
 
-- [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro/README.md)
+- [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro#development/README.md)
+- [Twitter API](https://github.com/alpine-hodler/sdk/blob/main/pkg/twitter#development/README.md)
 
 ## Extending the API
 

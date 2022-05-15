@@ -1112,7 +1112,8 @@ func (opts *AccountTransfersOptions) SetQueryParams(req *client.Request) {
 	}
 	req.SetQueryParamString("before", opts.Before).
 		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", opts.Limit)
+		SetQueryParamInt("limit", opts.Limit).
+		SetQueryParamStringer("type", opts.Type)
 }
 
 func (opts *BookOptions) SetQueryParams(req *client.Request) {
@@ -1134,7 +1135,8 @@ func (opts *CandlesOptions) SetQueryParams(req *client.Request) {
 	if opts == nil {
 		return
 	}
-	req.SetQueryParamString("start", opts.Start).
+	req.SetQueryParamStringer("granularity", opts.Granularity).
+		SetQueryParamString("start", opts.Start).
 		SetQueryParamString("end", opts.End)
 }
 
@@ -1217,6 +1219,7 @@ func (opts *ReportsOptions) SetQueryParams(req *client.Request) {
 	req.SetQueryParamString("portfolio_id", opts.PortfolioID).
 		SetQueryParamString("after", opts.After).
 		SetQueryParamInt("limit", opts.Limit).
+		SetQueryParamStringer("type", opts.Type).
 		SetQueryParamBool("ignored_expired", opts.IgnoredExpired)
 }
 

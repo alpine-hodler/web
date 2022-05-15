@@ -1,0 +1,37 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "twitter",
+    srcs = [
+        "client.go",
+        "http.go",
+        "models.go",
+        "options.go",
+        "post_authority.go",
+    ],
+    importpath = "github.com/alpine-hodler/sdk/pkg/twitter",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal/client",
+        "//internal/env",
+        "//internal/log",
+        "//pkg/scalar",
+        "//tools",
+    ],
+)
+
+go_test(
+    name = "twitter_test",
+    timeout = "short",
+    srcs = ["example_test.go"],
+    data = glob([
+        ".simple-test.env",
+        ".test.env",
+    ]),
+    deps = [
+        ":twitter",
+        "//internal/client",
+        "//internal/env",
+        "//tools",
+    ],
+)

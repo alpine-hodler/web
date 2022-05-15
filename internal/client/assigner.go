@@ -37,16 +37,11 @@ func (assigner *Assigner) decode(v interface{}) {
 		// 	panic(err)
 		// }
 
-		// var data error
+		// var data map[string]interface{}
 		// if err := json.Unmarshal(body, &data); err != nil {
-		// 	log.Printf("error decoding sakura response: %v", err)
-		// 	if e, ok := err.(*json.SyntaxError); ok {
-		// 		log.Printf("syntax error at byte offset %d", e.Offset)
-		// 	}
-		// 	log.Printf("sakura response: %q", body)
+		// 	panic(err)
 		// }
-
-		// fmt.Println(data)
+		// fmt.Println("DATA:", data)
 
 		if err := json.NewDecoder(assigner.body).Decode(v); err != nil {
 			assigner.errors.add(err)

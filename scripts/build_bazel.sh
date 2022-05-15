@@ -13,4 +13,4 @@ bazel run //:gazelle-update-repos
 bazel build //...
 
 # run tests
-bazel test //... --test_verbose_timeout_warnings
+bazel test //... --test_verbose_timeout_warnings --sandbox_debug
