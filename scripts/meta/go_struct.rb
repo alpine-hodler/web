@@ -6,7 +6,7 @@ module GoStruct
     return "\n#{go_comment}\ntype #{go_model_name} #{non_struct}\n" unless non_struct.nil?
 
     literals = []
-    fields.each do |field|
+    fields.dup.sort_by { |f| f.go_field_name }.each do |field|
       literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"
       literal += "#{field.go_protofield_name} #{field.go_type}"
       literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"
@@ -20,7 +20,7 @@ module GoStruct
     literals = []
     return literals unless endpoint.params?
 
-    endpoint.all_params.each do |field|
+    endpoint.all_params.dup.sort_by { |e| e.go_field_name }.each do |field|
       literal = field.description.empty? ? '' : "\n#{format_go_comment(field.description)}\n"
       literal += "#{field.go_protofield_name} #{field.ptr_go_type}"
       literal += "`json:\"#{field.identifier}\" bson:\"#{field.identifier}\"`"
