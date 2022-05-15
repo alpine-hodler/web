@@ -4,7 +4,7 @@
 
 # SDK
 
-SDK is a library wraps third-party API.
+SDK is a library that wraps third-party API.
 
 ## Usage
 
