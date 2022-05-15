@@ -189,7 +189,7 @@ func ExampleC_AccountHolds() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
@@ -292,7 +292,7 @@ func ExampleC_CancelOpenOrders() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
@@ -321,7 +321,7 @@ func ExampleC_CancelOrder() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
@@ -432,7 +432,7 @@ func ExampleC_CreateOrder() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
@@ -566,7 +566,7 @@ func ExampleC_Order() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).
@@ -594,7 +594,7 @@ func ExampleC_Orders() {
 		SetProfileID(someProfileID).
 		SetType(scalar.OrderTypeLimit).
 		SetSide(scalar.OrderSideSell).
-		SetStp(scalar.OrderSTP_DC).
+		SetSTP(scalar.OrderSTP_DC).
 		SetStop(scalar.OrderStopLoss).
 		SetTimeInForce(scalar.TimeInForceGTC).
 		SetCancelAfter(scalar.CancelAfterMin).

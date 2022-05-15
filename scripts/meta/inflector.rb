@@ -7,7 +7,7 @@ require 'dry/inflector'
 module Inflector
   def inflector
     Dry::Inflector.new do |inflections|
-      inflections.acronym 'ID', 'FIAT', 'SEPA', 'UK', 'SWIFT', 'ACH'
+      inflections.acronym 'ID', 'FIAT', 'SEPA', 'UK', 'SWIFT', 'ACH', 'STP'
     end
   end
 end

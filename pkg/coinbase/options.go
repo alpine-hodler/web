@@ -75,11 +75,11 @@ type CreateOrderOptions struct {
 	Price       *float64            `json:"price" bson:"price"`
 	ProductID   string              `json:"product_id" bson:"product_id"`
 	ProfileID   *string             `json:"profile_id" bson:"profile_id"`
+	STP         *scalar.OrderSTP    `json:"stp" bson:"stp"`
 	Side        scalar.OrderSide    `json:"side" bson:"side"`
 	Size        *float64            `json:"size" bson:"size"`
 	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
 	StopPrice   *float64            `json:"stop_price" bson:"stop_price"`
-	Stp         *scalar.OrderSTP    `json:"stp" bson:"stp"`
 	TimeInForce *scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
 	Type        *scalar.OrderType   `json:"type" bson:"type"`
 }
@@ -509,9 +509,9 @@ func (opts *CreateOrderOptions) SetSide(Side scalar.OrderSide) *CreateOrderOptio
 	return opts
 }
 
-// SetStp sets the Stp field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetStp(Stp scalar.OrderSTP) *CreateOrderOptions {
-	opts.Stp = &Stp
+// SetSTP sets the STP field on CreateOrderOptions.
+func (opts *CreateOrderOptions) SetSTP(STP scalar.OrderSTP) *CreateOrderOptions {
+	opts.STP = &STP
 	return opts
 }
 
@@ -1005,7 +1005,7 @@ func (opts *CreateOrderOptions) SetBody(req *client.Request) {
 	req.SetBodyString("profile_id", opts.ProfileID).
 		SetStringer("type", opts.Type).
 		SetStringer("side", &opts.Side).
-		SetStringer("stp", opts.Stp).
+		SetStringer("stp", opts.STP).
 		SetStringer("stop", opts.Stop).
 		SetBodyFloat("stop_price", opts.StopPrice).
 		SetBodyFloat("price", opts.Price).
