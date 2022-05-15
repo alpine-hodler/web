@@ -1,7 +1,7 @@
 [![docs](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk@v0.1.0-alpha/pkg/coinbase)
 
 # Coinbase API Wrapper
-This package wraps the HTTP endpoints defined by the [Coinbase Cloud API](https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts). This package can be installed using
+This package wraps the references defined by the [Coinbase Cloud API](https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts). This package can be installed using
 
 ```
 go get github.com/alpine-hodlr/sdk/pkg/coinbase
