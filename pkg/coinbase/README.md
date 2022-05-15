@@ -6,6 +6,8 @@
   - [Default Connector](#default-connector)
   - [Environment File](#environment-file)
   - [Custom Connector](#custom-connector)
+- [Development](#development)
+  - [Testing](#testing)
 
 This package wraps the references defined by the [Coinbase Cloud API](https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts), and can be installed using
 
@@ -56,3 +58,18 @@ client := coinbase.NewClient(func() *coinbase.Client {
 	return c
 })
 ```
+
+## Development
+
+Note on developing in this package.
+
+### Testing
+
+You will need to create an account for the [Coinbase Pro Sandbox]("https://api-public.sandbox.exchange.coinbase.com") and [create a new API key](https://docs.cloud.coinbase.com/exchange/docs/sandbox#creating-api-keys) for the `Default Portfolio` with `View/Trade/Transfer` permissions.  Then populate the following data in `pkg/coinbase/.simple-test.env`:
+```.env
+CB_PRO_ACCESS_PASSPHRASE=
+CB_PRO_ACCESS_KEY=
+CB_PRO_SECRET=
+```
+
+Note that `pkg/coinbase/.simple-test.env` is an ignored file and should not be commitable to the repository.  The Coinbase Pro Sandbox can be accessed [here](https://public.sandbox.pro.coinbase.com).

@@ -5,7 +5,7 @@
 	- [Docker](#docker)
 	- [Go](#go)
 - [Build](#build)
-- [Setting up Auth .env file](#setting-up-auth-env-file)
+- [Packages](#packages)
 - [Extending the API](#extending-the-api)
 
 ## Dependencies
@@ -40,21 +40,9 @@ To build simply run
 make
 ```
 
-## Setting up Auth .env file
+## Packages
 
-Somewhere on your local machine you'll need to add a `.env` file for auth between the different API.
-
-### Coinbase
-
-You will need to create an account for the [Coinbase Pro Sandbox]("https://api-public.sandbox.exchange.coinbase.com") and setup a new API key for the `Default Portfolio` with `Vilew/Trade/Transfer` permissions.  Then populate the following data in `pkg/coinbase/.simple-test.env`:
-```.env
-CB_PRO_URL=
-CB_PRO_ACCESS_PASSPHRASE=
-CB_PRO_ACCESS_KEY=
-CB_PRO_SECRET=
-```
-
-Note that `pkg/coinbase/.simple-test.env` is an ignored file and should not be commitable to the repository.  The Coinbase Pro Sandbox can be accessed [here](https://public.sandbox.pro.coinbase.com).
+- [Coinbase Cloud API](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbase/README.md)
 
 ## Extending the API
 

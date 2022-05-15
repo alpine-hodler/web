@@ -28,6 +28,9 @@ func TestExamples(t *testing.T) {
 	defer tools.Quiet()()
 
 	env.Load(".simple-test.env")
+
+	// ! Make sure that these tests only run on the sandbox.
+	env.SetCoinbaseProURL("https://api-public.sandbox.exchange.coinbase.com")
 	env.SetAlpineHodlerLogLevel("2")
 	var (
 		client = coinbase.NewClient(coinbase.DefaultConnector)
