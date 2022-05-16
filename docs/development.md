@@ -6,7 +6,7 @@
 	- [Go](#go)
 - [Build](#build)
 - [Packages](#packages)
-- [Extending the API](#extending-the-api)
+- [Adding an API](#adding-an-api)
 
 ## Dependencies
 To develop locally you need to install three dependencies:
@@ -45,9 +45,10 @@ make
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro#development/README.md)
 - [Twitter API](https://github.com/alpine-hodler/sdk/blob/main/pkg/twitter#development/README.md)
 
-## Extending the API
+## Adding an API
 
-To extend the api, you'll need to add a new schema to the `scripts/meta/schema` directory, following the template layed out in `scripts/meta/schema/schema.json`.  Then build the metadata:
-```
-make build-meta
-```
+- Create a new file in `scripts/meta/schema` named `after_the_resource`.
+- Create the go package under `pkg` using [Go best practices](https://go.dev/blog/package-names#package-names).  In our example it should probably be `aftertheresource`.
+- Update `meta.docker-compose.yaml` to include `- ./pkg/coinbasepro:/usr/src/coinbasepro` under `generate.volumes` and `test-generate.volumes`.
+- Run `make build-meta`
+- Then start adding your schemes to `scripts/meta/schema/after_the_resource`.

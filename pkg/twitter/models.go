@@ -3,6 +3,7 @@ package twitter
 import (
 	"time"
 
+	"github.com/alpine-hodler/sdk/internal/serial"
 	"github.com/alpine-hodler/sdk/pkg/scalar"
 )
 
@@ -56,13 +57,10 @@ type Meta struct {
 }
 
 // TODO
-type Tweets struct {
-	Data []*TweetDatum `json:"data" bson:"data"`
-	Meta Meta          `json:"meta" bson:"meta"`
-}
+type Tweet struct {
+	// Creation time of the Tweet. To return this field, add tweet.fields=created_at in the request's query parameter.
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 
-// TODO
-type TweetDatum struct {
 	// ID is a unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages
 	// and tools that cannot handle large integers.
 	ID string `json:"id" bson:"id"`
@@ -72,8 +70,34 @@ type TweetDatum struct {
 }
 
 // TODO
+type Tweets struct {
+	Data []*Tweet `json:"data" bson:"data"`
+	Meta Meta     `json:"meta" bson:"meta"`
+}
+
+// TODO
 type User struct {
 	// ID is a unique identifier of this user. This is returned as a string in order to avoid complications with languages
 	// and tools that cannot handle large integers.
 	ID string `json:"id" bson:"id"`
+}
+
+// UnmarshalJSON will deserialize bytes into a Tweet model
+func (Tweet *Tweet) UnmarshalJSON(d []byte) error {
+	const (
+		IDJSONTag        = "id"
+		textJSONTag      = "text"
+		createdAtJSONTag = "created_at"
+	)
+	data, err := serial.NewJSONTransform(d)
+	if err != nil {
+		return err
+	}
+	data.UnmarshalString(IDJSONTag, &Tweet.ID)
+	data.UnmarshalString(textJSONTag, &Tweet.Text)
+	err = data.UnmarshalTime(TwitterISO8601, createdAtJSONTag, &Tweet.CreatedAt)
+	if err != nil {
+		return err
+	}
+	return nil
 }

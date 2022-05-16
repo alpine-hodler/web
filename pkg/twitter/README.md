@@ -20,7 +20,7 @@ There are multiple ways to setup a Twitter environment.  See the go documentatio
 
 ### Environment File
 
-IF your machine doesn't already have environment variables for the above, you can define an environment file on your machine somewhere with the environment variables defined.
+If your machine doesn't already have environment variables for the above, you can define an environment file on your machine somewhere with the environment variables defined.
 
 ```.env
 # .my-env.env

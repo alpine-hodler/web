@@ -9,13 +9,12 @@ import (
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/pkg/twitter"
-	"github.com/alpine-hodler/sdk/tools"
 )
 
 var someAuth2BearerToken string
 
 func TestExamples(t *testing.T) {
-	defer tools.Quiet()()
+	// defer tools.Quiet()()
 
 	env.Load(".simple-test.env")
 
@@ -48,7 +47,7 @@ func ExampleNewAuth2Client() {
 		log.Fatalf("Error fetching compliance jobs: %v", err)
 	}
 
-	fmt.Printf("A tweet: %+v\n", tweet.Data[0].Text)
+	fmt.Printf("A tweet: %+v\n", tweet.Data[0])
 }
 
 func ExampleNewClientConnector() {
