@@ -1,8 +1,6 @@
 package client
 
 import (
-	"fmt"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -32,11 +30,11 @@ func (conn Connector) fetch(req *Request) (*http.Response, error) {
 	var res *http.Response
 	res, err = c.Do(*req)
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Raw Response Body:\n%v\n", string(body))
+	// body, err := ioutil.ReadAll(res.Body)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Printf("Raw Response Body:\n%v\n", string(body))
 
 	if err != nil {
 		return nil, err

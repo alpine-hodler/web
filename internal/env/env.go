@@ -36,7 +36,7 @@ const (
 	coinbaseProAccessPassphraseID = "CB_PRO_ACCESS_PASSPHRASE"
 	coinbaseProAccessKeyID        = "CB_PRO_ACCESS_KEY"
 	coinbaseProSecretID           = "CB_PRO_SECRET"
-	twitterAuth2BearerToken       = "TWITTER_AUTH2_BEARER_TOKEN"
+	twitterAuth2BearerToken       = "TWITTER_BEARER_TOKEN"
 	twitterAccessToken            = "TWITTER_ACCESS_TOKEN"
 	twitterAccessTokenSecret      = "TWITTER_ACCESS_TOKEN_SECRET"
 	twitterAccessKey              = "TWITTER_ACCESS_KEY"

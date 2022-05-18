@@ -9,80 +9,60 @@ import (
 
 	"github.com/alpine-hodler/sdk/internal/env"
 	"github.com/alpine-hodler/sdk/pkg/twitter"
+	"github.com/alpine-hodler/sdk/tools"
 )
 
 var someAuth2BearerToken string
 
+type testOS struct{}
+
+func (tos testOS) Setenv(key, val string) {}
+
+var os = testOS{}
+
 func TestExamples(t *testing.T) {
-	// defer tools.Quiet()()
+	defer tools.Quiet()()
 
 	env.Load(".simple-test.env")
-
-	someAuth2BearerToken = env.TwitterAuth2BearerToken.Get()
-
-	// ! Make sure that these tests only run on the sandbox.
-	// env.SetCoinbaseProURL("https://ads-api-sandbox.twitter.com")
 	env.SetAlpineHodlerLogLevel("2")
 
-	// Mock the env lambdas to avoid actually setting this data in test.
-	env.SetTwitterAuth2BearerToken = func(_ string) error { return nil }
-	env.SetTwitterURL = func(_ string) error { return nil }
-
-	t.Run("NewAuth1aUserContextClient", func(t *testing.T) { ExampleNewAuth1aUserContextClient() })
-	// t.Run("NewAuth2Client", func(t *testing.T) { ExampleNewAuth2Client() })
-	// t.Run("NewClientConnector", func(t *testing.T) { ExampleNewClientConnector() })
+	t.Run("NewClientAuth1", func(t *testing.T) { ExampleNewClientAuth1() })
+	t.Run("NewClientAuth2", func(t *testing.T) { ExampleNewClientAuth2() })
 }
 
-func ExampleNewAuth1aUserContextClient() {
-	client, err := twitter.NewClientAuth1(context.Background())
+func ExampleNewClientAuth1() {
+	os.Setenv("TWITTER_ACCESS_KEY", "some-twitter-access-key")
+	os.Setenv("TWITTER_SECRET", "some-twitter-secret")
+	os.Setenv("TWITTER_ACCESS_TOKEN", "some-twitter-access-token")
+	os.Setenv("TWITTER_ACCESS_TOKEN_SECRET", "some-twitter-token-secret")
+
+	client, err := twitter.NewClientAuth1(context.TODO())
 	if err != nil {
 		log.Fatalf("Error creating new client: %v", err)
 	}
 
-	// Fetch the compliance jobs to test the connection.
+	// Fetch some tweets to test the connection.
 	tweet, err := client.Tweets(new(twitter.TweetsOptions).SetIds([]string{"1261326399320715264"}))
 	if err != nil {
-		log.Fatalf("Error fetching tweets: %v", err)
+		log.Fatalf("Error fetching MongoDB tweet: %v", err)
 	}
 
-	fmt.Printf("A tweet: %+v\n", tweet.Data[0])
+	fmt.Printf("A tweet about MongoDB: %+v\n", tweet.Data[0])
 }
 
-// func ExampleNewAuth2Client() {
-// 	env.SetTwitterAuth2BearerToken(someAuth2BearerToken)
-// 	env.SetTwitterURL("https://api.twitter.com")
+func ExampleNewClientAuth2() {
+	os.Setenv("TWITTER_BEARER_TOKEN", "some-twitter-bearer-token")
 
-// 	client, err := twitter.NewAuth2Client(context.Background())
-// 	if err != nil {
-// 		log.Fatalf("Error creating new client: %v", err)
-// 	}
+	client, err := twitter.NewClientAuth2(context.TODO())
+	if err != nil {
+		log.Fatalf("Error creating new client: %v", err)
+	}
 
-// 	// Fetch the compliance jobs to test the connection.
-// 	tweet, err := client.Tweets(nil)
-// 	if err != nil {
-// 		log.Fatalf("Error fetching compliance jobs: %v", err)
-// 	}
+	// Fetch some tweets to test the connection.
+	tweet, err := client.Tweets(new(twitter.TweetsOptions).SetIds([]string{"1261326399320715264"}))
+	if err != nil {
+		log.Fatalf("Error fetching MongoDB tweet: %v", err)
+	}
 
-// 	fmt.Printf("A tweet: %+v\n", tweet.Data[0])
-// }
-
-// func ExampleNewClientConnector() {
-// 	client, err := twitter.NewClientConnector(context.Background(), func() (client.C, error) {
-// 		c := new(twitter.C).
-// 			SetAuth2BearerToken(someAuth2BearerToken).
-// 			SetAuthenticationMethod(twitter.Auth2BearerToken).
-// 			SetURL("https://api.twitter.com")
-// 		return c, nil
-// 	})
-// 	if err != nil {
-// 		log.Fatalf("Error creating new client: %v", err)
-// 	}
-
-// 	// Fetch the compliance jobs to test the connection.
-// 	tweet, err := client.Tweets(new(twitter.TweetsOptions).SetIds([]string{"1261326399320715264"}))
-// 	if err != nil {
-// 		log.Fatalf("Error fetching compliance jobs: %v", err)
-// 	}
-
-// 	fmt.Printf("A tweet: %+v\n", tweet.Data[0].Text)
-// }
+	fmt.Printf("A tweet about MongoDB: %+v\n", tweet.Data[0])
+}

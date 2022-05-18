@@ -1,6 +1,8 @@
 package client
 
-import "github.com/alpine-hodler/sdk/tools"
+import (
+	"github.com/alpine-hodler/sdk/tools"
+)
 
 type Parent struct {
 	conn Connector

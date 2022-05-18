@@ -7,7 +7,6 @@ go_library(
         "body.go",
         "body_type.go",
         "client.go",
-        "connector.go",
         "error_message.go",
         "errors.go",
         "log.go",
