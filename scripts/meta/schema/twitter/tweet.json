@@ -17,7 +17,6 @@
 		{
 			"identifier": "created_at",
 			"goType": "time.Time",
-			"datetimeLayout": "TwitterISO8601",
 			"description": "Creation time of the Tweet.\n\nTo return this field, add tweet.fields=created_at in the request's query parameter."
 		}
 	]

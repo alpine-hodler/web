@@ -23,6 +23,10 @@ const (
 	KrakenKey
 	KrakenSecret
 	TwitterAuth2BearerToken
+	TwitterAccessToken
+	TwitterAccessTokenSecret
+	TwitterAccessKey
+	TwitterSecret
 	TwitterURL
 )
 
@@ -33,6 +37,10 @@ const (
 	coinbaseProAccessKeyID        = "CB_PRO_ACCESS_KEY"
 	coinbaseProSecretID           = "CB_PRO_SECRET"
 	twitterAuth2BearerToken       = "TWITTER_AUTH2_BEARER_TOKEN"
+	twitterAccessToken            = "TWITTER_ACCESS_TOKEN"
+	twitterAccessTokenSecret      = "TWITTER_ACCESS_TOKEN_SECRET"
+	twitterAccessKey              = "TWITTER_ACCESS_KEY"
+	twitterSecret                 = "TWITTER_SECRET"
 	twitterURL                    = "TWITTER_URL"
 )
 
@@ -52,6 +60,10 @@ func (variable Variable) String() string {
 		CoinbaseProAccessKey:        coinbaseProAccessKeyID,
 		CoinbaseProSecret:           coinbaseProSecretID,
 		TwitterAuth2BearerToken:     twitterAuth2BearerToken,
+		TwitterAccessToken:          twitterAccessToken,
+		TwitterAccessTokenSecret:    twitterAccessTokenSecret,
+		TwitterAccessKey:            twitterAccessKey,
+		TwitterSecret:               twitterSecret,
 		TwitterURL:                  twitterURL,
 	}[variable]
 }

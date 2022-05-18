@@ -15,6 +15,7 @@ go_library(
         "//internal/client",
         "//internal/env",
         "//internal/log",
+        "//internal/serial",
         "//pkg/scalar",
         "//tools",
     ],
@@ -32,6 +33,5 @@ go_test(
         ":twitter",
         "//internal/client",
         "//internal/env",
-        "//tools",
     ],
 )

@@ -2,12 +2,13 @@ package twitter
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"net/http"
 
 	"github.com/alpine-hodler/sdk/internal/client"
 	"github.com/alpine-hodler/sdk/internal/env"
-	"github.com/alpine-hodler/sdk/internal/log"
+	"github.com/alpine-hodler/sdk/internal/oauth1"
 )
 
 // AuthenciationMethod types the different kinds of authentication method twitter offers
@@ -41,18 +42,40 @@ const (
 type C struct {
 	client.Parent
 
-	client http.Client
+	client *http.Client
 
 	authenticationMethod AuthenticationMethod
-	auth2BearerToken     string
-	url                  string
+
+	nonce string
+
+	accessKey         string
+	secret            string
+	accessTokenSecret string
+	accessToken       string
+
+	auth2BearerToken string
+	url              string
 }
 
-// NewAuth2Client will use an OAuth 2.0 Bearer Token.  This allows a Twitter developer app to access information
+func NewClientAuth1(_ context.Context) (*C, error) {
+	c := new(C)
+
+	c.authenticationMethod = Auth1aUserContext
+	c.accessKey = env.TwitterAccessKey.Get()
+	c.secret = env.TwitterSecret.Get()
+	c.accessTokenSecret = env.TwitterAccessTokenSecret.Get()
+	c.accessToken = env.TwitterAccessToken.Get()
+
+	c.url = env.TwitterURL.Get()
+	client.ConstructParent(&c.Parent, func() (client.C, error) { return c, nil })
+	return c, nil
+}
+
+// NewClientAuth2 will use an OAuth 2.0 Bearer Token.  This allows a Twitter developer app to access information
 // publicly available on Twitter.  This will authenticates requests on behalf of your developer App. As this method is
 // specific to the App, it does not involve any users. This method is typically for developers that need read-only
 // access to public information.
-func NewAuth2Client() (*C, error) {
+func NewClientAuth2(_ context.Context) (*C, error) {
 	c := new(C)
 	c.auth2BearerToken = env.TwitterAuth2BearerToken.Get()
 	c.authenticationMethod = Auth2BearerToken
@@ -62,7 +85,7 @@ func NewAuth2Client() (*C, error) {
 }
 
 // NewClientConnector will connect to the client using a custom connector.
-func NewClientConnector(conn client.Connector) (*C, error) {
+func NewClientConnector(_ context.Context, conn client.Connector) (*C, error) {
 	c := new(C)
 	client.ConstructParent(&c.Parent, conn)
 	return c, nil
@@ -78,12 +101,10 @@ func (c *C) setHeaders(hreq *http.Request, creq client.Request) (e error) {
 	return
 }
 
-// Do  makes an http request to the Twitter API, given a method and an endpoint.
-func (c *C) Do(creq client.Request) (*http.Response, error) {
-	uri := c.url + creq.URIPostAuthority()
-
-	client.Logf(log.DEBUG, &creq, `{Client:{URI:%s}}`, uri)
-
+func (c *C) doDefault(creq client.Request) (*http.Response, error) {
+	// uri := c.url + creq.URIPostAuthority()
+	uri := "https://api.twitter.com/1.1/statuses/home_timeline.json?count=2"
+	fmt.Println(creq.Method())
 	hreq, err := http.NewRequest(creq.MethodStr(), uri, bytes.NewReader(creq.GetBody().Bytes()))
 	if err != nil {
 		return nil, err
@@ -91,12 +112,29 @@ func (c *C) Do(creq client.Request) (*http.Response, error) {
 	if err := c.setHeaders(hreq, creq); err != nil {
 		return nil, err
 	}
+	fmt.Printf("-->%+v\n", c.client)
 	return c.client.Do(hreq)
+}
+
+// Do  makes an http request to the Twitter API, given a method and an endpoint.
+func (c *C) Do(creq client.Request) (*http.Response, error) {
+	return c.doDefault(creq)
 }
 
 // Connect creats a new client instance
 func (c *C) Connect() error {
-	c.client = http.Client{}
+	switch c.authenticationMethod {
+	case Auth1aUserContext:
+		// config := oauth1.NewConfig(c.accessKey, c.secret)
+		// token := oauth1.NewToken(c.accessToken, c.accessTokenSecret)
+		c.client = oauth1.NewClient(context.TODO(), c.accessKey, c.secret, c.accessToken, c.accessTokenSecret)
+
+		// fmt.Println("token:", token)
+
+		fmt.Printf("->%+v\n", c.client)
+	default:
+		c.client = &http.Client{}
+	}
 	return nil
 }
 
@@ -104,6 +142,9 @@ func (c *C) Connect() error {
 func (c *C) Identifier() string {
 	return "Twitter"
 }
+
+// &{1334223508788932611-NVoJFJxVr89p2quJ91B8sE4BPe2Igc LJfRG8RfQXl9L4RQt9hQgJK4D75gy7F9kyNKSL2FC00T5glsD5}
+// &{1334223508788932611-NVoJFJxVr89p2quJ91B8sE4BPe2Igc y06ItlOlMryicPQYt6Mw513ySZyjOUiX99SsK6VYcY9mm}
 
 // SetAuthenticationMethod will set an AuthenticationMethod on the client.
 func (c *C) SetAuthenticationMethod(method AuthenticationMethod) *C {
