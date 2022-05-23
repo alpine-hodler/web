@@ -7,16 +7,13 @@ go_library(
         "http.go",
         "models.go",
         "options.go",
-        "post_authority.go",
-        "transport_auth1.go",
-        "transport_auth2.go",
+        "path.go",
     ],
     importpath = "github.com/alpine-hodler/sdk/pkg/twitter",
     visibility = ["//visibility:public"],
     deps = [
-        "//internal/client",
-        "//internal/env",
         "//pkg/scalar",
+        "//pkg/transport",
         "//tools",
     ],
 )
@@ -31,7 +28,8 @@ go_test(
     ]),
     deps = [
         ":twitter",
-        "//internal/env",
+        "//pkg/transport",
         "//tools",
+        "@com_github_joho_godotenv//:godotenv",
     ],
 )

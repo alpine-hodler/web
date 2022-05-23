@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package twitter
+package transport
 
 import (
 	"bytes"
@@ -39,76 +39,89 @@ import (
 	"time"
 )
 
-// transportAuth1 is an http.RoundTripper used to authenticate using the OAuth 1.a algorithm defined by twitter:
+// Auth1 is an http.RoundTripper used to authenticate using the OAuth 1.a algorithm defined by twitter:
 // https://developer.twitter.com/en/docs/authentication/oauth-1-0a/creating-a-signature
-type transportAuth1 struct {
+type Auth1 struct {
 	accessToken       string
 	accessTokenSecret string
 	consumerKey       string
 	consumerSecret    string
+	url               *url.URL
 }
 
-// newTransportAuth1 will return a transportAuth1
-func newTransportAuth1() *transportAuth1 {
-	return new(transportAuth1)
+// NewAuth1 will return an OAuth1 http transpoauth.
+func NewAuth1() *Auth1 {
+	return new(Auth1)
 }
 
-// RoundTrip authorizes the request with a signed OAuth1 Authorization header using the auther and TokenSource.
-func (rt *transportAuth1) RoundTrip(req *http.Request) (*http.Response, error) {
-	err := rt.setRequestAuthHeader(req)
+// RoundTrip authorizes the request with a signed OAuth1 Authorization header.
+func (auth *Auth1) RoundTrip(req *http.Request) (*http.Response, error) {
+	if auth.url == nil {
+		return nil, fmt.Errorf("url is a required value on the HTTP client's transport")
+	}
+	req.URL.Scheme = auth.url.Scheme
+	req.URL.Host = auth.url.Host
+
+	err := auth.setRequestAuthHeader(req)
 	if err != nil {
 		return nil, err
 	}
 	return http.DefaultTransport.RoundTrip(req)
 }
 
-// setConsumerKey will set the consumerKey field on transportAuth1.
-func (rt *transportAuth1) setAccessToken(val string) *transportAuth1 {
-	rt.accessToken = val
-	return rt
+// SetConsumerKey will set the consumerKey field on Auth1.
+func (auth *Auth1) SetAccessToken(val string) *Auth1 {
+	auth.accessToken = val
+	return auth
 }
 
-// setAccessTokenSecret will set the accessTokenSecret field on transportAuth1.
-func (rt *transportAuth1) setAccessTokenSecret(val string) *transportAuth1 {
-	rt.accessTokenSecret = val
-	return rt
+// SetAccessTokenSecret will set the accessTokenSecret field on Auth1.
+func (auth *Auth1) SetAccessTokenSecret(val string) *Auth1 {
+	auth.accessTokenSecret = val
+	return auth
 }
 
-// setConsumerKey will set the consumerKey field on transportAuth1.
-func (rt *transportAuth1) setConsumerKey(val string) *transportAuth1 {
-	rt.consumerKey = val
-	return rt
+// SetConsumerKey will set the consumerKey field on Auth1.
+func (auth *Auth1) SetConsumerKey(val string) *Auth1 {
+	auth.consumerKey = val
+	return auth
 }
 
-// setConsumerSecret will set the consumerSecret field on transportAuth1.
-func (rt *transportAuth1) setConsumerSecret(val string) *transportAuth1 {
-	rt.consumerSecret = val
-	return rt
+// SetConsumerSecret will set the consumerSecret field on Auth1.
+func (auth *Auth1) SetConsumerSecret(val string) *Auth1 {
+	auth.consumerSecret = val
+	return auth
 }
 
 // setRequestAuthHeader sets the OAuth1 header for making authenticated requests with an AccessToken (token credential)
 // according to RFC 5849 3.1.
-func (rt *transportAuth1) setRequestAuthHeader(req *http.Request) error {
+func (auth *Auth1) setRequestAuthHeader(req *http.Request) error {
 	oauthParams := map[string]string{
-		oauthConsumerKeyParam:     rt.consumerKey,
+		oauthConsumerKeyParam:     auth.consumerKey,
 		oauthSignatureMethodParam: defaultOauthSignatureMethod,
 		oauthTimestampParam:       strconv.FormatInt(time.Now().Unix(), 10),
 		oauthNonceParam:           nonce(),
-		oauthVersionParam:         defaultOauthVersion,
+		oauthVersionParam:         oauthVersion1,
 	}
-	oauthParams[oauthTokenParam] = rt.accessToken
+	oauthParams[oauthTokenParam] = auth.accessToken
 	params, err := collectParameters(req, oauthParams)
 	if err != nil {
 		return err
 	}
 	signatureBase := signatureBase(req, params)
-	signature, err := hmacSign(rt.consumerSecret, rt.accessTokenSecret, signatureBase, sha1.New)
+	signature, err := hmacSign(auth.consumerSecret, auth.accessTokenSecret, signatureBase, sha1.New)
 	if err != nil {
 		return err
 	}
 	oauthParams[oauthSignatureParam] = signature
 	req.Header.Set(authorizationHeaderParam, authHeaderValue(oauthParams))
 	return nil
+}
+
+// SetURL will set the key field on APIKey.
+func (auth *Auth1) SetURL(u string) *Auth1 {
+	auth.url, _ = url.Parse(u)
+	return auth
 }
 
 // baseURI returns the base string URI of a request according to RFC 5849 3.4.1.2. The scheme and host are lowercased,
@@ -229,6 +242,7 @@ func sortParameters(params map[string]string, format string) []string {
 		i++
 	}
 	sort.Strings(keys)
+
 	// parameter join
 	pairs := make([]string, len(params))
 	for i, key := range keys {

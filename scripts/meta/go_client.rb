@@ -21,6 +21,7 @@ module GoClient
           f.write("\nimport \"github.com/alpine-hodler/sdk/pkg/scalar\";")
           f.write("\nimport \"github.com/alpine-hodler/sdk/internal/serial\";")
 					f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
+					f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
           f.write(GEN_MSG)
           f.write(receivers(api_schema))
         end

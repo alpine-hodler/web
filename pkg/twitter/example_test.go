@@ -3,40 +3,44 @@ package twitter_test
 import (
 	"context"
 	"log"
+	"os"
 	"testing"
 
 	"fmt"
 
-	"github.com/alpine-hodler/sdk/internal/env"
+	"github.com/alpine-hodler/sdk/pkg/transport"
 	"github.com/alpine-hodler/sdk/pkg/twitter"
 	"github.com/alpine-hodler/sdk/tools"
+	"github.com/joho/godotenv"
 )
-
-var someAuth2BearerToken string
-
-type testOS struct{}
-
-func (tos testOS) Setenv(key, val string) {}
-
-var os = testOS{}
 
 func TestExamples(t *testing.T) {
 	defer tools.Quiet()()
 
-	env.Load(".simple-test.env")
-	env.SetAlpineHodlerLogLevel("2")
+	godotenv.Load(".simple-test.env")
 
-	t.Run("NewClientAuth1", func(t *testing.T) { ExampleNewClientAuth1() })
-	t.Run("NewClientAuth2", func(t *testing.T) { ExampleNewClientAuth2() })
+	t.Run("NewClient_oauth1", func(t *testing.T) { ExampleNewClient_oauth1() })
+	t.Run("NewClient_oauth2", func(t *testing.T) { ExampleNewClient_oauth2() })
 }
 
-func ExampleNewClientAuth1() {
-	os.Setenv("TWITTER_ACCESS_KEY", "some-twitter-access-key")
-	os.Setenv("TWITTER_SECRET", "some-twitter-secret")
-	os.Setenv("TWITTER_ACCESS_TOKEN", "some-twitter-access-token")
-	os.Setenv("TWITTER_ACCESS_TOKEN_SECRET", "some-twitter-token-secret")
+func ExampleNewClient_oauth1() {
+	// Read credentials from environment variables.
+	consumerKey := os.Getenv("TWITTER_CONSUMER_KEY")
+	consumerSecret := os.Getenv("TWITTER_CONSUMER_SECRET")
+	accessToken := os.Getenv("TWITTER_ACCESS_TOKEN")
+	accessSecret := os.Getenv("TWITTER_ACCESS_SECRET")
+	url := os.Getenv("TWITTER_URL")
 
-	client, err := twitter.NewClientAuth1(context.TODO())
+	// Initialize an Auth1 client transport.
+	oauth1 := transport.NewAuth1().
+		SetAccessToken(accessToken).
+		SetAccessTokenSecret(accessSecret).
+		SetConsumerKey(consumerKey).
+		SetConsumerSecret(consumerSecret).
+		SetURL(url)
+
+	// Initialize client using the Auth1 client transport.
+	client, err := twitter.NewClient(context.TODO(), oauth1)
 	if err != nil {
 		log.Fatalf("Error creating new client: %v", err)
 	}
@@ -50,10 +54,16 @@ func ExampleNewClientAuth1() {
 	fmt.Printf("A tweet about MongoDB: %+v\n", tweet.Data[0])
 }
 
-func ExampleNewClientAuth2() {
-	os.Setenv("TWITTER_BEARER_TOKEN", "some-twitter-bearer-token")
+func ExampleNewClient_oauth2() {
+	// Read credentials from environment variables.
+	bearerToken := os.Getenv("TWITTER_BEARER_TOKEN")
+	url := os.Getenv("TWITTER_URL")
 
-	client, err := twitter.NewClientAuth2(context.TODO())
+	// Initialize an Auth2 client transport
+	oauth2 := transport.NewAuth2().SetBearer(bearerToken).SetURL(url)
+
+	// Initialize client using the Auth2 client transport.
+	client, err := twitter.NewClient(context.TODO(), oauth2)
 	if err != nil {
 		log.Fatalf("Error creating new client: %v", err)
 	}

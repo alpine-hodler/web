@@ -3,9 +3,8 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "tools",
     srcs = [
-        "pointer.go",
+        "http.go",
         "quiet.go",
-        "uri_builder.go",
     ],
     importpath = "github.com/alpine-hodler/sdk/tools",
     visibility = ["//visibility:public"],

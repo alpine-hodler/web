@@ -17,7 +17,7 @@ class PathPart
 	def param_go_var
 		return '' unless path_param?
 
-		name.dup.gsub('}', '').gsub('{', '').to_pascal
+		name.dup.gsub('}', '').gsub('{', '').to_camel
 	end
 
 	def param_name
@@ -34,8 +34,7 @@ class PathPart
 
   def set_go_arg
     @go_arg = if path_param?
-								n = name.dup.gsub!('{', '').gsub('}', '')
-                "#{URI_BUILDER_ALIAS}.Get(#{TOOLS_PKG}.URIBuilderComponentPath, \"#{n}\")"
+								"params[\"#{name.dup.gsub!('{', '').gsub('}', '')}\"]"
               else
                 "\"#{name}\""
               end

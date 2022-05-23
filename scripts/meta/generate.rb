@@ -8,19 +8,19 @@ require_relative 'option'
 require_relative 'go_client'
 require_relative 'path_part'
 
-URI_BUILDER_ALIAS = 'builder'
+URI_BUILDER_ALIAS = 'params'
 CLIENT_ALIAS = 'c'
 CLIENT_FILENAME = 'http.go'
 CLIENT_PKG = 'client'
-CLIENT_STRUCT_NAME = 'C'
+CLIENT_STRUCT_NAME = 'Client'
 GEN_MSG = "\n// * This is a generated file, do not edit\n"
 OPTIONS_ALIAS = 'opts'
 OPTIONS_FILENAME = 'options.go'
 PARENT_DIR = File.expand_path('..', Dir.pwd)
-POST_AUTHORITY_ALIAS = 'pa'
-POST_AUTHORITY_FILENAME = 'post_authority.go'
-POST_AUTHORITY_TYPE_ALIAS = 'postAuthority'
-RETURL_ALIAS = 'm'
+POST_AUTHORITY_ALIAS = 'p'
+POST_AUTHORITY_FILENAME = 'path.go'
+POST_AUTHORITY_TYPE_ALIAS = 'rawPath'
+RETURN_ALIAS = 'm'
 TOOLS_PKG = 'tools'
 
 def generate_models

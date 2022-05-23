@@ -16,40 +16,7 @@ go get github.com/alpine-hodlr/sdk/pkg/twitter
 
 ## Creating a Client
 
-There are multiple ways to setup a Twitter environment.  See the go documentation examples for more concrete usages.
-
-### Environment File
-
-If your machine doesn't already have environment variables for the above, you can define an environment file on your machine somewhere with the environment variables defined.
-
-```.env
-# .my-env.env
-TWITTER_URL=https://api.twitter.com
-TWITTER_ACCESS_KEY=
-TWITTER_SECRET=
-TWITTER_AUTH2_BEARER_TOKEN=
-```
-
-Then use the appropriate `New*Client` function to create the client.
-
-```go
-env.Load(".my-env.env")
-auth2Client, _ := coinbase.NewAuth2Client()
-```
-
-### Custom Connector
-
-If you don't want to pass the auth variables through the environment, you can pass them inline with a custom connector.
-
-```go
-auth2Client, _ := coinbase.NewClientConnector(func() (*twitter.Client, error) {
-		c := new(twitter.C).
-			SetAuth2BearerToken(someAuth2BearerToken).
-			SetAuthenticationMethod(twitter.Auth2BearerToken).
-			SetURL("https://api.twitter.com")
-	return c, nil
-})
-```
+The `twitter.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Coinbase Pro requests.  All Twitter [authentication methods](https://developer.twitter.com/en/docs/authentication/overview) are supported.  See the documentation examples for examples.
 
 ## Development
 
@@ -60,9 +27,15 @@ Notes on developing in this package.
 You will need to [Sign up for access to the Twitter API](https://developer.twitter.com/en/docs/api-reference-index) and generate the APP keys.  Then populate the following data in `pkg/twitter/.simple-test.env`:
 ```.env
 TWITTER_URL=https://api.twitter.com
-TWITTER_ACCESS_KEY=
-TWITTER_SECRET=
+
+# OAuth2
 TWITTER_BEARER_TOKEN=
+
+# OAuth 1
+TWITTER_ACCESS_TOKEN=
+TWITTER_ACCESS_SECRET=
+TWITTER_CONSUMER_KEY=
+TWITTER_CONSUMER_SECRET=
 
 ```
 

@@ -11,7 +11,7 @@ build-meta:
 	scripts/build_meta.sh
 
 generate:
-	docker-compose -f "meta.docker-compose.yaml" run test_generate
+	# docker-compose -f "meta.docker-compose.yaml" run test_generate
 	docker-compose -f "meta.docker-compose.yaml" run generate
 
 list_pkgs:

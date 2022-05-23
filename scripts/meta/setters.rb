@@ -2,36 +2,37 @@ module Setters
   private
 
   def get_body_setter(field)
-    sig = {
-      'bool' => 'SetBodyBool',
-      'float64' => 'SetBodyFloat',
-      'int32' => 'SetBodyInt32',
-      'int' => 'SetBodyInt',
-      'string' => 'SetBodyString',
-      'time.Time' => 'SetBodyTime'
-    }[field.go_type]
+    # sig = {
+    #   'bool' => 'tools.HTTPQueryEncodeBool',
+		# 	'float64' => 'SetBodyFloat',
+    #   'int32' => 'tools.HTTPQueryEncodeInt32',
+    #   'int' => 'SetBodyInt',
+    #   'string' => 'SetBodyString',
+    #   'time.Time' => 'SetBodyTime'
+    # }[field.go_type]
 
-		sig = 'SetStringer' if sig.nil?
+    # sig = 'SetStringer' if sig.nil?
 
-    adr = field.required && !field.go_slice? ? '&' : ''
-    sig + "(\"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"
+    # adr = field.required && !field.go_slice? ? '&' : ''
+    # sig + "(\"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"
+		"tools.HTTPBodyFragment(body,  \"#{field.identifier}\", #{OPTIONS_ALIAS}.#{field.go_variable_name})"
   end
 
   def get_query_param_setter(field)
     sig = {
-      '[]string' => "\nSetQueryParamStrings",
+      '[]string' => "\ntools.HTTPQueryEncodeStrings",
 
-      'bool' => 'SetQueryParamBool',
-      'int32' => 'SetQueryParamInt32',
-      'int' => 'SetQueryParamInt',
-      'string' => 'SetQueryParamString',
-      'time.Time' => 'SetQueryParamTime'
+      'bool' => 'tools.HTTPQueryEncodeBool',
+      'int32' => 'tools.HTTPQueryEncodeInt32',
+      'int' => 'tools.HTTPQueryEncodeInt',
+      'string' => 'tools.HTTPQueryEncodeString',
+      'time.Time' => 'tools.HTTPQueryEncodeTime'
     }[field.go_type]
 
-		sig = 'SetQueryParamStringer' if sig.nil?
+    sig = 'tools.HTTPQueryEncodeStringer' if sig.nil?
 
     adr = field.required && !field.go_slice? ? '&' : ''
-    sig + "(\"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"
+    sig + "(req, \"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"
   end
 
   public
@@ -50,7 +51,7 @@ module Setters
       r_sig = "#{r_name}(#{variable_name} #{sig_go_type})"
       r_ret = "*#{struct}"
       comment = "#{r_name} sets the #{field.go_protofield_name} field on #{struct}."
-			comment += "  #{field.description}" unless field.description.nil?
+      comment += "  #{field.description}" unless field.description.nil?
 
       logic = "#{OPTIONS_ALIAS}.#{field.go_protofield_name} = #{field.ptr_go_variable};"
       logic += "return #{OPTIONS_ALIAS}"
@@ -60,26 +61,49 @@ module Setters
   end
 
   def option_body_setter(endpoint)
-    return unless endpoint.body?
+		return unless endpoint.params?
 
-    name = 'SetBody'
+    name = 'EncodeBody'
     struct = "#{endpoint.go_model_name}Options"
-    sig = "func (#{OPTIONS_ALIAS} *#{struct}) #{name}(req *#{CLIENT_PKG}.Request)"
-    setters = endpoint.body.dup.map { |field| get_body_setter(field) }.compact.flatten
-		logic = "if #{OPTIONS_ALIAS} == nil { return };"
-    logic += "req.#{setters.join(".\n")}"
-    { setter: "\n#{sig} {\n#{logic}\n}\n", name: struct }
+    sig = "func (#{OPTIONS_ALIAS} *#{struct}) #{name}() (buf io.Reader, err error)"
+		top = false
+
+		if endpoint.body?
+			setters = endpoint.body.dup.map { |field| get_body_setter(field) }.compact.flatten.join(";")
+			logic = "{\n"
+			logic +="if #{OPTIONS_ALIAS} != nil {;"
+			logic += 'body := make(map[string]interface{});'
+			logic += setters
+			logic += ';raw, err := json.Marshal(body);'
+			logic += 'if err == nil {; buf = bytes.NewBuffer(raw); };'
+			logic += '};'
+			logic += "return;\n}\n"
+		else
+			top = true
+			logic = "{return}"
+		end
+
+		{ setter: "\n#{sig} #{logic}", name: struct, top: top }
   end
 
   def option_query_params_setter(endpoint)
-    return unless endpoint.query_params?
+    return unless endpoint.params?
 
-    name = 'SetQueryParams'
+    name = 'EncodeQuery'
     struct = "#{endpoint.go_model_name}Options"
-    sig = "func (#{OPTIONS_ALIAS} *#{struct}) #{name}(req *#{CLIENT_PKG}.Request)"
-    setters = endpoint.query_params.dup.map { |field| get_query_param_setter(field) }.compact.flatten
-		logic = "if #{OPTIONS_ALIAS} == nil { return };"
-    logic += "req.#{setters.join(".\n")}"
-    { setter: "\n#{sig} {\n#{logic}\n}\n", name: struct }
+    sig = "func (#{OPTIONS_ALIAS} *#{struct}) #{name}(req *http.Request)"
+		top = false
+
+		if endpoint.query_params?
+			setters = endpoint.query_params.dup.map { |field| get_query_param_setter(field) }.compact.flatten
+			logic = "{\n"
+			logic += "if #{OPTIONS_ALIAS} != nil { #{setters.join("\n")} };"
+			logic += "return;\n}\n"
+		else
+			top = true
+			logic = "{return}"
+		end
+
+    { setter: "\n#{sig} #{logic}", name: struct, top: top }
   end
 end

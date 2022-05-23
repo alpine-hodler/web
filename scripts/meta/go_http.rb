@@ -7,19 +7,10 @@ using StringInflection
 module GoHTTP
   private
 
-  def get_http_method(endpoint)
-    {
-      'GET' => 'Get',
-      'POST' => 'Post',
-      'DELETE' => 'Delete',
-			'PUT' => 'Put'
-    }[endpoint.http_method]
-  end
-
   def path_param_args(endpoint)
     return nil unless endpoint.path_parts?
 
-    endpoint.path_params.dup.map { |part| "#{part.param_go_var.to_camel} string" }
+    endpoint.path_params.dup.map { |part| "#{part.param_go_var} string" }
   end
 
   def option_arg(endpoint)
@@ -36,7 +27,7 @@ module GoHTTP
   end
 
   def return_args(endpoint)
-		return "error" if endpoint.no_assignment?
+    return 'error' if endpoint.no_assignment?
 
     val = if endpoint.return_type.nil?
             endpoint.slice ? "[]*#{go_model_name}" : "*#{go_model_name}"
@@ -44,51 +35,35 @@ module GoHTTP
             endpoint.return_type
           end
 
-    "(#{RETURL_ALIAS} #{val}, _ error)"
+    "(#{RETURN_ALIAS} #{val}, _ error)"
   end
 
-  def fetch_call(endpoint)
-		return "Fetch().NoAssignment().JoinMessages()" if endpoint.no_assignment?
-
-    "Fetch().Assign(&#{RETURL_ALIAS}).JoinMessages()"
+  def declare_request(endpoint)
+    opts = endpoint.params? ? 'opts' : 'nil'
+    "req, _ := tools.HTTPNewRequest(\"#{endpoint.http_method}\", \"\", #{opts});"
   end
 
-  def http_call(endpoint)
-    "#{CLIENT_ALIAS}.#{get_http_method(endpoint)}(#{endpoint.go_const})"
+  def params_function(endpoint)
+    map_input = endpoint.path_parts.dup.map do |path_part|
+      next unless path_part.path_param?
+
+      "\"#{path_part.param_name}\": #{path_part.param_go_var},"
+    end
+    return 'nil' if map_input.compact.empty?
+
+    "map[string]string{\n#{map_input.join('')}\n}"
   end
 
-  def path_call endpoint
-    # PathParam("account_id", accountId).
-    fns = endpoint.path_params.dup.map { |part| "SetPathParam(\"#{part.param_name}\", #{part.param_go_var.to_camel})" }
-    return nil if fns.empty?
-    return fns[0] if fns.length == 1
+  def return_stmt(endpoint)
+    opts_var = endpoint.query_params? ? OPTIONS_ALIAS : 'nil'
 
-    fns.join('.')
-  end
-
-  def query_params_call endpoint
-    return nil unless endpoint.query_params?
-
-    "SetQueryParams(#{OPTIONS_ALIAS})"
-  end
-
-  def body_call endpoint
-    return nil unless endpoint.body?
-
-    "SetBody(client.BodyTypeJSON, #{OPTIONS_ALIAS})"
-  end
-
-  def return_stmt endpoint
-    calls = [
-      http_call(endpoint),
-      path_call(endpoint),
-      query_params_call(endpoint),
-      body_call(endpoint),
-      fetch_call(endpoint)
-    ].flatten.compact
-		return "return #{calls.join(".\n")}" if endpoint.no_assignment?
-
-    "return #{RETURL_ALIAS}, #{calls.join(".\n")}"
+    if endpoint.no_assignment?
+      "return tools.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
+        "req, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, nil)"
+    else
+      "return #{RETURN_ALIAS}, tools.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
+        "req, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, &#{RETURN_ALIAS})"
+    end
   end
 
   public
@@ -105,7 +80,7 @@ module GoHTTP
       r += ' ' + endpoint.enum_root.to_pascal
       r += sig_args(endpoint)
       r += ' ' + return_args(endpoint)
-      r += ' ' + "{\n #{return_stmt(endpoint)} \n}"
+      r += ' ' + "{\n #{declare_request(endpoint)};#{return_stmt(endpoint)} \n}"
 
       { receiver: r, name: endpoint.enum_root }
     end

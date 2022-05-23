@@ -1,8 +1,11 @@
 package twitter
 
 import (
-	"github.com/alpine-hodler/sdk/internal/client"
+	"io"
+	"net/http"
+
 	"github.com/alpine-hodler/sdk/pkg/scalar"
+	"github.com/alpine-hodler/sdk/tools"
 )
 
 // * This is a generated file, do not edit
@@ -29,6 +32,10 @@ type TweetsOptions struct {
 	// TODO
 	Ids []string `json:"ids" bson:"ids"`
 }
+
+func (opts *AllTweetsOptions) EncodeBody() (buf io.Reader, err error)      { return }
+func (opts *ComplianceJobsOptions) EncodeBody() (buf io.Reader, err error) { return }
+func (opts *TweetsOptions) EncodeBody() (buf io.Reader, err error)         { return }
 
 // SetMaxResults sets the MaxResults field on AllTweetsOptions. MaxResults are the maximum number of search results to
 // be returned by a request. A number between 10 and the system limit (currently 500). By default, a request response
@@ -58,25 +65,24 @@ func (opts *TweetsOptions) SetIds(Ids []string) *TweetsOptions {
 	return opts
 }
 
-func (opts *AllTweetsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *AllTweetsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeInt(req, "max_results", opts.MaxResults)
 	}
-	req.SetQueryParamInt("max_results", opts.MaxResults)
+	return
 }
 
-func (opts *ComplianceJobsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ComplianceJobsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeStringer(req, "type", &opts.Type)
+		tools.HTTPQueryEncodeStringer(req, "status", opts.Status)
 	}
-	req.SetQueryParamStringer("type", &opts.Type).
-		SetQueryParamStringer("status", opts.Status)
+	return
 }
 
-func (opts *TweetsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *TweetsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeStrings(req, "ids", opts.Ids)
 	}
-	req.
-		SetQueryParamStrings("ids", opts.Ids)
+	return
 }

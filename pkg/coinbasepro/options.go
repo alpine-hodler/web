@@ -1,8 +1,13 @@
 package coinbasepro
 
 import (
-	"github.com/alpine-hodler/sdk/internal/client"
+	"bytes"
+	"encoding/json"
+	"io"
+	"net/http"
+
 	"github.com/alpine-hodler/sdk/pkg/scalar"
+	"github.com/alpine-hodler/sdk/tools"
 )
 
 // * This is a generated file, do not edit
@@ -283,6 +288,34 @@ type WithdrawalFeeEstimateOptions struct {
 	CryptoAddress *string `json:"crypto_address" bson:"crypto_address"`
 	Currency      *string `json:"currency" bson:"currency"`
 }
+
+func (opts *AccountHoldsOptions) EncodeBody() (buf io.Reader, err error)          { return }
+func (opts *AccountLedgerOptions) EncodeBody() (buf io.Reader, err error)         { return }
+func (opts *AccountTransfersOptions) EncodeBody() (buf io.Reader, err error)      { return }
+func (opts *BookOptions) EncodeBody() (buf io.Reader, err error)                  { return }
+func (opts *CancelOpenOrdersOptions) EncodeBody() (buf io.Reader, err error)      { return }
+func (opts *CandlesOptions) EncodeBody() (buf io.Reader, err error)               { return }
+func (opts *CurrencyConversionOptions) EncodeBody() (buf io.Reader, err error)    { return }
+func (opts *DeleteProfileOptions) EncodeBody() (buf io.Reader, err error)         { return }
+func (opts *FillsOptions) EncodeBody() (buf io.Reader, err error)                 { return }
+func (opts *OrdersOptions) EncodeBody() (buf io.Reader, err error)                { return }
+func (opts *ProductsOptions) EncodeBody() (buf io.Reader, err error)              { return }
+func (opts *ProfileOptions) EncodeBody() (buf io.Reader, err error)               { return }
+func (opts *ProfilesOptions) EncodeBody() (buf io.Reader, err error)              { return }
+func (opts *RenameProfileOptions) EncodeBody() (buf io.Reader, err error)         { return }
+func (opts *ReportsOptions) EncodeBody() (buf io.Reader, err error)               { return }
+func (opts *TradesOptions) EncodeBody() (buf io.Reader, err error)                { return }
+func (opts *WithdrawalFeeEstimateOptions) EncodeBody() (buf io.Reader, err error) { return }
+func (opts *CoinbaseAccountDepositOptions) EncodeQuery(req *http.Request)         { return }
+func (opts *CoinbaseAccountWithdrawalOptions) EncodeQuery(req *http.Request)      { return }
+func (opts *ConvertCurrencyOptions) EncodeQuery(req *http.Request)                { return }
+func (opts *CreateOrderOptions) EncodeQuery(req *http.Request)                    { return }
+func (opts *CreateProfileOptions) EncodeQuery(req *http.Request)                  { return }
+func (opts *CreateProfileTransferOptions) EncodeQuery(req *http.Request)          { return }
+func (opts *CreateReportOptions) EncodeQuery(req *http.Request)                   { return }
+func (opts *CryptoWithdrawalOptions) EncodeQuery(req *http.Request)               { return }
+func (opts *PaymentMethodDepositOptions) EncodeQuery(req *http.Request)           { return }
+func (opts *PaymentMethodWithdrawalOptions) EncodeQuery(req *http.Request)        { return }
 
 // SetBefore sets the Before field on AccountHoldsOptions. Before is used for pagination and sets start cursor to
 // `before` date.
@@ -967,275 +1000,326 @@ func (opts *WithdrawalFeeEstimateOptions) SetCryptoAddress(CryptoAddress string)
 	return opts
 }
 
-func (opts *CoinbaseAccountDepositOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CoinbaseAccountDepositOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "coinbase_account_id", opts.CoinbaseAccountID)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountID).
-		SetBodyString("currency", &opts.Currency)
+	return
 }
 
-func (opts *CoinbaseAccountWithdrawalOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CoinbaseAccountWithdrawalOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "coinbase_account_id", opts.CoinbaseAccountID)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("coinbase_account_id", &opts.CoinbaseAccountID).
-		SetBodyString("currency", &opts.Currency)
+	return
 }
 
-func (opts *ConvertCurrencyOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ConvertCurrencyOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "from", opts.From)
+		tools.HTTPBodyFragment(body, "to", opts.To)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "nonce", opts.Nonce)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyString("from", &opts.From).
-		SetBodyString("to", &opts.To).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("nonce", opts.Nonce)
+	return
 }
 
-func (opts *CreateOrderOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CreateOrderOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "type", opts.Type)
+		tools.HTTPBodyFragment(body, "side", opts.Side)
+		tools.HTTPBodyFragment(body, "stp", opts.STP)
+		tools.HTTPBodyFragment(body, "stop", opts.Stop)
+		tools.HTTPBodyFragment(body, "stop_price", opts.StopPrice)
+		tools.HTTPBodyFragment(body, "price", opts.Price)
+		tools.HTTPBodyFragment(body, "size", opts.Size)
+		tools.HTTPBodyFragment(body, "funds", opts.Funds)
+		tools.HTTPBodyFragment(body, "product_id", opts.ProductID)
+		tools.HTTPBodyFragment(body, "time_in_force", opts.TimeInForce)
+		tools.HTTPBodyFragment(body, "cancel_after", opts.CancelAfter)
+		tools.HTTPBodyFragment(body, "post_only", opts.PostOnly)
+		tools.HTTPBodyFragment(body, "client_oid", opts.ClientOid)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetStringer("type", opts.Type).
-		SetStringer("side", &opts.Side).
-		SetStringer("stp", opts.STP).
-		SetStringer("stop", opts.Stop).
-		SetBodyFloat("stop_price", opts.StopPrice).
-		SetBodyFloat("price", opts.Price).
-		SetBodyFloat("size", opts.Size).
-		SetBodyFloat("funds", opts.Funds).
-		SetBodyString("product_id", &opts.ProductID).
-		SetStringer("time_in_force", opts.TimeInForce).
-		SetStringer("cancel_after", opts.CancelAfter).
-		SetBodyBool("post_only", opts.PostOnly).
-		SetBodyString("client_oid", opts.ClientOid)
+	return
 }
 
-func (opts *CreateProfileOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CreateProfileOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "name", opts.Name)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("name", opts.Name)
+	return
 }
 
-func (opts *CreateProfileTransferOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CreateProfileTransferOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "from", opts.From)
+		tools.HTTPBodyFragment(body, "to", opts.To)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("from", opts.From).
-		SetBodyString("to", opts.To).
-		SetBodyString("currency", opts.Currency).
-		SetBodyString("amount", opts.Amount)
+	return
 }
 
-func (opts *CreateReportOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CreateReportOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "start_date", opts.StartDate)
+		tools.HTTPBodyFragment(body, "end_date", opts.EndDate)
+		tools.HTTPBodyFragment(body, "type", opts.Type)
+		tools.HTTPBodyFragment(body, "year", opts.Year)
+		tools.HTTPBodyFragment(body, "format", opts.Format)
+		tools.HTTPBodyFragment(body, "product_id", opts.ProductID)
+		tools.HTTPBodyFragment(body, "account_id", opts.AccountID)
+		tools.HTTPBodyFragment(body, "email", opts.Email)
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("start_date", opts.StartDate).
-		SetBodyString("end_date", opts.EndDate).
-		SetStringer("type", &opts.Type).
-		SetBodyString("year", opts.Year).
-		SetStringer("format", opts.Format).
-		SetBodyString("product_id", opts.ProductID).
-		SetBodyString("account_id", opts.AccountID).
-		SetBodyString("email", opts.Email).
-		SetBodyString("profile_id", opts.ProfileID)
+	return
 }
 
-func (opts *CryptoWithdrawalOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CryptoWithdrawalOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "crypto_address", opts.CryptoAddress)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		tools.HTTPBodyFragment(body, "destination_tag", opts.DestinationTag)
+		tools.HTTPBodyFragment(body, "no_destination_tag", opts.NoDestinationTag)
+		tools.HTTPBodyFragment(body, "two_factor_code", opts.TwoFactorCode)
+		tools.HTTPBodyFragment(body, "nonce", opts.Nonce)
+		tools.HTTPBodyFragment(body, "fee", opts.Fee)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("crypto_address", &opts.CryptoAddress).
-		SetBodyString("currency", &opts.Currency).
-		SetBodyString("destination_tag", opts.DestinationTag).
-		SetBodyBool("no_destination_tag", opts.NoDestinationTag).
-		SetBodyString("two_factor_code", opts.TwoFactorCode).
-		SetBodyInt("nonce", opts.Nonce).
-		SetBodyFloat("fee", opts.Fee)
+	return
 }
 
-func (opts *PaymentMethodDepositOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *PaymentMethodDepositOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "payment_method_id", opts.PaymentMethodID)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("payment_method_id", &opts.PaymentMethodID).
-		SetBodyString("currency", &opts.Currency)
+	return
 }
 
-func (opts *PaymentMethodWithdrawalOptions) SetBody(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *PaymentMethodWithdrawalOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "profile_id", opts.ProfileID)
+		tools.HTTPBodyFragment(body, "amount", opts.Amount)
+		tools.HTTPBodyFragment(body, "payment_method_id", opts.PaymentMethodID)
+		tools.HTTPBodyFragment(body, "currency", opts.Currency)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
 	}
-	req.SetBodyString("profile_id", opts.ProfileID).
-		SetBodyFloat("amount", &opts.Amount).
-		SetBodyString("payment_method_id", &opts.PaymentMethodID).
-		SetBodyString("currency", &opts.Currency)
+	return
 }
 
-func (opts *AccountHoldsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *AccountHoldsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "before", opts.Before)
+		tools.HTTPQueryEncodeString(req, "after", opts.After)
+		tools.HTTPQueryEncodeInt(req, "limit", opts.Limit)
 	}
-	req.SetQueryParamString("before", opts.Before).
-		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", opts.Limit)
+	return
 }
 
-func (opts *AccountLedgerOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *AccountLedgerOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "start_date", opts.StartDate)
+		tools.HTTPQueryEncodeString(req, "end_date", opts.EndDate)
+		tools.HTTPQueryEncodeInt(req, "before", opts.Before)
+		tools.HTTPQueryEncodeInt(req, "after", opts.After)
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeInt(req, "limit", opts.Limit)
 	}
-	req.SetQueryParamString("start_date", opts.StartDate).
-		SetQueryParamString("end_date", opts.EndDate).
-		SetQueryParamInt("before", opts.Before).
-		SetQueryParamInt("after", opts.After).
-		SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamInt("limit", opts.Limit)
+	return
 }
 
-func (opts *AccountTransfersOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *AccountTransfersOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "before", opts.Before)
+		tools.HTTPQueryEncodeString(req, "after", opts.After)
+		tools.HTTPQueryEncodeInt(req, "limit", opts.Limit)
+		tools.HTTPQueryEncodeStringer(req, "type", opts.Type)
 	}
-	req.SetQueryParamString("before", opts.Before).
-		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", opts.Limit).
-		SetQueryParamStringer("type", opts.Type)
+	return
 }
 
-func (opts *BookOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *BookOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeInt32(req, "level", opts.Level)
 	}
-	req.SetQueryParamInt32("level", opts.Level)
+	return
 }
 
-func (opts *CancelOpenOrdersOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CancelOpenOrdersOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeString(req, "product_id", opts.ProductID)
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamString("product_id", opts.ProductID)
+	return
 }
 
-func (opts *CandlesOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CandlesOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeStringer(req, "granularity", opts.Granularity)
+		tools.HTTPQueryEncodeString(req, "start", opts.Start)
+		tools.HTTPQueryEncodeString(req, "end", opts.End)
 	}
-	req.SetQueryParamStringer("granularity", opts.Granularity).
-		SetQueryParamString("start", opts.Start).
-		SetQueryParamString("end", opts.End)
+	return
 }
 
-func (opts *CurrencyConversionOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *CurrencyConversionOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileID)
+	return
 }
 
-func (opts *DeleteProfileOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *DeleteProfileOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeString(req, "to", opts.To)
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamString("to", opts.To)
+	return
 }
 
-func (opts *FillsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *FillsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "order_id", opts.OrderID)
+		tools.HTTPQueryEncodeString(req, "product_id", opts.ProductID)
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeInt(req, "limit", opts.Limit)
+		tools.HTTPQueryEncodeInt(req, "before", opts.Before)
+		tools.HTTPQueryEncodeInt(req, "after", opts.After)
 	}
-	req.SetQueryParamString("order_id", opts.OrderID).
-		SetQueryParamString("product_id", opts.ProductID).
-		SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamInt("limit", opts.Limit).
-		SetQueryParamInt("before", opts.Before).
-		SetQueryParamInt("after", opts.After)
+	return
 }
 
-func (opts *OrdersOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *OrdersOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeString(req, "product_id", opts.ProductID)
+		tools.HTTPQueryEncodeString(req, "sortedBy", opts.SortedBy)
+		tools.HTTPQueryEncodeString(req, "sorting", opts.Sorting)
+		tools.HTTPQueryEncodeString(req, "start_date", opts.StartDate)
+		tools.HTTPQueryEncodeString(req, "end_date", opts.EndDate)
+		tools.HTTPQueryEncodeString(req, "before", opts.Before)
+		tools.HTTPQueryEncodeString(req, "after", opts.After)
+		tools.HTTPQueryEncodeInt(req, "limit", &opts.Limit)
+
+		tools.HTTPQueryEncodeStrings(req, "status", opts.Status)
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamString("product_id", opts.ProductID).
-		SetQueryParamString("sortedBy", opts.SortedBy).
-		SetQueryParamString("sorting", opts.Sorting).
-		SetQueryParamString("start_date", opts.StartDate).
-		SetQueryParamString("end_date", opts.EndDate).
-		SetQueryParamString("before", opts.Before).
-		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", &opts.Limit).
-		SetQueryParamStrings("status", opts.Status)
+	return
 }
 
-func (opts *ProductsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ProductsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "type", opts.Type)
 	}
-	req.SetQueryParamString("type", opts.Type)
+	return
 }
 
-func (opts *ProfileOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ProfileOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeBool(req, "active", opts.Active)
 	}
-	req.SetQueryParamBool("active", opts.Active)
+	return
 }
 
-func (opts *ProfilesOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ProfilesOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeBool(req, "active", opts.Active)
 	}
-	req.SetQueryParamBool("active", opts.Active)
+	return
 }
 
-func (opts *RenameProfileOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *RenameProfileOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "profile_id", opts.ProfileID)
+		tools.HTTPQueryEncodeString(req, "name", opts.Name)
 	}
-	req.SetQueryParamString("profile_id", opts.ProfileID).
-		SetQueryParamString("name", opts.Name)
+	return
 }
 
-func (opts *ReportsOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *ReportsOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "portfolio_id", opts.PortfolioID)
+		tools.HTTPQueryEncodeString(req, "after", opts.After)
+		tools.HTTPQueryEncodeInt(req, "limit", opts.Limit)
+		tools.HTTPQueryEncodeStringer(req, "type", opts.Type)
+		tools.HTTPQueryEncodeBool(req, "ignored_expired", opts.IgnoredExpired)
 	}
-	req.SetQueryParamString("portfolio_id", opts.PortfolioID).
-		SetQueryParamString("after", opts.After).
-		SetQueryParamInt("limit", opts.Limit).
-		SetQueryParamStringer("type", opts.Type).
-		SetQueryParamBool("ignored_expired", opts.IgnoredExpired)
+	return
 }
 
-func (opts *TradesOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *TradesOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeInt32(req, "limit", opts.Limit)
+		tools.HTTPQueryEncodeInt32(req, "before", opts.Before)
+		tools.HTTPQueryEncodeInt32(req, "after", opts.After)
 	}
-	req.SetQueryParamInt32("limit", opts.Limit).
-		SetQueryParamInt32("before", opts.Before).
-		SetQueryParamInt32("after", opts.After)
+	return
 }
 
-func (opts *WithdrawalFeeEstimateOptions) SetQueryParams(req *client.Request) {
-	if opts == nil {
-		return
+func (opts *WithdrawalFeeEstimateOptions) EncodeQuery(req *http.Request) {
+	if opts != nil {
+		tools.HTTPQueryEncodeString(req, "currency", opts.Currency)
+		tools.HTTPQueryEncodeString(req, "crypto_address", opts.CryptoAddress)
 	}
-	req.SetQueryParamString("currency", opts.Currency).
-		SetQueryParamString("crypto_address", opts.CryptoAddress)
+	return
 }

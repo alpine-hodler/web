@@ -1,9 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "env",
-    srcs = ["env.go"],
-    importpath = "github.com/alpine-hodler/sdk/internal/env",
-    visibility = ["//visibility:public"],
-    deps = ["@com_github_joho_godotenv//:godotenv"],
-)

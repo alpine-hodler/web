@@ -30,7 +30,7 @@ class Endpoint
     @hash = hash
     @path = hash[:path]
     @enum_root = inflector.camelize_lower(hash[:enumRoot])
-    @go_const = "#{inflector.camelize_lower(enum_root)}PostAuthority"
+    @go_const = "#{inflector.camelize_lower(enum_root)}Path"
     @description = hash[:description] || ''
     @slice = hash[:slice]
     @return_type = hash[:returnType]
