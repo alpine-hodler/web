@@ -16,6 +16,10 @@ go get github.com/alpine-hodlr/sdk/pkg/twitter
 
 The `twitter.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Twitter requests.  All Twitter [authentication methods](https://developer.twitter.com/en/docs/authentication/overview) are supported.  See the documentation for examples.
 
+Note that [basic authentication](https://developer.twitter.com/en/docs/authentication/basic-auth) is restricted to enterprise accounts and
+
+> The email and password combination are the same ones that you will use to access the enterprise API console
+
 ## Development
 
 Notes on developing in this package.
@@ -25,6 +29,10 @@ Notes on developing in this package.
 You will need to [Sign up for access to the Twitter API](https://developer.twitter.com/en/docs/api-reference-index) and generate the APP keys.  Then populate the following data in `pkg/twitter/.simple-test.env`:
 ```.env
 TWITTER_URL=https://api.twitter.com
+
+# Basic
+TWITTER_ENTERPRISE_EMAIL=
+TWITTER_ENTERPRISE_PASSWORD=
 
 # OAuth2
 TWITTER_BEARER_TOKEN=

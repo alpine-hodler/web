@@ -19,8 +19,23 @@ func TestExamples(t *testing.T) {
 
 	godotenv.Load(".simple-test.env")
 
+	t.Run("NewClient_basic", func(t *testing.T) { ExampleNewClient_basic() })
 	t.Run("NewClient_oauth1", func(t *testing.T) { ExampleNewClient_oauth1() })
 	t.Run("NewClient_oauth2", func(t *testing.T) { ExampleNewClient_oauth2() })
+}
+
+func ExampleNewClient_basic() {
+	// Read credentials from environment variables.
+	email := os.Getenv("TWITTER_ENTERPRISE_EMAIL")
+	password := os.Getenv("TWITTER_ENTERPRISE_PASSWORD")
+	url := os.Getenv("TWITTER_URL")
+
+	// Initialize an Basic client transport
+	basic := transport.NewBasic().SetEmail(email).SetPassword(password).SetURL(url)
+
+	// Initialize client using the Auth2 client transport.
+	client, _ := twitter.NewClient(context.TODO(), basic)
+	fmt.Printf("Twitter client: %+v\n", client)
 }
 
 func ExampleNewClient_oauth1() {
