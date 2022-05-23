@@ -3,9 +3,6 @@
 # Coinbase Pro API Wrapper
 
 - [Creating a Client](#creating-a-client)
-  - [Default Connector](#default-connector)
-  - [Environment File](#environment-file)
-  - [Custom Connector](#custom-connector)
 - [Development](#development)
   - [Testing](#testing)
 

@@ -3,8 +3,6 @@
 # Twitter API Wrapper
 
 - [Creating a Client](#creating-a-client)
-  - [Environment File](#environment-file)
-  - [Custom Connector](#custom-connector)
 - [Development](#development)
   - [Testing](#testing)
 
