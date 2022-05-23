@@ -17,7 +17,7 @@ go get github.com/alpine-hodlr/sdk/pkg/coinbase
 
 ## Creating a Client
 
-The `coinbasepro.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Coinbase Pro requests.  Currently the only method supported for Coinbase Pro authentication is [API key authentication](https://docs.cloud.coinbase.com/sign-in-with-coinbase/docs/api-key-authentication).  See the documentation examples for examples.
+The `coinbasepro.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Coinbase Pro requests.  Currently the only method supported for Coinbase Pro authentication is [API key authentication](https://docs.cloud.coinbase.com/sign-in-with-coinbase/docs/api-key-authentication).  See the examples for examples.
 
 ## Development
 

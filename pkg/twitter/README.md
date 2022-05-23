@@ -16,7 +16,7 @@ go get github.com/alpine-hodlr/sdk/pkg/twitter
 
 ## Creating a Client
 
-The `twitter.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Twitter requests.  All Twitter [authentication methods](https://developer.twitter.com/en/docs/authentication/overview) are supported.  See the documentation examples for examples.
+The `twitter.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Twitter requests.  All Twitter [authentication methods](https://developer.twitter.com/en/docs/authentication/overview) are supported.  See the documentation for examples.
 
 ## Development
 
