@@ -7,6 +7,8 @@ require_relative 'post_authority'
 require_relative 'option'
 require_relative 'go_client'
 require_relative 'path_part'
+require_relative 'types'
+require_relative 'types_writer'
 
 URI_BUILDER_ALIAS = 'params'
 CLIENT_ALIAS = 'c'
@@ -25,18 +27,24 @@ TOOLS_PKG = 'tools'
 
 def generate_models
   schema = []
+  types = []
   post_authority = PostAuthority.new
-  Dir.glob("#{File.dirname(__FILE__)}/schema/*").map do |dir|
-		Dir.glob("#{dir}/*.json").map do |filename|
-			scheme = Scheme.new(filename)
-			post_authority.add(scheme) unless scheme.model_only
-			schema << scheme
-		end
+  Dir.glob("#{File.dirname(__FILE__)}/schema/*").each do |dir|
+    Dir.glob("#{dir}/*.json").each do |filename|
+      if filename.include?('/types.json')
+        types << Types.new(filename)
+      else
+        scheme = Scheme.new(filename)
+        post_authority.add(scheme) unless scheme.model_only
+        schema << scheme
+      end
+    end
   end
 
   Model.write(schema)
   Option.write(schema)
   GoClient.write(schema)
+	TypesWriter.write(types)
 
   post_authority.write_sdk
 end

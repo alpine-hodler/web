@@ -29,6 +29,9 @@ services:
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
       - ./scripts/meta/inflector.rb:/usr/src/meta/inflector.rb
+      - ./scripts/meta/types.rb:/usr/src/meta/types.rb
+      - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
+      - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
     depends_on:
       - goimports
   test_generate:
@@ -57,5 +60,8 @@ services:
       - ./scripts/meta/test:/usr/src/meta/test
       - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
       - ./scripts/meta/inflector.rb:/usr/src/meta/inflector.rb
+      - ./scripts/meta/types.rb:/usr/src/meta/types.rb
+      - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
+      - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
     depends_on:
       - goimports

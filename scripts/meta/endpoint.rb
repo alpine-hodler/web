@@ -20,7 +20,8 @@ class Endpoint
     :body,
     :return_type,
     :http_method,
-    :documentation
+    :documentation,
+		:scope
 
   include Inflector
 
@@ -38,6 +39,7 @@ class Endpoint
     @documentation = hash[:documentation]
     @go_model_name = inflector.camelize_upper(enum_root)
     @go_query_param_filename = "#{api}_#{hash[:enum_roof]}.go"
+		@scope = hash[:scope]
 
     set_path_parts
     set_query_params

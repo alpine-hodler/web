@@ -1,0 +1,58 @@
+{
+	"api": "twitter",
+	"model": "bookmark",
+	"modelDescription": "TODO",
+	"modelOnly": true,
+	"modelFields": [
+		{
+			"identifier": "bookmarked",
+			"goType": "bool",
+			"description": "Bookmarked indicates whether the user has removed the Bookmark of the specified Tweet. specified Tweet as a result of this request. The returned value is false for a successful request.  If the data has been created through a POST method, Bookmarked indicates whether the user bookmarks the specified Tweet as a result of this request."
+		},
+		{
+			"identifier": "id",
+			"goType": "string",
+			"description": "ID is a unique identifier of this Tweet. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers."
+		},
+		{
+			"identifier": "text",
+			"goType": "string",
+			"description": "Text is the content of the Tweet."
+		},
+		{
+			"identifier": "created_at",
+			"goType": "time.Time",
+			"description": "CreatedAt is the creation time of the Tweet."
+		},
+		{
+			"identifier": "author_id",
+			"goType": "string",
+			"description": "Authur is the inique identifier of this user. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.\n\nYou can obtain the expanded object in includes.users by adding expansions=author_id in the request's query parameter."
+		},
+		{
+			"identifier": "conversation_id",
+			"goType": "string",
+			"description": "ConversationID is the Tweet ID of the original Tweet of the conversation (which includes direct replies, replies of replies).\n\nTo return this field, add tweet.fields=conversation_id in the request's query parameter."
+		},
+		{
+			"identifier": "in_reply_to_user_id",
+			"goType": "string",
+			"description": "InReplyToUserID indicates the user ID of the parent Tweet's author. This is returned as a string in order to avoid complications with languages and tools that cannot handle large integers.\n\nYou can obtain the expanded object in includes.users by adding expansions=in_reply_to_user_id in the request's query parameter."
+		},
+		{
+			"identifier": "referenced_tweets",
+			"goType": "[]*ReferencedTweet",
+			"description": "ReferencedTweets is a list of Tweets this Tweet refers to. For example, if the parent Tweet is a Retweet, a Retweet with comment (also known as Quoted Tweet) or a Reply, it will include the related Tweet referenced to by its parent.\n\nTo return this field, add tweet.fields=referenced_tweets in the request's query parameter."
+		},
+		{
+			"identifier": "attachments",
+			"goType": "[]Attachment",
+			"description": "Attachments specifies the type of attachments (if any) present in this Tweet. To return this field, add tweet.fields=attachments in the request's query parameter."
+		},
+		{
+			"identifier": "geo",
+			"goType": "Geo",
+			"description": "Geo contains details about the location tagged by the user in this Tweet, if they specified one. To return this field, add tweet.fields=geo in the request's query parameter."
+		}
+	]
+}

@@ -23,8 +23,21 @@ module GoPostAuthority
     map = "map[#{POST_AUTHORITY_TYPE_ALIAS}]func(map[string]string) string"
     wrapper = "#{map}{\n#{mappings.join("\n")}\n}"
 
-    "#{rec} #{sig} {return #{wrapper}[#{POST_AUTHORITY_ALIAS}](#{URI_BUILDER_ALIAS})};"
+    "#{rec} #{sig} {return #{wrapper}[#{POST_AUTHORITY_ALIAS}](#{URI_BUILDER_ALIAS})};\n"
   end
+
+	def scope_function(endpoints)
+    mappings = endpoints.dup.map { |ep| ep.scope.nil? ? nil : "#{ep.go_const}: \"#{ep.scope}\"," }.flatten.compact
+    # comment = Comment.u_format_go_comment("Get takes an #{POST_AUTHORITY_TYPE_ALIAS} const and #{POST_AUTHORITY_TYPE_ALIAS} arguments to parse the URL #{POST_AUTHORITY_TYPE_ALIAS} path.")
+    rec = "\nfunc (#{POST_AUTHORITY_ALIAS} #{POST_AUTHORITY_TYPE_ALIAS})"
+    sig = "Scope() string"
+
+    map = "map[#{POST_AUTHORITY_TYPE_ALIAS}]string"
+    wrapper = "#{map}{\n#{mappings.join("\n")}\n}"
+
+    "#{rec} #{sig} {return #{wrapper}[#{POST_AUTHORITY_ALIAS}]};\n"
+  end
+
 
   def self.pkg_name(api)
     "package #{api}"
@@ -59,6 +72,7 @@ module GoPostAuthority
           f.write(GoPostAuthority.endpoint_consts(endpoints))
           f.write(path_functions(endpoints))
           f.write(get_function(endpoints))
+					f.write(scope_function(endpoints))
         end
 
         # In addition to fixing imports, goimports also formats your code in the

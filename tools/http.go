@@ -19,6 +19,9 @@ type Options interface {
 
 type endpoint interface {
 	Path(map[string]string) string
+
+	// Scope is the OAuth 2.0 scope required to make requests to this endpoint.
+	Scope() string
 }
 
 // stringer is any type that can textualize it's value as a string.
@@ -58,6 +61,13 @@ func HTTPQueryEncodeInt(req *http.Request, key string, val *int) {
 func int32PtrString(val *int32) string {
 	if val != nil {
 		return strconv.Itoa(int(*val))
+	}
+	return ""
+}
+
+func uint8PtrString(val *uint8) string {
+	if val != nil {
+		return strconv.Itoa(int(uint8(*val)))
 	}
 	return ""
 }
@@ -108,7 +118,15 @@ func HTTPQueryEncodeTime(req *http.Request, key string, val *time.Time) {
 	}
 }
 
-// parseErrorMessage takes a response and a status and builder an error message to send to the server
+// HTTPQueryEncodeUint8 will convert auint type into a string and then add it to the query parameters of an HTTP
+// request's URL.
+func HTTPQueryEncodeUint8(req *http.Request, key string, val *uint8) {
+	if val != nil {
+		httpQueryEncode(req, key, uint8PtrString(val))
+	}
+}
+
+// parseErrorMessage takes a response and a status and builder an error message to send to the server.
 func parseErrorMessage(resp *http.Response) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -140,6 +158,10 @@ func validateResponse(res *http.Response) (err error) {
 func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
 	model interface{}) error {
 	req.URL.Path = ep.Path(params)
+	if scope := ep.Scope(); len(scope) > 0 {
+		// Add a scope to be used in the transport for oauth 2.0 requests.
+		req.Header.Set("scope", scope)
+	}
 	if opts != nil {
 		opts.EncodeQuery(req)
 	}
@@ -150,9 +172,12 @@ func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint,
 	if err := validateResponse(resp); err != nil {
 		return err
 	}
-	if err != nil {
-		return err
-	}
+	// bodyBytes, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// bodyString := string(bodyBytes)
+	// fmt.Println(bodyString)
 	if model != nil {
 		return json.NewDecoder(resp.Body).Decode(&model)
 	}

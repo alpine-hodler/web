@@ -354,3 +354,7 @@ func (p rawPath) Path(params map[string]string) string {
 		WithdrawalFeeEstimatePath:     getWithdrawalFeeEstimatePath,
 	}[p](params)
 }
+
+func (p rawPath) Scope() string {
+	return map[rawPath]string{}[p]
+}

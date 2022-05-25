@@ -41,6 +41,10 @@
 						"type": "string",
 						"description": "a url endpiont associated with the model"
 					},
+					"scope": {
+						"type": "string",
+						"description": "oauth 2.0 scope"
+					},
 					"documentation": {
 						"type": "string",
 						"description": "the api documentation url"

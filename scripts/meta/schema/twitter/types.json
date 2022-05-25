@@ -1,0 +1,40 @@
+{
+	"api": "twitter",
+	"enums": [
+		{
+			"identifier": "tweet_field",
+			"pluralize": "tweet_fields",
+			"values": ["attachments", "author_id", "context_annotations", "conversation_id", "created_at", "entities", "geo", "id", "in_reply_to_user_id", "lang", "non_public_metrics", "public_metrics", "organic_metrics", "promoted_metrics", "possibly_sensitive", "referenced_tweets", "reply_settings", "source", "text", "withheld"]
+		},
+		{
+			"identifier": "poll_field",
+			"pluralize": "poll_fields",
+			"values": ["duration_minutes", "end_datetime", "id", "options", "voting_status"]
+		},
+		{
+			"identifier": "expansion",
+			"pluralize": "expansions",
+			"values": ["attachments.poll_ids", "attachments.media_keys", "author_id", "entities.mentions.username", "geo.place_id", "in_reply_to_user_id", "referenced_tweets.id", "referenced_tweets.id.author_id"]
+		},
+		{
+			"identifier": "media_field",
+			"pluralize": "media_fields",
+			"values": ["duration_ms", "height", "media_key", "preview_image_url", "type", "url", "width", "public_metrics", "non_public_metrics", "organic_metrics", "promoted_metrics", "alt_text"]
+		},
+		{
+			"identifier": "place_field",
+			"pluralize": "place_fields",
+			"values": ["contained_within", "country", "country_code", "full_name", "geo", "id", "name", "place_type"]
+		},
+		{
+			"identifier": "user_field",
+			"pluralize": "user_fields",
+			"values": ["created_at", "description", "entities", "id", "location", "name", "pinned_tweet_id", "profile_image_url", "protected", "public_metrics", "url", "username", "verified", "withheld"]
+		},
+		{
+			"identifier": "referenced_tweet_type",
+			"pluralize": "referenced_tweet_types",
+			"values": ["retweeted", "quoted", "replied_to"]
+		}
+	]
+}
