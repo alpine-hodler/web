@@ -35,8 +35,7 @@ func TestExamples(t *testing.T) {
 	godotenv.Load(".simple-test.env")
 	newrt, err := fetchUserContextAccessToken()
 	if err != nil {
-		// t.Fatalf("Error fetching user context access token: %v", err)
-		panic(err)
+		t.Fatalf("Error fetching user context access token: %v", err)
 	}
 	os.Setenv("TWITTER_OAUTH2_USER_CONTEXT", newrt.AccessToken)
 
