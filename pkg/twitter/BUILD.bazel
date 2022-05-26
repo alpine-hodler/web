@@ -8,6 +8,7 @@ go_library(
         "models.go",
         "options.go",
         "path.go",
+        "types.go",
     ],
     importpath = "github.com/alpine-hodler/sdk/pkg/twitter",
     visibility = ["//visibility:public"],
@@ -25,11 +26,11 @@ go_test(
     data = glob([
         ".simple-test.env",
         ".test.env",
+        "refresh_token.json",
     ]),
     deps = [
         ":twitter",
         "//pkg/transport",
-        "//tools",
         "@com_github_joho_godotenv//:godotenv",
     ],
 )

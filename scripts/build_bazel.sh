@@ -10,7 +10,7 @@ bazel run //:gazelle
 # Whenever we add new go dependencies we need to update the repos through bazel
 bazel run //:gazelle-update-repos
 
-bazel build //...
+bazel build //... --spawn_strategy=standalone
 
 # run tests
-bazel test //... --test_verbose_timeout_warnings --sandbox_debug
+bazel test //... --test_verbose_timeout_warnings --sandbox_debug --spawn_strategy=standalone

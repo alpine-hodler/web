@@ -34,7 +34,8 @@ func TestExamples(t *testing.T) {
 	godotenv.Load(".simple-test.env")
 	newrt, err := fetchUserContextAccessToken()
 	if err != nil {
-		t.Fatalf("Error fetching user context access token: %v", err)
+		// t.Fatalf("Error fetching user context access token: %v", err)
+		panic(err)
 	}
 	os.Setenv("TWITTER_OAUTH2_USER_CONTEXT", newrt.AccessToken)
 
@@ -150,6 +151,8 @@ func ExampleClient_Bookmarks() {
 // fetchUserContextAccessToken returns an OAuth 2.0 User Context bearer token to test with.
 func fetchUserContextAccessToken() (*refreshToken, error) {
 	file, err := os.Open(refreshTokenFilename)
+	// file, err := os.OpenFile(refreshTokenFilename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, perm)
+
 	if err != nil {
 		return nil, err
 	}
