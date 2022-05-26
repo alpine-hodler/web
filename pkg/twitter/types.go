@@ -115,6 +115,14 @@ const (
 	UserFieldWithheld        UserField = "withheld"
 )
 
+type WithholdingScope string
+type WithholdingScopes []WithholdingScope
+
+const (
+	WithholdingScopeTweet WithholdingScope = "tweet"
+	WithholdingScopeUser  WithholdingScope = "user"
+)
+
 func (Expansion *Expansion) String() string {
 	if Expansion != nil {
 		return string(*Expansion)
@@ -241,6 +249,25 @@ func (UserFields *UserFields) String() string {
 	if UserFields != nil {
 		slice := []string{}
 		for _, val := range *UserFields {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
+
+func (WithholdingScope *WithholdingScope) String() string {
+	if WithholdingScope != nil {
+		return string(*WithholdingScope)
+	}
+	return ""
+}
+
+func (WithholdingScopes *WithholdingScopes) String() string {
+	var str string
+	if WithholdingScopes != nil {
+		slice := []string{}
+		for _, val := range *WithholdingScopes {
 			slice = append(slice, val.String())
 		}
 		str = strings.Join(slice, ",")

@@ -13,4 +13,7 @@ bazel run //:gazelle-update-repos
 bazel build //... --spawn_strategy=standalone
 
 # run tests
-bazel test //... --test_verbose_timeout_warnings --sandbox_debug --spawn_strategy=standalone
+bazel test //... \
+	--test_verbose_timeout_warnings \
+	--sandbox_debug \
+	--spawn_strategy=standalone

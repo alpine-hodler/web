@@ -158,12 +158,11 @@ func validateResponse(res *http.Response) (err error) {
 func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
 	model interface{}) error {
 	req.URL.Path = ep.Path(params)
-	if scope := ep.Scope(); len(scope) > 0 {
-		// Add a scope to be used in the transport for oauth 2.0 requests.
-		req.Header.Set("scope", scope)
-	}
 	if opts != nil {
 		opts.EncodeQuery(req)
+	}
+	if req.Body != nil {
+		req.Header.Set("content-type", "application/json")
 	}
 	resp, err := client.Do(req)
 	if err != nil {

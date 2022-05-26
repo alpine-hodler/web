@@ -35,6 +35,12 @@
 			"identifier": "referenced_tweet_type",
 			"pluralize": "referenced_tweet_types",
 			"values": ["retweeted", "quoted", "replied_to"]
+		},
+		{
+			"identifier": "withholding_scope",
+			"pluralize": "withholding_scopes",
+			"values": ["tweet", "user"],
+			"description": "WithholdingScope indicates whether the content being withheld is a Tweet or a user."
 		}
 	]
 }

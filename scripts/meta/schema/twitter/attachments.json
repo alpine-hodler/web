@@ -1,6 +1,6 @@
 {
 	"api": "twitter",
-	"model": "attachment",
+	"model": "attachments",
 	"modelDescription": "TODO",
 	"modelOnly": true,
 	"modelFields": [

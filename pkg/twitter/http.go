@@ -39,9 +39,9 @@ func (c *Client) ComplianceJobs(opts *ComplianceJobsOptions) (m []*Compliance, _
 // Tweet provided in the request body. This request requires OAuth 2.0 Authorization Code with PKCE.
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks
-func (c *Client) CreateBookmarks(userId string) (m *Bookmarks, _ error) {
-	req, _ := tools.HTTPNewRequest("POST", "", nil)
-	return m, tools.HTTPFetch(http.Client(*c), req, nil, CreateBookmarksPath, map[string]string{
+func (c *Client) CreateBookmark(userId string, opts *CreateBookmarkOptions) (m BookmarkWrite, _ error) {
+	req, _ := tools.HTTPNewRequest("POST", "", opts)
+	return m, tools.HTTPFetch(http.Client(*c), req, nil, CreateBookmarkPath, map[string]string{
 		"user_id": userId,
 	}, &m)
 }
@@ -51,9 +51,9 @@ func (c *Client) CreateBookmarks(userId string) (m *Bookmarks, _ error) {
 // request requires OAuth 2.0 Authorization Code with PKCE
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
-func (c *Client) DeleteBookmarks(userId string, tweetId string) (m *Bookmarks, _ error) {
+func (c *Client) DeleteBookmark(userId string, tweetId string) (m BookmarkWrite, _ error) {
 	req, _ := tools.HTTPNewRequest("DELETE", "", nil)
-	return m, tools.HTTPFetch(http.Client(*c), req, nil, DeleteBookmarksPath, map[string]string{
+	return m, tools.HTTPFetch(http.Client(*c), req, nil, DeleteBookmarkPath, map[string]string{
 		"user_id": userId, "tweet_id": tweetId,
 	}, &m)
 }

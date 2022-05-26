@@ -1,6 +1,8 @@
 package twitter
 
 import (
+	"bytes"
+	"encoding/json"
 	"io"
 	"net/http"
 
@@ -9,6 +11,12 @@ import (
 )
 
 // * This is a generated file, do not edit
+
+// CreateBookmarkOptions are options for API requests.
+type CreateBookmarkOptions struct {
+	// TweetID is the ID of the Tweet that you would like the user id to Bookmark.
+	TweetID *string `json:"tweet_id" bson:"tweet_id"`
+}
 
 // BookmarksOptions are options for API requests.
 type BookmarksOptions struct {
@@ -88,6 +96,7 @@ func (opts *AllTweetsOptions) EncodeBody() (buf io.Reader, err error)      { ret
 func (opts *BookmarksOptions) EncodeBody() (buf io.Reader, err error)      { return }
 func (opts *ComplianceJobsOptions) EncodeBody() (buf io.Reader, err error) { return }
 func (opts *TweetsOptions) EncodeBody() (buf io.Reader, err error)         { return }
+func (opts *CreateBookmarkOptions) EncodeQuery(req *http.Request)          { return }
 
 // SetMaxResults sets the MaxResults field on AllTweetsOptions. MaxResults are the maximum number of search results to
 // be returned by a request. A number between 10 and the system limit (currently 500). By default, a request response
@@ -187,10 +196,29 @@ func (opts *ComplianceJobsOptions) SetStatus(Status scalar.Status) *ComplianceJo
 	return opts
 }
 
+// SetTweetID sets the TweetID field on CreateBookmarkOptions. TweetID is the ID of the Tweet that you would like the
+// user id to Bookmark.
+func (opts *CreateBookmarkOptions) SetTweetID(TweetID string) *CreateBookmarkOptions {
+	opts.TweetID = &TweetID
+	return opts
+}
+
 // SetIds sets the Ids field on TweetsOptions. TODO
 func (opts *TweetsOptions) SetIds(Ids []string) *TweetsOptions {
 	opts.Ids = Ids
 	return opts
+}
+
+func (opts *CreateBookmarkOptions) EncodeBody() (buf io.Reader, err error) {
+	if opts != nil {
+		body := make(map[string]interface{})
+		tools.HTTPBodyFragment(body, "tweet_id", opts.TweetID)
+		raw, err := json.Marshal(body)
+		if err == nil {
+			buf = bytes.NewBuffer(raw)
+		}
+	}
+	return
 }
 
 func (opts *AllTweetsOptions) EncodeQuery(req *http.Request) {

@@ -14,6 +14,7 @@ import (
 
 	"github.com/alpine-hodler/sdk/pkg/transport"
 	"github.com/alpine-hodler/sdk/pkg/twitter"
+	"github.com/alpine-hodler/sdk/tools"
 	"github.com/joho/godotenv"
 )
 
@@ -29,7 +30,7 @@ type refreshToken struct {
 }
 
 func TestExamples(t *testing.T) {
-	// defer tools.Quiet()()
+	defer tools.Quiet()()
 
 	godotenv.Load(".simple-test.env")
 	newrt, err := fetchUserContextAccessToken()
@@ -42,7 +43,10 @@ func TestExamples(t *testing.T) {
 	t.Run("NewClient_basic", func(t *testing.T) { ExampleNewClient_basic() })
 	t.Run("NewClient_oauth1", func(t *testing.T) { ExampleNewClient_oauth1() })
 	t.Run("NewClient_oauth2", func(t *testing.T) { ExampleNewClient_oauth2() })
+	t.Run("CreateBookmark", func(t *testing.T) { ExampleClient_CreateBookmark() })
 	t.Run("Bookmarks", func(t *testing.T) { ExampleClient_Bookmarks() })
+	t.Run("DeleteBookmark", func(t *testing.T) { ExampleClient_DeleteBookmark() })
+
 }
 
 func ExampleNewClient_basic() {
@@ -113,6 +117,31 @@ func ExampleNewClient_oauth2() {
 	fmt.Printf("A tweet about MongoDB: %+v\n", tweet.Data[0])
 }
 
+func ExampleClient_CreateBookmark() {
+	// Read credentials from environment variables.
+	bearerToken := os.Getenv("TWITTER_OAUTH2_USER_CONTEXT")
+	url := os.Getenv("TWITTER_URL")
+	userID := os.Getenv("TWITER_USER_ID")
+
+	// Initialize an Auth1 client transport.
+	oauth2 := transport.NewAuth2().SetBearer(bearerToken).SetURL(url)
+
+	// Initialize client using the Auth1 client transport.
+	client, err := twitter.NewClient(context.TODO(), oauth2)
+	if err != nil {
+		log.Fatalf("Error creating new client: %v", err)
+	}
+
+	options := new(twitter.CreateBookmarkOptions).SetTweetID("1529619581140099072")
+
+	// Fetch some tweets to test the connection.
+	bookmarkWrite, err := client.CreateBookmark(userID, options)
+	if err != nil {
+		log.Fatalf("Error fetching MongoDB tweet: %v", err)
+	}
+	fmt.Printf("Bookmark created: %+v\n", bookmarkWrite)
+}
+
 func ExampleClient_Bookmarks() {
 	// Read credentials from environment variables.
 	bearerToken := os.Getenv("TWITTER_OAUTH2_USER_CONTEXT")
@@ -136,7 +165,7 @@ func ExampleClient_Bookmarks() {
 			twitter.TweetFieldReferencedTweets,
 			twitter.TweetFieldAttachments,
 			twitter.TweetFieldAuthorID,
-			twitter.TweetFieldContextAnnotations}).
+			twitter.TweetFieldEntities}).
 		SetExpansions(twitter.Expansions{
 			twitter.ExpansionAttachmentsMediaKeys})
 
@@ -146,6 +175,29 @@ func ExampleClient_Bookmarks() {
 		log.Fatalf("Error fetching MongoDB tweet: %v", err)
 	}
 	fmt.Printf("Bookmarks: %+v\n", bookmarks.Data[0])
+}
+
+func ExampleClient_DeleteBookmark() {
+	// Read credentials from environment variables.
+	bearerToken := os.Getenv("TWITTER_OAUTH2_USER_CONTEXT")
+	url := os.Getenv("TWITTER_URL")
+	userID := os.Getenv("TWITER_USER_ID")
+
+	// Initialize an Auth1 client transport.
+	oauth2 := transport.NewAuth2().SetBearer(bearerToken).SetURL(url)
+
+	// Initialize client using the Auth1 client transport.
+	client, err := twitter.NewClient(context.TODO(), oauth2)
+	if err != nil {
+		log.Fatalf("Error creating new client: %v", err)
+	}
+
+	// Fetch some tweets to test the connection.
+	bookmarkWrite, err := client.DeleteBookmark(userID, "1529619581140099072")
+	if err != nil {
+		log.Fatalf("Error fetching MongoDB tweet: %v", err)
+	}
+	fmt.Printf("Bookmark deleted: %+v\n", bookmarkWrite)
 }
 
 // fetchUserContextAccessToken returns an OAuth 2.0 User Context bearer token to test with.
