@@ -4,7 +4,7 @@
 
 # web
 
-This library wraps third-party API into simple go code.  See the Usages section for coverage.
+The goal of this library is to create a quick and easy way to wrap web APIs into simple go code.  See the Usages section for coverage.
 
 ## Usage
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/web/blob/main/pkg/coinbasepro/README.md)
