@@ -45,7 +45,7 @@ make
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/web/blob/main/pkg/coinbasepro#development/README.md)
 - [Twitter API](https://github.com/alpine-hodler/web/blob/main/pkg/twitter#development/README.md)
 
-## Adding an API
+## Adding a Web API
 
 - Create a new file in `scripts/meta/schema` named `your_example`.
 - Create the go package under `pkg` using [Go best practices](https://go.dev/blog/package-names#package-names).  In our example it should probably be `yourexample`.
