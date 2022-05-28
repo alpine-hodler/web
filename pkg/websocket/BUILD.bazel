@@ -9,7 +9,7 @@ go_library(
         "mock.go",
         "websocket.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/pkg/websocket",
+    importpath = "github.com/alpine-hodler/web/pkg/websocket",
     visibility = ["//visibility:public"],
     deps = ["@com_github_gorilla_websocket//:websocket"],
 )

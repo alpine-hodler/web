@@ -5,7 +5,7 @@ require 'string_inflection'
 using StringInflection
 
 # GoPostAuthority is responsible for methods that generate the endpoint.go code in
-# sdk packages
+# web packages
 module GoPostAuthority
   MSG = "\n// * This is a generated file, do not edit"
 
@@ -59,14 +59,14 @@ module GoPostAuthority
     end.join("\n\n")
   end
 
-  def write_sdk
+  def write_web
     all.each do |api, endpoints|
 			endpoints = endpoints.sort_by { |ep| ep.enum_root }
       Dir.chdir(PARENT_DIR + "/#{api}") do
         File.open(POST_AUTHORITY_FILENAME, 'w') do |f|
           f.write(GoPostAuthority.pkg_name(api))
-          f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
-					f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/internal/client\";")
+					f.write("\nimport \"github.com/alpine-hodler/web/tools\";")
           f.write(MSG)
           f.write("\ntype #{POST_AUTHORITY_TYPE_ALIAS}  uint8;")
           f.write(GoPostAuthority.endpoint_consts(endpoints))

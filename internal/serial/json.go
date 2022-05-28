@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/scalar"
+	"github.com/alpine-hodler/web/pkg/scalar"
 )
 
 // _json is meant to be used as a data type to hold data for unmarshaling

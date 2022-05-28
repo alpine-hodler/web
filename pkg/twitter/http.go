@@ -3,7 +3,7 @@ package twitter
 import (
 	"net/http"
 
-	"github.com/alpine-hodler/sdk/tools"
+	"github.com/alpine-hodler/web/tools"
 )
 
 // * This is a generated file, do not edit

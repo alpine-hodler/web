@@ -42,8 +42,8 @@ make
 
 ## Packages
 
-- [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/sdk/blob/main/pkg/coinbasepro#development/README.md)
-- [Twitter API](https://github.com/alpine-hodler/sdk/blob/main/pkg/twitter#development/README.md)
+- [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/web/blob/main/pkg/coinbasepro#development/README.md)
+- [Twitter API](https://github.com/alpine-hodler/web/blob/main/pkg/twitter#development/README.md)
 
 ## Adding an API
 
@@ -51,4 +51,4 @@ make
 - Create the go package under `pkg` using [Go best practices](https://go.dev/blog/package-names#package-names).  In our example it should probably be `yourexample`.
 - Update `meta.docker-compose.yaml` to include `- ./pkg/coinbasepro:/usr/src/yourexample` under `generate.volumes` and `test-generate.volumes`.
 - Run `make build-meta`
-- Then start adding your schemes to `scripts/meta/schema/your_example`.
+- Then start adding your schemes to `scripts/meta/schema/your_example`.  To build the schemas run `make generate`.

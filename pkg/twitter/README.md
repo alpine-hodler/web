@@ -1,4 +1,4 @@
-[![docs](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/sdk@v0.1.0-alpha/pkg/twitter)
+[![docs](https://img.shields.io/static/v1?label=coinbase&message=reference&color=blue)](https://pkg.go.dev/github.com/alpine-hodler/web@v0.1.0-alpha/pkg/twitter)
 
 # Twitter API Wrapper
 
@@ -10,7 +10,7 @@
 This package wraps the references defined by the [Twitter API](https://developer.twitter.com/en/docs/api-reference-index), and can be installed using
 
 ```
-go get github.com/alpine-hodler/sdk/pkg/twitter
+go get github.com/alpine-hodler/web/pkg/twitter
 ```
 
 ## Creating a Client

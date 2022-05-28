@@ -10,6 +10,6 @@ go_library(
         "const.go",
         "transport.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/pkg/transport",
+    importpath = "github.com/alpine-hodler/web/pkg/transport",
     visibility = ["//visibility:public"],
 )

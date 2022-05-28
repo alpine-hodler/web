@@ -1,6 +1,6 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# gazelle:prefix github.com/alpine-hodler/sdk
+# gazelle:prefix github.com/alpine-hodler/web
 
 gazelle(name = "gazelle")
 

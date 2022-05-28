@@ -11,7 +11,7 @@ go_library(
         "path.go",
         "websocket.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/pkg/coinbasepro",
+    importpath = "github.com/alpine-hodler/web/pkg/coinbasepro",
     visibility = ["//visibility:public"],
     deps = [
         "//internal/serial",

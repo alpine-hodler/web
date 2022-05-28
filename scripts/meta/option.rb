@@ -55,10 +55,10 @@ module Option
       Dir.chdir(path.to_s) do
         File.open('options.go', 'w') do |f|
           f.write("package #{api}")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/pkg/scalar\";")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/internal/serial\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/pkg/scalar\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/internal/serial\";")
           f.write("\nimport \"time\";")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/tools\";")
           f.write(Option::MSG)
           f.write(structs(api_schema))
           f.write(body_setters_top(api_schema))

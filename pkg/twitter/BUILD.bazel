@@ -10,7 +10,7 @@ go_library(
         "path.go",
         "types.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/pkg/twitter",
+    importpath = "github.com/alpine-hodler/web/pkg/twitter",
     visibility = ["//visibility:public"],
     deps = [
         "//pkg/scalar",

@@ -3,10 +3,10 @@ FROM ruby:latest
 
 WORKDIR /usr/src/meta
 
-# copy the /go partition from the sdk_go_generate container, this gives us
+# copy the /go partition from the web_go_generate container, this gives us
 # access to goimports
-COPY --from=sdk_goimports /usr/local/go /usr/local/go
-COPY --from=sdk_goimports /go /go
+COPY --from=web_goimports /usr/local/go /usr/local/go
+COPY --from=web_goimports /go /go
 COPY Gemfile ./
 COPY Gemfile.lock ./
 COPY test ./

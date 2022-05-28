@@ -3,7 +3,7 @@ package twitter
 import (
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/scalar"
+	"github.com/alpine-hodler/web/pkg/scalar"
 )
 
 // * This is a generated file, do not edit

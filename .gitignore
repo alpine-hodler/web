@@ -1,9 +1,9 @@
 __debug_bin
 .vscode
-sdk
+web
 .auth.env
 .DS_Store
 bazel-bin
 bazel-out
 bazel-testlogs
-bazel-sdk
+bazel-web

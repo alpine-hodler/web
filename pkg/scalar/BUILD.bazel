@@ -21,6 +21,6 @@ go_library(
         "time_in_force.go",
         "transfer_method.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/pkg/scalar",
+    importpath = "github.com/alpine-hodler/web/pkg/scalar",
     visibility = ["//visibility:public"],
 )

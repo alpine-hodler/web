@@ -3,7 +3,7 @@ package serial
 import (
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/scalar"
+	"github.com/alpine-hodler/web/pkg/scalar"
 )
 
 // Transform interfaces data that can be deserialized/unmarshalled by type.

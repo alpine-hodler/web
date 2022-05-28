@@ -1,4 +1,4 @@
-module github.com/alpine-hodler/sdk
+module github.com/alpine-hodler/web
 
 go 1.18
 

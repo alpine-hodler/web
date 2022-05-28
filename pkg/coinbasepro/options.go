@@ -6,8 +6,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/alpine-hodler/sdk/pkg/scalar"
-	"github.com/alpine-hodler/sdk/tools"
+	"github.com/alpine-hodler/web/pkg/scalar"
+	"github.com/alpine-hodler/web/tools"
 )
 
 // * This is a generated file, do not edit

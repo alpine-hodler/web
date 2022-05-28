@@ -26,8 +26,8 @@ module Model
       Dir.chdir(path.to_s) do
         File.open('models.go', 'w') do |f|
           f.write("package #{api}")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/pkg/scalar\";")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/internal/serial\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/pkg/scalar\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/internal/serial\";")
           f.write(Model::MSG)
           f.write(structs(api_schema))
           f.write(unmarshallers(api_schema))

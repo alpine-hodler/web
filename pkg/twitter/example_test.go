@@ -12,9 +12,9 @@ import (
 
 	"fmt"
 
-	"github.com/alpine-hodler/sdk/pkg/transport"
-	"github.com/alpine-hodler/sdk/pkg/twitter"
-	"github.com/alpine-hodler/sdk/tools"
+	"github.com/alpine-hodler/web/pkg/transport"
+	"github.com/alpine-hodler/web/pkg/twitter"
+	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 )
 

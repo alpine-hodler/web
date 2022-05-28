@@ -18,10 +18,10 @@ module GoClient
       Dir.chdir(path.to_s) do
         File.open(CLIENT_FILENAME, 'w') do |f|
           f.write("package #{api}")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/pkg/scalar\";")
-          f.write("\nimport \"github.com/alpine-hodler/sdk/internal/serial\";")
-					f.write("\nimport \"github.com/alpine-hodler/sdk/internal/client\";")
-					f.write("\nimport \"github.com/alpine-hodler/sdk/tools\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/pkg/scalar\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/internal/serial\";")
+					f.write("\nimport \"github.com/alpine-hodler/web/internal/client\";")
+					f.write("\nimport \"github.com/alpine-hodler/web/tools\";")
           f.write(GEN_MSG)
           f.write(receivers(api_schema))
         end

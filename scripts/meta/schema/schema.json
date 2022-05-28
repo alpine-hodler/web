@@ -1,6 +1,6 @@
 {
 	"type": "object",
-	"description": "Schema for sdk API data structures",
+	"description": "Schema for web API data structures",
 	"required": [
 		"api",
 		"model",

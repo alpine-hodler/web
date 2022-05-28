@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/alpine-hodler/sdk/pkg/transport"
+	"github.com/alpine-hodler/web/pkg/transport"
 )
 
 const (

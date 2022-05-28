@@ -1,7 +1,7 @@
 package coinbasepro
 
 import (
-	"github.com/alpine-hodler/sdk/pkg/websocket"
+	"github.com/alpine-hodler/web/pkg/websocket"
 
 	"golang.org/x/sync/errgroup"
 )

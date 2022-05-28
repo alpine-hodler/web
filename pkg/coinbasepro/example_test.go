@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/coinbasepro"
-	"github.com/alpine-hodler/sdk/pkg/scalar"
-	"github.com/alpine-hodler/sdk/pkg/transport"
-	"github.com/alpine-hodler/sdk/pkg/websocket"
-	"github.com/alpine-hodler/sdk/tools"
+	"github.com/alpine-hodler/web/pkg/coinbasepro"
+	"github.com/alpine-hodler/web/pkg/scalar"
+	"github.com/alpine-hodler/web/pkg/transport"
+	"github.com/alpine-hodler/web/pkg/websocket"
+	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/require"
 )

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/alpine-hodler/sdk/pkg/websocket"
+	"github.com/alpine-hodler/web/pkg/websocket"
 )
 
 func TestAsyncTickerStream(t *testing.T) {

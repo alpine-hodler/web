@@ -6,6 +6,6 @@ go_library(
         "http.go",
         "quiet.go",
     ],
-    importpath = "github.com/alpine-hodler/sdk/tools",
+    importpath = "github.com/alpine-hodler/web/tools",
     visibility = ["//visibility:public"],
 )

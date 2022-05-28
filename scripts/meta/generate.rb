@@ -46,7 +46,7 @@ def generate_models
   GoClient.write(schema)
 	TypesWriter.write(types)
 
-  post_authority.write_sdk
+  post_authority.write_web
 end
 
 generate_models
