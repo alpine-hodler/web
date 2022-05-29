@@ -15,20 +15,20 @@
 				},
 				{
 					"identifier": "type",
-					"goType": "scalar.OrderType"
+					"goType": "OrderType"
 				},
 				{
 					"identifier": "side",
-					"goType": "scalar.OrderSide",
+					"goType": "Side",
 					"required": true
 				},
 				{
 					"identifier": "stp",
-					"goType": "scalar.OrderSTP"
+					"goType": "STP"
 				},
 				{
 					"identifier": "stop",
-					"goType": "scalar.OrderStop"
+					"goType": "Stop"
 				},
 				{
 					"identifier": "stop_price",
@@ -56,11 +56,11 @@
 				},
 				{
 					"identifier": "time_in_force",
-					"goType": "scalar.TimeInForce"
+					"goType": "TimeInForce"
 				},
 				{
 					"identifier": "cancel_after",
-					"goType": "scalar.CancelAfter"
+					"goType": "CancelAfter"
 				},
 				{
 					"identifier": "post_only",
@@ -97,7 +97,7 @@
 		},
 		{
 			"identifier": "side",
-			"goType": "scalar.OrderSide"
+			"goType": "Side"
 		},
 		{
 			"identifier": "funds",
@@ -109,11 +109,11 @@
 		},
 		{
 			"identifier": "type",
-			"goType": "scalar.OrderType"
+			"goType": "OrderType"
 		},
 		{
 			"identifier": "time_in_force",
-			"goType": "scalar.TimeInForce"
+			"goType": "TimeInForce"
 		},
 		{
 			"identifier": "expire_time",
@@ -157,7 +157,7 @@
 		},
 		{
 			"identifier": "stop",
-			"goType": "scalar.OrderStop"
+			"goType": "Stop"
 		},
 		{
 			"identifier": "stop_price",

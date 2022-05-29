@@ -13,12 +13,12 @@
 				{
 					"identifier": "type",
 					"required": true,
-					"goType": "scalar.ComplianceJob",
+					"goType": "ComplianceJob",
 					"description": "Type allows to filter by job type - either by tweets or user ID. Only one filter (tweets or users) can be specified per request."
 				},
 				{
 					"identifier": "status",
-					"goType": "scalar.Status",
+					"goType": "Status",
 					"description": "Status allows to filter by job status. Only one filter can be specified per request.  Default: `all`"
 				}
 			],
@@ -38,7 +38,7 @@
 		},
 		{
 			"identifier": "type",
-			"goType": "scalar.ComplianceJob",
+			"goType": "ComplianceJob",
 			"description": "Type is the type of the job, whether tweets or users."
 		},
 		{
@@ -68,7 +68,7 @@
 		},
 		{
 			"identifier": "status",
-			"goType": "scalar.Status",
+			"goType": "Status",
 			"description": "Status is the status of this job."
 		},
 		{

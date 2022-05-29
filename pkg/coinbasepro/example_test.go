@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/alpine-hodler/web/pkg/coinbasepro"
-	"github.com/alpine-hodler/web/pkg/scalar"
 	"github.com/alpine-hodler/web/pkg/transport"
 	"github.com/alpine-hodler/web/pkg/websocket"
+	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/require"
 )
@@ -35,7 +35,7 @@ const (
 )
 
 func TestExamples(t *testing.T) {
-	// defer tools.Quiet()()
+	defer tools.Quiet()()
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// ! Make sure that these tests only run on the sandbox URL
@@ -250,7 +250,7 @@ func ExampleClient_AccountTransfers() {
 	transfers, err := client.AccountTransfers(accountID, new(coinbasepro.AccountTransfersOptions).
 		SetBefore("2010-01-01").
 		SetAfter("2080-01-01").
-		SetType(scalar.TransferMethodDeposit).
+		SetType(coinbasepro.TransferMethodDeposit).
 		SetLimit(1))
 	if err != nil {
 		log.Fatalf("Error fetching account transfers: %v", err)
@@ -385,7 +385,7 @@ func ExampleClient_Candles() {
 	candles, err := client.Candles("BTC-USD", new(coinbasepro.CandlesOptions).
 		SetStart(startTimestamp).
 		SetEnd(endTimestamp).
-		SetGranularity(scalar.Seconds60))
+		SetGranularity(coinbasepro.Granularity60))
 	if err != nil {
 		log.Fatalf("Error canceling order: %v", err)
 	}
@@ -512,12 +512,12 @@ func ExampleClient_CreateOrder() {
 
 	order, err := client.CreateOrder(new(coinbasepro.CreateOrderOptions).
 		SetProfileID(profileID).
-		SetType(scalar.OrderTypeLimit).
-		SetSide(scalar.OrderSideSell).
-		SetSTP(scalar.OrderSTP_DC).
-		SetStop(scalar.OrderStopLoss).
-		SetTimeInForce(scalar.TimeInForceGTC).
-		SetCancelAfter(scalar.CancelAfterMin).
+		SetType(coinbasepro.OrderTypeLimit).
+		SetSide(coinbasepro.SideSell).
+		SetSTP(coinbasepro.STPDc).
+		SetStop(coinbasepro.StopLoss).
+		SetTimeInForce(coinbasepro.TimeInForceGTC).
+		SetCancelAfter(coinbasepro.CancelAfterMin).
 		SetProductID(productID).
 		SetStopPrice(1.0).
 		SetSize(1.0).
@@ -564,8 +564,8 @@ func ExampleClient_CreateReport() {
 	endTimestamp := time.Date(2018, 11, 9, 18, 11, 8, 0, time.UTC).Format(time.RFC3339)
 
 	_, err = client.CreateReport(new(coinbasepro.CreateReportOptions).
-		SetType(scalar.ReportTypeFills).
-		SetFormat(scalar.FormatPDF).
+		SetType(coinbasepro.ReportTypeFills).
+		SetFormat(coinbasepro.FileFormatPdf).
 		SetProfileID(profileID).
 		SetProductID("BTC-USD").
 		SetStartDate(startTimestamp).
@@ -1066,7 +1066,7 @@ func ExampleClient_Reports() {
 		SetIgnoredExpired(true).
 		SetLimit(1).
 		SetPortfolioID(profileID).
-		SetType(scalar.ReportTypeAcccount))
+		SetType(coinbasepro.ReportTypeAccounts))
 	if err != nil {
 		log.Fatalf("Error fetching reports: %v", err)
 	}
@@ -1265,7 +1265,7 @@ func createDepositTransfer(t *testing.T, client *coinbasepro.Client, accountID s
 	transfers, err := client.AccountTransfers(accountID, new(coinbasepro.AccountTransfersOptions).
 		SetBefore("2010-01-01").
 		SetAfter("2080-01-01").
-		SetType(scalar.TransferMethodDeposit))
+		SetType(coinbasepro.TransferMethodDeposit))
 	require.NoError(t, err)
 	if len(transfers) > 0 {
 		return
@@ -1282,12 +1282,12 @@ func createDepositTransfer(t *testing.T, client *coinbasepro.Client, accountID s
 func createUnlikelyLimitOrderForCancellation(t *testing.T, client *coinbasepro.Client, profileID string, productID string) {
 	order, err := client.CreateOrder(new(coinbasepro.CreateOrderOptions).
 		SetProfileID(profileID).
-		SetType(scalar.OrderTypeLimit).
-		SetSide(scalar.OrderSideSell).
-		SetSTP(scalar.OrderSTP_DC).
-		SetStop(scalar.OrderStopLoss).
-		SetTimeInForce(scalar.TimeInForceGTC).
-		SetCancelAfter(scalar.CancelAfterMin).
+		SetType(coinbasepro.OrderTypeLimit).
+		SetSide(coinbasepro.SideSell).
+		SetSTP(coinbasepro.STPDc).
+		SetStop(coinbasepro.StopLoss).
+		SetTimeInForce(coinbasepro.TimeInForceGTC).
+		SetCancelAfter(coinbasepro.CancelAfterMin).
 		SetProductID(productID).
 		SetStopPrice(1.0).
 		SetSize(1.0).
@@ -1344,12 +1344,12 @@ func createUnlikelyLimitOrder(t *testing.T, client *coinbasepro.Client, profileI
 
 	_, err = client.CreateOrder(new(coinbasepro.CreateOrderOptions).
 		SetProfileID(profileID).
-		SetType(scalar.OrderTypeLimit).
-		SetSide(scalar.OrderSideSell).
-		SetSTP(scalar.OrderSTP_DC).
-		SetStop(scalar.OrderStopLoss).
-		SetTimeInForce(scalar.TimeInForceGTC).
-		SetCancelAfter(scalar.CancelAfterMin).
+		SetType(coinbasepro.OrderTypeLimit).
+		SetSide(coinbasepro.SideSell).
+		SetSTP(coinbasepro.STPDc).
+		SetStop(coinbasepro.StopLoss).
+		SetTimeInForce(coinbasepro.TimeInForceGTC).
+		SetCancelAfter(coinbasepro.CancelAfterMin).
 		SetProductID(productID).
 		SetStopPrice(1.0).
 		SetSize(1.0).

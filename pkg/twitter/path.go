@@ -3,6 +3,7 @@ package twitter
 import "path"
 
 // * This is a generated file, do not edit
+
 type rawPath uint8
 
 const (

@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/alpine-hodler/web/pkg/scalar"
 	"github.com/alpine-hodler/web/tools"
 )
 
@@ -72,11 +71,11 @@ type BookmarksOptions struct {
 // ComplianceJobsOptions are options for API requests.
 type ComplianceJobsOptions struct {
 	// Status allows to filter by job status. Only one filter can be specified per request. Default: `all`
-	Status *scalar.Status `json:"status" bson:"status"`
+	Status *Status `json:"status" bson:"status"`
 
 	// Type allows to filter by job type - either by tweets or user ID. Only one filter (tweets or users) can be specified
 	// per request.
-	Type scalar.ComplianceJob `json:"type" bson:"type"`
+	Type ComplianceJob `json:"type" bson:"type"`
 }
 
 // AllTweetsOptions are options for API requests.
@@ -184,14 +183,14 @@ func (opts *BookmarksOptions) SetUserFields(UserFields UserFields) *BookmarksOpt
 
 // SetType sets the Type field on ComplianceJobsOptions. Type allows to filter by job type - either by tweets or user
 // ID. Only one filter (tweets or users) can be specified per request.
-func (opts *ComplianceJobsOptions) SetType(Type scalar.ComplianceJob) *ComplianceJobsOptions {
+func (opts *ComplianceJobsOptions) SetType(Type ComplianceJob) *ComplianceJobsOptions {
 	opts.Type = Type
 	return opts
 }
 
 // SetStatus sets the Status field on ComplianceJobsOptions. Status allows to filter by job status. Only one filter can
 // be specified per request. Default: `all`
-func (opts *ComplianceJobsOptions) SetStatus(Status scalar.Status) *ComplianceJobsOptions {
+func (opts *ComplianceJobsOptions) SetStatus(Status Status) *ComplianceJobsOptions {
 	opts.Status = &Status
 	return opts
 }

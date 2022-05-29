@@ -8,5 +8,4 @@ go_library(
     ],
     importpath = "github.com/alpine-hodler/web/internal/serial",
     visibility = ["//visibility:public"],
-    deps = ["//pkg/scalar"],
 )

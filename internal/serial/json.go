@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"strconv"
 	"time"
-
-	"github.com/alpine-hodler/web/pkg/scalar"
 )
 
 // _json is meant to be used as a data type to hold data for unmarshaling
@@ -34,104 +32,9 @@ func (m _json) Unmarshal(key string, fn func(interface{}) error) error {
 	return nil
 }
 
-func (m _json) UnmarshalBidAsk(name string, v *scalar.BidAsk) error {
-	if val := m[name]; val != nil {
-		byt, err := json.Marshal(v)
-		if err != nil {
-			return err
-		}
-		*v = scalar.BidAsk(byt)
-	}
-	return nil
-}
-
 func (m _json) UnmarshalBool(name string, v *bool) error {
 	if val := m[name]; val != nil {
 		*v = val.(bool)
-	}
-	return nil
-}
-
-func (m _json) UnmarshalEntryType(name string, v *scalar.EntryType) error {
-	if val := m[name]; val != nil {
-		*v = scalar.EntryType(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalFormat(name string, v *scalar.Format) error {
-	if val := m[name]; val != nil {
-		*v = scalar.Format(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalReportType(name string, v *scalar.ReportType) error {
-	if val := m[name]; val != nil {
-		*v = scalar.ReportType(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalStatus(name string, v *scalar.Status) error {
-	if val := m[name]; val != nil {
-		*v = scalar.Status(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalSystemStatus(name string, v *scalar.SystemStatus) error {
-	if val := m[name]; val != nil {
-		*v = scalar.SystemStatus(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalOrderSide(name string, v *scalar.OrderSide) error {
-	if val := m[name]; val != nil {
-		*v = scalar.OrderSide(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalTimeInForce(name string, v *scalar.TimeInForce) error {
-	if val := m[name]; val != nil {
-		*v = scalar.TimeInForce(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalOrderSTP(name string, v *scalar.OrderSTP) error {
-	if val := m[name]; val != nil {
-		*v = scalar.OrderSTP((val.(string)))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalOrderStop(name string, v *scalar.OrderStop) error {
-	if val := m[name]; val != nil {
-		*v = scalar.OrderStop((val.(string)))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalOrderTimeInForce(name string, v *scalar.TimeInForce) error {
-	if val := m[name]; val != nil {
-		*v = scalar.TimeInForce(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalPaymentMethod(name string, v *scalar.PaymentMethod) error {
-	if val := m[name]; val != nil {
-		*v = scalar.PaymentMethod(val.(string))
-	}
-	return nil
-}
-
-func (m _json) UnmarshalOrderType(name string, v *scalar.OrderType) error {
-	if val := m[name]; val != nil {
-		*v = scalar.OrderType(val.(string))
 	}
 	return nil
 }
@@ -225,13 +128,6 @@ func (m _json) UnmarshalTime(layout string, name string, v *time.Time) (err erro
 		}
 	}
 	return err
-}
-
-func (m _json) UnmarshalTransferMethod(name string, v *scalar.TransferMethod) error {
-	if val := m[name]; val != nil {
-		*v = scalar.TransferMethod(val.(string))
-	}
-	return nil
 }
 
 func (m _json) UnmarshalUnixString(name string, v *time.Time) error {

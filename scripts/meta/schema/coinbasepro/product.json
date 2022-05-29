@@ -84,7 +84,7 @@
 		},
 		{
 			"identifier": "status",
-			"goType": "scalar.Status"
+			"goType": "Status"
 		},
 		{
 			"identifier": "status_message",

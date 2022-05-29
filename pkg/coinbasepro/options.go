@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/alpine-hodler/web/pkg/scalar"
 	"github.com/alpine-hodler/web/tools"
 )
 
@@ -65,7 +64,7 @@ type CandlesOptions struct {
 	// Granularity is one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be
 	// rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six
 	// hours, and one day, respectively.
-	Granularity *scalar.Granularity `json:"granularity" bson:"granularity"`
+	Granularity *Granularity `json:"granularity" bson:"granularity"`
 
 	// Start is a timestamp for starting range of aggregations.
 	Start *string `json:"start" bson:"start"`
@@ -73,20 +72,20 @@ type CandlesOptions struct {
 
 // CreateOrderOptions are options for API requests.
 type CreateOrderOptions struct {
-	CancelAfter *scalar.CancelAfter `json:"cancel_after" bson:"cancel_after"`
-	ClientOid   *string             `json:"client_oid" bson:"client_oid"`
-	Funds       *float64            `json:"funds" bson:"funds"`
-	PostOnly    *bool               `json:"post_only" bson:"post_only"`
-	Price       *float64            `json:"price" bson:"price"`
-	ProductID   string              `json:"product_id" bson:"product_id"`
-	ProfileID   *string             `json:"profile_id" bson:"profile_id"`
-	STP         *scalar.OrderSTP    `json:"stp" bson:"stp"`
-	Side        scalar.OrderSide    `json:"side" bson:"side"`
-	Size        *float64            `json:"size" bson:"size"`
-	Stop        *scalar.OrderStop   `json:"stop" bson:"stop"`
-	StopPrice   *float64            `json:"stop_price" bson:"stop_price"`
-	TimeInForce *scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type        *scalar.OrderType   `json:"type" bson:"type"`
+	CancelAfter *CancelAfter `json:"cancel_after" bson:"cancel_after"`
+	ClientOid   *string      `json:"client_oid" bson:"client_oid"`
+	Funds       *float64     `json:"funds" bson:"funds"`
+	PostOnly    *bool        `json:"post_only" bson:"post_only"`
+	Price       *float64     `json:"price" bson:"price"`
+	ProductID   string       `json:"product_id" bson:"product_id"`
+	ProfileID   *string      `json:"profile_id" bson:"profile_id"`
+	STP         *STP         `json:"stp" bson:"stp"`
+	Side        Side         `json:"side" bson:"side"`
+	Size        *float64     `json:"size" bson:"size"`
+	Stop        *Stop        `json:"stop" bson:"stop"`
+	StopPrice   *float64     `json:"stop_price" bson:"stop_price"`
+	TimeInForce *TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type        *OrderType   `json:"type" bson:"type"`
 }
 
 // CreateReportOptions are options for API requests.
@@ -110,9 +109,9 @@ type CreateReportOptions struct {
 	StartDate *string `json:"start_date" bson:"start_date"`
 
 	// required for 1099k-transaction-history-type reports
-	Year   *string           `json:"year" bson:"year"`
-	Format *scalar.Format    `json:"format" bson:"format"`
-	Type   scalar.ReportType `json:"type" bson:"type"`
+	Year   *string     `json:"year" bson:"year"`
+	Format *FileFormat `json:"format" bson:"format"`
+	Type   ReportType  `json:"type" bson:"type"`
 }
 
 // ConvertCurrencyOptions are options for API requests.
@@ -225,7 +224,7 @@ type ReportsOptions struct {
 
 	// Filter results by type of report (fills or account) - otc_fills: real string is otc-fills -
 	// type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real string is tax-invoice
-	Type *scalar.ReportType `json:"type" bson:"type"`
+	Type *ReportType `json:"type" bson:"type"`
 
 	// Ignore expired results
 	IgnoredExpired *bool `json:"ignored_expired" bson:"ignored_expired"`
@@ -250,8 +249,8 @@ type AccountTransfersOptions struct {
 	Before *string `json:"before" bson:"before"`
 
 	// Limit puts a limit on number of results to return.
-	Limit *int                   `json:"limit" bson:"limit"`
-	Type  *scalar.TransferMethod `json:"type" bson:"type"`
+	Limit *int            `json:"limit" bson:"limit"`
+	Type  *TransferMethod `json:"type" bson:"type"`
 }
 
 // CoinbaseAccountWithdrawalOptions are options for API requests.
@@ -395,7 +394,7 @@ func (opts *AccountTransfersOptions) SetLimit(Limit int) *AccountTransfersOption
 }
 
 // SetType sets the Type field on AccountTransfersOptions.
-func (opts *AccountTransfersOptions) SetType(Type scalar.TransferMethod) *AccountTransfersOptions {
+func (opts *AccountTransfersOptions) SetType(Type TransferMethod) *AccountTransfersOptions {
 	opts.Type = &Type
 	return opts
 }
@@ -429,7 +428,7 @@ func (opts *CancelOpenOrdersOptions) SetProductID(ProductID string) *CancelOpenO
 // SetGranularity sets the Granularity field on CandlesOptions. Granularity is one of the following values: {60, 300,
 // 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices
 // representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively.
-func (opts *CandlesOptions) SetGranularity(Granularity scalar.Granularity) *CandlesOptions {
+func (opts *CandlesOptions) SetGranularity(Granularity Granularity) *CandlesOptions {
 	opts.Granularity = &Granularity
 	return opts
 }
@@ -531,25 +530,25 @@ func (opts *CreateOrderOptions) SetProfileID(ProfileID string) *CreateOrderOptio
 }
 
 // SetType sets the Type field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetType(Type scalar.OrderType) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetType(Type OrderType) *CreateOrderOptions {
 	opts.Type = &Type
 	return opts
 }
 
 // SetSide sets the Side field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetSide(Side scalar.OrderSide) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetSide(Side Side) *CreateOrderOptions {
 	opts.Side = Side
 	return opts
 }
 
 // SetSTP sets the STP field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetSTP(STP scalar.OrderSTP) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetSTP(STP STP) *CreateOrderOptions {
 	opts.STP = &STP
 	return opts
 }
 
 // SetStop sets the Stop field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetStop(Stop scalar.OrderStop) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetStop(Stop Stop) *CreateOrderOptions {
 	opts.Stop = &Stop
 	return opts
 }
@@ -585,13 +584,13 @@ func (opts *CreateOrderOptions) SetProductID(ProductID string) *CreateOrderOptio
 }
 
 // SetTimeInForce sets the TimeInForce field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetTimeInForce(TimeInForce scalar.TimeInForce) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetTimeInForce(TimeInForce TimeInForce) *CreateOrderOptions {
 	opts.TimeInForce = &TimeInForce
 	return opts
 }
 
 // SetCancelAfter sets the CancelAfter field on CreateOrderOptions.
-func (opts *CreateOrderOptions) SetCancelAfter(CancelAfter scalar.CancelAfter) *CreateOrderOptions {
+func (opts *CreateOrderOptions) SetCancelAfter(CancelAfter CancelAfter) *CreateOrderOptions {
 	opts.CancelAfter = &CancelAfter
 	return opts
 }
@@ -651,7 +650,7 @@ func (opts *CreateReportOptions) SetEndDate(EndDate string) *CreateReportOptions
 }
 
 // SetType sets the Type field on CreateReportOptions.
-func (opts *CreateReportOptions) SetType(Type scalar.ReportType) *CreateReportOptions {
+func (opts *CreateReportOptions) SetType(Type ReportType) *CreateReportOptions {
 	opts.Type = Type
 	return opts
 }
@@ -663,7 +662,7 @@ func (opts *CreateReportOptions) SetYear(Year string) *CreateReportOptions {
 }
 
 // SetFormat sets the Format field on CreateReportOptions.
-func (opts *CreateReportOptions) SetFormat(Format scalar.Format) *CreateReportOptions {
+func (opts *CreateReportOptions) SetFormat(Format FileFormat) *CreateReportOptions {
 	opts.Format = &Format
 	return opts
 }
@@ -959,7 +958,7 @@ func (opts *ReportsOptions) SetLimit(Limit int) *ReportsOptions {
 // SetType sets the Type field on ReportsOptions. Filter results by type of report (fills or account) - otc_fills: real
 // string is otc-fills - type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real
 // string is tax-invoice
-func (opts *ReportsOptions) SetType(Type scalar.ReportType) *ReportsOptions {
+func (opts *ReportsOptions) SetType(Type ReportType) *ReportsOptions {
 	opts.Type = &Type
 	return opts
 }

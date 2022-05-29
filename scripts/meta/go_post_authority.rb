@@ -7,7 +7,7 @@ using StringInflection
 # GoPostAuthority is responsible for methods that generate the endpoint.go code in
 # web packages
 module GoPostAuthority
-  MSG = "\n// * This is a generated file, do not edit"
+  MSG = "\n// * This is a generated file, do not edit\n"
 
   def self.endpoint_consts(endpoints)
     consts = ["_ #{POST_AUTHORITY_TYPE_ALIAS} = iota"] | endpoints.dup.map { |ep| ep.go_const }.sort

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# TypesWriter will write the types file.
+# TypesWriter is a module that contains the methods used to write the type.go files for web API packages.
 module TypesWriter
   def self.apis(types)
     tree = (proc { Hash.new { |hash, key| hash[key] = [] } }).call
@@ -11,11 +11,13 @@ module TypesWriter
   def self.stringer(api_types)
     api_types.dup.map do |t|
       t.enums.dup.map do |enum|
-        logic = "\nfunc (#{enum.go_var_name} *#{enum.go_type_name}) String() string {;"
+        logic = "\n// String will convert a #{enum.go_type_name} into a string.\n"
+        logic += "func (#{enum.go_var_name} *#{enum.go_type_name}) String() string {;"
         logic += "if #{enum.go_var_name} != nil { return string(*#{enum.go_var_name}) };"
         logic += "return \"\"; };\n"
         unless enum.pluralize.nil?
-          logic += "\nfunc (#{enum.pluralize_var} *#{enum.pluralize}) String() string {;"
+          logic += "\n// String will convert a slice of #{enum.go_type_name} into a CSV.\n"
+          logic += "func (#{enum.pluralize_var} *#{enum.pluralize}) String() string {;"
           logic += 'var str string;'
           logic += "if #{enum.pluralize_var} != nil {;"
           logic += 'slice := []string{};'
@@ -31,16 +33,27 @@ module TypesWriter
     end.flatten.sort.join('')
   end
 
-  def self.enum_structures api_types
-    api_types.dup.map do |t|
-      t.enums.dup.map do |enum|
-        const_insides = enum.values.dup.map { |val| "#{val[1]} #{enum.go_type_name} = \"#{val[0]}\"" }
+  def self.enum_structure_contents(enum)
+    enum.values.dup.map do |field|
+			comment = field.go_comment.nil? ? '' : "\n#{field.go_comment}\n"
+      "#{comment}#{enum.go_type_name + field.go_field_name} #{enum.go_type_name}" \
+      " = \"#{field.identifier}\"\n"
+    end.join('')
+  end
 
-        structure = "type #{enum.go_type_name} string;"
-        structure += "type #{enum.pluralize} []#{enum.go_type_name};"
-        structure += "const (#{const_insides.join("\n")});"
-        structure
-      end
+  def self.enum_structure(api_type)
+    api_type.enums.dup.map do |enum|
+      structure = "\n#{enum.go_comment}\n"
+      structure += "type #{enum.go_type_name} string;"
+      structure += "type #{enum.pluralize} []#{enum.go_type_name};" unless enum.pluralize.nil?
+      structure += "const (#{enum_structure_contents(enum)});"
+      structure
+    end
+  end
+
+  def self.enum_structures(api_types)
+    api_types.dup.map do |api_type|
+      enum_structure(api_type)
     end.flatten.sort.join("\n")
   end
 

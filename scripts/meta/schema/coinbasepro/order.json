@@ -108,7 +108,7 @@
 		},
 		{
 			"identifier": "side",
-			"goType": "scalar.OrderSide"
+			"goType": "Side"
 		},
 		{
 			"identifier": "funds",
@@ -120,11 +120,11 @@
 		},
 		{
 			"identifier": "type",
-			"goType": "scalar.OrderType"
+			"goType": "OrderType"
 		},
 		{
 			"identifier": "time_in_force",
-			"goType": "scalar.TimeInForce"
+			"goType": "TimeInForce"
 		},
 		{
 			"identifier": "expire_time",

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'comment'
 require_relative 'inflector'
 
 # Field holds state concerning endpoints given by the meta/schema json files.  It encapsulates methods for manupilating
@@ -14,8 +15,10 @@ class Field
     :go_field_tag,
     :description,
     :hash,
-    :required
+    :required,
+		:go_comment
 
+	include Comment
   include Inflector
 
   GO_TYPES = %w(
@@ -38,7 +41,8 @@ class Field
     @go_field_name = inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_'))
     @go_field_tag = inflector.camelize_lower("#{hash[:identifier]}_json_tag")
     @description = hash[:description] || ''
-    @required = hash[:required]
+    @go_comment = format_go_comment(@description) unless @description.nil? || @description == ''
+		@required = hash[:required]
   end
 
   def custom_type?

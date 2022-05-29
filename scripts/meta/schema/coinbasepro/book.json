@@ -21,11 +21,11 @@
 	"modelFields": [
 		{
 			"identifier": "bids",
-			"goType": "scalar.BidAsk"
+			"goType": "BidAsk"
 		},
 		{
 			"identifier": "asks",
-			"goType": "scalar.BidAsk"
+			"goType": "BidAsk"
 		},
 		{
 			"identifier": "sequence",

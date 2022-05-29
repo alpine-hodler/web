@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/alpine-hodler/web/internal/serial"
-	"github.com/alpine-hodler/web/pkg/scalar"
 )
 
 // * This is a generated file, do not edit
@@ -40,7 +39,7 @@ type AccountLedger struct {
 	CreatedAt time.Time            `json:"created_at" bson:"created_at"`
 	Details   AccountLedgerDetails `json:"details" bson:"details"`
 	ID        string               `json:"id" bson:"id"`
-	Type      scalar.EntryType     `json:"type" bson:"type"`
+	Type      EntryType            `json:"type" bson:"type"`
 }
 
 // AccountLedgerDetails are the details for account history.
@@ -89,13 +88,19 @@ type BankCountry struct {
 	Name string `json:"name" bson:"name"`
 }
 
+// BidAsk is a slice of bytes that represents the bids or asks for a given product. The term "bid" refers to the highest
+// price a buyer will pay to buy a specified number of shares of a stock at any given time. The term "ask" refers to the
+// lowest price at which a seller will sell the stock. The bid price will almost always be lower than the ask or
+// “offer,” price.
+type BidAsk []byte
+
 // Book is a list of open orders for a product. The amount of detail shown can be customized with the level parameter.
 type Book struct {
-	Asks        scalar.BidAsk `json:"asks" bson:"asks"`
-	Auction     Auction       `json:"auction" bson:"auction"`
-	AuctionMode bool          `json:"auction_mode" bson:"auction_mode"`
-	Bids        scalar.BidAsk `json:"bids" bson:"bids"`
-	Sequence    float64       `json:"sequence" bson:"sequence"`
+	Asks        BidAsk  `json:"asks" bson:"asks"`
+	Auction     Auction `json:"auction" bson:"auction"`
+	AuctionMode bool    `json:"auction_mode" bson:"auction_mode"`
+	Bids        BidAsk  `json:"bids" bson:"bids"`
+	Sequence    float64 `json:"sequence" bson:"sequence"`
 }
 
 // Candle represents the historic rate for a product at a point in time.
@@ -125,36 +130,36 @@ type Candles []*Candle
 
 // CreateOrder is the server's response for placing a new order.
 type CreateOrder struct {
-	CreatedAt     time.Time          `json:"created_at" bson:"created_at"`
-	DoneAt        time.Time          `json:"done_at" bson:"done_at"`
-	DoneReason    string             `json:"done_reason" bson:"done_reason"`
-	ExpireTime    time.Time          `json:"expire_time" bson:"expire_time"`
-	FillFees      string             `json:"fill_fees" bson:"fill_fees"`
-	FilledSize    string             `json:"filled_size" bson:"filled_size"`
-	FundingAmount string             `json:"funding_amount" bson:"funding_amount"`
-	Funds         string             `json:"funds" bson:"funds"`
-	ID            string             `json:"id" bson:"id"`
-	PostOnly      bool               `json:"post_only" bson:"post_only"`
-	Price         string             `json:"price" bson:"price"`
-	ProductID     string             `json:"product_id" bson:"product_id"`
-	ProfileID     string             `json:"profile_id" bson:"profile_id"`
-	RejectReason  string             `json:"reject_reason" bson:"reject_reason"`
-	Settled       bool               `json:"settled" bson:"settled"`
-	Side          scalar.OrderSide   `json:"side" bson:"side"`
-	Size          string             `json:"size" bson:"size"`
-	SpecificFunds string             `json:"specific_funds" bson:"specific_funds"`
-	Status        string             `json:"status" bson:"status"`
-	Stop          scalar.OrderStop   `json:"stop" bson:"stop"`
-	StopPrice     string             `json:"stop_price" bson:"stop_price"`
-	TimeInForce   scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type          scalar.OrderType   `json:"type" bson:"type"`
+	CreatedAt     time.Time   `json:"created_at" bson:"created_at"`
+	DoneAt        time.Time   `json:"done_at" bson:"done_at"`
+	DoneReason    string      `json:"done_reason" bson:"done_reason"`
+	ExpireTime    time.Time   `json:"expire_time" bson:"expire_time"`
+	FillFees      string      `json:"fill_fees" bson:"fill_fees"`
+	FilledSize    string      `json:"filled_size" bson:"filled_size"`
+	FundingAmount string      `json:"funding_amount" bson:"funding_amount"`
+	Funds         string      `json:"funds" bson:"funds"`
+	ID            string      `json:"id" bson:"id"`
+	PostOnly      bool        `json:"post_only" bson:"post_only"`
+	Price         string      `json:"price" bson:"price"`
+	ProductID     string      `json:"product_id" bson:"product_id"`
+	ProfileID     string      `json:"profile_id" bson:"profile_id"`
+	RejectReason  string      `json:"reject_reason" bson:"reject_reason"`
+	Settled       bool        `json:"settled" bson:"settled"`
+	Side          Side        `json:"side" bson:"side"`
+	Size          string      `json:"size" bson:"size"`
+	SpecificFunds string      `json:"specific_funds" bson:"specific_funds"`
+	Status        string      `json:"status" bson:"status"`
+	Stop          Stop        `json:"stop" bson:"stop"`
+	StopPrice     string      `json:"stop_price" bson:"stop_price"`
+	TimeInForce   TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type          OrderType   `json:"type" bson:"type"`
 }
 
 // CreateReport represents information for a report created through the client.
 type CreateReport struct {
-	ID     string            `json:"id" bson:"id"`
-	Status scalar.Status     `json:"status" bson:"status"`
-	Type   scalar.ReportType `json:"type" bson:"type"`
+	ID     string     `json:"id" bson:"id"`
+	Status Status     `json:"status" bson:"status"`
+	Type   ReportType `json:"type" bson:"type"`
 }
 
 // CryptoAccount references a crypto account that a CoinbasePaymentMethod belongs to
@@ -324,29 +329,29 @@ type OraclePrices struct {
 
 // Order is an open order.
 type Order struct {
-	CreatedAt      time.Time          `json:"created_at" bson:"created_at"`
-	DoneAt         time.Time          `json:"done_at" bson:"done_at"`
-	DoneReason     string             `json:"done_reason" bson:"done_reason"`
-	ExecutedValue  string             `json:"executed_value" bson:"executed_value"`
-	ExpireTime     time.Time          `json:"expire_time" bson:"expire_time"`
-	FillFees       string             `json:"fill_fees" bson:"fill_fees"`
-	FilledSize     string             `json:"filled_size" bson:"filled_size"`
-	FundingAmount  string             `json:"funding_amount" bson:"funding_amount"`
-	Funds          string             `json:"funds" bson:"funds"`
-	ID             string             `json:"id" bson:"id"`
-	PostOnly       bool               `json:"post_only" bson:"post_only"`
-	Price          string             `json:"price" bson:"price"`
-	ProductID      string             `json:"product_id" bson:"product_id"`
-	RejectReason   string             `json:"reject_reason" bson:"reject_reason"`
-	Settled        bool               `json:"settled" bson:"settled"`
-	Side           scalar.OrderSide   `json:"side" bson:"side"`
-	Size           string             `json:"size" bson:"size"`
-	SpecifiedFunds string             `json:"specified_funds" bson:"specified_funds"`
-	Status         string             `json:"status" bson:"status"`
-	Stop           string             `json:"stop" bson:"stop"`
-	StopPrice      string             `json:"stop_price" bson:"stop_price"`
-	TimeInForce    scalar.TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type           scalar.OrderType   `json:"type" bson:"type"`
+	CreatedAt      time.Time   `json:"created_at" bson:"created_at"`
+	DoneAt         time.Time   `json:"done_at" bson:"done_at"`
+	DoneReason     string      `json:"done_reason" bson:"done_reason"`
+	ExecutedValue  string      `json:"executed_value" bson:"executed_value"`
+	ExpireTime     time.Time   `json:"expire_time" bson:"expire_time"`
+	FillFees       string      `json:"fill_fees" bson:"fill_fees"`
+	FilledSize     string      `json:"filled_size" bson:"filled_size"`
+	FundingAmount  string      `json:"funding_amount" bson:"funding_amount"`
+	Funds          string      `json:"funds" bson:"funds"`
+	ID             string      `json:"id" bson:"id"`
+	PostOnly       bool        `json:"post_only" bson:"post_only"`
+	Price          string      `json:"price" bson:"price"`
+	ProductID      string      `json:"product_id" bson:"product_id"`
+	RejectReason   string      `json:"reject_reason" bson:"reject_reason"`
+	Settled        bool        `json:"settled" bson:"settled"`
+	Side           Side        `json:"side" bson:"side"`
+	Size           string      `json:"size" bson:"size"`
+	SpecifiedFunds string      `json:"specified_funds" bson:"specified_funds"`
+	Status         string      `json:"status" bson:"status"`
+	Stop           string      `json:"stop" bson:"stop"`
+	StopPrice      string      `json:"stop_price" bson:"stop_price"`
+	TimeInForce    TimeInForce `json:"time_in_force" bson:"time_in_force"`
+	Type           OrderType   `json:"type" bson:"type"`
 }
 
 // PaymentMethod is a payment method used on coinbase
@@ -403,26 +408,26 @@ type PickerData struct {
 
 // Product represents a currency pair available for trading.
 type Product struct {
-	AuctionMode           bool          `json:"auction_mode" bson:"auction_mode"`
-	BaseCurrency          string        `json:"base_currency" bson:"base_currency"`
-	BaseIncrement         string        `json:"base_increment" bson:"base_increment"`
-	BaseMaxSize           string        `json:"base_max_size" bson:"base_max_size"`
-	BaseMinSize           string        `json:"base_min_size" bson:"base_min_size"`
-	CancelOnly            bool          `json:"cancel_only" bson:"cancel_only"`
-	DisplayName           string        `json:"display_name" bson:"display_name"`
-	FxStablecoin          bool          `json:"fx_stablecoin" bson:"fx_stablecoin"`
-	ID                    string        `json:"id" bson:"id"`
-	LimitOnly             bool          `json:"limit_only" bson:"limit_only"`
-	MarginEnabled         bool          `json:"margin_enabled" bson:"margin_enabled"`
-	MaxMarketFunds        string        `json:"max_market_funds" bson:"max_market_funds"`
-	MaxSlippagePercentage string        `json:"max_slippage_percentage" bson:"max_slippage_percentage"`
-	MinMarketFunds        string        `json:"min_market_funds" bson:"min_market_funds"`
-	PostOnly              bool          `json:"post_only" bson:"post_only"`
-	QuoteCurrency         string        `json:"quote_currency" bson:"quote_currency"`
-	QuoteIncrement        string        `json:"quote_increment" bson:"quote_increment"`
-	Status                scalar.Status `json:"status" bson:"status"`
-	StatusMessage         string        `json:"status_message" bson:"status_message"`
-	TradingDisabled       bool          `json:"trading_disabled" bson:"trading_disabled"`
+	AuctionMode           bool   `json:"auction_mode" bson:"auction_mode"`
+	BaseCurrency          string `json:"base_currency" bson:"base_currency"`
+	BaseIncrement         string `json:"base_increment" bson:"base_increment"`
+	BaseMaxSize           string `json:"base_max_size" bson:"base_max_size"`
+	BaseMinSize           string `json:"base_min_size" bson:"base_min_size"`
+	CancelOnly            bool   `json:"cancel_only" bson:"cancel_only"`
+	DisplayName           string `json:"display_name" bson:"display_name"`
+	FxStablecoin          bool   `json:"fx_stablecoin" bson:"fx_stablecoin"`
+	ID                    string `json:"id" bson:"id"`
+	LimitOnly             bool   `json:"limit_only" bson:"limit_only"`
+	MarginEnabled         bool   `json:"margin_enabled" bson:"margin_enabled"`
+	MaxMarketFunds        string `json:"max_market_funds" bson:"max_market_funds"`
+	MaxSlippagePercentage string `json:"max_slippage_percentage" bson:"max_slippage_percentage"`
+	MinMarketFunds        string `json:"min_market_funds" bson:"min_market_funds"`
+	PostOnly              bool   `json:"post_only" bson:"post_only"`
+	QuoteCurrency         string `json:"quote_currency" bson:"quote_currency"`
+	QuoteIncrement        string `json:"quote_increment" bson:"quote_increment"`
+	Status                Status `json:"status" bson:"status"`
+	StatusMessage         string `json:"status_message" bson:"status_message"`
+	TradingDisabled       bool   `json:"trading_disabled" bson:"trading_disabled"`
 }
 
 // ProductStats are 30day and 24hour stats for a product.
@@ -465,29 +470,29 @@ type RecurringOptions struct {
 
 // Report represents a list of past fills/account reports.
 type Report struct {
-	CreatedAt time.Time         `json:"created_at" bson:"created_at"`
-	ExpiresAt time.Time         `json:"expires_at" bson:"expires_at"`
-	FileCount string            `json:"file_count" bson:"file_count"`
-	FileURL   string            `json:"file_url" bson:"file_url"`
-	ID        string            `json:"id" bson:"id"`
-	Params    ReportsParams     `json:"params" bson:"params"`
-	Status    scalar.Status     `json:"status" bson:"status"`
-	Type      scalar.ReportType `json:"type" bson:"type"`
-	UpdatedAt time.Time         `json:"updated_at" bson:"updated_at"`
-	UserID    string            `json:"user_id" bson:"user_id"`
+	CreatedAt time.Time     `json:"created_at" bson:"created_at"`
+	ExpiresAt time.Time     `json:"expires_at" bson:"expires_at"`
+	FileCount string        `json:"file_count" bson:"file_count"`
+	FileURL   string        `json:"file_url" bson:"file_url"`
+	ID        string        `json:"id" bson:"id"`
+	Params    ReportsParams `json:"params" bson:"params"`
+	Status    Status        `json:"status" bson:"status"`
+	Type      ReportType    `json:"type" bson:"type"`
+	UpdatedAt time.Time     `json:"updated_at" bson:"updated_at"`
+	UserID    string        `json:"user_id" bson:"user_id"`
 }
 
 // TODO
 type ReportsParams struct {
-	AccountID    string        `json:"account_id" bson:"account_id"`
-	Email        string        `json:"email" bson:"email"`
-	EndDate      time.Time     `json:"end_date" bson:"end_date"`
-	Format       scalar.Format `json:"format" bson:"format"`
-	NewYorkState bool          `json:"new_york_state" bson:"new_york_state"`
-	ProductID    string        `json:"product_id" bson:"product_id"`
-	ProfileID    string        `json:"profile_id" bson:"profile_id"`
-	StartDate    time.Time     `json:"start_date" bson:"start_date"`
-	User         User          `json:"user" bson:"user"`
+	AccountID    string     `json:"account_id" bson:"account_id"`
+	Email        string     `json:"email" bson:"email"`
+	EndDate      time.Time  `json:"end_date" bson:"end_date"`
+	Format       FileFormat `json:"format" bson:"format"`
+	NewYorkState bool       `json:"new_york_state" bson:"new_york_state"`
+	ProductID    string     `json:"product_id" bson:"product_id"`
+	ProfileID    string     `json:"profile_id" bson:"profile_id"`
+	StartDate    time.Time  `json:"start_date" bson:"start_date"`
+	User         User       `json:"user" bson:"user"`
 }
 
 // TODO
@@ -539,11 +544,11 @@ type Ticker struct {
 
 // Trade is the list the latest trades for a product.
 type Trade struct {
-	Price   string           `json:"price" bson:"price"`
-	Side    scalar.OrderSide `json:"side" bson:"side"`
-	Size    string           `json:"size" bson:"size"`
-	Time    time.Time        `json:"time" bson:"time"`
-	TradeID int32            `json:"trade_id" bson:"trade_id"`
+	Price   string    `json:"price" bson:"price"`
+	Side    Side      `json:"side" bson:"side"`
+	Size    string    `json:"size" bson:"size"`
+	Time    time.Time `json:"time" bson:"time"`
+	TradeID int32     `json:"trade_id" bson:"trade_id"`
 }
 
 // Transfer will lists past withdrawals and deposits for an account.
@@ -663,6 +668,9 @@ type Withdrawal struct {
 type WithdrawalFeeEstimate struct {
 	Fee float64 `json:"fee" bson:"fee"`
 }
+
+// UnmarshalJSON will deserialize bytes into a BidAsk model
+func (ba *BidAsk) UnmarshalJSON(b []byte) error { *ba = BidAsk(b); return nil }
 
 // UnmarshalJSON will deserialize bytes into a Candles model
 func (candles *Candles) UnmarshalJSON(bytes []byte) error {

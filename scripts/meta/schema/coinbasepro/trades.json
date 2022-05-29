@@ -33,7 +33,7 @@
 		},
 		{
 			"identifier": "side",
-			"goType": "scalar.OrderSide"
+			"goType": "Side"
 		},
 		{
 			"identifier": "size",

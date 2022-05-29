@@ -14,7 +14,7 @@
 		},
 		{
 			"identifier": "format",
-			"goType": "scalar.Format"
+			"goType": "FileFormat"
 		},
 		{
 			"identifier": "product_id",

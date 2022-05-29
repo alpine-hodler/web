@@ -62,7 +62,7 @@
 		},
 		{
 			"identifier": "type",
-			"goType": "scalar.EntryType"
+			"goType": "EntryType"
 		},
 		{
 			"identifier": "details",

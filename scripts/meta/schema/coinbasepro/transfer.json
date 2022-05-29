@@ -27,7 +27,7 @@
 				},
 				{
 					"identifier": "type",
-					"goType": "scalar.TransferMethod"
+					"goType": "TransferMethod"
 				}
 			],
 			"description": "AccountTransfers returns past withdrawals and deposits for an account."

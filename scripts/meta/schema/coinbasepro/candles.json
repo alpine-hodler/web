@@ -12,7 +12,7 @@
 			"queryParams": [
 				{
 					"identifier": "granularity",
-					"goType": "scalar.Granularity",
+					"goType": "Granularity",
 					"description": "Granularity is one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six hours, and one day, respectively."
 				},
 				{

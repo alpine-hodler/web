@@ -1,10 +1,6 @@
 package twitter
 
-import (
-	"time"
-
-	"github.com/alpine-hodler/web/pkg/scalar"
-)
+import "time"
 
 // * This is a generated file, do not edit
 
@@ -175,10 +171,10 @@ type Compliance struct {
 	Name string `json:"name" bson:"name"`
 
 	// Status is the status of this job.
-	Status scalar.Status `json:"status" bson:"status"`
+	Status Status `json:"status" bson:"status"`
 
 	// Type is the type of the job, whether tweets or users.
-	Type scalar.ComplianceJob `json:"type" bson:"type"`
+	Type ComplianceJob `json:"type" bson:"type"`
 
 	// UploadExpiresAt represents the date and time until which the upload URL will be available (usually 15 minutes from
 	// the request time).
