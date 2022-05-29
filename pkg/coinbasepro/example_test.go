@@ -12,7 +12,6 @@ import (
 	"github.com/alpine-hodler/web/pkg/scalar"
 	"github.com/alpine-hodler/web/pkg/transport"
 	"github.com/alpine-hodler/web/pkg/websocket"
-	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/require"
 )
@@ -36,7 +35,7 @@ const (
 )
 
 func TestExamples(t *testing.T) {
-	defer tools.Quiet()()
+	// defer tools.Quiet()()
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// ! Make sure that these tests only run on the sandbox URL
@@ -59,6 +58,9 @@ func TestExamples(t *testing.T) {
 		log.Fatalf("Error creating client: %v", err)
 	}
 
+	// Cancel all orders before creating the new ones.
+	cancelOpenOrders(t, client)
+
 	// Set environment variables for integration test.
 	os.Setenv(testProductID, exampleProductID)
 	setAccountEnvVariables(t, client, exampleCurrency)
@@ -68,50 +70,50 @@ func TestExamples(t *testing.T) {
 	createUnlikelyLimitOrderForCancellation(t, client, os.Getenv(testProfileID), os.Getenv(testProductID))
 
 	// Run Examples
-	t.Run("C.Account", func(t *testing.T) { ExampleClient_Account() })
-	t.Run("C.AccountHolds", func(t *testing.T) { ExampleClient_AccountHolds() })
-	t.Run("C.AccountLedger", func(t *testing.T) { ExampleClient_AccountLedger() })
-	t.Run("C.AccountTransfers", func(t *testing.T) { ExampleClient_AccountTransfers() })
-	t.Run("C.Accounts", func(t *testing.T) { ExampleClient_Accounts() })
-	t.Run("C.Book", func(t *testing.T) { ExampleClient_Book() })
-	t.Run("C.CancelOpenOrders", func(t *testing.T) { ExampleClient_CancelOpenOrders() })
-	t.Run("C.CancelOrder", func(t *testing.T) { ExampleClient_CancelOrder() })
-	t.Run("C.Candles", func(t *testing.T) { ExampleClient_Candles() })
-	t.Run("C.CoinbaseAccountDeposit", func(t *testing.T) { ExampleClient_CoinbaseAccountDeposit() })
-	t.Run("C.CoinbaseAccountWithdrawal", func(t *testing.T) { ExampleClient_CoinbaseAccountWithdrawal() })
-	t.Run("C.ConvertCurrency", func(t *testing.T) { ExampleClient_ConvertCurrency() })
-	t.Run("C.CreateOrder", func(t *testing.T) { ExampleClient_CreateOrder() })
-	t.Run("C.CreateProfile", func(t *testing.T) { ExampleClient_CreateProfile() })
-	t.Run("C.CreateProfileTransfer", func(t *testing.T) { ExampleClient_CreateProfileTransfer() })
-	t.Run("C.CreateReport", func(t *testing.T) { ExampleClient_CreateReport() })
-	t.Run("C.CryptoWithdrawal", func(t *testing.T) { ExampleClient_CryptoWithdrawal() })
-	t.Run("C.Currencies", func(t *testing.T) { ExampleClient_Currencies() })
-	t.Run("C.Currency", func(t *testing.T) { ExampleClient_Currency() })
-	t.Run("C.DeleteProfile", func(t *testing.T) { ExampleClient_DeleteProfile() })
-	t.Run("C.ExchangeLimits", func(t *testing.T) { ExampleClient_ExchangeLimits() })
-	t.Run("C.Fees", func(t *testing.T) { ExampleClient_Fees() })
-	t.Run("C.Fills", func(t *testing.T) { ExampleClient_Fills() })
-	t.Run("C.GenerateCryptoAddress", func(t *testing.T) { ExampleClient_GenerateCryptoAddress() })
-	t.Run("C.Order", func(t *testing.T) { ExampleClient_Order() })
-	t.Run("C.Orders", func(t *testing.T) { ExampleClient_Orders() })
-	t.Run("C.PaymentDepositMethod", func(t *testing.T) { ExampleClient_PaymentMethodDeposit() })
-	t.Run("C.PaymentWithdrawalMethod", func(t *testing.T) { ExampleClient_PaymentMethodWithdrawal() })
-	t.Run("C.PaymentMethods", func(t *testing.T) { ExampleClient_PaymentMethods() })
-	t.Run("C.Product", func(t *testing.T) { ExampleClient_Product() })
-	t.Run("C.ProductStats", func(t *testing.T) { ExampleClient_ProductStats() })
-	t.Run("C.ProductTicker", func(t *testing.T) { ExampleClient_ProductTicker() })
-	t.Run("C.Products", func(t *testing.T) { ExampleClient_Products() })
-	t.Run("C.Profile", func(t *testing.T) { ExampleClient_Profile() })
-	t.Run("C.Profiles", func(t *testing.T) { ExampleClient_Profiles() })
-	t.Run("C.RenameProfile", func(t *testing.T) { ExampleClient_RenameProfile() })
-	t.Run("C.Report", func(t *testing.T) { ExampleClient_Report() })
-	t.Run("C.Reports", func(t *testing.T) { ExampleClient_Reports() })
-	t.Run("C.SignedPrices", func(t *testing.T) { ExampleClient_SignedPrices() })
-	t.Run("C.Trades", func(t *testing.T) { ExampleClient_Trades() })
-	t.Run("C.Transfer", func(t *testing.T) { ExampleClient_Transfer() })
-	t.Run("C.Transfers", func(t *testing.T) { ExampleClient_Transfers() })
-	t.Run("C.Wallets", func(t *testing.T) { ExampleClient_Wallets() })
-	t.Run("C.WithdrawalFeeEstimate", func(t *testing.T) { ExampleClient_WithdrawalFeeEstimate() })
+	t.Run("Client.Account", func(t *testing.T) { ExampleClient_Account() })
+	t.Run("Client.AccountHolds", func(t *testing.T) { ExampleClient_AccountHolds() })
+	t.Run("Client.AccountLedger", func(t *testing.T) { ExampleClient_AccountLedger() })
+	t.Run("Client.AccountTransfers", func(t *testing.T) { ExampleClient_AccountTransfers() })
+	t.Run("Client.Accounts", func(t *testing.T) { ExampleClient_Accounts() })
+	t.Run("Client.Book", func(t *testing.T) { ExampleClient_Book() })
+	t.Run("Client.CancelOpenOrders", func(t *testing.T) { ExampleClient_CancelOpenOrders() })
+	t.Run("Client.CancelOrder", func(t *testing.T) { ExampleClient_CancelOrder() })
+	t.Run("Client.Candles", func(t *testing.T) { ExampleClient_Candles() })
+	t.Run("Client.CoinbaseAccountDeposit", func(t *testing.T) { ExampleClient_CoinbaseAccountDeposit() })
+	t.Run("Client.CoinbaseAccountWithdrawal", func(t *testing.T) { ExampleClient_CoinbaseAccountWithdrawal() })
+	t.Run("Client.ConvertCurrency", func(t *testing.T) { ExampleClient_ConvertCurrency() })
+	t.Run("Client.CreateOrder", func(t *testing.T) { ExampleClient_CreateOrder() })
+	t.Run("Client.CreateProfile", func(t *testing.T) { ExampleClient_CreateProfile() })
+	t.Run("Client.CreateProfileTransfer", func(t *testing.T) { ExampleClient_CreateProfileTransfer() })
+	t.Run("Client.CreateReport", func(t *testing.T) { ExampleClient_CreateReport() })
+	t.Run("Client.CryptoWithdrawal", func(t *testing.T) { ExampleClient_CryptoWithdrawal() })
+	t.Run("Client.Currencies", func(t *testing.T) { ExampleClient_Currencies() })
+	t.Run("Client.Currency", func(t *testing.T) { ExampleClient_Currency() })
+	t.Run("Client.DeleteProfile", func(t *testing.T) { ExampleClient_DeleteProfile() })
+	t.Run("Client.ExchangeLimits", func(t *testing.T) { ExampleClient_ExchangeLimits() })
+	t.Run("Client.Fees", func(t *testing.T) { ExampleClient_Fees() })
+	t.Run("Client.Fills", func(t *testing.T) { ExampleClient_Fills() })
+	t.Run("Client.GenerateCryptoAddress", func(t *testing.T) { ExampleClient_GenerateCryptoAddress() })
+	t.Run("Client.Order", func(t *testing.T) { ExampleClient_Order() })
+	t.Run("Client.Orders", func(t *testing.T) { ExampleClient_Orders() })
+	t.Run("Client.PaymentDepositMethod", func(t *testing.T) { ExampleClient_PaymentMethodDeposit() })
+	t.Run("Client.PaymentWithdrawalMethod", func(t *testing.T) { ExampleClient_PaymentMethodWithdrawal() })
+	t.Run("Client.PaymentMethods", func(t *testing.T) { ExampleClient_PaymentMethods() })
+	t.Run("Client.Product", func(t *testing.T) { ExampleClient_Product() })
+	t.Run("Client.ProductStats", func(t *testing.T) { ExampleClient_ProductStats() })
+	t.Run("Client.ProductTicker", func(t *testing.T) { ExampleClient_ProductTicker() })
+	t.Run("Client.Products", func(t *testing.T) { ExampleClient_Products() })
+	t.Run("Client.Profile", func(t *testing.T) { ExampleClient_Profile() })
+	t.Run("Client.Profiles", func(t *testing.T) { ExampleClient_Profiles() })
+	t.Run("Client.RenameProfile", func(t *testing.T) { ExampleClient_RenameProfile() })
+	t.Run("Client.Report", func(t *testing.T) { ExampleClient_Report() })
+	t.Run("Client.Reports", func(t *testing.T) { ExampleClient_Reports() })
+	t.Run("Client.SignedPrices", func(t *testing.T) { ExampleClient_SignedPrices() })
+	t.Run("Client.Trades", func(t *testing.T) { ExampleClient_Trades() })
+	t.Run("Client.Transfer", func(t *testing.T) { ExampleClient_Transfer() })
+	t.Run("Client.Transfers", func(t *testing.T) { ExampleClient_Transfers() })
+	t.Run("Client.Wallets", func(t *testing.T) { ExampleClient_Wallets() })
+	t.Run("Client.WithdrawalFeeEstimate", func(t *testing.T) { ExampleClient_WithdrawalFeeEstimate() })
 	t.Run("ProductWebsocket.Ticker", func(t *testing.T) { ExampleProductWebsocket_Ticker() })
 }
 
@@ -387,7 +389,7 @@ func ExampleClient_Candles() {
 	if err != nil {
 		log.Fatalf("Error canceling order: %v", err)
 	}
-	fmt.Printf("candles: %+v\n", candles)
+	fmt.Printf("candle example: %+v\n", (*candles)[0])
 }
 
 func ExampleClient_CoinbaseAccountDeposit() {
@@ -1249,6 +1251,13 @@ func ExampleProductWebsocket_Ticker() {
 	ticker.Close()
 }
 
+// cancelOpenOrders will cancel all of the open orders enqueued to free up cash to make new orders for the test.
+func cancelOpenOrders(t *testing.T, client *coinbasepro.Client) {
+	// Check to see if there are already transfers for this account.
+	_, err := client.CancelOpenOrders(nil)
+	require.NoError(t, err)
+}
+
 // createDepositTransfer will create a transfer for the given account.  If there are already transfer for the account,
 // then this this function does nothing.
 func createDepositTransfer(t *testing.T, client *coinbasepro.Client, accountID string, currency string, walletID string) {
@@ -1283,8 +1292,9 @@ func createUnlikelyLimitOrderForCancellation(t *testing.T, client *coinbasepro.C
 		SetStopPrice(1.0).
 		SetSize(1.0).
 		SetPrice(1.0))
-	os.Setenv(testOrderIDForCancellation, order.ID)
+	fmt.Println(productID)
 	require.NoError(t, err)
+	os.Setenv(testOrderIDForCancellation, order.ID)
 }
 
 // setAccountIDEnvVariable will set an accountID to the environment variables for the given currency.

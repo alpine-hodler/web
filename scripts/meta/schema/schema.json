@@ -156,12 +156,16 @@
 						"type": "string",
 						"description": "a description of the column that will appears a comment above the resource"
 					},
-					"unmarshaller": {
+					"unmarshaler": {
 						"type": "string",
 						"description": "name of the function to unmarshal with"
 					}
 				}
 			}
+		},
+		"customUnmarshaler": {
+			"type": "string",
+			"description": "a string that represents a go function for a custom UnmarshalJSON type."
 		},
 		"modelTests": {
 			"type": "array",

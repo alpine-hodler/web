@@ -33,21 +33,21 @@
 				{
 					"identifier": "stop_price",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatString"
+					"unmarshaler": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "price",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatString"
+					"unmarshaler": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "size",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatString"
+					"unmarshaler": "UnmarshalFloatString"
 				},
 				{"identifier": "funds",
 					"goType": "float64",
-					"unmarshaller": "UnmarshalFloatString"
+					"unmarshaler": "UnmarshalFloatString"
 				},
 				{
 					"identifier": "product_id",

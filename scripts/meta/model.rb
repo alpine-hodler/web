@@ -17,7 +17,7 @@ module Model
   end
 
   def self.unmarshallers(schema)
-    schema.dup.map { |scheme| scheme.unmarshaller }.join("\n")
+    schema.dup.map { |scheme| scheme.unmarshaler }.join("\n")
   end
 
   def self.write(schema)

@@ -1,6 +1,7 @@
 package coinbasepro
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/alpine-hodler/web/internal/serial"
@@ -97,9 +98,30 @@ type Book struct {
 	Sequence    float64       `json:"sequence" bson:"sequence"`
 }
 
+// Candle represents the historic rate for a product at a point in time.
+type Candle struct {
+	// PriceClose is the closing price (last trade) in the bucket interval.
+	PriceClose float64 `json:"price_close" bson:"price_close"`
+
+	// PriceHigh is the highest price during the bucket interval.
+	PriceHigh float64 `json:"price_high" bson:"price_high"`
+
+	// PriceLow is the lowest price during the bucket interval.
+	PriceLow float64 `json:"price_low" bson:"price_low"`
+
+	// PriceOpen is the opening price (first trade) in the bucket interval.
+	PriceOpen float64 `json:"price_open" bson:"price_open"`
+
+	// Unix is the bucket start time as an int64 Unix value.
+	Unix int64 `json:"unix" bson:"unix"`
+
+	// Volumes is the volume of trading activity during the bucket interval.
+	Volume float64 `json:"volume" bson:"volume"`
+}
+
 // Candles are the historic rates for a product. Rates are returned in grouped buckets. Candle schema is of the form
 // `[timestamp, price_low, price_high, price_open, price_close]`
-type Candles [][]float64
+type Candles []*Candle
 
 // CreateOrder is the server's response for placing a new order.
 type CreateOrder struct {
@@ -640,6 +662,25 @@ type Withdrawal struct {
 // WithdrawalFeeEstimate is a fee estimate for the crypto withdrawal to crypto address
 type WithdrawalFeeEstimate struct {
 	Fee float64 `json:"fee" bson:"fee"`
+}
+
+// UnmarshalJSON will deserialize bytes into a Candles model
+func (candles *Candles) UnmarshalJSON(bytes []byte) error {
+	var raw [][]float64
+	if err := json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+	for _, r := range raw {
+		candle := new(Candle)
+		candle.Unix = int64(r[0])
+		candle.PriceLow = r[1]
+		candle.PriceHigh = r[2]
+		candle.PriceOpen = r[3]
+		candle.PriceClose = r[4]
+		candle.Volume = r[5]
+		*candles = append(*candles, candle)
+	}
+	return nil
 }
 
 // UnmarshalJSON will deserialize bytes into a Oracle model

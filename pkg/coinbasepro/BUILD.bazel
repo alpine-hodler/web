@@ -36,7 +36,6 @@ go_test(
         "//pkg/scalar",
         "//pkg/transport",
         "//pkg/websocket",
-        "//tools",
         "@com_github_joho_godotenv//:godotenv",
         "@com_github_stretchr_testify//require",
     ],

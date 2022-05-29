@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Unmarshaller will build the `unmarshaller` method for a scheme.
-module Unmarshaller
+# unmarshaler will build the `unmarshaler` method for a scheme.
+module Unmarshaler
   RETURN_ERR	= 'if err != nil { return err }'
   SERIAL_DECLARATION	= "\ndata, err := serial.NewJSONTransform(d); #{RETURN_ERR}"
 
@@ -66,7 +66,7 @@ module Unmarshaller
       'bool' => "\ndata.UnmarshalBool(#{sig})",
       'time.Time' => "\n#{time_deserializer(field)}",
       'int' => "\ndata.UnmarshalInt(#{sig})",
-			'int32' => "\ndata.UnmarshalInt32(#{sig})",
+      'int32' => "\ndata.UnmarshalInt32(#{sig})",
       '[]string' => "\ndata.UnmarshalStringSlice(#{sig})",
       'float64' => "\ndata.UnmarshalFloat(#{sig})"
     }[field.go_type]
@@ -90,10 +90,12 @@ module Unmarshaller
 
   public
 
-  def unmarshaller
+  def unmarshaler
+    comment = format_go_comment("UnmarshalJSON will deserialize bytes into a #{go_model_name} model")
+    return "\n" + [comment, "\n"+custom_unmarshaler].join('') unless custom_unmarshaler.nil?
     return '' unless non_struct.nil?
-		return '' if fields.empty?
-		return '' unless custom_type?
+    return '' if fields.empty?
+    return '' unless custom_type?
 
     fn = [constantize_json_go_tags, SERIAL_DECLARATION, deserializers]
 

@@ -30,6 +30,8 @@ type refreshToken struct {
 }
 
 func TestExamples(t *testing.T) {
+	return // ! Twitter is not test-worthy functionality, yet.
+
 	defer tools.Quiet()()
 
 	godotenv.Load(".simple-test.env")

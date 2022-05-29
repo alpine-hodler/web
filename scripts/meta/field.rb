@@ -32,7 +32,7 @@ class Field
 
     @hash = hash
     @datetime_layout = hash[:datetimeLayout] || 'time.RFC3339Nano'
-    @deserializer = hash[:unmarshaller]
+    @deserializer = hash[:unmarshaler]
     @identifier = hash[:identifier]
     @go_type = hash[:goType]
     @go_field_name = inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_'))

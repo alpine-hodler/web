@@ -15,7 +15,7 @@
 		{
 			"identifier": "timestamp",
 			"goType": "time.Time",
-			"unmarshaller": "UnmarshalUnixString",
+			"unmarshaler": "UnmarshalUnixString",
 			"description": "Timestamp indicates when the latest datapoint was obtained"
 		},
 		{

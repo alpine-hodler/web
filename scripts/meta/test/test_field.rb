@@ -6,7 +6,7 @@ describe Field do
     @field1 = Field.new({
                           identifier: 'id',
                           goType: 'string',
-                          unmarshaller: 'UnmarshalFloatString'
+                          unmarshaler: 'UnmarshalFloatString'
                         })
 
     @field2 = Field.new({

@@ -28,6 +28,7 @@
 			]
 		}
 	],
-	"nonStruct": "[][]float64",
-	"modelFields": []
+	"nonStruct": "[]*Candle",
+	"modelFields": [],
+	"customUnmarshaler": "func (candles *Candles) UnmarshalJSON(bytes []byte) error { var raw [][]float64; if err := json.Unmarshal(bytes, &raw); err != nil { return err; }; for _, r := range raw { candle := new(Candle); candle.Unix = int64(r[0]); candle.PriceLow = r[1]; candle.PriceHigh = r[2]; candle.PriceOpen = r[3]; candle.PriceClose = r[4]; candle.Volume = r[5]; *candles = append(*candles, candle); }; return nil; }"
 }

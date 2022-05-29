@@ -6,7 +6,7 @@ require 'json-schema'
 require_relative 'comment'
 require_relative 'field'
 require_relative 'endpoint'
-require_relative 'unmarshaller'
+require_relative 'unmarshaler'
 require_relative 'go_struct'
 require_relative 'option'
 require_relative 'setters'
@@ -29,15 +29,16 @@ class Scheme
     :endpoints,
     :go_model_variable_name,
     :non_struct,
-    :package
+    :package,
+    :custom_unmarshaler
 
   include Comment
-  include Unmarshaller
+  include Unmarshaler
   include Option
   include GoStruct
   include Setters
   include GoHTTP
-	include Inflector
+  include Inflector
 
   def initialize(filename)
     file = File.read(filename)
@@ -55,6 +56,7 @@ class Scheme
     @go_model_filename = "#{@model}.go"
     @go_model_name = inflector.camelize_upper(@model)
     @go_model_variable_name = inflector.camelize_lower(@go_model_name)
+    @custom_unmarshaler = hash[:customUnmarshaler]
 
     @fields = hash[:modelFields].map { |field| Field.new(field) }
     @endpoints = (hash[:endpoints] || []).map { |ep| Endpoint.new(api, ep) }
