@@ -2,22 +2,22 @@ module Setters
   private
 
   def get_body_setter(field)
-    "tools.HTTPBodyFragment(body,  \"#{field.identifier}\", #{OPTIONS_ALIAS}.#{field.go_variable_name})"
+    "internal.HTTPBodyFragment(body,  \"#{field.identifier}\", #{OPTIONS_ALIAS}.#{field.go_variable_name})"
   end
 
   def get_query_param_setter(field)
     sig = {
-      '[]string' => "\ntools.HTTPQueryEncodeStrings",
+      '[]string' => "\ninternal.HTTPQueryEncodeStrings",
 
-      'bool' => 'tools.HTTPQueryEncodeBool',
-      'int32' => 'tools.HTTPQueryEncodeInt32',
-      'int' => 'tools.HTTPQueryEncodeInt',
-      'uint8' => 'tools.HTTPQueryEncodeUint8',
-      'string' => 'tools.HTTPQueryEncodeString',
-      'time.Time' => 'tools.HTTPQueryEncodeTime'
+      'bool' => 'internal.HTTPQueryEncodeBool',
+      'int32' => 'internal.HTTPQueryEncodeInt32',
+      'int' => 'internal.HTTPQueryEncodeInt',
+      'uint8' => 'internal.HTTPQueryEncodeUint8',
+      'string' => 'internal.HTTPQueryEncodeString',
+      'time.Time' => 'internal.HTTPQueryEncodeTime'
     }[field.go_type]
 
-    sig = 'tools.HTTPQueryEncodeStringer' if sig.nil?
+    sig = 'internal.HTTPQueryEncodeStringer' if sig.nil?
 
     adr = field.required && !field.go_slice? ? '&' : ''
     sig + "(req, \"#{field.identifier}\", #{adr}#{OPTIONS_ALIAS}.#{field.go_field_name})"

@@ -66,7 +66,7 @@ module GoPostAuthority
         File.open(POST_AUTHORITY_FILENAME, 'w') do |f|
           f.write(GoPostAuthority.pkg_name(api))
           f.write("\nimport \"github.com/alpine-hodler/web/internal/client\";")
-					f.write("\nimport \"github.com/alpine-hodler/web/tools\";")
+					f.write("\nimport \"github.com/alpine-hodler/web/internal\";")
           f.write(MSG)
           f.write("\ntype #{POST_AUTHORITY_TYPE_ALIAS}  uint8;")
           f.write(GoPostAuthority.endpoint_consts(endpoints))

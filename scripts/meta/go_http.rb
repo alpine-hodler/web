@@ -40,7 +40,7 @@ module GoHTTP
 
   def declare_request(endpoint)
     opts = endpoint.params? ? 'opts' : 'nil'
-    "req, _ := tools.HTTPNewRequest(\"#{endpoint.http_method}\", \"\", #{opts});"
+    "req, _ := internal.HTTPNewRequest(\"#{endpoint.http_method}\", \"\", #{opts});"
   end
 
   def params_function(endpoint)
@@ -58,10 +58,10 @@ module GoHTTP
     opts_var = endpoint.query_params? ? OPTIONS_ALIAS : 'nil'
 
     if endpoint.no_assignment?
-      "return tools.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
+      "return internal.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
         "req, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, nil)"
     else
-      "return #{RETURN_ALIAS}, tools.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
+      "return #{RETURN_ALIAS}, internal.HTTPFetch(http.Client(*#{CLIENT_ALIAS})," +
         "req, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, &#{RETURN_ALIAS})"
     end
   end

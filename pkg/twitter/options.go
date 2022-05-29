@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/alpine-hodler/web/tools"
+	"github.com/alpine-hodler/web/internal"
 )
 
 // * This is a generated file, do not edit
@@ -211,7 +211,7 @@ func (opts *TweetsOptions) SetIds(Ids []string) *TweetsOptions {
 func (opts *CreateBookmarkOptions) EncodeBody() (buf io.Reader, err error) {
 	if opts != nil {
 		body := make(map[string]interface{})
-		tools.HTTPBodyFragment(body, "tweet_id", opts.TweetID)
+		internal.HTTPBodyFragment(body, "tweet_id", opts.TweetID)
 		raw, err := json.Marshal(body)
 		if err == nil {
 			buf = bytes.NewBuffer(raw)
@@ -222,36 +222,36 @@ func (opts *CreateBookmarkOptions) EncodeBody() (buf io.Reader, err error) {
 
 func (opts *AllTweetsOptions) EncodeQuery(req *http.Request) {
 	if opts != nil {
-		tools.HTTPQueryEncodeInt(req, "max_results", opts.MaxResults)
+		internal.HTTPQueryEncodeInt(req, "max_results", opts.MaxResults)
 	}
 	return
 }
 
 func (opts *BookmarksOptions) EncodeQuery(req *http.Request) {
 	if opts != nil {
-		tools.HTTPQueryEncodeStringer(req, "expansions", opts.Expansions)
-		tools.HTTPQueryEncodeUint8(req, "max_results", opts.MaxResults)
-		tools.HTTPQueryEncodeStringer(req, "media.fields", opts.MediaFields)
-		tools.HTTPQueryEncodeString(req, "pagination_token", opts.PaginationToken)
-		tools.HTTPQueryEncodeStringer(req, "place.fields", opts.PlaceFields)
-		tools.HTTPQueryEncodeStringer(req, "poll.fields", opts.PollFields)
-		tools.HTTPQueryEncodeStringer(req, "tweet.fields", opts.TweetFields)
-		tools.HTTPQueryEncodeStringer(req, "user.fields", opts.UserFields)
+		internal.HTTPQueryEncodeStringer(req, "expansions", opts.Expansions)
+		internal.HTTPQueryEncodeUint8(req, "max_results", opts.MaxResults)
+		internal.HTTPQueryEncodeStringer(req, "media.fields", opts.MediaFields)
+		internal.HTTPQueryEncodeString(req, "pagination_token", opts.PaginationToken)
+		internal.HTTPQueryEncodeStringer(req, "place.fields", opts.PlaceFields)
+		internal.HTTPQueryEncodeStringer(req, "poll.fields", opts.PollFields)
+		internal.HTTPQueryEncodeStringer(req, "tweet.fields", opts.TweetFields)
+		internal.HTTPQueryEncodeStringer(req, "user.fields", opts.UserFields)
 	}
 	return
 }
 
 func (opts *ComplianceJobsOptions) EncodeQuery(req *http.Request) {
 	if opts != nil {
-		tools.HTTPQueryEncodeStringer(req, "type", &opts.Type)
-		tools.HTTPQueryEncodeStringer(req, "status", opts.Status)
+		internal.HTTPQueryEncodeStringer(req, "type", &opts.Type)
+		internal.HTTPQueryEncodeStringer(req, "status", opts.Status)
 	}
 	return
 }
 
 func (opts *TweetsOptions) EncodeQuery(req *http.Request) {
 	if opts != nil {
-		tools.HTTPQueryEncodeStrings(req, "ids", opts.Ids)
+		internal.HTTPQueryEncodeStrings(req, "ids", opts.Ids)
 	}
 	return
 }

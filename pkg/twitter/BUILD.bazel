@@ -13,8 +13,8 @@ go_library(
     importpath = "github.com/alpine-hodler/web/pkg/twitter",
     visibility = ["//visibility:public"],
     deps = [
+        "//internal",
         "//pkg/transport",
-        "//tools",
     ],
 )
 

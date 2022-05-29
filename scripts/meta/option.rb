@@ -58,7 +58,7 @@ module Option
           f.write("\nimport \"github.com/alpine-hodler/web/pkg/scalar\";")
           f.write("\nimport \"github.com/alpine-hodler/web/internal/serial\";")
           f.write("\nimport \"time\";")
-          f.write("\nimport \"github.com/alpine-hodler/web/tools\";")
+          f.write("\nimport \"github.com/alpine-hodler/web/internal\";")
           f.write(Option::MSG)
           f.write(structs(api_schema))
           f.write(body_setters_top(api_schema))

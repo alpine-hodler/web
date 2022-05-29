@@ -39,7 +39,7 @@ describe Endpoint do
 
       _(@endpoint1.path_parts.length).must_equal(2)
       _(@endpoint1.path_parts[0].go_arg).must_equal('"/some"')
-      _(@endpoint1.path_parts[1].go_arg).must_equal("builder.Get(tools.URIBuilderComponentPath, \"path_id\")")
+      _(@endpoint1.path_parts[1].go_arg).must_equal("builder.Get(internal.URIBuilderComponentPath, \"path_id\")")
 
       _(@endpoint1.query_params.length).must_equal(2)
       _(@endpoint2.query_params.length).must_equal(0)
