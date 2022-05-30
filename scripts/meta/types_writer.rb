@@ -35,7 +35,7 @@ module TypesWriter
 
   def self.enum_structure_contents(enum)
     enum.values.dup.map do |field|
-			comment = field.go_comment.nil? ? '' : "\n#{field.go_comment}\n"
+      comment = field.go_comment.nil? ? '' : "\n#{field.go_comment}\n"
       "#{comment}#{enum.go_type_name + field.go_field_name} #{enum.go_type_name}" \
       " = \"#{field.identifier}\"\n"
     end.join('')

@@ -5,6 +5,11 @@
 	"modelOnly": true,
 	"modelFields": [
 		{
+			"identifier": "productID",
+			"goType": "string",
+			"description": "ProductID is the productID for the candle, e.g. BTC-ETH. This is not through the Coinbase Pro web API and is inteded for use in data layers and business logic."
+		},
+		{
 			"identifier": "unix",
 			"goType": "int64",
 			"description": "Unix is the bucket start time as an int64 Unix value."
