@@ -29,6 +29,7 @@ go_test(
     srcs = [
         "async_ticker_test.go",
         "example_test.go",
+        "integration_test.go",
     ],
     data = glob([".simple-test.env"]),
     embed = [":coinbasepro"],

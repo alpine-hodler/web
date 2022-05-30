@@ -153,14 +153,15 @@ func validateResponse(res *http.Response) (err error) {
 	return
 }
 
-// HTTPFetch will make an HTTP request given a http.Client and a partially formatted http.Request, it will then try to
-// edecode the model.
-func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
-	model interface{}) error {
+func httpFetchRecursive(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
+	model interface{}, refetch bool) error {
 	req.URL.Path = ep.Path(params)
-	if opts != nil {
+	if opts != nil && !refetch {
+		// if the request is to "refetch", then the options have already been encoded onto the request and we have no need
+		// to re-encode.
 		opts.EncodeQuery(req)
 	}
+
 	if req.Body != nil {
 		req.Header.Set("content-type", "application/json")
 	}
@@ -168,6 +169,13 @@ func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint,
 	if err != nil {
 		return err
 	}
+
+	// If the request gets rate limited, then we need to re-fetch.
+	if resp.StatusCode == http.StatusTooManyRequests {
+		time.Sleep(1 * time.Second)
+		return httpFetchRecursive(client, req, opts, ep, params, model, true)
+	}
+
 	if err := validateResponse(resp); err != nil {
 		return err
 	}
@@ -181,6 +189,13 @@ func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint,
 		return json.NewDecoder(resp.Body).Decode(&model)
 	}
 	return nil
+}
+
+// HTTPFetch will make an HTTP request given a http.Client and a partially formatted http.Request, it will then try to
+// edecode the model.
+func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
+	model interface{}) error {
+	return httpFetchRecursive(client, req, opts, ep, params, model, false)
 }
 
 // HTTPNewRequest will return a new request.  If the options are set, this function will encode a body if possible.

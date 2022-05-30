@@ -5,7 +5,7 @@
 	"modelOnly": true,
 	"modelFields": [
 		{
-			"identifier": "productID",
+			"identifier": "product_id",
 			"goType": "string",
 			"description": "ProductID is the productID for the candle, e.g. BTC-ETH. This is not through the Coinbase Pro web API and is inteded for use in data layers and business logic."
 		},

@@ -119,7 +119,7 @@ type Candle struct {
 
 	// ProductID is the productID for the candle, e.g. BTC-ETH. This is not through the Coinbase Pro web API and is inteded
 	// for use in data layers and business logic.
-	ProductID string `json:"productID" bson:"productID"`
+	ProductID string `json:"product_id" bson:"product_id"`
 
 	// Unix is the bucket start time as an int64 Unix value.
 	Unix int64 `json:"unix" bson:"unix"`
