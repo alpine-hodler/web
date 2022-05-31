@@ -132,7 +132,7 @@ func parseErrorMessage(resp *http.Response) error {
 	if err != nil {
 		panic(err)
 	}
-	return fmt.Errorf("Status Code %v: %v", resp.StatusCode, string(body))
+	return fmt.Errorf("Status Code %v (%v): %v", resp.StatusCode, resp.Status, string(body))
 }
 
 // validateResponse is a switch condition that parses an error response
