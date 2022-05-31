@@ -155,15 +155,17 @@ func validateResponse(res *http.Response) (err error) {
 
 func httpFetchRecursive(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
 	model interface{}, refetch bool) error {
-	req.URL.Path = ep.Path(params)
-	if opts != nil && !refetch {
-		// if the request is to "refetch", then the options have already been encoded onto the request and we have no need
-		// to re-encode.
-		opts.EncodeQuery(req)
-	}
+	if !refetch {
+		req.URL.Path = ep.Path(params)
+		if opts != nil {
+			// if the request is to "refetch", then the options have already been encoded onto the request and we have no need
+			// to re-encode.
+			opts.EncodeQuery(req)
 
-	if req.Body != nil {
-		req.Header.Set("content-type", "application/json")
+		}
+		if req.Body != nil {
+			req.Header.Set("content-type", "application/json")
+		}
 	}
 	resp, err := client.Do(req)
 	if err != nil {

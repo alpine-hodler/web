@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestIntegration(t *testing.T) {
+func TestStress(t *testing.T) {
 	godotenv.Load(".simple-test.env")
 	os.Setenv("CB_PRO_URL", "https://api-public.sandbox.exchange.coinbase.com") // safety check
 
@@ -27,7 +27,7 @@ func TestIntegration(t *testing.T) {
 		SetURL(url))
 	require.NoError(t, err)
 
-	t.Run("Client.Candles intensive looping", func(t *testing.T) {
+	t.Run("Client.Candles intensive looping 21600", func(t *testing.T) {
 		t0 := time.Date(2019, 01, 01, 0, 0, 0, 0, time.UTC)
 		for t0.Before(time.Now()) {
 			next := t0.AddDate(0, 0, 75)
@@ -41,4 +41,18 @@ func TestIntegration(t *testing.T) {
 			require.NoError(t, err)
 		}
 	})
+	// t.Run("Client.Candles intensive looping 60", func(t *testing.T) {
+	// 	t0 := time.Date(2022, 05, 10, 0, 0, 0, 0, time.UTC)
+	// 	for t0.Before(time.Now()) {
+	// 		next := t0.Add(time.Second * 18000)
+	// 		opts := new(CandlesOptions).
+	// 			SetGranularity(Granularity60).
+	// 			SetStart(t0.Format(time.RFC3339)).
+	// 			SetEnd(next.Format(time.RFC3339))
+
+	// 		t0 = next
+	// 		_, err := client.Candles("BTC-USD", opts)
+	// 		require.NoError(t, err)
+	// 	}
+	// })
 }
