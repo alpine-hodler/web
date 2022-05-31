@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "AccountHolds",
 			"slice": true,
+			"rateLimit": 5,
 			"queryParams": [
 				{
 					"identifier": "before",

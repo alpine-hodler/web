@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Reports",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "Reports returns a list of past fills/account reports.",
 			"queryParams": [
 				{
@@ -43,6 +44,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport",
 			"httpMethod": "GET",
 			"enumRoot": "Report",
+			"rateLimit": 5,
 			"description": "Report will return a specific report by report_id."
 		}
 	],

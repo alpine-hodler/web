@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Wallets",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "Wallets will return all the user's available Coinbase wallets (These are the wallets/accounts that are used for buying and selling on www.coinbase.com)"
 		}
 	],

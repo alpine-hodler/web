@@ -22,6 +22,7 @@ module GoClient
           f.write("\nimport \"github.com/alpine-hodler/web/internal/serial\";")
 					f.write("\nimport \"github.com/alpine-hodler/web/internal/client\";")
 					f.write("\nimport \"github.com/alpine-hodler/web/internal\";")
+					f.write("\nimport \"golang.org/x/time/rate\";")
           f.write(GEN_MSG)
           f.write(receivers(api_schema))
         end

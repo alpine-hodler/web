@@ -9,6 +9,7 @@
 			"httpMethod": "PUT",
 			"enumRoot": "DeleteProfile",
 			"returnType": "none",
+			"rateLimit": 5,
 			"description": "DeleteProfile deletes the profile specified by profile_id and transfers all funds to the profile specified by to. Fails if there are any open orders on the profile to be deleted.",
 			"queryParams": [
 				{
@@ -26,6 +27,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofile",
 			"httpMethod": "GET",
 			"enumRoot": "Profile",
+			"rateLimit": 5,
 			"description": "Profile returns information for a single profile. Use this endpoint when you know the profile_id.  This endpoint requires the \"view\" permission and is accessible by any profile's API key.",
 			"queryParams": [
 				{
@@ -39,6 +41,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofile",
 			"httpMethod": "PUT",
 			"enumRoot": "RenameProfile",
+			"rateLimit": 5,
 			"description": "RenameProfile will rename a profile. Names 'default' and 'margin' are reserved.",
 			"queryParams": [
 				{
@@ -57,6 +60,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Profiles",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "Profiles returns a list of all of the current user's profiles.",
 			"queryParams": [
 				{
@@ -70,6 +74,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofile",
 			"httpMethod": "POST",
 			"enumRoot": "CreateProfile",
+			"rateLimit": 5,
 			"description": "CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of profiles.",
 			"body": [
 				{
@@ -84,6 +89,7 @@
 			"httpMethod": "POST",
 			"enumRoot": "CreateProfileTransfer",
 			"returnType": "none",
+			"rateLimit": 5,
 			"description": "CreateProfileTransfer will transfer an amount of currency from one profile to another.  This endpoint requires the \"transfer\" permission.",
 			"body": [
 				{

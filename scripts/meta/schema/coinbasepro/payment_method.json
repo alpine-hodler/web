@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "PaymentMethods",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "PaymentMethods returns a list of the user's linked payment methods."
 		}
 	],

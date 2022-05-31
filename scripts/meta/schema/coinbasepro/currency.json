@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Currencies",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "Currencies returns a list of all known currencies.  Note: Not all currencies may be currently in use for trading."
 		},
 		{
@@ -16,6 +17,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrency",
 			"httpMethod": "GET",
 			"enumRoot": "Currency",
+			"rateLimit": 5,
 			"description": "Currency returns a single currency by id."
 		}
 	],

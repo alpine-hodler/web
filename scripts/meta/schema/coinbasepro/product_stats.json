@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductstats",
 			"httpMethod": "GET",
 			"enumRoot": "ProductStats",
+			"rateLimit": 5,
 			"description": "ProductStats will return 30day and 24hour stats for a product."
 		}
 	],

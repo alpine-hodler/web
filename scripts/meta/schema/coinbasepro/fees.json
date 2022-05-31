@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees",
 			"httpMethod": "GET",
 			"enumRoot": "Fees",
+			"rateLimit": 5,
 			"description": "Fees returns fees rates and 30 days trailing volume."
 		}
 	],

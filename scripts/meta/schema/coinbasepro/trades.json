@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades",
 			"httpMethod": "GET",
 			"enumRoot": "Trades",
+			"rateLimit": 5,
 			"slice": true,
 			"description": "Trades retruns a list the latest trades for a product.",
 			"queryParams": [

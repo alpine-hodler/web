@@ -112,8 +112,7 @@ func (auth *APIKey) RoundTrip(req *http.Request) (*http.Response, error) {
 	req.URL.Scheme = auth.url.Scheme
 	req.URL.Host = auth.url.Host
 
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("content-type", "application/json")
+	req.Header.Set("content-type", "application/json")
 	req.Header.Add("cb-access-key", auth.key)
 	req.Header.Add("cb-access-passphrase", auth.passphrase)
 	req.Header.Add("cb-access-sign", sig)

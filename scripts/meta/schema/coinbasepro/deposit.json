@@ -7,6 +7,7 @@
 			"path": "/deposits/coinbase-account",
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount",
 			"httpMethod": "POST",
+			"rateLimit": 5,
 			"enumRoot": "CoinbaseAccountDeposit",
 			"description": "CoinbaseAccountDeposit funds from a www.coinbase.com wallet to the specified profile_id.",
 			"body": [
@@ -36,6 +37,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositpaymentmethod",
 			"httpMethod": "POST",
 			"enumRoot": "PaymentMethodDeposit",
+			"rateLimit": 5,
 			"description": "PaymentMethodDeposit will fund from a linked external payment method to the specified profile_id.",
 			"body": [
 				{

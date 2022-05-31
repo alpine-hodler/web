@@ -25,7 +25,7 @@ go_library(
 
 go_test(
     name = "coinbasepro_test",
-    timeout = "short",
+    timeout = "moderate",
     srcs = [
         "async_ticker_test.go",
         "example_test.go",

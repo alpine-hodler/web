@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers",
 			"httpMethod": "GET",
 			"enumRoot": "AccountTransfers",
+			"rateLimit": 5,
 			"slice": true,
 			"queryParams": [
 				{
@@ -37,6 +38,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers",
 			"httpMethod": "GET",
 			"slice": true,
+			"rateLimit": 5,
 			"enumRoot": "Transfers",
 			"description": "Transfers is a list of in-progress and completed transfers of funds in/out of any of the user's accounts."
 		},
@@ -44,6 +46,7 @@
 			"path": "/transfers/{transfer_id}",
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer",
 			"httpMethod": "GET",
+			"rateLimit": 5,
 			"enumRoot": "Transfer",
 			"description": "AccountTransfer returns information on a single transfer."
 		}

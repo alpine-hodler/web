@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "AccountLedger",
 			"slice": true,
+			"rateLimit": 5,
 			"queryParams": [
 				{
 					"identifier": "start_date",

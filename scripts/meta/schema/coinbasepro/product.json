@@ -9,6 +9,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Products",
 			"slice": true,
+			"rateLimit": 5,
 			"description": "Products will return a list of available currency pairs for trading.",
 			"queryParams": [
 				{
@@ -22,6 +23,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproduct",
 			"httpMethod": "GET",
 			"enumRoot": "Product",
+			"rateLimit": 5,
 			"description": "Product will return information on a single product."
 		}
 	],

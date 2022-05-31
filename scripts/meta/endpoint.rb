@@ -21,7 +21,8 @@ class Endpoint
     :return_type,
     :http_method,
     :documentation,
-		:scope
+		:scope,
+		:rate_limit
 
   include Inflector
 
@@ -40,6 +41,7 @@ class Endpoint
     @go_model_name = inflector.camelize_upper(enum_root)
     @go_query_param_filename = "#{api}_#{hash[:enum_roof]}.go"
 		@scope = hash[:scope]
+		@rate_limit = hash[:rateLimit].to_i
 
     set_path_parts
     set_query_params

@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorders",
 			"httpMethod": "GET",
 			"enumRoot": "Orders",
+			"rateLimit": 5,
 			"slice": true,
 			"queryParams": [
 				{
@@ -60,6 +61,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorder",
 			"httpMethod": "GET",
 			"enumRoot": "Order",
+			"rateLimit": 5,
 			"description": "Order returns a single order by id."
 		},
 		{
@@ -68,6 +70,7 @@
 			"httpMethod": "DELETE",
 			"enumRoot": "CancelOrder",
 			"returnType": "string",
+			"rateLimit": 5,
 			"description": "CancelOrder will cancel a single open order by order id."
 		},
 		{
@@ -76,6 +79,7 @@
 			"httpMethod": "DELETE",
 			"enumRoot": "CancelOpenOrders",
 			"returnType": "[]*string",
+			"rateLimit": 5,
 			"queryParams": [
 				{
 					"identifier": "profile_id",

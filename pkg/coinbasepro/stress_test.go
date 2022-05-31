@@ -2,7 +2,9 @@ package coinbasepro
 
 import (
 	"context"
+	"fmt"
 	"os"
+	"runtime"
 	"testing"
 	"time"
 
@@ -27,7 +29,7 @@ func TestStress(t *testing.T) {
 		SetURL(url))
 	require.NoError(t, err)
 
-	t.Run("Client.Candles intensive looping 21600", func(t *testing.T) {
+	t.Run("Client.Candles intensive looping", func(t *testing.T) {
 		t0 := time.Date(2019, 01, 01, 0, 0, 0, 0, time.UTC)
 		for t0.Before(time.Now()) {
 			next := t0.AddDate(0, 0, 75)
@@ -41,18 +43,58 @@ func TestStress(t *testing.T) {
 			require.NoError(t, err)
 		}
 	})
-	// t.Run("Client.Candles intensive looping 60", func(t *testing.T) {
-	// 	t0 := time.Date(2022, 05, 10, 0, 0, 0, 0, time.UTC)
-	// 	for t0.Before(time.Now()) {
-	// 		next := t0.Add(time.Second * 18000)
-	// 		opts := new(CandlesOptions).
-	// 			SetGranularity(Granularity60).
-	// 			SetStart(t0.Format(time.RFC3339)).
-	// 			SetEnd(next.Format(time.RFC3339))
+	t.Run("Client.Candles concurrent intensive looping", func(t *testing.T) {
+		var worker = func(id int,
+			client *Client,
+			jobs <-chan *CandlesOptions,
+			results chan<- *Candles) {
+			for options := range jobs {
+				fmt.Println("range", *options.Start, *options.End)
+				candles, err := client.Candles("BTC-USD", options)
+				if err != nil {
+					err = fmt.Errorf("error fetching candles from web api (%v, %v, %v): %v",
+						*options.Start, *options.End, options.Granularity, err)
+					panic(err)
+				}
+				results <- candles
+			}
+		}
 
-	// 		t0 = next
-	// 		_, err := client.Candles("BTC-USD", opts)
-	// 		require.NoError(t, err)
-	// 	}
-	// })
+		chunks := timechunks(18000,
+			time.Date(2022, 05, 10, 0, 0, 0, 0, time.UTC),
+			time.Date(2022, 05, 30, 0, 0, 0, 0, time.UTC))
+
+		jobs := make(chan *CandlesOptions, len(chunks))
+		results := make(chan *Candles, len(chunks))
+
+		for w := 1; w <= runtime.NumCPU(); w++ {
+			go worker(w, client, jobs, results)
+		}
+
+		for _, chunk := range chunks {
+			jobs <- new(CandlesOptions).
+				SetGranularity(Granularity60).
+				SetStart(chunk[0].Format(time.RFC3339)).
+				SetEnd(chunk[1].Format(time.RFC3339))
+		}
+		close(jobs)
+		for a := 1; a <= len(chunks); a++ {
+			<-results
+		}
+	})
+}
+
+func timechunks(period int64, start, end time.Time) [][2]time.Time {
+	chunks := [][2]time.Time{}
+	t := start
+	for t.Before(end) {
+		next := t.Add(time.Second * time.Duration(period))
+		if next.Before(end) {
+			chunks = append(chunks, [2]time.Time{t, next})
+		} else {
+			chunks = append(chunks, [2]time.Time{t, end})
+		}
+		t = next
+	}
+	return chunks
 }

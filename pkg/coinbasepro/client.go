@@ -13,7 +13,7 @@ const (
 )
 
 // Client is a wrapper for http.Client.
-type Client http.Client
+type Client struct{ http.Client }
 
 // NewClient will return a new HTTP client to interface with the Coinbase Pro API.
 func NewClient(_ context.Context, roundtripper transport.T) (*Client, error) {

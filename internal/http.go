@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,12 +10,21 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/time/rate"
 )
 
 // Options are optional data than can be encoded into a request's URL or Body.
 type Options interface {
 	EncodeBody() (io.Reader, error)
 	EncodeQuery(*http.Request)
+}
+
+type Client interface {
+	Self() *http.Client
+
+	// RateLimiter will try to prevent 429 errors. Consistenly hitting 429 might result in an API ban.
+	RateLimiter() *rate.Limiter
 }
 
 type endpoint interface {
@@ -146,6 +156,7 @@ func validateResponse(res *http.Response) (err error) {
 			http.StatusUnauthorized,
 			http.StatusInternalServerError,
 			http.StatusNotFound,
+			http.StatusTooManyRequests,
 			http.StatusForbidden:
 			err = parseErrorMessage(res)
 		}
@@ -153,30 +164,46 @@ func validateResponse(res *http.Response) (err error) {
 	return
 }
 
-func httpFetchRecursive(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
-	model interface{}, refetch bool) error {
+func httpFetchRecursive(client http.Client, req *http.Request, ratelimiter *rate.Limiter, opts Options, ep endpoint,
+	params map[string]string, model interface{}, refetch bool) error {
 	if !refetch {
 		req.URL.Path = ep.Path(params)
 		if opts != nil {
 			// if the request is to "refetch", then the options have already been encoded onto the request and we have no need
 			// to re-encode.
 			opts.EncodeQuery(req)
-
-		}
-		if req.Body != nil {
-			req.Header.Set("content-type", "application/json")
 		}
 	}
+	if req.Body != nil {
+		req.Header.Set("content-type", "application/json")
+	}
+
+	ctx := context.Background()
+	err := ratelimiter.Wait(ctx) // This is a blocking call. Honors the rate limit
+	if err != nil {
+		return fmt.Errorf("error waiting on rate limiter: %v", err)
+	}
+
 	resp, err := client.Do(req)
 	if err != nil {
-		return err
+		return fmt.Errorf("error making request %+v: %v", req, err)
 	}
+	defer resp.Body.Close()
 
-	// If the request gets rate limited, then we need to re-fetch.
-	if resp.StatusCode == http.StatusTooManyRequests {
-		return httpFetchRecursive(client, req, opts, ep, params, model, true)
-	}
+	// // If the request gets rate limited, then we need to re-fetch.
+	// if resp.StatusCode == http.StatusTooManyRequests {
+	// 	return fmt.Errorf("error too many requests: %v", )
+	// 	// time.Sleep(1 * time.Second)
+	// 	// // Clear the header to be reset by the recursive function and the auth transport.
+	// 	// req.Header = http.Header{}
 
+	// 	// // the Go http client will try to reuse connections unless you've specifically indicated that it shouldn't. This
+	// 	// // becomes a problem when the server on the other end closes the connection without indicating. The net.http code
+	// 	// // assumes that the connection is still open and so the next request that tries to use the connection next,
+	// 	// // encounters the EOF from the connection being closed the other time. So we need to close the connection.
+	// 	// req.Close = true
+	// 	// return httpFetchRecursive(client, req, opts, ep, params, model, true)
+	// }
 	if err := validateResponse(resp); err != nil {
 		return err
 	}
@@ -187,16 +214,19 @@ func httpFetchRecursive(client http.Client, req *http.Request, opts Options, ep 
 	// bodyString := string(bodyBytes)
 	// fmt.Println(bodyString)
 	if model != nil {
-		return json.NewDecoder(resp.Body).Decode(&model)
+		if err := json.NewDecoder(resp.Body).Decode(&model); err != nil {
+			fmt.Println(resp.Status, resp.StatusCode)
+			return fmt.Errorf("error decoding response body: %v", err)
+		}
 	}
 	return nil
 }
 
 // HTTPFetch will make an HTTP request given a http.Client and a partially formatted http.Request, it will then try to
 // edecode the model.
-func HTTPFetch(client http.Client, req *http.Request, opts Options, ep endpoint, params map[string]string,
-	model interface{}) error {
-	return httpFetchRecursive(client, req, opts, ep, params, model, false)
+func HTTPFetch(client http.Client, req *http.Request, ratelimiter *rate.Limiter, opts Options, ep endpoint,
+	params map[string]string, model interface{}) error {
+	return httpFetchRecursive(client, req, ratelimiter, opts, ep, params, model, false)
 }
 
 // HTTPNewRequest will return a new request.  If the options are set, this function will encode a body if possible.

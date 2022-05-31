@@ -16,6 +16,14 @@ go get github.com/alpine-hodler/web/pkg/coinbasepro
 
 The `coinbasepro.Client` type is a wrapper for the Go [net/http](https://pkg.go.dev/net/http) standard library package.  An [`http.RoundTripper`](https://pkg.go.dev/net/http#RoundTripper) is required to authenticate for Coinbase Pro requests.  Currently the only method supported for Coinbase Pro authentication is [API key authentication](https://docs.cloud.coinbase.com/sign-in-with-coinbase/docs/api-key-authentication).  See the examples for examples.
 
+### Rate Limits
+
+Per the [Coinbase Pro API FAQs](https://help.coinbase.com/en/pro/other-topics/api/faq-on-api):
+
+> For Public Endpoints, our rate limit is 3 requests per second, up to 6 requests per second in bursts. For Private Endpoints, our rate limit is 5 requests per second, up to 10 requests per second in bursts.
+
+The HTTP package uses `"golang.org/x/time/rate"` to ensure that rate limits are honored.  This data is [lazy loaded](https://en.wikipedia.org/wiki/Lazy_loading) to cut down on memory consumption.
+
 ## Development
 
 Notes on developing in this package.

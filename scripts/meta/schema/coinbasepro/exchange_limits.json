@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getuserexchangelimits",
 			"httpMethod": "GET",
 			"enumRoot": "ExchangeLimits",
+			"rateLimit": 5,
 			"description": "ExchangeLimits returns exchange limits information for a single user."
 		}
 	],

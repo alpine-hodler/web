@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postreports",
 			"httpMethod": "POST",
 			"enumRoot": "CreateReport",
+			"rateLimit": 5,
 			"body": [
 				{
 					"identifier": "start_date",

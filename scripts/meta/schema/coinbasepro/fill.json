@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfills",
 			"httpMethod": "GET",
 			"enumRoot": "Fills",
+			"rateLimit": 5,
 			"slice": true,
 			"queryParams": [
 				{

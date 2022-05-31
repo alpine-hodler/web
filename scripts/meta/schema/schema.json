@@ -49,6 +49,10 @@
 						"type": "string",
 						"description": "the api documentation url"
 					},
+					"rateLimit": {
+						"type": "number",
+						"description": "rate limit is the number of times we can hit an endpoint per second without getting a 429."
+					},
 					"enumRoot": {
 						"type": "string",
 						"description": "The root of the endpoint enum"

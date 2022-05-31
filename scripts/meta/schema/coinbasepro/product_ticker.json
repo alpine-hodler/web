@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductticker",
 			"httpMethod": "GET",
 			"enumRoot": "ProductTicker",
+			"rateLimit": 5,
 			"description": "ProductTicker will return snapshot information about the last trade (tick), best bid/ask and 24h volume."
 		}
 	],

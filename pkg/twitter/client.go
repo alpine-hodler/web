@@ -14,7 +14,7 @@ const (
 )
 
 // Client is a wrapper for http.Client.
-type Client http.Client
+type Client struct{ http.Client }
 
 // NewClient will return an HTTP client to interface with the Twitter API.
 func NewClient(_ context.Context, transport transport.T) (*Client, error) {

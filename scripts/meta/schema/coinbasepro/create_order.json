@@ -8,6 +8,7 @@
 			"documentation": "https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postorders",
 			"httpMethod": "POST",
 			"enumRoot": "CreateOrder",
+			"rateLimit": 5,
 			"body": [
 				{
 					"identifier": "profile_id",
