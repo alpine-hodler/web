@@ -172,7 +172,6 @@ func httpFetchRecursive(client http.Client, req *http.Request, opts Options, ep 
 
 	// If the request gets rate limited, then we need to re-fetch.
 	if resp.StatusCode == http.StatusTooManyRequests {
-		time.Sleep(1 * time.Second)
 		return httpFetchRecursive(client, req, opts, ep, params, model, true)
 	}
 
