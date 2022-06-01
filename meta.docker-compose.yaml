@@ -32,6 +32,8 @@ services:
       - ./scripts/meta/types.rb:/usr/src/meta/types.rb
       - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
       - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
+      - ./scripts/meta/ratelimiter.rb:/usr/src/meta/ratelimiter.rb
+      - ./scripts/meta/ratelimiter_writer.rb:/usr/src/meta/ratelimiter_writer.rb
     depends_on:
       - goimports
   test_generate:
@@ -63,5 +65,7 @@ services:
       - ./scripts/meta/types.rb:/usr/src/meta/types.rb
       - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
       - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
+      - ./scripts/meta/ratelimiter.rb:/usr/src/meta/ratelimiter.rb
+      - ./scripts/meta/ratelimiter_writer.rb:/usr/src/meta/ratelimiter_writer.rb
     depends_on:
       - goimports

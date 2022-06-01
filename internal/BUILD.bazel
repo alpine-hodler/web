@@ -5,4 +5,5 @@ go_library(
     srcs = ["http.go"],
     importpath = "github.com/alpine-hodler/web/internal",
     visibility = ["//:__subpackages__"],
+    deps = ["@org_golang_x_time//rate:go_default_library"],
 )

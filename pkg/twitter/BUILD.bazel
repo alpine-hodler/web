@@ -8,6 +8,7 @@ go_library(
         "models.go",
         "options.go",
         "path.go",
+        "ratelimiter.go",
         "types.go",
     ],
     importpath = "github.com/alpine-hodler/web/pkg/twitter",
@@ -15,6 +16,7 @@ go_library(
     deps = [
         "//internal",
         "//pkg/transport",
+        "@org_golang_x_time//rate:go_default_library",
     ],
 )
 

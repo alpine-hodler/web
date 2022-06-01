@@ -1,11 +1,6 @@
 package twitter
 
-import (
-	"time"
-
-	"github.com/alpine-hodler/web/internal"
-	"golang.org/x/time/rate"
-)
+import "github.com/alpine-hodler/web/internal"
 
 // * This is a generated file, do not edit
 
@@ -13,9 +8,13 @@ import (
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
 func (c *Client) AllTweets(opts *AllTweetsOptions) (m *Tweets, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, AllTweetsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(AllTweetsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(AllTweetsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Bookmarks allows you to get information about a authenticated user’s 800 most recent bookmarked Tweets. This request
@@ -23,20 +22,28 @@ func (c *Client) AllTweets(opts *AllTweetsOptions) (m *Tweets, _ error) {
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 func (c *Client) Bookmarks(userId string, opts *BookmarksOptions) (m *Bookmarks, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, BookmarksPath, map[string]string{
-		"user_id": userId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(BookmarksPath),
+		internal.HTTPWithParams(map[string]string{
+			"user_id": userId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(BookmarksRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // ComplianceJobs will return a list of recent compliance jobs.
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/introduction
 func (c *Client) ComplianceJobs(opts *ComplianceJobsOptions) (m []*Compliance, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, ComplianceJobsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(ComplianceJobsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(ComplianceJobsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CreateBookmarks causes the user ID of an authenticated user identified in the path parameter to Bookmark the target
@@ -44,11 +51,15 @@ func (c *Client) ComplianceJobs(opts *ComplianceJobsOptions) (m []*Compliance, _
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks
 func (c *Client) CreateBookmark(userId string, opts *CreateBookmarkOptions) (m BookmarkWrite, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CreateBookmarkPath, map[string]string{
-		"user_id": userId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CreateBookmarkPath),
+		internal.HTTPWithParams(map[string]string{
+			"user_id": userId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateBookmarkRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // DeleteBookmarks are a core feature of the Twitter app that allows you to “save” Tweets and easily access them later.
@@ -57,27 +68,39 @@ func (c *Client) CreateBookmark(userId string, opts *CreateBookmarkOptions) (m B
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 func (c *Client) DeleteBookmark(userId string, tweetId string) (m BookmarkWrite, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("DELETE", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, DeleteBookmarkPath, map[string]string{
-		"user_id": userId, "tweet_id": tweetId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(DeleteBookmarkPath),
+		internal.HTTPWithParams(map[string]string{
+			"user_id": userId, "tweet_id": tweetId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(DeleteBookmarkRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // TODO
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
 func (c *Client) Me() (m []*User, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, MePath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(MePath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(MeRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // TODO
 //
 // source: https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
 func (c *Client) Tweets(opts *TweetsOptions) (m *Tweets, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 0)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, TweetsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(TweetsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(TweetsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }

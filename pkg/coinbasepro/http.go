@@ -1,11 +1,6 @@
 package coinbasepro
 
-import (
-	"time"
-
-	"github.com/alpine-hodler/web/internal"
-	"golang.org/x/time/rate"
-)
+import "github.com/alpine-hodler/web/internal"
 
 // * This is a generated file, do not edit
 
@@ -14,11 +9,15 @@ import (
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccount
 func (c *Client) Account(accountId string) (m *Account, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, AccountPath, map[string]string{
-		"account_id": accountId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(AccountPath),
+		internal.HTTPWithParams(map[string]string{
+			"account_id": accountId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // AccountHolds will return the holds of an account that belong to the same profile as the API key. Holds are placed on
@@ -27,11 +26,15 @@ func (c *Client) Account(accountId string) (m *Account, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountholds
 func (c *Client) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []*AccountHold, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, AccountHoldsPath, map[string]string{
-		"account_id": accountId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(AccountHoldsPath),
+		internal.HTTPWithParams(map[string]string{
+			"account_id": accountId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountHoldsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // AccountLedger returns ledger activity for an account. This includes anything that would affect the accounts balance -
@@ -39,31 +42,43 @@ func (c *Client) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccountledger
 func (c *Client) AccountLedger(accountId string, opts *AccountLedgerOptions) (m []*AccountLedger, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, AccountLedgerPath, map[string]string{
-		"account_id": accountId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(AccountLedgerPath),
+		internal.HTTPWithParams(map[string]string{
+			"account_id": accountId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountLedgerRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // AccountTransfers returns past withdrawals and deposits for an account.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounttransfers
 func (c *Client) AccountTransfers(accountId string, opts *AccountTransfersOptions) (m []*Transfer, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, AccountTransfersPath, map[string]string{
-		"account_id": accountId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(AccountTransfersPath),
+		internal.HTTPWithParams(map[string]string{
+			"account_id": accountId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountTransfersRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Accounts will return a list of trading accounts from the profile of the API key.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getaccounts
 func (c *Client) Accounts() (m []*Account, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, AccountsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(AccountsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Book will return a list of open orders for a product. The amount of detail shown can be customized with the level
@@ -71,11 +86,15 @@ func (c *Client) Accounts() (m []*Account, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductbook
 func (c *Client) Book(productId string, opts *BookOptions) (m *Book, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, BookPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(BookPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(BookRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CancelOpenOrders will try with best effort to cancel all open orders. This may require you to make the request
@@ -84,18 +103,27 @@ func (c *Client) Book(productId string, opts *BookOptions) (m *Book, _ error) {
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorders
 func (c *Client) CancelOpenOrders(opts *CancelOpenOrdersOptions) (m []*string, _ error) {
 	req, _ := internal.HTTPNewRequest("DELETE", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, getCandlesRateLimiter(), opts, CancelOpenOrdersPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(CancelOpenOrdersPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CancelOpenOrdersRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CancelOrder will cancel a single open order by order id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_deleteorder
 func (c *Client) CancelOrder(orderId string) (m string, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("DELETE", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CancelOrderPath, map[string]string{
-		"order_id": orderId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CancelOrderPath),
+		internal.HTTPWithParams(map[string]string{
+			"order_id": orderId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(CancelOrderRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Candles will return historic rates for a product.
@@ -103,18 +131,27 @@ func (c *Client) CancelOrder(orderId string) (m string, _ error) {
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductcandles
 func (c *Client) Candles(productId string, opts *CandlesOptions) (m *Candles, _ error) {
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, getCandlesRateLimiter(), opts, CandlesPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(CandlesPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(CandlesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CoinbaseAccountDeposit funds from a www.coinbase.com wallet to the specified profile_id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositcoinbaseaccount
 func (c *Client) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m *Deposit, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CoinbaseAccountDepositPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CoinbaseAccountDepositPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountDepositRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // AccountWithdraws funds from the specified profile_id to a www.coinbase.com wallet. Withdraw funds to a coinbase
@@ -124,9 +161,13 @@ func (c *Client) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m 
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcoinbaseaccount
 func (c *Client) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOptions) (m *Withdrawal, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CoinbaseAccountWithdrawalPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CoinbaseAccountWithdrawalPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountWithdrawalRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // ConvertCurrency converts funds from from currency to to currency. Funds are converted on the from account in the
@@ -135,9 +176,13 @@ func (c *Client) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOption
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postconversion
 func (c *Client) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConversion, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ConvertCurrencyPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ConvertCurrencyPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(ConvertCurrencyRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CreateOrder will create a new an order. You can place two types of orders: limit and market. Orders can only be
@@ -146,9 +191,13 @@ func (c *Client) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConve
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postorders
 func (c *Client) CreateOrder(opts *CreateOrderOptions) (m *CreateOrder, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CreateOrderPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CreateOrderPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateOrderRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CreateProfile will create a new profile. Will fail if no name is provided or if user already has max number of
@@ -156,9 +205,13 @@ func (c *Client) CreateOrder(opts *CreateOrderOptions) (m *CreateOrder, _ error)
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofile
 func (c *Client) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CreateProfilePath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CreateProfilePath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CreateProfileTransfer will transfer an amount of currency from one profile to another. This endpoint requires the
@@ -166,9 +219,13 @@ func (c *Client) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error)
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postprofiletransfer
 func (c *Client) CreateProfileTransfer(opts *CreateProfileTransferOptions) error {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return internal.HTTPFetch(c.Client, req, ratelimiter, nil, CreateProfileTransferPath, nil, nil)
+	return internal.HTTPFetch(nil, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CreateProfileTransferPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileTransferRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CreateReport generates a report. Reports are either for past account history or past fills on either all accounts or
@@ -176,9 +233,13 @@ func (c *Client) CreateProfileTransfer(opts *CreateProfileTransferOptions) error
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postreports
 func (c *Client) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CreateReportPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CreateReportPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateReportRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CryptoWithdrawal funds from the specified profile_id to an external crypto address. This endpoint requires the
@@ -186,40 +247,56 @@ func (c *Client) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ err
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawcrypto
 func (c *Client) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CryptoWithdrawalPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CryptoWithdrawalPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CryptoWithdrawalRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Currencies returns a list of all known currencies. Note: Not all currencies may be currently in use for trading.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrencies
 func (c *Client) Currencies() (m []*Currency, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CurrenciesPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CurrenciesPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrenciesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Currency returns a single currency by id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcurrency
 func (c *Client) Currency(currencyId string) (m *Currency, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, CurrencyPath, map[string]string{
-		"currency_id": currencyId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(CurrencyPath),
+		internal.HTTPWithParams(map[string]string{
+			"currency_id": currencyId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // CurrencyConversion returns the currency conversion by conversion id (i.e. USD -> USDC).
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getconversion
 func (c *Client) CurrencyConversion(conversionId string, opts *CurrencyConversionOptions) (m *CurrencyConversion, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, CurrencyConversionPath, map[string]string{
-		"conversion_id": conversionId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(CurrencyConversionPath),
+		internal.HTTPWithParams(map[string]string{
+			"conversion_id": conversionId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyConversionRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // DeleteProfile deletes the profile specified by profile_id and transfers all funds to the profile specified by to.
@@ -227,40 +304,56 @@ func (c *Client) CurrencyConversion(conversionId string, opts *CurrencyConversio
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofiledeactivate
 func (c *Client) DeleteProfile(profileId string, opts *DeleteProfileOptions) error {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("PUT", "", opts)
-	return internal.HTTPFetch(c.Client, req, ratelimiter, opts, DeleteProfilePath, map[string]string{
-		"profile_id": profileId,
-	}, nil)
+	return internal.HTTPFetch(nil, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(DeleteProfilePath),
+		internal.HTTPWithParams(map[string]string{
+			"profile_id": profileId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(DeleteProfileRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // ExchangeLimits returns exchange limits information for a single user.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getuserexchangelimits
 func (c *Client) ExchangeLimits(userId string) (m *ExchangeLimits, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ExchangeLimitsPath, map[string]string{
-		"user_id": userId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ExchangeLimitsPath),
+		internal.HTTPWithParams(map[string]string{
+			"user_id": userId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ExchangeLimitsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Fees returns fees rates and 30 days trailing volume.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfees
 func (c *Client) Fees() (m *Fees, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, FeesPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(FeesPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(FeesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Fills returns a list of fills. A fill is a partial or complete match on a specific order.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getfills
 func (c *Client) Fills(opts *FillsOptions) (m []*Fill, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, FillsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(FillsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(FillsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // GenerateCryptoAddress will create a one-time crypto address for depositing crypto, using a wallet account id. This
@@ -268,22 +361,30 @@ func (c *Client) Fills(opts *FillsOptions) (m []*Fill, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postcoinbaseaccountaddresses
 func (c *Client) GenerateCryptoAddress(accountId string) (m *CryptoAddress, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, GenerateCryptoAddressPath, map[string]string{
-		"account_id": accountId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(GenerateCryptoAddressPath),
+		internal.HTTPWithParams(map[string]string{
+			"account_id": accountId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(GenerateCryptoAddressRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Order returns a single order by id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorder
 func (c *Client) Order(orderId string) (m *Order, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, OrderPath, map[string]string{
-		"order_id": orderId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(OrderPath),
+		internal.HTTPWithParams(map[string]string{
+			"order_id": orderId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(OrderRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Orders will return your current open orders. Only open or un-settled orders are returned by default. As soon as an
@@ -292,18 +393,26 @@ func (c *Client) Order(orderId string) (m *Order, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getorders
 func (c *Client) Orders(opts *OrdersOptions) (m []*Order, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, OrdersPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(OrdersPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(OrdersRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // PaymentMethodDeposit will fund from a linked external payment method to the specified profile_id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postdepositpaymentmethod
 func (c *Client) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Deposit, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, PaymentMethodDepositPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(PaymentMethodDepositPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodDepositRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // PaymentMethodWithdrawal will fund from the specified profile_id to a linked external payment method. This endpoint
@@ -311,60 +420,84 @@ func (c *Client) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Dep
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_postwithdrawpaymentmethod
 func (c *Client) PaymentMethodWithdrawal(opts *PaymentMethodWithdrawalOptions) (m *Withdrawal, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("POST", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, PaymentMethodWithdrawalPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(PaymentMethodWithdrawalPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodWithdrawalRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // PaymentMethods returns a list of the user's linked payment methods.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getpaymentmethods
 func (c *Client) PaymentMethods() (m []*PaymentMethod, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, PaymentMethodsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(PaymentMethodsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Product will return information on a single product.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproduct
 func (c *Client) Product(productId string) (m *Product, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ProductPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ProductPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // ProductStats will return 30day and 24hour stats for a product.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductstats
 func (c *Client) ProductStats(productId string) (m *ProductStats, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ProductStatsPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ProductStatsPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductStatsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // ProductTicker will return snapshot information about the last trade (tick), best bid/ask and 24h volume.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproductticker
 func (c *Client) ProductTicker(productId string) (m *ProductTicker, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ProductTickerPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ProductTickerPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductTickerRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Products will return a list of available currency pairs for trading.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducts
 func (c *Client) Products(opts *ProductsOptions) (m []*Product, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, ProductsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(ProductsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Profile returns information for a single profile. Use this endpoint when you know the profile_id. This endpoint
@@ -372,51 +505,71 @@ func (c *Client) Products(opts *ProductsOptions) (m []*Product, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofile
 func (c *Client) Profile(profileId string, opts *ProfileOptions) (m *Profile, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, ProfilePath, map[string]string{
-		"profile_id": profileId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(ProfilePath),
+		internal.HTTPWithParams(map[string]string{
+			"profile_id": profileId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProfileRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Profiles returns a list of all of the current user's profiles.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getprofiles
 func (c *Client) Profiles(opts *ProfilesOptions) (m []*Profile, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, ProfilesPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(ProfilesPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProfilesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // RenameProfile will rename a profile. Names 'default' and 'margin' are reserved.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_putprofile
 func (c *Client) RenameProfile(profileId string, opts *RenameProfileOptions) (m *Profile, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("PUT", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, RenameProfilePath, map[string]string{
-		"profile_id": profileId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(RenameProfilePath),
+		internal.HTTPWithParams(map[string]string{
+			"profile_id": profileId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(RenameProfileRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Report will return a specific report by report_id.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreport
 func (c *Client) Report(reportId string) (m *Report, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, ReportPath, map[string]string{
-		"report_id": reportId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(ReportPath),
+		internal.HTTPWithParams(map[string]string{
+			"report_id": reportId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(ReportRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Reports returns a list of past fills/account reports.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getreports
 func (c *Client) Reports(opts *ReportsOptions) (m []*Report, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, ReportsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(ReportsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(ReportsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // SignedPrices returns cryptographically signed prices ready to be posted on-chain using Compound's Open Oracle smart
@@ -424,40 +577,56 @@ func (c *Client) Reports(opts *ReportsOptions) (m []*Report, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbasepriceoracle
 func (c *Client) SignedPrices() (m *Oracle, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, SignedPricesPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(SignedPricesPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(SignedPricesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Trades retruns a list the latest trades for a product.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades
 func (c *Client) Trades(productId string, opts *TradesOptions) (m []*Trade, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, TradesPath, map[string]string{
-		"product_id": productId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(TradesPath),
+		internal.HTTPWithParams(map[string]string{
+			"product_id": productId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(TradesRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // AccountTransfer returns information on a single transfer.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfer
 func (c *Client) Transfer(transferId string) (m *Transfer, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, TransferPath, map[string]string{
-		"transfer_id": transferId,
-	}, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(TransferPath),
+		internal.HTTPWithParams(map[string]string{
+			"transfer_id": transferId,
+		}),
+		internal.HTTPWithRatelimiter(getRateLimiter(TransferRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Transfers is a list of in-progress and completed transfers of funds in/out of any of the user's accounts.
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_gettransfers
 func (c *Client) Transfers() (m []*Transfer, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, TransfersPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(TransfersPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(TransfersRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // Wallets will return all the user's available Coinbase wallets (These are the wallets/accounts that are used for
@@ -465,16 +634,24 @@ func (c *Client) Transfers() (m []*Transfer, _ error) {
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getcoinbaseaccounts
 func (c *Client) Wallets() (m []*Wallet, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", nil)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, nil, WalletsPath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(nil),
+		internal.HTTPWithEndpoint(WalletsPath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(WalletsRatelimiter)),
+		internal.HTTPWithRequest(req))
 }
 
 // WithdrawalFeeEstimate will return the fee estimate for the crypto withdrawal to crypto address
 //
 // source: https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getwithdrawfeeestimate
 func (c *Client) WithdrawalFeeEstimate(opts *WithdrawalFeeEstimateOptions) (m *WithdrawalFeeEstimate, _ error) {
-	ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), 5)
 	req, _ := internal.HTTPNewRequest("GET", "", opts)
-	return m, internal.HTTPFetch(c.Client, req, ratelimiter, opts, WithdrawalFeeEstimatePath, nil, &m)
+	return m, internal.HTTPFetch(&m, internal.HTTPWithClient(c.Client),
+		internal.HTTPWithEncoder(opts),
+		internal.HTTPWithEndpoint(WithdrawalFeeEstimatePath),
+		internal.HTTPWithParams(nil),
+		internal.HTTPWithRatelimiter(getRateLimiter(WithdrawalFeeEstimateRatelimiter)),
+		internal.HTTPWithRequest(req))
 }

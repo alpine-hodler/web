@@ -38,10 +38,6 @@ module GoHTTP
     "(#{RETURN_ALIAS} #{val}, _ error)"
   end
 
-  # def declare_ratelimit(endpoint)
-  #   "ratelimiter := rate.NewLimiter(rate.Every(1*time.Second), #{endpoint.rate_limit});"
-  # end
-
   def declare_request(endpoint)
     opts = endpoint.params? ? 'opts' : 'nil'
     "req, _ := internal.HTTPNewRequest(\"#{endpoint.http_method}\", \"\", #{opts});"
@@ -62,11 +58,21 @@ module GoHTTP
     opts_var = endpoint.query_params? ? OPTIONS_ALIAS : 'nil'
 
     if endpoint.no_assignment?
-      "return internal.HTTPFetch(#{CLIENT_ALIAS}.Client," +
-        "req, ratelimiter, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, nil)"
+      'return internal.HTTPFetch(nil,' +
+        "internal.HTTPWithClient(#{CLIENT_ALIAS}.Client),\n" +
+        "internal.HTTPWithEncoder(#{opts_var}),\n" +
+        "internal.HTTPWithEndpoint(#{endpoint.go_const}),\n" +
+        "internal.HTTPWithParams(#{params_function(endpoint)}),\n" +
+        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const})),\n" +
+        'internal.HTTPWithRequest(req))'
     else
-      "return #{RETURN_ALIAS}, internal.HTTPFetch(#{CLIENT_ALIAS}.Client," +
-        "req, ratelimiter, #{opts_var}, #{endpoint.go_const}, #{params_function(endpoint)}, &#{RETURN_ALIAS})"
+      "return #{RETURN_ALIAS}, internal.HTTPFetch(&#{RETURN_ALIAS}," +
+        "internal.HTTPWithClient(#{CLIENT_ALIAS}.Client),\n" +
+        "internal.HTTPWithEncoder(#{opts_var}),\n" +
+        "internal.HTTPWithEndpoint(#{endpoint.go_const}),\n" +
+        "internal.HTTPWithParams(#{params_function(endpoint)}),\n" +
+        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const})),\n" +
+        'internal.HTTPWithRequest(req))'
     end
   end
 

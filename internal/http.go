@@ -14,8 +14,8 @@ import (
 	"golang.org/x/time/rate"
 )
 
-// Options are optional data than can be encoded into a request's URL or Body.
-type Options interface {
+// Encoders are optional data than can be encoded into a request's URL or Body.
+type Encoder interface {
 	EncodeBody() (io.Reader, error)
 	EncodeQuery(*http.Request)
 }
@@ -25,6 +25,15 @@ type Client interface {
 
 	// RateLimiter will try to prevent 429 errors. Consistenly hitting 429 might result in an API ban.
 	RateLimiter() *rate.Limiter
+}
+
+type httpFetchConfigs struct {
+	client      http.Client
+	req         *http.Request
+	ratelimiter *rate.Limiter
+	encoder     Encoder
+	endpoint    endpoint
+	params      map[string]string
 }
 
 type endpoint interface {
@@ -37,6 +46,48 @@ type endpoint interface {
 // stringer is any type that can textualize it's value as a string.
 type stringer interface {
 	String() string
+}
+
+// HTTPWithClient will set the http client on the fetch configurations.
+func HTTPWithClient(client http.Client) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.client = client
+	}
+}
+
+// HTTPWithEncoder will set the encoder for the http request body and query params.
+func HTTPWithEncoder(enc Encoder) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.encoder = enc
+	}
+}
+
+// HTTPWithEndpoint will set the endpoint data for the request on the configurations.
+func HTTPWithEndpoint(ep endpoint) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.endpoint = ep
+	}
+}
+
+// HTTPWithParams will set the query parameters for the request on the configurations.
+func HTTPWithParams(params map[string]string) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.params = params
+	}
+}
+
+// HTTPWithRatelimiter will set the rate limiting mechanism on the fetch configurations.
+func HTTPWithRatelimiter(rl *rate.Limiter) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.ratelimiter = rl
+	}
+}
+
+// HTTPWithRequest will set the http request on the fetch configurations.
+func HTTPWithRequest(req *http.Request) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.req = req
+	}
 }
 
 func httpQueryEncode(req *http.Request, key, val string) {
@@ -164,46 +215,33 @@ func validateResponse(res *http.Response) (err error) {
 	return
 }
 
-func httpFetchRecursive(client http.Client, req *http.Request, ratelimiter *rate.Limiter, opts Options, ep endpoint,
-	params map[string]string, model interface{}, refetch bool) error {
-	if !refetch {
-		req.URL.Path = ep.Path(params)
-		if opts != nil {
-			// if the request is to "refetch", then the options have already been encoded onto the request and we have no need
-			// to re-encode.
-			opts.EncodeQuery(req)
-		}
+// HTTPFetch will make an HTTP request given a http.Client and a partially formatted http.Request, it will then try to
+// edecode the model.
+func HTTPFetch(model interface{}, opts ...func(*httpFetchConfigs)) error {
+	configs := new(httpFetchConfigs)
+	for _, opt := range opts {
+		opt(configs)
 	}
-	if req.Body != nil {
-		req.Header.Set("content-type", "application/json")
+	configs.req.URL.Path = configs.endpoint.Path(configs.params)
+	if configs.encoder != nil {
+		configs.encoder.EncodeQuery(configs.req)
+	}
+	if configs.req.Body != nil {
+		configs.req.Header.Set("content-type", "application/json")
 	}
 
 	ctx := context.Background()
-	err := ratelimiter.Wait(ctx) // This is a blocking call. Honors the rate limit
+	err := configs.ratelimiter.Wait(ctx) // This is a blocking call. Honors the rate limit
 	if err != nil {
 		return fmt.Errorf("error waiting on rate limiter: %v", err)
 	}
 
-	resp, err := client.Do(req)
+	resp, err := configs.client.Do(configs.req)
 	if err != nil {
-		return fmt.Errorf("error making request %+v: %v", req, err)
+		return fmt.Errorf("error making request %+v: %v", configs.req, err)
 	}
 	defer resp.Body.Close()
 
-	// // If the request gets rate limited, then we need to re-fetch.
-	// if resp.StatusCode == http.StatusTooManyRequests {
-	// 	return fmt.Errorf("error too many requests: %v", )
-	// 	// time.Sleep(1 * time.Second)
-	// 	// // Clear the header to be reset by the recursive function and the auth transport.
-	// 	// req.Header = http.Header{}
-
-	// 	// // the Go http client will try to reuse connections unless you've specifically indicated that it shouldn't. This
-	// 	// // becomes a problem when the server on the other end closes the connection without indicating. The net.http code
-	// 	// // assumes that the connection is still open and so the next request that tries to use the connection next,
-	// 	// // encounters the EOF from the connection being closed the other time. So we need to close the connection.
-	// 	// req.Close = true
-	// 	// return httpFetchRecursive(client, req, opts, ep, params, model, true)
-	// }
 	if err := validateResponse(resp); err != nil {
 		return err
 	}
@@ -222,19 +260,12 @@ func httpFetchRecursive(client http.Client, req *http.Request, ratelimiter *rate
 	return nil
 }
 
-// HTTPFetch will make an HTTP request given a http.Client and a partially formatted http.Request, it will then try to
-// edecode the model.
-func HTTPFetch(client http.Client, req *http.Request, ratelimiter *rate.Limiter, opts Options, ep endpoint,
-	params map[string]string, model interface{}) error {
-	return httpFetchRecursive(client, req, ratelimiter, opts, ep, params, model, false)
-}
-
 // HTTPNewRequest will return a new request.  If the options are set, this function will encode a body if possible.
-func HTTPNewRequest(method, url string, opts Options) (*http.Request, error) {
-	if opts == nil {
+func HTTPNewRequest(method, url string, encoder Encoder) (*http.Request, error) {
+	if encoder == nil {
 		return http.NewRequest(method, url, nil)
 	}
-	buf, err := opts.EncodeBody()
+	buf, err := encoder.EncodeBody()
 	if err != nil {
 		return nil, err
 	}
