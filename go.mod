@@ -1,4 +1,4 @@
-module github.com/alpine-hodler/web
+module github.com/alpine-hodler/web/v2.0.1-alpha
 
 go 1.18
 

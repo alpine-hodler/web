@@ -20,9 +20,9 @@ go_library(
 
 go_test(
     name = "morningstar_test",
+    timeout = "short",
     srcs = ["example_test.go"],
     data = glob([".test.env"]),
-		timeout = "short",
     deps = [
         ":morningstar",
         "//tools",

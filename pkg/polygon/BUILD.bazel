@@ -21,9 +21,9 @@ go_library(
 
 go_test(
     name = "polygon_test",
+    timeout = "short",
     srcs = ["example_test.go"],
     data = glob([".test.env"]),
-    timeout = "short",
     deps = [
         ":polygon",
         "//pkg/transport",
