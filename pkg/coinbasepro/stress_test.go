@@ -14,6 +14,8 @@ import (
 )
 
 func TestStress(t *testing.T) {
+	return // ! don't run these atm
+
 	godotenv.Load(".simple-test.env")
 	os.Setenv("CB_PRO_URL", "https://api-public.sandbox.exchange.coinbase.com") // safety check
 
