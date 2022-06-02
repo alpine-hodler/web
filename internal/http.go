@@ -28,12 +28,14 @@ type Client interface {
 }
 
 type httpFetchConfigs struct {
+	clbk        func(uint8, http.Response) error
 	client      http.Client
 	req         *http.Request
 	ratelimiter *rate.Limiter
 	encoder     Encoder
 	endpoint    endpoint
 	params      map[string]string
+	path        uint8
 }
 
 type endpoint interface {
@@ -46,6 +48,13 @@ type endpoint interface {
 // stringer is any type that can textualize it's value as a string.
 type stringer interface {
 	String() string
+}
+
+// HTTPWithCallback will set a callback function that takes a uint8 argument and returns an error.
+func HTTPWithCallback(clbk func(uint8, http.Response) error) func(*httpFetchConfigs) {
+	return func(c *httpFetchConfigs) {
+		c.clbk = clbk
+	}
 }
 
 // HTTPWithClient will set the http client on the fetch configurations.

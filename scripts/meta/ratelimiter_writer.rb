@@ -6,6 +6,8 @@ module RatelimitWriter
   def self.apis(ratelimiters)
     tree = (proc { Hash.new { |hash, key| hash[key] = [] } }).call
     ratelimiters.each do |rl|
+			next if rl.endpoint.nil?
+
       tree[rl.endpoint.api] << rl
     end
     tree
@@ -31,9 +33,9 @@ module RatelimitWriter
 
   def self.fn
 		logic = "// getRateLimiter will load the rate limiter for a specific request, lazy loaded.\n"
-    logic += 'func getRateLimiter(rl ratelimiter) *rate.Limiter {;'
+    logic += 'func getRateLimiter(rl ratelimiter, b int) *rate.Limiter {;'
     logic += 'if ratelimiters[rl] == nil {;'
-    logic += 'ratelimiters[rl] = rate.NewLimiter(rate.Every(1*time.Second),5);'
+    logic += 'ratelimiters[rl] = rate.NewLimiter(rate.Every(1*time.Second),b);'
     logic += '};'
     logic += 'return ratelimiters[rl];'
     logic += "};\n\n"

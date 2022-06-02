@@ -13,7 +13,7 @@ func (c *Client) AllTweets(opts *AllTweetsOptions) (m *Tweets, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(AllTweetsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(AllTweetsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AllTweetsRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -29,7 +29,7 @@ func (c *Client) Bookmarks(userId string, opts *BookmarksOptions) (m *Bookmarks,
 		internal.HTTPWithParams(map[string]string{
 			"user_id": userId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(BookmarksRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(BookmarksRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -42,7 +42,7 @@ func (c *Client) ComplianceJobs(opts *ComplianceJobsOptions) (m []*Compliance, _
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(ComplianceJobsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(ComplianceJobsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ComplianceJobsRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -58,7 +58,7 @@ func (c *Client) CreateBookmark(userId string, opts *CreateBookmarkOptions) (m B
 		internal.HTTPWithParams(map[string]string{
 			"user_id": userId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(CreateBookmarkRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateBookmarkRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -75,7 +75,7 @@ func (c *Client) DeleteBookmark(userId string, tweetId string) (m BookmarkWrite,
 		internal.HTTPWithParams(map[string]string{
 			"user_id": userId, "tweet_id": tweetId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(DeleteBookmarkRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(DeleteBookmarkRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -88,7 +88,7 @@ func (c *Client) Me() (m []*User, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(MePath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(MeRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(MeRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -101,6 +101,6 @@ func (c *Client) Tweets(opts *TweetsOptions) (m *Tweets, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(TweetsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(TweetsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(TweetsRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }

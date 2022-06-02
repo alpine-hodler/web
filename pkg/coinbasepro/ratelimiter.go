@@ -110,9 +110,9 @@ func init() {
 }
 
 // getRateLimiter will load the rate limiter for a specific request, lazy loaded.
-func getRateLimiter(rl ratelimiter) *rate.Limiter {
+func getRateLimiter(rl ratelimiter, b int) *rate.Limiter {
 	if ratelimiters[rl] == nil {
-		ratelimiters[rl] = rate.NewLimiter(rate.Every(1*time.Second), 5)
+		ratelimiters[rl] = rate.NewLimiter(rate.Every(1*time.Second), b)
 	}
 	return ratelimiters[rl]
 }

@@ -3,7 +3,8 @@
 
 require_relative 'scheme'
 require_relative 'model'
-require_relative 'post_authority'
+require_relative 'path'
+require_relative 'path_writer'
 require_relative 'option'
 require_relative 'go_client'
 require_relative 'path_part'
@@ -28,20 +29,20 @@ RETURN_ALIAS = 'm'
 TOOLS_PKG = 'tools'
 
 def generate_models
+	paths = []
   schema = []
   types = []
   ratelimiters = []
-  post_authority = PostAuthority.new
   Dir.glob("#{File.dirname(__FILE__)}/schema/*").each do |dir|
     Dir.glob("#{dir}/*.json").each do |filename|
       if filename.include?('/types.json')
         types << Types.new(filename)
       else
         scheme = Scheme.new(filename)
-        post_authority.add(scheme) unless scheme.model_only
         schema << scheme
         scheme.endpoints.each do |ep|
           ratelimiters << Ratelimiter.new(ep)
+					paths << Path.new(ep)
         end
       end
     end
@@ -52,8 +53,7 @@ def generate_models
   GoClient.write(schema)
   TypesWriter.write(types)
   RatelimitWriter.write(ratelimiters)
-
-  post_authority.write_web
+	PathWriter.write(paths)
 end
 
 generate_models

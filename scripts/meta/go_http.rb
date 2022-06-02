@@ -63,7 +63,7 @@ module GoHTTP
         "internal.HTTPWithEncoder(#{opts_var}),\n" +
         "internal.HTTPWithEndpoint(#{endpoint.go_const}),\n" +
         "internal.HTTPWithParams(#{params_function(endpoint)}),\n" +
-        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const})),\n" +
+        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const}, #{endpoint.rate_limit})),\n" +
         'internal.HTTPWithRequest(req))'
     else
       "return #{RETURN_ALIAS}, internal.HTTPFetch(&#{RETURN_ALIAS}," +
@@ -71,7 +71,7 @@ module GoHTTP
         "internal.HTTPWithEncoder(#{opts_var}),\n" +
         "internal.HTTPWithEndpoint(#{endpoint.go_const}),\n" +
         "internal.HTTPWithParams(#{params_function(endpoint)}),\n" +
-        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const})),\n" +
+        "internal.HTTPWithRatelimiter(getRateLimiter(#{endpoint.go_rl_const}, #{endpoint.rate_limit})),\n" +
         'internal.HTTPWithRequest(req))'
     end
   end

@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "twitter",
+    name = "morningstar",
     srcs = [
         "client.go",
         "http.go",
@@ -9,29 +9,20 @@ go_library(
         "options.go",
         "path.go",
         "ratelimiter.go",
-        "types.go",
     ],
-    importpath = "github.com/alpine-hodler/web/pkg/twitter",
+    importpath = "github.com/alpine-hodler/web/pkg/morningstar",
     visibility = ["//visibility:public"],
     deps = [
-        "//internal",
         "//pkg/transport",
         "@org_golang_x_time//rate",
     ],
 )
 
 go_test(
-    name = "twitter_test",
-    timeout = "short",
+    name = "morningstar_test",
     srcs = ["example_test.go"],
-    data = glob([
-        ".simple-test.env",
-        ".test.env",
-        "refresh_token.json",
-    ]),
     deps = [
-        ":twitter",
-        "//pkg/transport",
+        ":morningstar",
         "//tools",
         "@com_github_joho_godotenv//:godotenv",
     ],

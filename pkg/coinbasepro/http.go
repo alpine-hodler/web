@@ -16,7 +16,7 @@ func (c *Client) Account(accountId string) (m *Account, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"account_id": accountId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(AccountRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -33,7 +33,7 @@ func (c *Client) AccountHolds(accountId string, opts *AccountHoldsOptions) (m []
 		internal.HTTPWithParams(map[string]string{
 			"account_id": accountId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(AccountHoldsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountHoldsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -49,7 +49,7 @@ func (c *Client) AccountLedger(accountId string, opts *AccountLedgerOptions) (m 
 		internal.HTTPWithParams(map[string]string{
 			"account_id": accountId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(AccountLedgerRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountLedgerRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -64,7 +64,7 @@ func (c *Client) AccountTransfers(accountId string, opts *AccountTransfersOption
 		internal.HTTPWithParams(map[string]string{
 			"account_id": accountId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(AccountTransfersRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountTransfersRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -77,7 +77,7 @@ func (c *Client) Accounts() (m []*Account, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(AccountsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(AccountsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(AccountsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -93,7 +93,7 @@ func (c *Client) Book(productId string, opts *BookOptions) (m *Book, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(BookRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(BookRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -107,7 +107,7 @@ func (c *Client) CancelOpenOrders(opts *CancelOpenOrdersOptions) (m []*string, _
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(CancelOpenOrdersPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CancelOpenOrdersRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CancelOpenOrdersRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -122,7 +122,7 @@ func (c *Client) CancelOrder(orderId string) (m string, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"order_id": orderId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(CancelOrderRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CancelOrderRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -137,7 +137,7 @@ func (c *Client) Candles(productId string, opts *CandlesOptions) (m *Candles, _ 
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(CandlesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CandlesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -150,7 +150,7 @@ func (c *Client) CoinbaseAccountDeposit(opts *CoinbaseAccountDepositOptions) (m 
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CoinbaseAccountDepositPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountDepositRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountDepositRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -166,7 +166,7 @@ func (c *Client) CoinbaseAccountWithdrawal(opts *CoinbaseAccountWithdrawalOption
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CoinbaseAccountWithdrawalPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountWithdrawalRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CoinbaseAccountWithdrawalRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -181,7 +181,7 @@ func (c *Client) ConvertCurrency(opts *ConvertCurrencyOptions) (m *CurrencyConve
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(ConvertCurrencyPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(ConvertCurrencyRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ConvertCurrencyRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -196,7 +196,7 @@ func (c *Client) CreateOrder(opts *CreateOrderOptions) (m *CreateOrder, _ error)
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CreateOrderPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CreateOrderRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateOrderRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -210,7 +210,7 @@ func (c *Client) CreateProfile(opts *CreateProfileOptions) (m *Profile, _ error)
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CreateProfilePath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -224,7 +224,7 @@ func (c *Client) CreateProfileTransfer(opts *CreateProfileTransferOptions) error
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CreateProfileTransferPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileTransferRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateProfileTransferRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -238,7 +238,7 @@ func (c *Client) CreateReport(opts *CreateReportOptions) (m *CreateReport, _ err
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CreateReportPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CreateReportRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CreateReportRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -252,7 +252,7 @@ func (c *Client) CryptoWithdrawal(opts *CryptoWithdrawalOptions) (m *Withdrawal,
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CryptoWithdrawalPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CryptoWithdrawalRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CryptoWithdrawalRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -265,7 +265,7 @@ func (c *Client) Currencies() (m []*Currency, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CurrenciesPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(CurrenciesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrenciesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -280,7 +280,7 @@ func (c *Client) Currency(currencyId string) (m *Currency, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"currency_id": currencyId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -295,7 +295,7 @@ func (c *Client) CurrencyConversion(conversionId string, opts *CurrencyConversio
 		internal.HTTPWithParams(map[string]string{
 			"conversion_id": conversionId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyConversionRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(CurrencyConversionRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -311,7 +311,7 @@ func (c *Client) DeleteProfile(profileId string, opts *DeleteProfileOptions) err
 		internal.HTTPWithParams(map[string]string{
 			"profile_id": profileId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(DeleteProfileRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(DeleteProfileRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -326,7 +326,7 @@ func (c *Client) ExchangeLimits(userId string) (m *ExchangeLimits, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"user_id": userId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ExchangeLimitsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ExchangeLimitsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -339,7 +339,7 @@ func (c *Client) Fees() (m *Fees, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(FeesPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(FeesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(FeesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -352,7 +352,7 @@ func (c *Client) Fills(opts *FillsOptions) (m []*Fill, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(FillsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(FillsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(FillsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -368,7 +368,7 @@ func (c *Client) GenerateCryptoAddress(accountId string) (m *CryptoAddress, _ er
 		internal.HTTPWithParams(map[string]string{
 			"account_id": accountId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(GenerateCryptoAddressRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(GenerateCryptoAddressRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -383,7 +383,7 @@ func (c *Client) Order(orderId string) (m *Order, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"order_id": orderId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(OrderRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(OrderRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -398,7 +398,7 @@ func (c *Client) Orders(opts *OrdersOptions) (m []*Order, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(OrdersPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(OrdersRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(OrdersRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -411,7 +411,7 @@ func (c *Client) PaymentMethodDeposit(opts *PaymentMethodDepositOptions) (m *Dep
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(PaymentMethodDepositPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodDepositRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodDepositRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -425,7 +425,7 @@ func (c *Client) PaymentMethodWithdrawal(opts *PaymentMethodWithdrawalOptions) (
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(PaymentMethodWithdrawalPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodWithdrawalRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodWithdrawalRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -438,7 +438,7 @@ func (c *Client) PaymentMethods() (m []*PaymentMethod, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(PaymentMethodsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(PaymentMethodsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -453,7 +453,7 @@ func (c *Client) Product(productId string) (m *Product, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProductRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -468,7 +468,7 @@ func (c *Client) ProductStats(productId string) (m *ProductStats, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProductStatsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductStatsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -483,7 +483,7 @@ func (c *Client) ProductTicker(productId string) (m *ProductTicker, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProductTickerRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductTickerRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -496,7 +496,7 @@ func (c *Client) Products(opts *ProductsOptions) (m []*Product, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(ProductsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProductsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProductsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -512,7 +512,7 @@ func (c *Client) Profile(profileId string, opts *ProfileOptions) (m *Profile, _ 
 		internal.HTTPWithParams(map[string]string{
 			"profile_id": profileId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProfileRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProfileRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -525,7 +525,7 @@ func (c *Client) Profiles(opts *ProfilesOptions) (m []*Profile, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(ProfilesPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(ProfilesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ProfilesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -540,7 +540,7 @@ func (c *Client) RenameProfile(profileId string, opts *RenameProfileOptions) (m 
 		internal.HTTPWithParams(map[string]string{
 			"profile_id": profileId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(RenameProfileRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(RenameProfileRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -555,7 +555,7 @@ func (c *Client) Report(reportId string) (m *Report, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"report_id": reportId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(ReportRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ReportRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -568,7 +568,7 @@ func (c *Client) Reports(opts *ReportsOptions) (m []*Report, _ error) {
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(ReportsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(ReportsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(ReportsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -582,7 +582,7 @@ func (c *Client) SignedPrices() (m *Oracle, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(SignedPricesPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(SignedPricesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(SignedPricesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -597,7 +597,7 @@ func (c *Client) Trades(productId string, opts *TradesOptions) (m []*Trade, _ er
 		internal.HTTPWithParams(map[string]string{
 			"product_id": productId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(TradesRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(TradesRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -612,7 +612,7 @@ func (c *Client) Transfer(transferId string) (m *Transfer, _ error) {
 		internal.HTTPWithParams(map[string]string{
 			"transfer_id": transferId,
 		}),
-		internal.HTTPWithRatelimiter(getRateLimiter(TransferRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(TransferRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -625,7 +625,7 @@ func (c *Client) Transfers() (m []*Transfer, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(TransfersPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(TransfersRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(TransfersRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -639,7 +639,7 @@ func (c *Client) Wallets() (m []*Wallet, _ error) {
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(WalletsPath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(WalletsRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(WalletsRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }
 
@@ -652,6 +652,6 @@ func (c *Client) WithdrawalFeeEstimate(opts *WithdrawalFeeEstimateOptions) (m *W
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(WithdrawalFeeEstimatePath),
 		internal.HTTPWithParams(nil),
-		internal.HTTPWithRatelimiter(getRateLimiter(WithdrawalFeeEstimateRatelimiter)),
+		internal.HTTPWithRatelimiter(getRateLimiter(WithdrawalFeeEstimateRatelimiter, 5)),
 		internal.HTTPWithRequest(req))
 }

@@ -29,7 +29,7 @@ func (auth *Auth2) SetURL(u string) *Auth2 {
 	return auth
 }
 
-// RoundTrip authorizes the request with a signed OAuth1 Authorization header using the auther and TokenSource.
+// RoundTrip authorizes the request with a signed OAuth1 Authorization header using the author and TokenSource.
 func (auth *Auth2) RoundTrip(req *http.Request) (*http.Response, error) {
 	if auth.url == nil {
 		return nil, fmt.Errorf("url is a required value on the HTTP client's transport")

@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "polygon",
+    srcs = [
+        "client.go",
+        "http.go",
+        "models.go",
+        "options.go",
+        "path.go",
+        "ratelimiter.go",
+    ],
+    importpath = "github.com/alpine-hodler/web/pkg/polygon",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//internal",
+        "//pkg/transport",
+        "@org_golang_x_time//rate",
+    ],
+)

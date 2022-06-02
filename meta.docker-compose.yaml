@@ -11,9 +11,11 @@ services:
     command: [ruby, /usr/src/meta/generate.rb]
     volumes:
       - ./pkg/coinbasepro:/usr/src/coinbasepro
+      - ./pkg/morningstar:/usr/src/morningstar
+      - ./pkg/polygon:/usr/src/polygon
       - ./pkg/twitter:/usr/src/twitter
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
-      - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
+      - ./scripts/meta/path.rb:/usr/src/meta/path.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
@@ -27,7 +29,7 @@ services:
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
-      - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
+      - ./scripts/meta/path_writer.rb:/usr/src/meta/path_writer.rb
       - ./scripts/meta/inflector.rb:/usr/src/meta/inflector.rb
       - ./scripts/meta/types.rb:/usr/src/meta/types.rb
       - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
@@ -43,9 +45,11 @@ services:
     command: [ruby, /usr/src/meta/test/test.rb]
     volumes:
       - ./pkg/coinbasepro:/usr/src/coinbasepro
+      - ./pkg/morningstar:/usr/src/morningstar
+      - ./pkg/polygon:/usr/src/polygon
       - ./pkg/twitter:/usr/src/twitter
       - ./scripts/meta/comment.rb:/usr/src/meta/comment.rb
-      - ./scripts/meta/post_authority.rb:/usr/src/meta/post_authority.rb
+      - ./scripts/meta/path.rb:/usr/src/meta/path.rb
       - ./scripts/meta/endpoint.rb:/usr/src/meta/endpoint.rb
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
@@ -60,7 +64,7 @@ services:
       - ./scripts/meta/path_part.rb:/usr/src/meta/path_part.rb
       - ./scripts/meta/scheme.rb:/usr/src/meta/scheme.rb
       - ./scripts/meta/test:/usr/src/meta/test
-      - ./scripts/meta/go_post_authority.rb:/usr/src/meta/go_post_authority.rb
+      - ./scripts/meta/path_writer.rb:/usr/src/meta/path_writer.rb
       - ./scripts/meta/inflector.rb:/usr/src/meta/inflector.rb
       - ./scripts/meta/types.rb:/usr/src/meta/types.rb
       - ./scripts/meta/enum.rb:/usr/src/meta/enum.rb
