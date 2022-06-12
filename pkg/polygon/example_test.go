@@ -10,12 +10,11 @@ import (
 
 	"github.com/alpine-hodler/web/pkg/polygon"
 	"github.com/alpine-hodler/web/pkg/transport"
-	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 )
 
 func TestExamples(t *testing.T) {
-	defer tools.Quiet()()
+	// defer tools.Quiet()()
 
 	godotenv.Load(".test.env")
 
@@ -25,6 +24,7 @@ func TestExamples(t *testing.T) {
 	}
 
 	testCases := []testCase{
+		{"Client.AggregateBar", func(t *testing.T) { ExampleClient_AggregateBar() }},
 		{"Client.Upcoming", func(t *testing.T) { ExampleClient_Upcoming() }},
 	}
 
@@ -36,6 +36,23 @@ func TestExamples(t *testing.T) {
 			time.Sleep(1 * time.Minute)
 		}
 	}
+}
+
+func ExampleClient_AggregateBar() {
+	url := "https://api.polygon.io"
+	apikey := os.Getenv("POLYGON_API_KEY")
+
+	client, err := polygon.NewClient(context.TODO(), transport.NewAuth2().SetBearer(apikey).SetURL(url))
+	if err != nil {
+		log.Fatalf("error fetching client: %v", err)
+	}
+
+	bar, err := client.AggregateBar("AAPL", "1", "day", "2021-07-22", "2021-07-22")
+	if err != nil {
+		log.Fatalf("error fetching aggregate bar: %v", err)
+	}
+
+	fmt.Printf("an aggregate bar: %+v\n", bar.Results[0])
 }
 
 func ExampleClient_Upcoming() {

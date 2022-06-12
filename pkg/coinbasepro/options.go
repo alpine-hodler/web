@@ -14,32 +14,32 @@ import (
 // AccountHoldsOptions are options for API requests.
 type AccountHoldsOptions struct {
 	// After is used for pagination and sets end cursor to `after` date.
-	After *string `json:"after" bson:"after"`
+	After *string `bson:"after" json:"after" sql:"after"`
 
 	// Before is used for pagination and sets start cursor to `before` date.
-	Before *string `json:"before" bson:"before"`
+	Before *string `bson:"before" json:"before" sql:"before"`
 
 	// Limit puts a limit on number of results to return.
-	Limit *int `json:"limit" bson:"limit"`
+	Limit *int `bson:"limit" json:"limit" sql:"limit"`
 }
 
 // AccountLedgerOptions are options for API requests.
 type AccountLedgerOptions struct {
 	// After is used for pagination. Sets end cursor to `after` date.
-	After *int `json:"after" bson:"after"`
+	After *int `bson:"after" json:"after" sql:"after"`
 
 	// Before is used for pagination. Sets start cursor to `before` date.
-	Before *int `json:"before" bson:"before"`
+	Before *int `bson:"before" json:"before" sql:"before"`
 
 	// EndDate will filter results by maximum posted date.
-	EndDate *string `json:"end_date" bson:"end_date"`
+	EndDate *string `bson:"end_date" json:"end_date" sql:"end_date"`
 
 	// Limit puts a limit on number of results to return.
-	Limit *int `json:"limit" bson:"limit"`
+	Limit *int `bson:"limit" json:"limit" sql:"limit"`
 
 	// StartDate will filter results by minimum posted date.
-	StartDate *string `json:"start_date" bson:"start_date"`
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	StartDate *string `bson:"start_date" json:"start_date" sql:"start_date"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // BookOptions are options for API requests.
@@ -53,239 +53,239 @@ type BookOptions struct {
 	// recommended for polling. For the most up-to-date data, consider using the websocket stream. Level 3 is only
 	// recommended for users wishing to maintain a full real-time order book using the websocket stream. Abuse of Level 3
 	// via polling will cause your access to be limited or blocked.
-	Level *int32 `json:"level" bson:"level"`
+	Level *int32 `bson:"level" json:"level" sql:"level"`
 }
 
 // CandlesOptions are options for API requests.
 type CandlesOptions struct {
 	// End is a timestamp for ending range of aggregations.
-	End *string `json:"end" bson:"end"`
+	End *string `bson:"end" json:"end" sql:"end"`
 
 	// Granularity is one of the following values: {60, 300, 900, 3600, 21600, 86400}. Otherwise, your request will be
 	// rejected. These values correspond to timeslices representing one minute, five minutes, fifteen minutes, one hour, six
 	// hours, and one day, respectively.
-	Granularity *Granularity `json:"granularity" bson:"granularity"`
+	Granularity *Granularity `bson:"granularity" json:"granularity" sql:"granularity"`
 
 	// Start is a timestamp for starting range of aggregations.
-	Start *string `json:"start" bson:"start"`
+	Start *string `bson:"start" json:"start" sql:"start"`
 }
 
 // CreateOrderOptions are options for API requests.
 type CreateOrderOptions struct {
-	CancelAfter *CancelAfter `json:"cancel_after" bson:"cancel_after"`
-	ClientOid   *string      `json:"client_oid" bson:"client_oid"`
-	Funds       *float64     `json:"funds" bson:"funds"`
-	PostOnly    *bool        `json:"post_only" bson:"post_only"`
-	Price       *float64     `json:"price" bson:"price"`
-	ProductID   string       `json:"product_id" bson:"product_id"`
-	ProfileID   *string      `json:"profile_id" bson:"profile_id"`
-	STP         *STP         `json:"stp" bson:"stp"`
-	Side        Side         `json:"side" bson:"side"`
-	Size        *float64     `json:"size" bson:"size"`
-	Stop        *Stop        `json:"stop" bson:"stop"`
-	StopPrice   *float64     `json:"stop_price" bson:"stop_price"`
-	TimeInForce *TimeInForce `json:"time_in_force" bson:"time_in_force"`
-	Type        *OrderType   `json:"type" bson:"type"`
+	CancelAfter *CancelAfter `bson:"cancel_after" json:"cancel_after" sql:"cancel_after"`
+	ClientOid   *string      `bson:"client_oid" json:"client_oid" sql:"client_oid"`
+	Funds       *float64     `bson:"funds" json:"funds" sql:"funds"`
+	PostOnly    *bool        `bson:"post_only" json:"post_only" sql:"post_only"`
+	Price       *float64     `bson:"price" json:"price" sql:"price"`
+	ProductID   string       `bson:"product_id" json:"product_id" sql:"product_id"`
+	ProfileID   *string      `bson:"profile_id" json:"profile_id" sql:"profile_id"`
+	STP         *STP         `bson:"stp" json:"stp" sql:"stp"`
+	Side        Side         `bson:"side" json:"side" sql:"side"`
+	Size        *float64     `bson:"size" json:"size" sql:"size"`
+	Stop        *Stop        `bson:"stop" json:"stop" sql:"stop"`
+	StopPrice   *float64     `bson:"stop_price" json:"stop_price" sql:"stop_price"`
+	TimeInForce *TimeInForce `bson:"time_in_force" json:"time_in_force" sql:"time_in_force"`
+	Type        *OrderType   `bson:"type" json:"type" sql:"type"`
 }
 
 // CreateReportOptions are options for API requests.
 type CreateReportOptions struct {
 	// Account - required for account-type reports
-	AccountID *string `json:"account_id" bson:"account_id"`
+	AccountID *string `bson:"account_id" json:"account_id" sql:"account_id"`
 
 	// Email to send generated report to
-	Email *string `json:"email" bson:"email"`
+	Email *string `bson:"email" json:"email" sql:"email"`
 
 	// End date for items to be included in report
-	EndDate *string `json:"end_date" bson:"end_date"`
+	EndDate *string `bson:"end_date" json:"end_date" sql:"end_date"`
 
 	// Portfolio - Which portfolio to generate the report for
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 
 	// Product - required for fills-type reports
-	ProductID *string `json:"product_id" bson:"product_id"`
+	ProductID *string `bson:"product_id" json:"product_id" sql:"product_id"`
 
 	// Start date for items to be included in report.
-	StartDate *string `json:"start_date" bson:"start_date"`
+	StartDate *string `bson:"start_date" json:"start_date" sql:"start_date"`
 
 	// required for 1099k-transaction-history-type reports
-	Year   *string     `json:"year" bson:"year"`
-	Format *FileFormat `json:"format" bson:"format"`
-	Type   ReportType  `json:"type" bson:"type"`
+	Year   *string     `bson:"year" json:"year" sql:"year"`
+	Format *FileFormat `bson:"format" json:"format" sql:"format"`
+	Type   ReportType  `bson:"type" json:"type" sql:"type"`
 }
 
 // ConvertCurrencyOptions are options for API requests.
 type ConvertCurrencyOptions struct {
-	Amount    float64 `json:"amount" bson:"amount"`
-	From      string  `json:"from" bson:"from"`
-	Nonce     *string `json:"nonce" bson:"nonce"`
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
-	To        string  `json:"to" bson:"to"`
+	Amount    float64 `bson:"amount" json:"amount" sql:"amount"`
+	From      string  `bson:"from" json:"from" sql:"from"`
+	Nonce     *string `bson:"nonce" json:"nonce" sql:"nonce"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
+	To        string  `bson:"to" json:"to" sql:"to"`
 }
 
 // CurrencyConversionOptions are options for API requests.
 type CurrencyConversionOptions struct {
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // CoinbaseAccountDepositOptions are options for API requests.
 type CoinbaseAccountDepositOptions struct {
-	Amount            float64 `json:"amount" bson:"amount"`
-	CoinbaseAccountID string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
-	Currency          string  `json:"currency" bson:"currency"`
-	ProfileID         *string `json:"profile_id" bson:"profile_id"`
+	Amount            float64 `bson:"amount" json:"amount" sql:"amount"`
+	CoinbaseAccountID string  `bson:"coinbase_account_id" json:"coinbase_account_id" sql:"coinbase_account_id"`
+	Currency          string  `bson:"currency" json:"currency" sql:"currency"`
+	ProfileID         *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // PaymentMethodDepositOptions are options for API requests.
 type PaymentMethodDepositOptions struct {
-	Amount          float64 `json:"amount" bson:"amount"`
-	Currency        string  `json:"currency" bson:"currency"`
-	PaymentMethodID string  `json:"payment_method_id" bson:"payment_method_id"`
-	ProfileID       *string `json:"profile_id" bson:"profile_id"`
+	Amount          float64 `bson:"amount" json:"amount" sql:"amount"`
+	Currency        string  `bson:"currency" json:"currency" sql:"currency"`
+	PaymentMethodID string  `bson:"payment_method_id" json:"payment_method_id" sql:"payment_method_id"`
+	ProfileID       *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // FillsOptions are options for API requests.
 type FillsOptions struct {
-	After     *int    `json:"after" bson:"after"`
-	Before    *int    `json:"before" bson:"before"`
-	Limit     *int    `json:"limit" bson:"limit"`
-	OrderID   *string `json:"order_id" bson:"order_id"`
-	ProductID *string `json:"product_id" bson:"product_id"`
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	After     *int    `bson:"after" json:"after" sql:"after"`
+	Before    *int    `bson:"before" json:"before" sql:"before"`
+	Limit     *int    `bson:"limit" json:"limit" sql:"limit"`
+	OrderID   *string `bson:"order_id" json:"order_id" sql:"order_id"`
+	ProductID *string `bson:"product_id" json:"product_id" sql:"product_id"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // OrdersOptions are options for API requests.
 type OrdersOptions struct {
-	After     *string  `json:"after" bson:"after"`
-	Before    *string  `json:"before" bson:"before"`
-	EndDate   *string  `json:"end_date" bson:"end_date"`
-	Limit     int      `json:"limit" bson:"limit"`
-	ProductID *string  `json:"product_id" bson:"product_id"`
-	ProfileID *string  `json:"profile_id" bson:"profile_id"`
-	SortedBy  *string  `json:"sortedBy" bson:"sortedBy"`
-	Sorting   *string  `json:"sorting" bson:"sorting"`
-	StartDate *string  `json:"start_date" bson:"start_date"`
-	Status    []string `json:"status" bson:"status"`
+	After     *string  `bson:"after" json:"after" sql:"after"`
+	Before    *string  `bson:"before" json:"before" sql:"before"`
+	EndDate   *string  `bson:"end_date" json:"end_date" sql:"end_date"`
+	Limit     int      `bson:"limit" json:"limit" sql:"limit"`
+	ProductID *string  `bson:"product_id" json:"product_id" sql:"product_id"`
+	ProfileID *string  `bson:"profile_id" json:"profile_id" sql:"profile_id"`
+	SortedBy  *string  `bson:"sortedBy" json:"sortedBy" sql:"sortedBy"`
+	Sorting   *string  `bson:"sorting" json:"sorting" sql:"sorting"`
+	StartDate *string  `bson:"start_date" json:"start_date" sql:"start_date"`
+	Status    []string `bson:"status" json:"status" sql:"status"`
 }
 
 // CancelOpenOrdersOptions are options for API requests.
 type CancelOpenOrdersOptions struct {
-	ProductID *string `json:"product_id" bson:"product_id"`
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	ProductID *string `bson:"product_id" json:"product_id" sql:"product_id"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // ProductsOptions are options for API requests.
 type ProductsOptions struct {
-	Type *string `json:"type" bson:"type"`
+	Type *string `bson:"type" json:"type" sql:"type"`
 }
 
 // DeleteProfileOptions are options for API requests.
 type DeleteProfileOptions struct {
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
-	To        *string `json:"to" bson:"to"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
+	To        *string `bson:"to" json:"to" sql:"to"`
 }
 
 // ProfileOptions are options for API requests.
 type ProfileOptions struct {
-	Active *bool `json:"active" bson:"active"`
+	Active *bool `bson:"active" json:"active" sql:"active"`
 }
 
 // RenameProfileOptions are options for API requests.
 type RenameProfileOptions struct {
-	Name      *string `json:"name" bson:"name"`
-	ProfileID *string `json:"profile_id" bson:"profile_id"`
+	Name      *string `bson:"name" json:"name" sql:"name"`
+	ProfileID *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // ProfilesOptions are options for API requests.
 type ProfilesOptions struct {
-	Active *bool `json:"active" bson:"active"`
+	Active *bool `bson:"active" json:"active" sql:"active"`
 }
 
 // CreateProfileOptions are options for API requests.
 type CreateProfileOptions struct {
-	Name *string `json:"name" bson:"name"`
+	Name *string `bson:"name" json:"name" sql:"name"`
 }
 
 // CreateProfileTransferOptions are options for API requests.
 type CreateProfileTransferOptions struct {
-	Amount   *string `json:"amount" bson:"amount"`
-	Currency *string `json:"currency" bson:"currency"`
-	From     *string `json:"from" bson:"from"`
-	To       *string `json:"to" bson:"to"`
+	Amount   *string `bson:"amount" json:"amount" sql:"amount"`
+	Currency *string `bson:"currency" json:"currency" sql:"currency"`
+	From     *string `bson:"from" json:"from" sql:"from"`
+	To       *string `bson:"to" json:"to" sql:"to"`
 }
 
 // ReportsOptions are options for API requests.
 type ReportsOptions struct {
 	// Filter results after a specific date
-	After *string `json:"after" bson:"after"`
+	After *string `bson:"after" json:"after" sql:"after"`
 
 	// Filter results by a specific profile_id
-	PortfolioID *string `json:"portfolio_id" bson:"portfolio_id"`
+	PortfolioID *string `bson:"portfolio_id" json:"portfolio_id" sql:"portfolio_id"`
 
 	// Filter results by type of report (fills or account) - otc_fills: real string is otc-fills -
 	// type_1099k_transaction_history: real string is 1099-transaction-history - tax_invoice: real string is tax-invoice
-	Type *ReportType `json:"type" bson:"type"`
+	Type *ReportType `bson:"type" json:"type" sql:"type"`
 
 	// Ignore expired results
-	IgnoredExpired *bool `json:"ignored_expired" bson:"ignored_expired"`
+	IgnoredExpired *bool `bson:"ignored_expired" json:"ignored_expired" sql:"ignored_expired"`
 
 	// Limit results to a specific number
-	Limit *int `json:"limit" bson:"limit"`
+	Limit *int `bson:"limit" json:"limit" sql:"limit"`
 }
 
 // TradesOptions are options for API requests.
 type TradesOptions struct {
-	After  *int32 `json:"after" bson:"after"`
-	Before *int32 `json:"before" bson:"before"`
-	Limit  *int32 `json:"limit" bson:"limit"`
+	After  *int32 `bson:"after" json:"after" sql:"after"`
+	Before *int32 `bson:"before" json:"before" sql:"before"`
+	Limit  *int32 `bson:"limit" json:"limit" sql:"limit"`
 }
 
 // AccountTransfersOptions are options for API requests.
 type AccountTransfersOptions struct {
 	// After is used for pagination. Sets end cursor to `after` date.
-	After *string `json:"after" bson:"after"`
+	After *string `bson:"after" json:"after" sql:"after"`
 
 	// Before is used for pagination. Sets start cursor to `before` date.
-	Before *string `json:"before" bson:"before"`
+	Before *string `bson:"before" json:"before" sql:"before"`
 
 	// Limit puts a limit on number of results to return.
-	Limit *int            `json:"limit" bson:"limit"`
-	Type  *TransferMethod `json:"type" bson:"type"`
+	Limit *int            `bson:"limit" json:"limit" sql:"limit"`
+	Type  *TransferMethod `bson:"type" json:"type" sql:"type"`
 }
 
 // CoinbaseAccountWithdrawalOptions are options for API requests.
 type CoinbaseAccountWithdrawalOptions struct {
-	Amount            float64 `json:"amount" bson:"amount"`
-	CoinbaseAccountID string  `json:"coinbase_account_id" bson:"coinbase_account_id"`
-	Currency          string  `json:"currency" bson:"currency"`
-	ProfileID         *string `json:"profile_id" bson:"profile_id"`
+	Amount            float64 `bson:"amount" json:"amount" sql:"amount"`
+	CoinbaseAccountID string  `bson:"coinbase_account_id" json:"coinbase_account_id" sql:"coinbase_account_id"`
+	Currency          string  `bson:"currency" json:"currency" sql:"currency"`
+	ProfileID         *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // CryptoWithdrawalOptions are options for API requests.
 type CryptoWithdrawalOptions struct {
-	Amount           float64  `json:"amount" bson:"amount"`
-	CryptoAddress    string   `json:"crypto_address" bson:"crypto_address"`
-	Currency         string   `json:"currency" bson:"currency"`
-	DestinationTag   *string  `json:"destination_tag" bson:"destination_tag"`
-	Fee              *float64 `json:"fee" bson:"fee"`
-	NoDestinationTag *bool    `json:"no_destination_tag" bson:"no_destination_tag"`
-	Nonce            *int     `json:"nonce" bson:"nonce"`
-	ProfileID        *string  `json:"profile_id" bson:"profile_id"`
-	TwoFactorCode    *string  `json:"two_factor_code" bson:"two_factor_code"`
+	Amount           float64  `bson:"amount" json:"amount" sql:"amount"`
+	CryptoAddress    string   `bson:"crypto_address" json:"crypto_address" sql:"crypto_address"`
+	Currency         string   `bson:"currency" json:"currency" sql:"currency"`
+	DestinationTag   *string  `bson:"destination_tag" json:"destination_tag" sql:"destination_tag"`
+	Fee              *float64 `bson:"fee" json:"fee" sql:"fee"`
+	NoDestinationTag *bool    `bson:"no_destination_tag" json:"no_destination_tag" sql:"no_destination_tag"`
+	Nonce            *int     `bson:"nonce" json:"nonce" sql:"nonce"`
+	ProfileID        *string  `bson:"profile_id" json:"profile_id" sql:"profile_id"`
+	TwoFactorCode    *string  `bson:"two_factor_code" json:"two_factor_code" sql:"two_factor_code"`
 }
 
 // PaymentMethodWithdrawalOptions are options for API requests.
 type PaymentMethodWithdrawalOptions struct {
-	Amount          float64 `json:"amount" bson:"amount"`
-	Currency        string  `json:"currency" bson:"currency"`
-	PaymentMethodID string  `json:"payment_method_id" bson:"payment_method_id"`
-	ProfileID       *string `json:"profile_id" bson:"profile_id"`
+	Amount          float64 `bson:"amount" json:"amount" sql:"amount"`
+	Currency        string  `bson:"currency" json:"currency" sql:"currency"`
+	PaymentMethodID string  `bson:"payment_method_id" json:"payment_method_id" sql:"payment_method_id"`
+	ProfileID       *string `bson:"profile_id" json:"profile_id" sql:"profile_id"`
 }
 
 // WithdrawalFeeEstimateOptions are options for API requests.
 type WithdrawalFeeEstimateOptions struct {
-	CryptoAddress *string `json:"crypto_address" bson:"crypto_address"`
-	Currency      *string `json:"currency" bson:"currency"`
+	CryptoAddress *string `bson:"crypto_address" json:"crypto_address" sql:"crypto_address"`
+	Currency      *string `bson:"currency" json:"currency" sql:"currency"`
 }
 
 func (opts *AccountHoldsOptions) EncodeBody() (buf io.Reader, err error)          { return }

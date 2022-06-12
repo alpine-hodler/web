@@ -38,7 +38,7 @@ class Field
     @deserializer = hash[:unmarshaler]
     @identifier = hash[:identifier]
     @go_type = hash[:goType]
-    @go_field_name = inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_'))
+    @go_field_name = inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_').gsub('-', '_'))
     @go_field_tag = inflector.camelize_lower("#{hash[:identifier]}_json_tag")
     @description = hash[:description] || ''
     @go_comment = format_go_comment(@description) unless @description.nil? || @description == ''

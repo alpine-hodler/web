@@ -10,7 +10,7 @@
 			"httpMethod": "GET",
 			"enumRoot": "Upcoming",
 			"slice": true,
-			"rateLimit": 100,
+			"rateLimit": 99,
 			"description": "Upcoming gets market holidays and their open/close times."
 		}
 	],

@@ -10,7 +10,7 @@ module GoHTTP
   def path_param_args(endpoint)
     return nil unless endpoint.path_parts?
 
-    endpoint.path_params.dup.map { |part| "#{part.param_go_var} string" }
+    endpoint.path_params.dup.map { |part| "#{part.param_go_var} #{part.go_type}" }
   end
 
   def option_arg(endpoint)
@@ -47,11 +47,11 @@ module GoHTTP
     map_input = endpoint.path_parts.dup.map do |path_part|
       next unless path_part.path_param?
 
-      "\"#{path_part.param_name}\": #{path_part.param_go_var},"
+      "\"#{path_part.param_name}\": #{path_part.param_go_var(true)},"
     end
     return 'nil' if map_input.compact.empty?
 
-    "map[string]string{\n#{map_input.join('')}\n}"
+    "map[string]string{\n#{map_input.flatten.compact.join("\n")}}"
   end
 
   def return_stmt(endpoint)

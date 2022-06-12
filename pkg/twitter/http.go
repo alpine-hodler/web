@@ -27,8 +27,7 @@ func (c *Client) Bookmarks(userId string, opts *BookmarksOptions) (m *Bookmarks,
 		internal.HTTPWithEncoder(opts),
 		internal.HTTPWithEndpoint(BookmarksPath),
 		internal.HTTPWithParams(map[string]string{
-			"user_id": userId,
-		}),
+			"user_id": userId}),
 		internal.HTTPWithRatelimiter(getRateLimiter(BookmarksRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
@@ -56,8 +55,7 @@ func (c *Client) CreateBookmark(userId string, opts *CreateBookmarkOptions) (m B
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(CreateBookmarkPath),
 		internal.HTTPWithParams(map[string]string{
-			"user_id": userId,
-		}),
+			"user_id": userId}),
 		internal.HTTPWithRatelimiter(getRateLimiter(CreateBookmarkRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }
@@ -73,8 +71,8 @@ func (c *Client) DeleteBookmark(userId string, tweetId string) (m BookmarkWrite,
 		internal.HTTPWithEncoder(nil),
 		internal.HTTPWithEndpoint(DeleteBookmarkPath),
 		internal.HTTPWithParams(map[string]string{
-			"user_id": userId, "tweet_id": tweetId,
-		}),
+			"user_id":  userId,
+			"tweet_id": tweetId}),
 		internal.HTTPWithRatelimiter(getRateLimiter(DeleteBookmarkRatelimiter, 0)),
 		internal.HTTPWithRequest(req))
 }

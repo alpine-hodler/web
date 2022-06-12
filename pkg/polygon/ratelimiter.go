@@ -12,12 +12,13 @@ type ratelimiter uint8
 
 const (
 	_ ratelimiter = iota
+	AggregateBarRatelimiter
 	UpcomingRatelimiter
 )
 
-var ratelimiters = [uint8(2)]*rate.Limiter{}
+var ratelimiters = [uint8(3)]*rate.Limiter{}
 
-func init() { ratelimiters[UpcomingRatelimiter] = nil }
+func init() { ratelimiters[AggregateBarRatelimiter] = nil; ; ratelimiters[UpcomingRatelimiter] = nil }
 
 // getRateLimiter will load the rate limiter for a specific request, lazy loaded.
 func getRateLimiter(rl ratelimiter, b int) *rate.Limiter {

@@ -35,12 +35,12 @@ class Enum
   def parse_go_plural(hash)
     return if hash[:pluralize].nil?
 
-    @pluralize	= inflector.camelize_upper(hash[:pluralize].dup.gsub('.', '_'))
+    @pluralize	= inflector.camelize_upper(hash[:pluralize].dup.gsub('.', '_').gsub('-', '_'))
     @pluralize_var	= inflector.camelize_lower(pluralize)
   end
 
   def parse_go_singular(hash)
-    @go_type_name 	= inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_'))
+    @go_type_name 	= inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_').gsub('-', '_'))
     @go_var_name 		= inflector.camelize_lower(go_type_name)
   end
 
