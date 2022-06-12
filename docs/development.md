@@ -43,6 +43,7 @@ make
 ## Packages
 
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/web/blob/main/pkg/coinbasepro#development/README.md)
+- [Polygon API](https://github.com/alpine-hodler/web/blob/main/pkg/polygon#development/README.md)
 - [Twitter API](https://github.com/alpine-hodler/web/blob/main/pkg/twitter#development/README.md)
 
 ## Adding a Web API

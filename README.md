@@ -8,6 +8,7 @@ The goal of this library is to create a quick and easy way to wrap web APIs into
 
 ## Usage
 - [Coinbase Cloud API (Coinbase Pro)](https://github.com/alpine-hodler/web/blob/main/pkg/coinbasepro/README.md)
+- [Polygon API](https://github.com/alpine-hodler/web/blob/main/pkg/polygon/README.md)
 - [Twitter API](https://github.com/alpine-hodler/web/blob/main/pkg/twitter/README.md) (WIP)
 
 ## Development
