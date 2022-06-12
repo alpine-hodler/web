@@ -6,7 +6,7 @@ require 'json-schema'
 require_relative 'comment'
 require_relative 'field'
 require_relative 'endpoint'
-require_relative 'unmarshaler'
+require_relative 'model_unmarshaler'
 require_relative 'go_struct'
 require_relative 'option'
 require_relative 'setters'
@@ -33,7 +33,7 @@ class Scheme
     :custom_unmarshaler
 
   include Comment
-  include Unmarshaler
+  include ModelUnmarshaler
   include Option
   include GoStruct
   include Setters

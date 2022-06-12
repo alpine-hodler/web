@@ -86,18 +86,43 @@ type SkipMapping struct {
 
 // StockTicker are conditions that match a stock ticker query.
 type StockTicker struct {
-	Abbreviation string        `bson:"abbreviation" json:"abbreviation" sql:"abbreviation"`
-	AssetClass   AssetClass    `bson:"asset_class" json:"asset_class" sql:"asset_class"`
-	DataTypes    []string      `bson:"data_types" json:"data_types" sql:"data_types"`
-	Description  string        `bson:"description" json:"description" sql:"description"`
-	Exchange     int           `bson:"exchange" json:"exchange" sql:"exchange"`
-	ID           int           `bson:"id" json:"id" sql:"id"`
-	Legacy       bool          `bson:"legacy" json:"legacy" sql:"legacy"`
-	MarketCenter MarketCenter  `bson:"market_center" json:"market_center" sql:"market_center"`
-	Name         string        `bson:"name" json:"name" sql:"name"`
-	SipMapping   SkipMapping   `bson:"sip_mapping" json:"sip_mapping" sql:"sip_mapping"`
-	Type         ConditionType `bson:"type" json:"type" sql:"type"`
-	UpdateRules  UpdateRules   `bson:"update_rules" json:"update_rules" sql:"update_rules"`
+	// Abbreviation is a commonly-used abbreviation for this condition.
+	Abbreviation string `bson:"abbreviation" json:"abbreviation" sql:"abbreviation"`
+
+	// AssetClass is an identifier for a group of similar financial instruments.
+	AssetClass AssetClass `bson:"asset_class" json:"asset_class" sql:"asset_class"`
+
+	// DataTypes are data types that this condition applies to.
+	DataTypes []string `bson:"data_types" json:"data_types" sql:"data_types"`
+
+	// Description is a short description of the semantics of this condition.
+	Description string `bson:"description" json:"description" sql:"description"`
+
+	// Exchange, if present, is a mapping this condition from a Polygon.io code to a SIP symbol depends on this attribute.
+	// In other words, data with this condition attached comes exclusively from the given exchange.
+	Exchange int `bson:"exchange" json:"exchange" sql:"exchange"`
+
+	// ID is an identifier used by Polygon.io for this condition. Unique per data type.
+	ID int `bson:"id" json:"id" sql:"id"`
+
+	// Legacy, if true, is this condition is from an old version of the SIPs' specs and no longer is used. Other conditions
+	// may or may not reuse the same symbol as this one.
+	Legacy bool `bson:"legacy" json:"legacy" sql:"legacy"`
+
+	// MarketCenter describes aggregation rules on a per-market-center basis.
+	MarketCenter MarketCenter `bson:"market_center" json:"market_center" sql:"market_center"`
+
+	// Name is the name of this condition.
+	Name string `bson:"name" json:"name" sql:"name"`
+
+	// SipMapping is a mapping to a symbol for each SIP that has this condition.
+	SipMapping SkipMapping `bson:"sip_mapping" json:"sip_mapping" sql:"sip_mapping"`
+
+	// Type is an identifier for a collection of related conditions.
+	Type ConditionType `bson:"type" json:"type" sql:"type"`
+
+	// UpdateRules are a list of aggregation rules.
+	UpdateRules UpdateRules `bson:"update_rules" json:"update_rules" sql:"update_rules"`
 }
 
 // Upcoming returns information concerning market holidays and their open/close times.

@@ -70,7 +70,6 @@ module PathWriter
 
   def self.write(paths)
     apis(paths).each do |api, endpoints|
-      puts "API #{api}"
       endpoints = endpoints.sort_by { |ep| ep.enum_root }
       Dir.chdir(PARENT_DIR + "/#{api}") do
         File.open(POST_AUTHORITY_FILENAME, 'w') do |f|

@@ -11,6 +11,14 @@ const (
 	ComplianceJobUsers  ComplianceJob = "users"
 )
 
+// String will convert a ComplianceJob into a string.
+func (ComplianceJob *ComplianceJob) String() string {
+	if ComplianceJob != nil {
+		return string(*ComplianceJob)
+	}
+	return ""
+}
+
 type Expansion string
 type Expansions []Expansion
 
@@ -24,6 +32,27 @@ const (
 	ExpansionReferencedTweetsID         Expansion = "referenced_tweets.id"
 	ExpansionReferencedTweetsIDAuthorID Expansion = "referenced_tweets.id.author_id"
 )
+
+// String will convert a Expansion into a string.
+func (Expansion *Expansion) String() string {
+	if Expansion != nil {
+		return string(*Expansion)
+	}
+	return ""
+}
+
+// String will convert a slice of Expansion into a CSV.
+func (Expansions *Expansions) String() string {
+	var str string
+	if Expansions != nil {
+		slice := []string{}
+		for _, val := range *Expansions {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
 
 type MediaField string
 type MediaFields []MediaField
@@ -43,6 +72,27 @@ const (
 	MediaFieldAltText          MediaField = "alt_text"
 )
 
+// String will convert a MediaField into a string.
+func (MediaField *MediaField) String() string {
+	if MediaField != nil {
+		return string(*MediaField)
+	}
+	return ""
+}
+
+// String will convert a slice of MediaField into a CSV.
+func (MediaFields *MediaFields) String() string {
+	var str string
+	if MediaFields != nil {
+		slice := []string{}
+		for _, val := range *MediaFields {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
+
 type PlaceField string
 type PlaceFields []PlaceField
 
@@ -57,6 +107,27 @@ const (
 	PlaceFieldPlaceType       PlaceField = "place_type"
 )
 
+// String will convert a PlaceField into a string.
+func (PlaceField *PlaceField) String() string {
+	if PlaceField != nil {
+		return string(*PlaceField)
+	}
+	return ""
+}
+
+// String will convert a slice of PlaceField into a CSV.
+func (PlaceFields *PlaceFields) String() string {
+	var str string
+	if PlaceFields != nil {
+		slice := []string{}
+		for _, val := range *PlaceFields {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
+
 type PollField string
 type PollFields []PollField
 
@@ -68,6 +139,27 @@ const (
 	PollFieldVotingStatus    PollField = "voting_status"
 )
 
+// String will convert a PollField into a string.
+func (PollField *PollField) String() string {
+	if PollField != nil {
+		return string(*PollField)
+	}
+	return ""
+}
+
+// String will convert a slice of PollField into a CSV.
+func (PollFields *PollFields) String() string {
+	var str string
+	if PollFields != nil {
+		slice := []string{}
+		for _, val := range *PollFields {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
+
 type ReferencedTweetType string
 type ReferencedTweetTypes []ReferencedTweetType
 
@@ -76,6 +168,27 @@ const (
 	ReferencedTweetTypeQuoted    ReferencedTweetType = "quoted"
 	ReferencedTweetTypeRepliedTo ReferencedTweetType = "replied_to"
 )
+
+// String will convert a ReferencedTweetType into a string.
+func (ReferencedTweetType *ReferencedTweetType) String() string {
+	if ReferencedTweetType != nil {
+		return string(*ReferencedTweetType)
+	}
+	return ""
+}
+
+// String will convert a slice of ReferencedTweetType into a CSV.
+func (ReferencedTweetTypes *ReferencedTweetTypes) String() string {
+	var str string
+	if ReferencedTweetTypes != nil {
+		slice := []string{}
+		for _, val := range *ReferencedTweetTypes {
+			slice = append(slice, val.String())
+		}
+		str = strings.Join(slice, ",")
+	}
+	return str
+}
 
 type Status string
 
@@ -92,6 +205,14 @@ const (
 	StatusFailed     Status = "failed"
 	StatusComplete   Status = "complete"
 )
+
+// String will convert a Status into a string.
+func (Status *Status) String() string {
+	if Status != nil {
+		return string(*Status)
+	}
+	return ""
+}
 
 type TweetField string
 type TweetFields []TweetField
@@ -119,156 +240,6 @@ const (
 	TweetFieldWithheld           TweetField = "withheld"
 )
 
-type UserField string
-type UserFields []UserField
-
-const (
-	UserFieldCreatedAt       UserField = "created_at"
-	UserFieldDescription     UserField = "description"
-	UserFieldEntities        UserField = "entities"
-	UserFieldID              UserField = "id"
-	UserFieldLocation        UserField = "location"
-	UserFieldName            UserField = "name"
-	UserFieldPinnedTweetID   UserField = "pinned_tweet_id"
-	UserFieldProfileImageURL UserField = "profile_image_url"
-	UserFieldProtected       UserField = "protected"
-	UserFieldPublicMetrics   UserField = "public_metrics"
-	UserFieldURL             UserField = "url"
-	UserFieldUsername        UserField = "username"
-	UserFieldVerified        UserField = "verified"
-	UserFieldWithheld        UserField = "withheld"
-)
-
-// WithholdingScope indicates whether the content being withheld is a Tweet or a user.
-type WithholdingScope string
-type WithholdingScopes []WithholdingScope
-
-const (
-	WithholdingScopeTweet WithholdingScope = "tweet"
-	WithholdingScopeUser  WithholdingScope = "user"
-)
-
-// String will convert a ComplianceJob into a string.
-func (ComplianceJob *ComplianceJob) String() string {
-	if ComplianceJob != nil {
-		return string(*ComplianceJob)
-	}
-	return ""
-}
-
-// String will convert a Expansion into a string.
-func (Expansion *Expansion) String() string {
-	if Expansion != nil {
-		return string(*Expansion)
-	}
-	return ""
-}
-
-// String will convert a slice of Expansion into a CSV.
-func (Expansions *Expansions) String() string {
-	var str string
-	if Expansions != nil {
-		slice := []string{}
-		for _, val := range *Expansions {
-			slice = append(slice, val.String())
-		}
-		str = strings.Join(slice, ",")
-	}
-	return str
-}
-
-// String will convert a MediaField into a string.
-func (MediaField *MediaField) String() string {
-	if MediaField != nil {
-		return string(*MediaField)
-	}
-	return ""
-}
-
-// String will convert a slice of MediaField into a CSV.
-func (MediaFields *MediaFields) String() string {
-	var str string
-	if MediaFields != nil {
-		slice := []string{}
-		for _, val := range *MediaFields {
-			slice = append(slice, val.String())
-		}
-		str = strings.Join(slice, ",")
-	}
-	return str
-}
-
-// String will convert a PlaceField into a string.
-func (PlaceField *PlaceField) String() string {
-	if PlaceField != nil {
-		return string(*PlaceField)
-	}
-	return ""
-}
-
-// String will convert a slice of PlaceField into a CSV.
-func (PlaceFields *PlaceFields) String() string {
-	var str string
-	if PlaceFields != nil {
-		slice := []string{}
-		for _, val := range *PlaceFields {
-			slice = append(slice, val.String())
-		}
-		str = strings.Join(slice, ",")
-	}
-	return str
-}
-
-// String will convert a PollField into a string.
-func (PollField *PollField) String() string {
-	if PollField != nil {
-		return string(*PollField)
-	}
-	return ""
-}
-
-// String will convert a slice of PollField into a CSV.
-func (PollFields *PollFields) String() string {
-	var str string
-	if PollFields != nil {
-		slice := []string{}
-		for _, val := range *PollFields {
-			slice = append(slice, val.String())
-		}
-		str = strings.Join(slice, ",")
-	}
-	return str
-}
-
-// String will convert a ReferencedTweetType into a string.
-func (ReferencedTweetType *ReferencedTweetType) String() string {
-	if ReferencedTweetType != nil {
-		return string(*ReferencedTweetType)
-	}
-	return ""
-}
-
-// String will convert a slice of ReferencedTweetType into a CSV.
-func (ReferencedTweetTypes *ReferencedTweetTypes) String() string {
-	var str string
-	if ReferencedTweetTypes != nil {
-		slice := []string{}
-		for _, val := range *ReferencedTweetTypes {
-			slice = append(slice, val.String())
-		}
-		str = strings.Join(slice, ",")
-	}
-	return str
-}
-
-// String will convert a Status into a string.
-func (Status *Status) String() string {
-	if Status != nil {
-		return string(*Status)
-	}
-	return ""
-}
-
 // String will convert a TweetField into a string.
 func (TweetField *TweetField) String() string {
 	if TweetField != nil {
@@ -290,6 +261,26 @@ func (TweetFields *TweetFields) String() string {
 	return str
 }
 
+type UserField string
+type UserFields []UserField
+
+const (
+	UserFieldCreatedAt       UserField = "created_at"
+	UserFieldDescription     UserField = "description"
+	UserFieldEntities        UserField = "entities"
+	UserFieldID              UserField = "id"
+	UserFieldLocation        UserField = "location"
+	UserFieldName            UserField = "name"
+	UserFieldPinnedTweetID   UserField = "pinned_tweet_id"
+	UserFieldProfileImageURL UserField = "profile_image_url"
+	UserFieldProtected       UserField = "protected"
+	UserFieldPublicMetrics   UserField = "public_metrics"
+	UserFieldURL             UserField = "url"
+	UserFieldUsername        UserField = "username"
+	UserFieldVerified        UserField = "verified"
+	UserFieldWithheld        UserField = "withheld"
+)
+
 // String will convert a UserField into a string.
 func (UserField *UserField) String() string {
 	if UserField != nil {
@@ -310,6 +301,15 @@ func (UserFields *UserFields) String() string {
 	}
 	return str
 }
+
+// WithholdingScope indicates whether the content being withheld is a Tweet or a user.
+type WithholdingScope string
+type WithholdingScopes []WithholdingScope
+
+const (
+	WithholdingScopeTweet WithholdingScope = "tweet"
+	WithholdingScopeUser  WithholdingScope = "user"
+)
 
 // String will convert a WithholdingScope into a string.
 func (WithholdingScope *WithholdingScope) String() string {

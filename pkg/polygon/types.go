@@ -10,6 +10,14 @@ const (
 	StatusClosed     Status = "closed"
 )
 
+// String will convert a Status into a string.
+func (Status *Status) String() string {
+	if Status != nil {
+		return string(*Status)
+	}
+	return ""
+}
+
 // AssetClass is an identifier for a group of similar financial instruments.
 type AssetClass string
 
@@ -19,6 +27,14 @@ const (
 	AssetClassCrypto  AssetClass = "crypto"
 	AssetClassFx      AssetClass = "fx"
 )
+
+// String will convert a AssetClass into a string.
+func (AssetClass *AssetClass) String() string {
+	if AssetClass != nil {
+		return string(*AssetClass)
+	}
+	return ""
+}
 
 // ConditionType is an identifier for a collection of related conditions.
 type ConditionType string
@@ -34,6 +50,14 @@ const (
 	ConditionTypeTradeThruExempt               ConditionType = "trade_thru_exempt"
 )
 
+// String will convert a ConditionType into a string.
+func (ConditionType *ConditionType) String() string {
+	if ConditionType != nil {
+		return string(*ConditionType)
+	}
+	return ""
+}
+
 // Timespan is the size of the time window.
 type Timespan string
 
@@ -46,30 +70,6 @@ const (
 	TimespanQuarter Timespan = "quarter"
 	TimespanYear    Timespan = "year"
 )
-
-// String will convert a AssetClass into a string.
-func (AssetClass *AssetClass) String() string {
-	if AssetClass != nil {
-		return string(*AssetClass)
-	}
-	return ""
-}
-
-// String will convert a ConditionType into a string.
-func (ConditionType *ConditionType) String() string {
-	if ConditionType != nil {
-		return string(*ConditionType)
-	}
-	return ""
-}
-
-// String will convert a Status into a string.
-func (Status *Status) String() string {
-	if Status != nil {
-		return string(*Status)
-	}
-	return ""
-}
 
 // String will convert a Timespan into a string.
 func (Timespan *Timespan) String() string {

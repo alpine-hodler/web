@@ -20,10 +20,10 @@ services:
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
-      - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/model_writer.rb:/usr/src/meta/model_writer.rb
       - ./scripts/meta/go_http.rb:/usr/src/meta/go_http.rb
       - ./scripts/meta/go_client.rb:/usr/src/meta/go_client.rb
-      - ./scripts/meta/unmarshaler.rb:/usr/src/meta/unmarshaler.rb
+      - ./scripts/meta/model_unmarshaler.rb:/usr/src/meta/model_unmarshaler.rb
       - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
       - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
@@ -36,6 +36,7 @@ services:
       - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
       - ./scripts/meta/ratelimiter.rb:/usr/src/meta/ratelimiter.rb
       - ./scripts/meta/ratelimiter_writer.rb:/usr/src/meta/ratelimiter_writer.rb
+      - ./scripts/meta/const.rb:/usr/src/meta/const.rb
     depends_on:
       - goimports
   test_generate:
@@ -54,10 +55,10 @@ services:
       - ./scripts/meta/field.rb:/usr/src/meta/field.rb
       - ./scripts/meta/generate.rb:/usr/src/meta/generate.rb
       - ./scripts/meta/schema:/usr/src/meta/schema
-      - ./scripts/meta/model.rb:/usr/src/meta/model.rb
+      - ./scripts/meta/model_writer.rb:/usr/src/meta/model_writer.rb
       - ./scripts/meta/go_http.rb:/usr/src/meta/go_http.rb
       - ./scripts/meta/go_client.rb:/usr/src/meta/go_client.rb
-      - ./scripts/meta/unmarshaler.rb:/usr/src/meta/unmarshaler.rb
+      - ./scripts/meta/model_unmarshaler.rb:/usr/src/meta/model_unmarshaler.rb
       - ./scripts/meta/go_struct.rb:/usr/src/meta/go_struct.rb
       - ./scripts/meta/setters.rb:/usr/src/meta/setters.rb
       - ./scripts/meta/option.rb:/usr/src/meta/option.rb
@@ -71,5 +72,6 @@ services:
       - ./scripts/meta/types_writer.rb:/usr/src/meta/types_writer.rb
       - ./scripts/meta/ratelimiter.rb:/usr/src/meta/ratelimiter.rb
       - ./scripts/meta/ratelimiter_writer.rb:/usr/src/meta/ratelimiter_writer.rb
+      - ./scripts/meta/const.rb:/usr/src/meta/const.rb
     depends_on:
       - goimports

@@ -10,11 +10,12 @@ import (
 
 	"github.com/alpine-hodler/web/pkg/polygon"
 	"github.com/alpine-hodler/web/pkg/transport"
+	"github.com/alpine-hodler/web/tools"
 	"github.com/joho/godotenv"
 )
 
 func TestExamples(t *testing.T) {
-	// defer tools.Quiet()()
+	defer tools.Quiet()()
 
 	godotenv.Load(".test.env")
 
@@ -47,7 +48,7 @@ func ExampleClient_AggregateBar() {
 		log.Fatalf("error fetching client: %v", err)
 	}
 
-	bar, err := client.AggregateBar("AAPL", "1", "day", "2021-07-22", "2021-07-22")
+	bar, err := client.AggregateBar("AAPL", "1", polygon.TimespanDay, "2021-07-22", "2021-07-22")
 	if err != nil {
 		log.Fatalf("error fetching aggregate bar: %v", err)
 	}

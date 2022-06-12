@@ -9,6 +9,14 @@ const (
 	FileFormatCsv FileFormat = "csv"
 )
 
+// String will convert a FileFormat into a string.
+func (FileFormat *FileFormat) String() string {
+	if FileFormat != nil {
+		return string(*FileFormat)
+	}
+	return ""
+}
+
 type ReportType string
 
 const (
@@ -18,6 +26,14 @@ const (
 	ReportTypeType1099kTransactionHistory ReportType = "type_1099k_transaction_history"
 	ReportTypeTaxInvoice                  ReportType = "tax_invoice"
 )
+
+// String will convert a ReportType into a string.
+func (ReportType *ReportType) String() string {
+	if ReportType != nil {
+		return string(*ReportType)
+	}
+	return ""
+}
 
 type Status string
 
@@ -35,12 +51,28 @@ const (
 	StatusComplete   Status = "complete"
 )
 
+// String will convert a Status into a string.
+func (Status *Status) String() string {
+	if Status != nil {
+		return string(*Status)
+	}
+	return ""
+}
+
 type TransferMethod string
 
 const (
 	TransferMethodDeposit  TransferMethod = "deposit"
 	TransferMethodWithdraw TransferMethod = "withdraw"
 )
+
+// String will convert a TransferMethod into a string.
+func (TransferMethod *TransferMethod) String() string {
+	if TransferMethod != nil {
+		return string(*TransferMethod)
+	}
+	return ""
+}
 
 // CancelAfter is the timeframe in which to cancel an order if it hasn't been filled
 type CancelAfter string
@@ -50,6 +82,14 @@ const (
 	CancelAfterHour CancelAfter = "hour"
 	CancelAfterDay  CancelAfter = "day"
 )
+
+// String will convert a CancelAfter into a string.
+func (CancelAfter *CancelAfter) String() string {
+	if CancelAfter != nil {
+		return string(*CancelAfter)
+	}
+	return ""
+}
 
 // EntryType indicates the reason for the account change.
 type EntryType string
@@ -71,6 +111,14 @@ const (
 	EntryTypeConversion EntryType = "conversion"
 )
 
+// String will convert a EntryType into a string.
+func (EntryType *EntryType) String() string {
+	if EntryType != nil {
+		return string(*EntryType)
+	}
+	return ""
+}
+
 // Granularity is the time in seconds between each candle tick.
 type Granularity string
 
@@ -82,6 +130,14 @@ const (
 	Granularity21600 Granularity = "21600"
 	Granularity86400 Granularity = "86400"
 )
+
+// String will convert a Granularity into a string.
+func (Granularity *Granularity) String() string {
+	if Granularity != nil {
+		return string(*Granularity)
+	}
+	return ""
+}
 
 // OrderType represents the way in which an order should execute.
 type OrderType string
@@ -97,6 +153,14 @@ const (
 	// executed at the limit price or lower, and a sell limit order can only be executed at the limit price or higher.
 	OrderTypeLimit OrderType = "limit"
 )
+
+// String will convert a OrderType into a string.
+func (OrderType *OrderType) String() string {
+	if OrderType != nil {
+		return string(*OrderType)
+	}
+	return ""
+}
 
 // STP is the order's Self trade preservation flag.
 type STP string
@@ -115,6 +179,14 @@ const (
 	STPCb STP = "cb"
 )
 
+// String will convert a STP into a string.
+func (STP *STP) String() string {
+	if STP != nil {
+		return string(*STP)
+	}
+	return ""
+}
+
 // Side represents which side our order is on: the "sell" side or the "buy" side.
 type Side string
 
@@ -123,6 +195,14 @@ const (
 	SideSell Side = "sell"
 )
 
+// String will convert a Side into a string.
+func (Side *Side) String() string {
+	if Side != nil {
+		return string(*Side)
+	}
+	return ""
+}
+
 // Stop is either loss or entry.
 type Stop string
 
@@ -130,6 +210,14 @@ const (
 	StopLoss  Stop = "loss"
 	StopEntry Stop = "entry"
 )
+
+// String will convert a Stop into a string.
+func (Stop *Stop) String() string {
+	if Stop != nil {
+		return string(*Stop)
+	}
+	return ""
+}
 
 // TimeInForce policies provide guarantees about the lifetime of an order.
 type TimeInForce string
@@ -152,98 +240,10 @@ const (
 	TimeInForceGTT TimeInForce = "GTT"
 )
 
-// String will convert a CancelAfter into a string.
-func (CancelAfter *CancelAfter) String() string {
-	if CancelAfter != nil {
-		return string(*CancelAfter)
-	}
-	return ""
-}
-
-// String will convert a EntryType into a string.
-func (EntryType *EntryType) String() string {
-	if EntryType != nil {
-		return string(*EntryType)
-	}
-	return ""
-}
-
-// String will convert a FileFormat into a string.
-func (FileFormat *FileFormat) String() string {
-	if FileFormat != nil {
-		return string(*FileFormat)
-	}
-	return ""
-}
-
-// String will convert a Granularity into a string.
-func (Granularity *Granularity) String() string {
-	if Granularity != nil {
-		return string(*Granularity)
-	}
-	return ""
-}
-
-// String will convert a OrderType into a string.
-func (OrderType *OrderType) String() string {
-	if OrderType != nil {
-		return string(*OrderType)
-	}
-	return ""
-}
-
-// String will convert a ReportType into a string.
-func (ReportType *ReportType) String() string {
-	if ReportType != nil {
-		return string(*ReportType)
-	}
-	return ""
-}
-
-// String will convert a STP into a string.
-func (STP *STP) String() string {
-	if STP != nil {
-		return string(*STP)
-	}
-	return ""
-}
-
-// String will convert a Side into a string.
-func (Side *Side) String() string {
-	if Side != nil {
-		return string(*Side)
-	}
-	return ""
-}
-
-// String will convert a Status into a string.
-func (Status *Status) String() string {
-	if Status != nil {
-		return string(*Status)
-	}
-	return ""
-}
-
-// String will convert a Stop into a string.
-func (Stop *Stop) String() string {
-	if Stop != nil {
-		return string(*Stop)
-	}
-	return ""
-}
-
 // String will convert a TimeInForce into a string.
 func (TimeInForce *TimeInForce) String() string {
 	if TimeInForce != nil {
 		return string(*TimeInForce)
-	}
-	return ""
-}
-
-// String will convert a TransferMethod into a string.
-func (TransferMethod *TransferMethod) String() string {
-	if TransferMethod != nil {
-		return string(*TransferMethod)
 	}
 	return ""
 }

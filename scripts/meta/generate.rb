@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require_relative 'scheme'
-require_relative 'model'
+require_relative 'model_writer'
 require_relative 'path'
 require_relative 'path_writer'
 require_relative 'option'
@@ -29,7 +29,7 @@ RETURN_ALIAS = 'm'
 TOOLS_PKG = 'tools'
 
 def generate_models
-	paths = []
+  paths = []
   schema = []
   types = []
   ratelimiters = []
@@ -42,18 +42,18 @@ def generate_models
         schema << scheme
         scheme.endpoints.each do |ep|
           ratelimiters << Ratelimiter.new(ep)
-					paths << Path.new(ep)
+          paths << Path.new(ep)
         end
       end
     end
   end
 
-  Model.write(schema)
+  ModelWriter.write(schema)
   Option.write(schema)
   GoClient.write(schema)
   TypesWriter.write(types)
   RatelimitWriter.write(ratelimiters)
-	PathWriter.write(paths)
+  PathWriter.write(paths)
 end
 
 generate_models

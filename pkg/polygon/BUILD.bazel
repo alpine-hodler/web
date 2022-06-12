@@ -9,6 +9,7 @@ go_library(
         "options.go",
         "path.go",
         "ratelimiter.go",
+        "types.go",
     ],
     importpath = "github.com/alpine-hodler/web/pkg/polygon",
     visibility = ["//visibility:public"],

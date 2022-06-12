@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# unmarshaler will build the `unmarshaler` method for a scheme.
-module Unmarshaler
-  RETURN_ERR	= 'if err != nil { return err }'
-  SERIAL_DECLARATION	= "\ndata, err := serial.NewJSONTransform(d); #{RETURN_ERR}"
+require_relative 'const'
 
+# ModelUnmarshaler is responsible for the logic to write the unmarshaler methods
+# for models that require specific-use-case non-native go-type support.
+module ModelUnmarshaler
   private
 
   def constantize_json_go_tags
@@ -28,7 +28,7 @@ module Unmarshaler
 
   def time_deserializer(field)
     sig = [field.datetime_layout, field.go_field_tag, "&#{struct_access_variable(field)}"]
-    ["err = data.UnmarshalTime(#{sig.join(',')})", RETURN_ERR].join(';')
+    ["err = data.UnmarshalTime(#{sig.join(',')})", Const::RETURN_ERR].join(';')
   end
 
   def scalar_deserializer(field, sig)
@@ -59,7 +59,7 @@ module Unmarshaler
     # default type deserializer.
     unless field.deserializer.nil?
       sig = [field.go_field_tag, "&#{struct_access_variable(field)}"]
-      return ["err = data.#{field.deserializer}(#{sig.join(',')})", RETURN_ERR].join(';')
+      return ["err = data.#{field.deserializer}(#{sig.join(',')})", Const::RETURN_ERR].join(';')
     end
     {
       'string' => "\ndata.UnmarshalString(#{sig})",
@@ -92,12 +92,13 @@ module Unmarshaler
 
   def unmarshaler
     comment = format_go_comment("UnmarshalJSON will deserialize bytes into a #{go_model_name} model")
-    return "\n" + [comment, "\n"+custom_unmarshaler].join('') unless custom_unmarshaler.nil?
+    return "\n" + [comment, "\n" + custom_unmarshaler].join('') unless custom_unmarshaler.nil?
     return '' unless non_struct.nil?
     return '' if fields.empty?
     return '' unless custom_type?
 
-    fn = [constantize_json_go_tags, SERIAL_DECLARATION, deserializers]
+    serial = "\ndata, err := serial.NewJSONTransform(d); #{Const::RETURN_ERR}"
+    fn = [constantize_json_go_tags, serial, deserializers]
 
     comment = format_go_comment("UnmarshalJSON will deserialize bytes into a #{go_model_name} model")
 
