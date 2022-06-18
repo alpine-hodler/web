@@ -16,9 +16,10 @@ class Field
     :description,
     :hash,
     :required,
-		:go_comment
+    :go_comment,
+    :sql_identifier
 
-	include Comment
+  include Comment
   include Inflector
 
   GO_TYPES = %w(
@@ -37,12 +38,13 @@ class Field
     @datetime_layout = hash[:datetimeLayout] || 'time.RFC3339Nano'
     @deserializer = hash[:unmarshaler]
     @identifier = hash[:identifier]
+    @sql_identifier = inflector.underscore(hash[:identifier])
     @go_type = hash[:goType]
     @go_field_name = inflector.camelize_upper(hash[:identifier].dup.gsub('.', '_').gsub('-', '_'))
     @go_field_tag = inflector.camelize_lower("#{hash[:identifier]}_json_tag")
     @description = hash[:description] || ''
     @go_comment = format_go_comment(@description) unless @description.nil? || @description == ''
-		@required = hash[:required]
+    @required = hash[:required]
   end
 
   def custom_type?

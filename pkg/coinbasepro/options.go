@@ -162,7 +162,7 @@ type OrdersOptions struct {
 	Limit     int      `bson:"limit" json:"limit" sql:"limit"`
 	ProductID *string  `bson:"product_id" json:"product_id" sql:"product_id"`
 	ProfileID *string  `bson:"profile_id" json:"profile_id" sql:"profile_id"`
-	SortedBy  *string  `bson:"sortedBy" json:"sortedBy" sql:"sortedBy"`
+	SortedBy  *string  `bson:"sorted_by" json:"sortedBy" sql:"sorted_by"`
 	Sorting   *string  `bson:"sorting" json:"sorting" sql:"sorting"`
 	StartDate *string  `bson:"start_date" json:"start_date" sql:"start_date"`
 	Status    []string `bson:"status" json:"status" sql:"status"`

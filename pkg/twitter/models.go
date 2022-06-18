@@ -123,7 +123,7 @@ type BookmarkWrite struct {
 
 // Bookmarked holds details about the status of a bookmark write.
 type Bookmarked struct {
-	Bookmarked bool `bson:"Bookmarked" json:"Bookmarked" sql:"Bookmarked"`
+	Bookmarked bool `bson:"bookmarked" json:"Bookmarked" sql:"bookmarked"`
 }
 
 // TODO

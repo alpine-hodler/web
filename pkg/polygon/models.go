@@ -17,10 +17,10 @@ type Bar struct {
 	Ticker string `bson:"ticker" json:"ticker" sql:"ticker"`
 
 	// The number of aggregates (minute or day) used to generate the response.
-	QueryCount int `bson:"queryCount" json:"queryCount" sql:"queryCount"`
+	QueryCount int `bson:"query_count" json:"queryCount" sql:"query_count"`
 
 	// The total number of results for this request.
-	ResultsCount int `bson:"resultsCount" json:"resultsCount" sql:"resultsCount"`
+	ResultsCount int `bson:"results_count" json:"resultsCount" sql:"results_count"`
 
 	// Whether or not this response was adjusted for splits.
 	Adjusted bool `bson:"adjusted" json:"adjusted" sql:"adjusted"`
@@ -79,9 +79,9 @@ type MarketCenter struct {
 
 // SkipMapping is a mapping to a symbol for each SIP that has this condition.
 type SkipMapping struct {
-	CTA  string `bson:"CTA" json:"CTA" sql:"CTA"`
-	OPRA string `bson:"OPRA" json:"OPRA" sql:"OPRA"`
-	UTP  string `bson:"UTP" json:"UTP" sql:"UTP"`
+	CTA  string `bson:"cta" json:"CTA" sql:"cta"`
+	OPRA string `bson:"opra" json:"OPRA" sql:"opra"`
+	UTP  string `bson:"utp" json:"UTP" sql:"utp"`
 }
 
 // StockTicker are conditions that match a stock ticker query.

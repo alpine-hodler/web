@@ -328,7 +328,7 @@ type Oracle struct {
 
 // OraclePrices contain human-readable asset prices.
 type OraclePrices struct {
-	AdditionalProp string `bson:"additionalProp" json:"additionalProp" sql:"additionalProp"`
+	AdditionalProp string `bson:"additional_prop" json:"additionalProp" sql:"additional_prop"`
 }
 
 // Order is an open order.
