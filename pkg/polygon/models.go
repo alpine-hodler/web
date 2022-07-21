@@ -28,6 +28,9 @@ type Bar struct {
 
 // BarResult are conditions that match a bar query.
 type BarResult struct {
+	// Adjusted is whether or not the results are adjusted for splits.
+	Adjusted bool `bson:"adjusted" json:"adjusted" sql:"adjusted"`
+
 	// C is the close price for the symbol in the given time period.
 	C float64 `bson:"c" json:"c" sql:"c"`
 
@@ -45,6 +48,9 @@ type BarResult struct {
 
 	// T is the Unix Msec timestamp for the start of the aggregate window.
 	T float64 `bson:"t" json:"t" sql:"t"`
+
+	// Ticker is the ticker symbol of the stock/equity
+	Ticker string `bson:"ticker" json:"ticker" sql:"ticker"`
 
 	// V is the trading volume of the symbol in the given time period.
 	V float64 `bson:"v" json:"v" sql:"v"`

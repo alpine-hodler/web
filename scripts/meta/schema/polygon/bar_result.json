@@ -5,6 +5,16 @@
 	"modelOnly": true,
 	"modelFields": [
 		{
+			"identifier": "ticker",
+			"goType": "string",
+			"description": "Ticker is the ticker symbol of the stock/equity"
+		},
+		{
+			"identifier": "adjusted",
+			"goType": "bool",
+			"description": "Adjusted is whether or not the results are adjusted for splits."
+		},
+		{
 			"identifier": "c",
 			"goType": "float64",
 			"description": "C is the close price for the symbol in the given time period."
